@@ -1,0 +1,60 @@
+<app-navbar></app-navbar>
+<div class="wrap-body">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid">
+    <div class="row my-2">
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <h4 class="text-uppercase mb-0">Materiales y Servicios</h4>
+          <form (ngSubmit)="onSearch()" class="form-inline">
+            <button (click)="addMaterial()" type="button" class="btn btn-primary btn-sm mr-2">
+              <i class="fas fa-plus"></i>
+              <span class="text-uppercase">&nbsp;Material</span>
+            </button>
+            <input type="search" [(ngModel)]="query" name="query" class="form-control form-control-sm mr-2"
+                   placeholder="Material...">
+            <button type="submit" class="btn btn-success btn-sm">
+              <i class="fas fa-search"></i>
+              <span class="text-uppercase"> Buscar</span>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-sm mt-2">
+            <thead class="thead-light">
+            <tr class="text-uppercase">
+              <th>Und.</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let material of materials">
+              <td>{{ material.und }}</td>
+              <td>{{ material.description }}</td>
+              <td>{{ material.price|currency:undefined:'S/' }}</td>
+              <td>
+                <div class="float-right">
+                  <button (click)="editMaterial(material._id)" class="btn btn-secondary btn-sm mr-2">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button (click)="deleteMaterial(material._id)" class="btn btn-danger btn-sm"><i
+                    class="fas fa-trash-alt"></i></button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-material-modal
+    [title]="titleModal"
+    [material]="currentMaterial"
+    (sendModel)="saveChanges($event)">
+  </app-material-modal>
+</div>

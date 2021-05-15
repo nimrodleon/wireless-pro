@@ -1,0 +1,9 @@
+<ul class="objtree">
+    <li *ngFor="let coverage of objTree" [id]="coverage._id" (click)="objTreeItem($event)" class="objtree-item">
+        {{ coverage.name }}
+        <ul *ngIf="coverage.towers" class="subtree">
+            <li *ngFor="let tower of coverage.towers" [id]="tower._id" (click)="subTreeItem($event)"
+                class="subtree-item">{{ tower.tower  }}</li>
+        </ul>
+    </li>
+</ul>

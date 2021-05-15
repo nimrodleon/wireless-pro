@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<div class="wrap-body">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid">
+    <h4 class="my-2">Información general</h4>
+    <div class="row">
+      <div class="col-md-8">
+        <form #generalForm="ngForm">
+          <div class="card">
+            <div class="card-body">
+              <div class="form-row">
+                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">R.U.C.</label>
+                <div class="form-group col-md-4">
+                  <input type="text" [(ngModel)]="info.ruc" name="ruc" class="form-control">
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">Razon Social</label>
+                <div class="form-group col-md-10">
+                  <input type="text" [(ngModel)]="info.company" name="company" class="form-control">
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">Dirección</label>
+                <div class="form-group col-md-10">
+                  <input type="text" [(ngModel)]="info.fullAddress" name="fullAddress" class="form-control">
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">Telefono</label>
+                <div class="form-group mb-0 col-md-4">
+                  <input type="text" [(ngModel)]="info.phone" name="phone" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mt-md-2">
+            <div class="card-body">
+              <div class="form-row">
+                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">Leyenda</label>
+                <div class="form-group mb-0 col-md-10">
+                  <textarea [(ngModel)]="info.legendTicket" name="legendTicket" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card border-0 my-2">
+            <div class="card-body py-1">
+              <div class="form-row">
+                <div class="form-group offset-md-2 col-md-4">
+                  <button type="button" (click)="update()" class="btn btn-dark"><i class="fas fa-save"></i>
+                    Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

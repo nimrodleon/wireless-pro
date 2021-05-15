@@ -1,0 +1,49 @@
+<div class="jumbotron my-2 py-4">
+  <h1 class="display-4">{{client.fullName}}</h1>
+  <p class="lead m-0">
+    <a [routerLink]="['/client/detail', service.client]">{{servicePlan.name}} - {{service.ipAddress}}</a>
+  </p>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card" *ngIf="service.accessPoint">
+      <div class="card-body">
+        <h5 class="card-title text-uppercase">Información del Punto de Acceso</h5>
+        <p class="my-1">
+          <span><i class="fas fa-network-wired"></i> Ip Address: </span>
+          <a href="http://{{ device.ipAddress }}" target="_blank">{{ device.ipAddress }}</a>
+        </p>
+        <div class="table-responsive">
+          <table class="table m-0">
+            <tr class="bg-warning">
+              <th><i class="fas fa-user"></i> User</th>
+              <td>
+                <div class="d-flex justify-content-between">
+                  {{ device.userName }}
+                  <a href="#" (click)="$event.preventDefault()" class="text-secondary"
+                     [attr.data-clipboard-text]="device.userName"><i class="fas fa-clipboard"></i>
+                  </a>
+                </div>
+              </td>
+              <th><i class="fas fa-unlock-alt"></i> Password</th>
+              <td>
+                <div class="d-flex justify-content-between">
+                  {{ device.password }}
+                  <a href="#" (click)="$event.preventDefault()" class="text-secondary"
+                     [attr.data-clipboard-text]="device.password"><i class="fas fa-clipboard"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <app-card-outages
+      [serviceId]="serviceId">
+    </app-card-outages>
+  </div><!-- //.col-md-6 -->
+  <div class="col-md-6">
+
+  </div><!-- //.col-md-6 -->
+</div>

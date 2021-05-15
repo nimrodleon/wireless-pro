@@ -1,0 +1,145 @@
+<div class="modal fade" id="app-payment-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-uppercase">{{ title }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #paymentForm="ngForm">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-wifi"></i></span>
+                </div>
+                <select id="payment-service" (change)="onChangeService($event.target)" class="custom-select">
+                  <option *ngFor="let service of serviceList" [value]="service._id">
+                    {{ service.servicePlan.name }} | {{ service.ipAddress }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <div class="custom-control custom-switch mt-2">
+                <input type="checkbox" #editpay (change)="editPaymentDate(editpay.checked)" class="custom-control-input"
+                       id="custom_date_payment">
+                <label class="custom-control-label" for="custom_date_payment">Editar fecha pago</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                </div>
+                <select id="payment-month" class="custom-select">
+                  <option value="01">ENERO</option>
+                  <option value="02">FEBRERO</option>
+                  <option value="03">MARZO</option>
+                  <option value="04">ABRIL</option>
+                  <option value="05">MAYO</option>
+                  <option value="06">JUNIO</option>
+                  <option value="07">JULIO</option>
+                  <option value="08">AGOSTO</option>
+                  <option value="09">SEPTIEMBRE</option>
+                  <option value="10">OCTUBRE</option>
+                  <option value="11">NOVIEMBRE</option>
+                  <option value="12">DICIEMBRE</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                </div>
+                <input type="number" name="year" [(ngModel)]="payment.year" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-money-bill"></i></span>
+                </div>
+                <input type="text" name="amount" [(ngModel)]="payment.amount" placeholder="S/ 0.00"
+                       class="form-control">
+                <div class="input-group-append">
+                  <span class="input-group-text">SOLES</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="far fa-credit-card"></i></span>
+                </div>
+                <select id="payment-payment_method" class="custom-select">
+                  <option value="C">EFECTIVO EN CAJA</option>
+                  <option value="B">DEPÓSITO BANCARIO</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="editPayDate">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="date" [(ngModel)]="payment.payFrom" name="payFrom" class="form-control">
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="date" [(ngModel)]="payment.payUp" name="payUp" class="form-control">
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div class="form-group">
+            <textarea name="note" [(ngModel)]="payment.note" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <div *ngIf="currentService.isActive" class="alert alert-success" role="alert">
+              <span class="text-uppercase font-weight-bold">Servicio - {{currentService.ipAddress}} - Activo!😃</span>
+            </div>
+            <div *ngIf="!currentService.isActive" class="alert alert-danger" role="alert">
+              <span class="text-uppercase font-weight-bold">Servicio - {{currentService.ipAddress}}
+                - Suspendido!😬</span>
+              <!--<a href="#" (click)="seeMore($event)" class="badge badge-primary">Ver Mas</a>-->
+            </div>
+          </div>
+          <!--<div *ngIf="!currentService.isActive" class="form-group">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" #srv [checked]="enableService"
+                     (change)="onChangeEnableService(srv.checked)"
+                     class="custom-control-input" id="enable_service">
+              <label class="custom-control-label" for="enable_service">Habilitar Servicio</label>
+            </div>
+          </div>-->
+          <div class="form-group mb-0">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" #print [checked]="printReceipt" (change)="onChange(print.checked)"
+                     class="custom-control-input" id="custom_printReceipt">
+              <label class="custom-control-label" for="custom_printReceipt">Imprimir recibo</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" (click)="saveChanges()" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>

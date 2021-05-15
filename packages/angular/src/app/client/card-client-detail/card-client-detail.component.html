@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex align-items-center justify-content-between">
+      <span class="font-weight-bold">{{ client.fullName }}</span>
+      <a href="#" (click)="openClientModal($event)"><i class="fas fa-edit"></i></a>
+    </div>
+    <div class="border-top text-uppercase">
+      <p class="my-1">
+        <span class="font-weight-bold text-dark">
+          <i class="fas fa-street-view"></i> Dirección: </span> {{ client.fullAddress }}
+      </p>
+      <p class="my-1">
+        <span class="font-weight-bold text-dark">
+          <i class="fas fa-phone-alt"></i> Telefono: </span> {{ client.phone }}
+      </p>
+    </div>
+  </div>
+</div>

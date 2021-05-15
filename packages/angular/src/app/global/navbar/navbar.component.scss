@@ -1,0 +1,42 @@
+.user-info {
+  display: flex;
+}
+
+.user-info:hover {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.user-info:focus {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.user-info:hover span:nth-child(2) {
+  color: #343a40;
+}
+
+.user-info:focus span:nth-child(2) {
+  color: #343a40;
+}
+
+.user-info::after {
+  display: none;
+}
+
+.circle-avatar {
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: bold;
+  background: #4b77c4;
+  color: white;
+  height: 34px;
+  width: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.fa-network-wired {
+  color: #28a745;
+}

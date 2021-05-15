@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">
+    <i class="fas fa-network-wired"></i> DIRECOM S.R.L.</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <ng-container *ngIf="loggedIn()">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle user-info" href="#" data-toggle="dropdown">
+            <span class="circle-avatar mr-1">{{ avatarContent }}</span>
+            <span class="mt-1">{{ user.userName }}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" routerLink="/user/profile">Perfil</a>
+            <a class="dropdown-item" href="#" (click)="logout($event)">Log out</a>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>

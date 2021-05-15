@@ -1,0 +1,28 @@
+<div class="root">
+  <ng-container *ngIf="href else elseIf">
+    <a routerLink="{{ href }}" class="d-flex link">
+      <div>
+        <div class="icon">
+          <i class="{{ icon }}"></i>
+        </div>
+      </div>
+      <div>
+        <span class="first">{{ title }}</span>
+        <span class="second">{{ detail }}</span>
+      </div>
+    </a>
+  </ng-container>
+  <ng-template #elseIf>
+    <a href="#" (click)="sendEvent($event)" class="d-flex link">
+      <div>
+        <div class="icon">
+          <i class="{{ icon }}"></i>
+        </div>
+      </div>
+      <div>
+        <span class="first">{{ title }}</span>
+        <span class="second">{{ detail }}</span>
+      </div>
+    </a>
+  </ng-template>
+</div>

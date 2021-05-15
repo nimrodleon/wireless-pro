@@ -1,0 +1,33 @@
+.sidebar {
+  width: 100px;
+  background-color: #282c34;
+  height: 100%;
+}
+
+.sidebar-item {
+  text-align: center;
+  padding: 10px;
+  &:hover {
+    background-color: #61dafb;
+    a {
+      color: #282c34;
+    }
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.link {
+  i {
+    font-size: 40px;
+  }
+}
+
+.text {
+  display: block;
+  font-size: 14px;
+  text-transform: uppercase;
+}
