@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Device } from '../device.model';
-import ClipboardJS from 'clipboard';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Device} from '../device.model';
+import * as ClipboardJS from 'clipboard';
 
 @Component({
   selector: 'app-device-table',
@@ -12,7 +12,8 @@ export class DeviceTableComponent implements OnInit {
   @Output() edit = new EventEmitter<string>();
   @Output() delete = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     new ClipboardJS('[data-clipboard-text]');

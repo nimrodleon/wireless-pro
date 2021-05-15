@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import {ServiceService} from '../service.service';
-import ClipboardJS from 'clipboard';
+import * as ClipboardJS from 'clipboard';
 import {OutagesService} from '../outages.service';
 import {Outage} from '../outage.model';
 
