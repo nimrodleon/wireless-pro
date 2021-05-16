@@ -24,14 +24,10 @@ export class AveriaModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // jQuery(() => {
-    //   jQuery('[data-toggle="tooltip"]').tooltip();
-    // });
-    // Show modal.
     jQuery('#app-averia-modal').on('shown.bs.modal', () => {
       jQuery('select[name="clientId"]').select2({
         theme: 'bootstrap4',
-        minimumInputLength: 4,
+        dropdownParent: jQuery('#app-averia-modal'),
         ajax: {
           url: this.baseURL + '/select2/s'
         }

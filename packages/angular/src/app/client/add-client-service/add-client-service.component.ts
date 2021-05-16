@@ -51,7 +51,7 @@ export class AddClientServiceComponent implements OnInit {
     jQuery('#app-add-client-service').on('shown.bs.modal', () => {
       jQuery('select[name="accessPoint"]').select2({
         theme: 'bootstrap4',
-        minimumInputLength: 4,
+        dropdownParent: jQuery('#app-add-client-service'),
         ajax: {
           url: this.baseURL + '/v1/select2/s'
         }
