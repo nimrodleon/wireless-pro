@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node dist/application.js",
     "start:dev": "nodemon src/application.js --exec babel-node",
-    "build": "babel src --out-dir dist"
+    "build": "babel src --out-dir dist && @powershell copy './package.json' './dist'"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
