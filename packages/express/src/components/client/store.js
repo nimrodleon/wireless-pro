@@ -19,9 +19,7 @@ export async function createClient(client) {
 
 // actualizar cliente.
 export async function updateClient(id, client) {
-  const _client = await Client.findByIdAndUpdate(id, client, {new: true})
-  await _client.save()
-  return _client
+  return Client.findByIdAndUpdate(id, client, {new: true})
 }
 
 // borrar cliente.

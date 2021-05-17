@@ -18,7 +18,5 @@ export async function createUser(user) {
 
 // actualizar usuario.
 export async function updateUser(id, user) {
-  const _user = await User.findByIdAndUpdate(id, user, {new: true})
-  await _user.save()
-  return _user
+  return User.findByIdAndUpdate(id, user, {new: true})
 }

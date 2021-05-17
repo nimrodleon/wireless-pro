@@ -21,9 +21,7 @@ export async function createAveria(averia) {
 
 // Actualizar averia.
 export async function updateAveria(id, averia) {
-  const _averia = await Averia.findByIdAndUpdate(id, averia, {new: true})
-  await _averia.save()
-  return _averia
+  return Averia.findByIdAndUpdate(id, averia, {new: true})
 }
 
 // Eliminar averia.
