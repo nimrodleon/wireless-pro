@@ -1,7 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "serve": "nodemon src/application.js"
+    "start": "node dist/application.js",
+    "start:dev": "nodemon src/application.js --exec babel-node",
+    "build": "babel src --out-dir dist"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -18,6 +20,10 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.2",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
     "nodemon": "^2.0.7"
   }
 }
