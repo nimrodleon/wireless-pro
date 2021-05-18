@@ -15,15 +15,15 @@ export async function getDevice(id) {
 }
 
 // registrar dispositivo.
-export async function createDevice(device) {
-  let _device = new Device(device)
+export async function createDevice(data) {
+  let _device = new Device(data)
   await _device.save()
   return _device
 }
 
 //  actualizar dispositivo.
-export async function updateDevice(id, device) {
-  return Device.findByIdAndUpdate(id, device, {new: true})
+export async function updateDevice(id, data) {
+  return Device.findByIdAndUpdate(id, data, {new: true})
 }
 
 // borrar dispositivo.

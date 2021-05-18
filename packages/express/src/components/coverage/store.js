@@ -11,15 +11,15 @@ export async function getCoverage(id) {
 }
 
 // registrar cobertura.
-export async function createCoverage(coverage) {
-  const _coverage = new Coverage(coverage)
+export async function createCoverage(data) {
+  const _coverage = new Coverage(data)
   await _coverage.save()
   return _coverage
 }
 
 // actualizar cobertura.
-export async function updateCoverage(id, coverage) {
-  return Coverage.findByIdAndUpdate(id, coverage, {new: true})
+export async function updateCoverage(id, data) {
+  return Coverage.findByIdAndUpdate(id, data, {new: true})
 }
 
 // borrar cobertura.

@@ -11,12 +11,12 @@ export async function getUser(id) {
 }
 
 // registrar usuario.
-export async function createUser(user) {
-  const _user = new User(user)
+export async function createUser(data) {
+  const _user = new User(data)
   return _user.save()
 }
 
 // actualizar usuario.
-export async function updateUser(id, user) {
-  return User.findByIdAndUpdate(id, user, {new: true})
+export async function updateUser(id, data) {
+  return User.findByIdAndUpdate(id, data, {new: true})
 }

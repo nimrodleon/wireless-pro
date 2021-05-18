@@ -15,15 +15,15 @@ export async function getMaterial(id) {
 }
 
 // registrar material.
-export async function createMaterial(material) {
-  let _material = new Material(material)
+export async function createMaterial(data) {
+  let _material = new Material(data)
   await _material.save()
   return _material
 }
 
 // actualizar material.
-export async function updateMaterial(id, material) {
-  return Material.findByIdAndUpdate(id, material, {new: true})
+export async function updateMaterial(id, data) {
+  return Material.findByIdAndUpdate(id, data, {new: true})
 }
 
 // borrar material.

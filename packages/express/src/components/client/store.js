@@ -11,15 +11,15 @@ export async function getClient(id) {
 }
 
 // crear cliente.
-export async function createClient(client) {
-  const _client = new Client(client)
+export async function createClient(data) {
+  const _client = new Client(data)
   await _client.save()
   return _client
 }
 
 // actualizar cliente.
-export async function updateClient(id, client) {
-  return Client.findByIdAndUpdate(id, client, {new: true})
+export async function updateClient(id, data) {
+  return Client.findByIdAndUpdate(id, data, {new: true})
 }
 
 // borrar cliente.
