@@ -26,5 +26,7 @@ export async function updateAveria(id, data) {
 
 // Eliminar averia.
 export async function deleteAveria(id) {
-  return Averia.findByIdAndDelete(id)
+  let _averia = await getAveria(id)
+  _averia.isDeleted = true
+  return updateAveria(id, _averia)
 }

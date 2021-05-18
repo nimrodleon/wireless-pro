@@ -24,5 +24,7 @@ export async function updateCoverage(id, data) {
 
 // borrar cobertura.
 export async function deleteCoverage(id) {
-  return Coverage.findByIdAndDelete(id)
+  let _coverage = await getCoverage(id)
+  _coverage.isDeleted = true
+  return updateCoverage(id, _coverage)
 }

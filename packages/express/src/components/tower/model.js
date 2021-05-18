@@ -9,5 +9,9 @@ export const Tower = model('Tower',
     coverage: {
       type: Schema.Types.ObjectId,
       ref: 'Coverage'
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   }))

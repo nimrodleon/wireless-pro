@@ -9,5 +9,9 @@ export const Tramo = model('Tramo',
     coverage: {
       type: Schema.Types.ObjectId,
       ref: 'Coverage'
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   }))

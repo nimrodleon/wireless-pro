@@ -20,4 +20,8 @@ export const Averia = model('Averia',
     day: String,
     origin: String,
     solution: String,
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))

@@ -9,4 +9,8 @@ export const Outage = model('Outage',
     description: String,
     status: String,
     createdAt: String,
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))

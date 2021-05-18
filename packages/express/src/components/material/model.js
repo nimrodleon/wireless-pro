@@ -11,4 +11,8 @@ export const Material = model('Material',
       uppercase: true
     },
     price: Number,
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))

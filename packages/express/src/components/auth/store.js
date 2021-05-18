@@ -20,3 +20,10 @@ export async function createUser(data) {
 export async function updateUser(id, data) {
   return User.findByIdAndUpdate(id, data, {new: true})
 }
+
+// borrar usuario.
+export async function deleteUser(id) {
+  let _user = await getUser(id)
+  _user.isDeleted = true
+  return updateUser(id, _user)
+}

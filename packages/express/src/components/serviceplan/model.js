@@ -9,4 +9,8 @@ export const ServicePlan = model('ServicePlan',
     priceMonthly: Number,
     downloadSpeed: Number,
     uploadSpeed: Number,
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))

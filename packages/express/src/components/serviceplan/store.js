@@ -26,5 +26,7 @@ export async function updateServicePlan(id, data) {
 
 // borrar plan de servicio.
 export async function deleteServicePlan(id) {
-  return ServicePlan.findByIdAndDelete(id)
+  let _servicePlan = await getServicePlan(id)
+  _servicePlan.isDeleted = true
+  return updateServicePlan(id, _servicePlan)
 }

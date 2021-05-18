@@ -22,4 +22,8 @@ export const Task = model('Task',
     forDate: String,
     month: String,
     year: String,
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))

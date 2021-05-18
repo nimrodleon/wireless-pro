@@ -13,4 +13,8 @@ export const User = model('User',
       type: Boolean,
       default: false
     },
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))

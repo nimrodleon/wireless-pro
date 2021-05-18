@@ -5,5 +5,9 @@ export const Coverage = model('Coverage',
     name: {
       type: String,
       uppercase: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   }))

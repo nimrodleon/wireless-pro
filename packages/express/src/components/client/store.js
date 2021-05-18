@@ -24,5 +24,7 @@ export async function updateClient(id, data) {
 
 // borrar cliente.
 export async function deleteClient(id) {
-  return Client.findByIdAndDelete(id)
+  let _client = await getClient(id)
+  _client.isDeleted = true
+  return updateClient(id, _client)
 }

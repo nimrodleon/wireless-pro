@@ -28,5 +28,7 @@ export async function updateMaterial(id, data) {
 
 // borrar material.
 export async function deleteMaterial(id) {
-  return Material.findByIdAndDelete(id)
+  let _material = await getMaterial(id)
+  _material.isDeleted = true
+  return updateMaterial(id, _material)
 }

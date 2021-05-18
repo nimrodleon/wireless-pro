@@ -22,5 +22,7 @@ export async function updateTask(id, data) {
 
 // borrar tarea.
 export async function deleteTask(id) {
-  return Task.findByIdAndDelete(id)
+  let _task = await getTask(id)
+  _task.isDeleted = true
+  return updateTask(id, _task)
 }

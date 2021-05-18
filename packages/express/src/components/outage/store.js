@@ -16,3 +16,15 @@ export async function createOutage(data) {
   await _outage.save()
   return _outage
 }
+
+// update outage.
+export async function updateOutage(id, data) {
+  return Outage.findByIdAndUpdate(id, data, {new: true})
+}
+
+// borrar outage.
+export async function deleteOutage(id) {
+  let _outage = await getOutage(id)
+  _outage.isDeleted = true
+  return updateOutage(id, _outage)
+}

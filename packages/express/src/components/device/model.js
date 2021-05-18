@@ -18,4 +18,8 @@ export const Device = model('Device',
     tower: String,
     tramo: String,
     accessPoint: String,
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))

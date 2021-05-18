@@ -21,5 +21,9 @@ export const Payment = model('Payment',
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User'
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   }))

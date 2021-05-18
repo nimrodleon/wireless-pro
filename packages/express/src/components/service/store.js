@@ -26,5 +26,7 @@ export async function updateService(id, data) {
 
 // borrar servicio.
 export async function deleteService(id) {
-  return Service.findByIdAndDelete(id)
+  let _service = await getService(id)
+  _service.isDeleted = true
+  return updateService(id, _service)
 }

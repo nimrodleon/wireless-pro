@@ -28,5 +28,7 @@ export async function updateDevice(id, data) {
 
 // borrar dispositivo.
 export async function deleteDevice(id) {
-  return Device.findByIdAndDelete(id)
+  let _device = await getDevice(id)
+  _device.isDeleted = true
+  return updateDevice(id, _device)
 }

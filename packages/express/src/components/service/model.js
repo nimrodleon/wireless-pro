@@ -35,4 +35,8 @@ export const Service = model('Service',
     macAddress: String,
     lastOutage: String,
     createdAt: String,
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))

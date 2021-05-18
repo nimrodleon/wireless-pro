@@ -26,5 +26,9 @@ export const Client = model('Client',
     is_active: {
       type: Boolean,
       default: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   }))

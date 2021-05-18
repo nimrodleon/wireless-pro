@@ -33,5 +33,7 @@ export async function createPayment(data, userId) {
 
 // borrar pago.
 export async function deletePayment(id) {
-  return Payment.findByIdAndDelete(id)
+  let _payment = await getPayment(id)
+  _payment.isDeleted = true
+  return Payment.findByIdAndUpdate(id, _payment, {new: true})
 }

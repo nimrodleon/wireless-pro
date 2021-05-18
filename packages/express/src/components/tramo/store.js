@@ -28,5 +28,7 @@ export async function updateTramo(id, tramo) {
 
 // borrar tramo.
 export async function deleteTramo(id) {
-  return Tramo.findByIdAndDelete(id)
+  let _tramo = await getTramo(id)
+  _tramo.isDeleted = true
+  return updateTramo(id, _tramo)
 }

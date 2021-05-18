@@ -28,5 +28,7 @@ export async function updateTower(id, tower) {
 
 // borrar torre.
 export async function deleteTower(id) {
-  return Tower.findByIdAndDelete(id)
+  let _tower = await getTower(id)
+  _tower.isDeleted = true
+  return updateTower(id, _tower)
 }

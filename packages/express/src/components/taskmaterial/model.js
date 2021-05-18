@@ -15,4 +15,8 @@ export const TaskMaterial = model('TaskMaterial',
     price: Number,
     difference: Number,
     total: Number,
+    isDeleted: {
+      type: Boolean,
+      default: false
+    }
   }))
