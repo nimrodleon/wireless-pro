@@ -9,7 +9,7 @@ const verifyToken = require('../auth/verify'),
 router.get('/', verifyToken, async (req, res) => {
   try {
     const search = req.query.search || ''
-    const tramos = await Tramo.find({ tramo: { $regex: search } })
+    const tramos = await Tramo.find({tramo: {$regex: search}})
       .populate('coverage')
     res.json(tramos)
   } catch (error) {
@@ -39,7 +39,7 @@ router.get('/v1/all', verifyToken, async (req, res) => {
 // Total de equipos para el tramo {id}.
 router.get('/:id/count', verifyToken, async (req, res) => {
   try {
-    const count = await Device.find({ tramo: req.params.id }).countDocuments()
+    const count = await Device.find({tramo: req.params.id}).countDocuments()
     res.json(count)
   } catch (error) {
     res.status(500).send(error)
@@ -60,7 +60,7 @@ router.get('/coverages/uniq', verifyToken, async (req, res) => {
 router.get('/coverages/all', verifyToken, async (req, res) => {
   try {
     const ids = await Tramo.find().distinct('coverage')
-    const coverages = await Coverage.find({ _id: { $in: ids } })
+    const coverages = await Coverage.find({_id: {$in: ids}})
     res.json(coverages)
   } catch (error) {
     res.status(500).send(error)
@@ -79,7 +79,7 @@ router.post('/', verifyToken, async (req, res) => {
 
 router.patch('/:id', verifyToken, async (req, res) => {
   try {
-    const tramo = await Tramo.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    const tramo = await Tramo.findByIdAndUpdate(req.params.id, req.body, {new: true})
     await tramo.save()
     res.json(tramo)
   } catch (error) {
@@ -90,7 +90,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
     const tramo = await Tramo.findByIdAndDelete(req.params.id)
-    if (!tramo) res.status(500).send("No item found")
+    if (!tramo) res.status(500).send('No item found')
     res.status(200).send()
   } catch (error) {
     res.status(500).send(error)

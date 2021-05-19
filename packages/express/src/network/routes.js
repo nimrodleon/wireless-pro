@@ -1,4 +1,5 @@
 import authRouter from '../components/auth/network'
+import tramoRouter from '../components/tramo/network'
 
 const routes = (server) => {
   server.use('/api/info', require('../infos/router'))
@@ -17,7 +18,8 @@ const routes = (server) => {
   server.use('/api/tasks', require('../tasks/router'))
   server.use('/api/averias', require('../averia/router'))
   server.use('/api/tower', require('../devices/tower-router'))
-  server.use('/api/tramo', require('../devices/tramo-router'))
+  // server.use('/api/tramo', require('../devices/tramo-router'))
+  server.use('/api/tramo', tramoRouter)
   server.use('/api/devices', require('../devices/device-router'))
 }
 

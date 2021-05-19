@@ -32,3 +32,8 @@ export async function deleteDevice(id) {
   _device.isDeleted = true
   return updateDevice(id, _device)
 }
+
+// total de equipos para el tramo {id}.
+export async function countDevicesByTramo(tramoId) {
+  return Device.find({tramo: tramoId}).countDocuments()
+}
