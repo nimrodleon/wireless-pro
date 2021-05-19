@@ -2,7 +2,9 @@ import {Coverage} from './model'
 
 // Listar areas cobertura.
 export async function getCoverages(query) {
-
+  return Coverage.find({
+    $or: [{name: {$regex: query}}]
+  }).sort({'name': 1})
 }
 
 // devolver cobertura por id.
