@@ -1,4 +1,5 @@
 import {Tramo} from './model'
+import {getCoveragesByIdsTramos, getCoveragesByTramos} from '../coverage/store'
 
 // Listar tramos.
 export async function getTramos(query = '') {
@@ -33,7 +34,12 @@ export async function deleteTramo(id) {
   return updateTramo(id, _tramo)
 }
 
-// tramos de coverages uniq.
-export async function getTramosByCoverageUniq() {
+// tramos de por areas de cobertura.
+export async function getTramosByDistinctCoverage() {
   return Tramo.find().distinct('coverage')
+}
+
+// areas de cobertura x tramos.
+export async function getCoveragesByTramos() {
+  return getCoveragesByIdsTramos(getTramosByDistinctCoverage())
 }

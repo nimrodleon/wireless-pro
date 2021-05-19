@@ -66,3 +66,25 @@ export function countDevices(tramoId) {
     }
   })
 }
+
+// Test coverages uniq.
+export function tramosByDistinctCoverage() {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(store.getTramosByDistinctCoverage())
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+
+// obtener todas las coberturas por tramos.
+export function getCoveragesByTramos() {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(store.getCoveragesByTramos())
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
