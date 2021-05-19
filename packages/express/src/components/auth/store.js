@@ -10,6 +10,11 @@ export async function getUser(id) {
   return User.findById(id)
 }
 
+// devolver  usuario por userName.
+export async function getUserByUserName(userName) {
+  return User.findOne({userName: userName})
+}
+
 // registrar usuario.
 export async function createUser(data) {
   const _user = new User(data)

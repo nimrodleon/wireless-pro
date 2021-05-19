@@ -16,37 +16,53 @@ router.get('/', verifyToken, async (req, res) => {
 
 // retornar usuario para editar.
 router.get('/:id/edit', verifyToken, async (req, res) => {
-
+  controller.getUser(req.params.id).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
 })
 
 // devolver la información del usuario autenticado.
 router.get('/profile', verifyToken, async (req, res) => {
-
+  controller.getUser(req.userId).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
 })
 
 // permisos del usuario administrador.
 router.get('/is-admin', verifyToken, async (req, res) => {
-
+  res.json(req.isAdmin)
 })
 
 // permisos del usuario redes.
 router.get('/is-redes', verifyToken, async (req, res) => {
-
+  res.json(req.redes)
 })
 
 // permisos del usuario caja.
 router.get('/is-caja', verifyToken, async (req, res) => {
-
+  res.json(req.caja)
 })
 
 // registrar usuario.
 router.post('/', verifyToken, async (req, res) => {
-
+  controller.createUser(req.body).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
 })
 
 // actualizar datos del usuario.
 router.patch('/:id', verifyToken, async (req, res) => {
-
+  controller.updateUser(req.params.id, req.body).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
 })
 
 // dependencia de documentos.
@@ -56,7 +72,18 @@ router.get('/:id/dependency', verifyToken, async (req, res) => {
 
 // borrar usuarios.
 router.delete('/:id', verifyToken, async (req, res) => {
-
+  if (!req.isAdmin) {
+    return res.status(500).send('Unauthorized request')
+  } else {
+    controller.deleteUser(req.params.id).then(result => {
+      if (!result) {
+        res.status(404).send('No item found')
+      }
+      res.status(200).send()
+    }).catch(err => {
+      res.status(500).json(err)
+    })
+  }
 })
 
 // Login de acceso.
