@@ -1,8 +1,19 @@
+import _ from 'lodash'
 import {Averia} from './model'
 
 // Lista de averias.
 export async function getAverias(query, status) {
-
+  let _averias = await Averia.find({
+    archived: status
+  }).populate({
+    path: 'client',
+    select: 'fullName',
+    match: {fullName: {$regex: query}}
+  }).populate({
+    path: 'user',
+    select: 'name'
+  }).hint({$natural: -1}).limit(50)
+  return _.filter(_averias, obj => obj.client != null)
 }
 
 // Devolver averia por id.
