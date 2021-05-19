@@ -67,7 +67,7 @@ router.patch('/:id', verifyToken, async (req, res) => {
 
 // dependencia de documentos.
 router.get('/:id/dependency', verifyToken, async (req, res) => {
-
+  res.status(200).json(0)
 })
 
 // borrar usuarios.
@@ -88,12 +88,22 @@ router.delete('/:id', verifyToken, async (req, res) => {
 
 // Login de acceso.
 router.post('/login', async (req, res) => {
-
+  const {userName, password} = req.body
+  controller.userLogin(userName, password).then(token => {
+    res.status(200).json(token)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
 })
 
 // Cambiar contraseña.
 router.post('/:id/change-password', verifyToken, async (req, res) => {
-
+  const {current} = req.body
+  controller.passwordChange(req.params.id, current).then(() => {
+    res.status(200).send()
+  }).catch(err => {
+    res.status(500).json(err)
+  })
 })
 
 export default router

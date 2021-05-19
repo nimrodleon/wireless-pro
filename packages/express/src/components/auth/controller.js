@@ -76,7 +76,7 @@ export function deleteUser(id) {
   })
 }
 
-// Login de acceso.
+// Login de acceso => retorna un [token].
 export function userLogin(userName, password) {
   return new Promise(async (resolve, reject) => {
     let _user = await store.getUserByUserName(userName)
