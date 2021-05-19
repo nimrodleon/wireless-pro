@@ -37,3 +37,8 @@ export async function deleteDevice(id) {
 export async function countDevicesByTramo(tramoId) {
   return Device.find({tramo: tramoId}).countDocuments()
 }
+
+// total de equipos por torre.
+export async function countDevicesByTower(towerId) {
+  return Device.find({tower: towerId}).countDocuments()
+}

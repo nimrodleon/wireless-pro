@@ -1,5 +1,5 @@
 import {Tramo} from './model'
-import {getCoveragesByIdsTramos, getCoveragesByTramos} from '../coverage/store'
+import {getCoveragesByTramosOrTowers} from '../coverage/store'
 
 // Listar tramos.
 export async function getTramos(query = '') {
@@ -41,5 +41,5 @@ export async function getTramosByDistinctCoverage() {
 
 // areas de cobertura x tramos.
 export async function getCoveragesByTramos() {
-  return getCoveragesByIdsTramos(getTramosByDistinctCoverage())
+  return getCoveragesByTramosOrTowers(getTramosByDistinctCoverage())
 }

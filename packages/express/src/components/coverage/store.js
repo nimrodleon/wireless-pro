@@ -29,8 +29,8 @@ export async function deleteCoverage(id) {
   return updateCoverage(id, _coverage)
 }
 
-// areas de cobertura array => tramos.
-// recibe un array de ids; x cada tramo de red.
-export async function getCoveragesByIdsTramos(idTramos) {
-  return Coverage.find({_id: {$in: idTramos}})
+// areas de cobertura x => tramos/torres.
+// recibe un array de ids; x cada tramo de red o torre.
+export async function getCoveragesByTramosOrTowers(ids) {
+  return Coverage.find({_id: {$in: ids}})
 }
