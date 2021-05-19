@@ -1,6 +1,9 @@
+import authRouter from '../components/auth/network'
+
 const routes = (server) => {
   server.use('/api/info', require('../infos/router'))
-  server.use('/api/users', require('../auth/router'))
+  // server.use('/api/users', require('../auth/router'))
+  server.use('/api/users', authRouter)
   server.use('/api/clients', require('../clients/router'))
   server.use('/api/service-plans', require('../serviceplans/router'))
   server.use('/api/service-plans/report', require('../serviceplans/report'))
