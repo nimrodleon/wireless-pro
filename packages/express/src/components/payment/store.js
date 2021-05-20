@@ -37,3 +37,11 @@ export async function deletePayment(id) {
   _payment.isDeleted = true
   return Payment.findByIdAndUpdate(id, _payment, {new: true})
 }
+
+// reporte pago diario.
+export async function dailyPay(date) {
+  return Payment.find({
+    created_date: date
+  }).populate({path: 'client', select: 'fullName'})
+    .populate({path: 'service', select: 'ipAddress'})
+}
