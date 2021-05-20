@@ -6,6 +6,11 @@ export async function getServices(clientId) {
     .populate('servicePlan')
 }
 
+// Listado de servicios sin => [servicePlan]
+export async function getServicesV2(clientId) {
+  return Service.find({client: clientId})
+}
+
 // devolver servicio por id.
 export async function getService(id) {
   return Service.findById(id)

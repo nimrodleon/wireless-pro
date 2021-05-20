@@ -54,3 +54,14 @@ export function deleteServicePlan(id) {
     }
   })
 }
+
+// Lista de planes de servicios activos de un cliente especifico.
+export function getServicePlansActive(clientId) {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(store.getServicePlansActive(clientId))
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
