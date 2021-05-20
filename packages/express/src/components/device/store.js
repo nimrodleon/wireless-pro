@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {Device} from './model'
 
 // Listar dispositivos.
@@ -41,4 +42,19 @@ export async function countDevicesByTramo(tramoId) {
 // total de equipos por torre.
 export async function countDevicesByTower(towerId) {
   return Device.find({tower: towerId}).countDocuments()
+}
+
+// Buscador select2.
+export async function getDevicesS2(term) {
+  let _devices = await Device.find({
+    mode: 'P', $or: [
+      {ipAddress: {$regex: term}},
+      {name: {$regex: term}}
+    ]
+  }).limit(10)
+  let data = {results: []}
+  await _.forEach(_devices, value => {
+    data.results.push({id: value._id, text: `${value.name} - ${value.ipAddress}`})
+  })
+  return data
 }
