@@ -39,7 +39,7 @@ export async function deletePayment(id) {
 }
 
 // reporte pago diario.
-export async function dailyPay(date) {
+export async function reportDailyPay(date) {
   return Payment.find({
     created_date: date
   }).populate({path: 'client', select: 'fullName'})
