@@ -1,4 +1,6 @@
 import {ServicePlan} from './model'
+import {getServicesV2} from '../service/store'
+import _ from 'lodash'
 
 // Listar planes de servicios.
 export async function getServicePlans(query = '') {
@@ -29,4 +31,14 @@ export async function deleteServicePlan(id) {
   let _servicePlan = await getServicePlan(id)
   _servicePlan.isDeleted = true
   return updateServicePlan(id, _servicePlan)
+}
+
+// Lista de planes de servicios activos de un cliente en especifico.
+export async function getServicePlansActive(clientId) {
+  let _services = await getServicesV2(clientId)
+  let idArrServicePlan = []
+  await _.forEach(_services, value => {
+    idArrServicePlan.push(value.servicePlan)
+  })
+  return ServicePlan.find({_id: {$in: idArrServicePlan}})
 }
