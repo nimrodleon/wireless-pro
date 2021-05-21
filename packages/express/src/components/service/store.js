@@ -35,3 +35,10 @@ export async function deleteService(id) {
   _service.isDeleted = true
   return updateService(id, _service)
 }
+
+// reporte instalaciones diarias.
+export async function reportDailyInstallations(date) {
+  return Service.find({createdAt: date})
+    .populate({path: 'client', select: 'fullName'})
+    .populate({path: 'servicePlan', select: 'name priceMonthly'})
+}
