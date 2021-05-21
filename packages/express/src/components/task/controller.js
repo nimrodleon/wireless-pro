@@ -67,10 +67,10 @@ export function getTasksByStatusV1(status) {
 }
 
 // filtrar por status v2.
-export function getTasksByStatusV2(status) {
+export function getTasksByStatusV2(status, query) {
   return new Promise((resolve, reject) => {
     try {
-      resolve(store.getTasksByStatusV2(status))
+      resolve(store.getTasksByStatusV2(status, query))
     } catch (err) {
       reject(err)
     }
