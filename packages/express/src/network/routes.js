@@ -22,7 +22,6 @@ const routes = (server) => {
   server.use('/api/services/outages', outageRouter)
   server.use('/api/payments', paymentRouter)
   server.use('/api/coverages', coverageRouter)
-  server.use('/api/report', require('../report/report'))
   server.use('/api/material', materialRouter)
   server.use('/api/tasks', taskRouter)
   server.use('/api/averias', averiaRouter)

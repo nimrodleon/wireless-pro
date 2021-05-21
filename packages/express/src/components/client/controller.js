@@ -65,3 +65,14 @@ export function getClientsS2(term) {
     }
   })
 }
+
+// lista de clientes activos/inactivos.
+export function getClientsActive(status) {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(store.getClientsActive(status))
+    } catch (err) {
+      reject(err)
+    }
+  })
+}

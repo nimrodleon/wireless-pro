@@ -63,4 +63,40 @@ router.get('/report/daily/:date', verifyToken, async (req, res) => {
   })
 })
 
+// lista de servicios sin registro de pago.
+router.get('/report/services-without-payment', verifyToken, async (req, res) => {
+  controller.reportServicesWithoutPayment().then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
+// Lista de servicios suspendidos.
+router.get('/report/disconnected-services', verifyToken, async (req, res) => {
+  controller.reportDisconnectedServices().then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
+// Lista de servicios según tarifa de pago.
+router.get('/report/customers-by-service-plan/:id', verifyToken, async (req, res) => {
+  controller.reportServicesByServicePlan(req.params.id).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
+// Lista de clientes por cobrar.
+router.get('/report/receivables/:date', verifyToken, async (req, res) => {
+  controller.reportServicesPayable(req.params.date).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
 export default router

@@ -49,3 +49,8 @@ export async function getClientsS2(term) {
   })
   return data
 }
+
+// Lista de clientes activos/inactivos.
+export async function getClientsActive(status) {
+  return Client.find({is_active: status})
+}

@@ -64,4 +64,22 @@ router.delete('/:id', verifyToken, async (req, res) => {
   })
 })
 
+// lista de clientes activos.
+router.get('/active-clients', verifyToken, async (req, res) => {
+  controller.getClientsActive(true).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
+// lista de clientes archivados.
+router.get('/clients-disconnected', verifyToken, async (req, res) => {
+  controller.getClientsActive(false).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
 export default router

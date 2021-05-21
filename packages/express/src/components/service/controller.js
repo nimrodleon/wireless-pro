@@ -65,3 +65,47 @@ export function reportDailyInstallations(date) {
     }
   })
 }
+
+// reporte servicios sin registro de pago.
+export function reportServicesWithoutPayment() {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(store.reportServicesWithoutPayment())
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+
+// Lista de servicios suspendidos.
+export function reportDisconnectedServices() {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(store.reportDisconnectedServices())
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+
+// Lista de servicios según tarifa de pago.
+export function reportServicesByServicePlan(id) {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(store.reportServicesByServicePlan(id))
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+
+// Lista de clientes por cobrar.
+export function reportServicesPayable(date) {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(store.reportServicesPayable(date))
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
