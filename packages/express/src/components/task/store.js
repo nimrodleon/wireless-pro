@@ -26,3 +26,12 @@ export async function deleteTask(id) {
   _task.isDeleted = true
   return updateTask(id, _task)
 }
+
+// buscar tareas por año y mes.
+export async function getTasksByYearAndMonth(query, year, month) {
+  return Task.find({
+    year: year, month: month, $or: [
+      {title: {$regex: query}}, {fullName: {$regex: query}}
+    ]
+  }).populate({path: 'user', select: 'name'})
+}
