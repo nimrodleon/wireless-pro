@@ -26,3 +26,44 @@ export async function deleteTask(id) {
   _task.isDeleted = true
   return updateTask(id, _task)
 }
+
+// buscar tareas por año y mes.
+export async function getTasksByYearAndMonth(query, year, month) {
+  return Task.find({
+    year: year, month: month, $or: [
+      {title: {$regex: query}}, {fullName: {$regex: query}}
+    ]
+  }).populate({path: 'user', select: 'name'})
+}
+
+// Filtrar tareas por status V1.
+export async function getTasksByStatusV1(status) {
+  if (status === 'F') {
+    return Task.find({status: status})
+      .populate({path: 'user', select: 'name'})
+      .hint({$natural: -1}).limit(10)
+  } else {
+    return Task.find({status: status})
+      .populate({path: 'user', select: 'name'})
+      .sort({'forDate': 1})
+  }
+}
+
+// Filtrar tareas por status V2.
+export async function getTasksByStatusV2(status, query) {
+  if (status === 'F') {
+    return Task.find({
+      status: status, $or: [
+        {title: {$regex: query}}, {fullName: {$regex: query}}
+      ]
+    }).populate({path: 'user', select: 'name'})
+      .hint({$natural: -1}).limit(25)
+  } else {
+    return Task.find({
+      status: {$ne: status}, $or: [
+        {title: {$regex: query}}, {fullName: {$regex: query}}
+      ]
+    }).populate({path: 'user', select: 'name'})
+      .hint({$natural: -1})
+  }
+}
