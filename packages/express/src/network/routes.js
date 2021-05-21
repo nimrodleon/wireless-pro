@@ -1,26 +1,34 @@
+import infoRouter from '../components/info/network'
 import authRouter from '../components/auth/network'
+import clientRouter from '../components/client/network'
+import servicePlanRouter from '../components/serviceplan/network'
+import serviceRouter from '../components/service/network'
+import outageRouter from '../components/outage/network'
+import paymentRouter from '../components/payment/network'
+import coverageRouter from '../components/coverage/network'
+import materialRouter from '../components/material/network'
+import taskRouter from '../components/task/network'
+import averiaRouter from '../components/averia/network'
 import tramoRouter from '../components/tramo/network'
+import towerRouter from '../components/tower/network'
+import deviceRouter from '../components/device/network'
 
 const routes = (server) => {
-  server.use('/api/info', require('../infos/router'))
-  // server.use('/api/users', require('../auth/router'))
+  server.use('/api/info', infoRouter)
   server.use('/api/users', authRouter)
-  server.use('/api/clients', require('../clients/router'))
-  server.use('/api/service-plans', require('../serviceplans/router'))
-  server.use('/api/service-plans/report', require('../serviceplans/report'))
-  server.use('/api/services', require('../services/router'))
-  server.use('/api/services/outages', require('../services/outage-router'))
-  server.use('/api/payments', require('../payments/router'))
-  server.use('/api/coverages', require('../coverages/router'))
-  server.use('/api/coverages/report', require('../coverages/report'))
+  server.use('/api/clients', clientRouter)
+  server.use('/api/service-plans', servicePlanRouter)
+  server.use('/api/services', serviceRouter)
+  server.use('/api/services/outages', outageRouter)
+  server.use('/api/payments', paymentRouter)
+  server.use('/api/coverages', coverageRouter)
   server.use('/api/report', require('../report/report'))
-  server.use('/api/material', require('../material/router'))
-  server.use('/api/tasks', require('../tasks/router'))
-  server.use('/api/averias', require('../averia/router'))
-  server.use('/api/tower', require('../devices/tower-router'))
-  // server.use('/api/tramo', require('../devices/tramo-router'))
+  server.use('/api/material', materialRouter)
+  server.use('/api/tasks', taskRouter)
+  server.use('/api/averias', averiaRouter)
+  server.use('/api/tower', towerRouter)
   server.use('/api/tramo', tramoRouter)
-  server.use('/api/devices', require('../devices/device-router'))
+  server.use('/api/devices', deviceRouter)
 }
 
 export default routes
