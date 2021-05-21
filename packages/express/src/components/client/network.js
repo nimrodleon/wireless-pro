@@ -13,6 +13,7 @@ router.get('/', verifyToken, async (req, res) => {
   status = status === 'true'
   controller.getClients(search, status).then(result => {
     res.json(result)
+    console.log(result)
   }).catch(err => {
     res.status(500).json(err)
   })
