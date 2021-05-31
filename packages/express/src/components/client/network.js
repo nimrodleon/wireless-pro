@@ -1,86 +1,110 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {ClientController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/clients
+router.get('/', [verifyToken], getClients)
+
 // Lista de clientes.
-router.get('/', verifyToken, async (req, res) => {
+function getClients(req, res = response) {
   let {status, search} = req.query
   if (!search) {
     search = ''
   }
   status = status === 'true'
-  controller.getClients(search, status).then(result => {
+  ClientController.getClients(search, status).then(result => {
     res.json(result)
     console.log(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/clients/select2/:q?
+router.get('/select2/:q?', [verifyToken], getClientsS2)
 
 // Buscador de clientes => select2.
-router.get('/select2/:q?', async (req, res) => {
-  let term = req.query.term || ''
-  controller.getClientsS2(term).then(result => {
+function getClientsS2(req, res = response) {
+  let {term = ''} = req.query
+  ClientController.getClientsS2(term).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/clients/:id
+router.get('/:id', [verifyToken], getClient)
 
 // Obtener un cliente por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getClient(req.params.id).then(result => {
+function getClient(req, res = response) {
+  ClientController.getClient(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/clients
+router.post('/', [verifyToken], addClient)
 
 // registrar nuevo cliente.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createClient(req.body).then(result => {
+function addClient(req, res = response) {
+  ClientController.createClient(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/clients/:id
+router.patch('/:id', [verifyToken], updateClient)
 
 // actualizar cliente.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateClient(req.params.id, req.body).then(result => {
+function updateClient(req, res = response) {
+  ClientController.updateClient(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/clients
+router.delete('/:id', [verifyToken], deleteClient)
 
 // borrar cliente.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteClient(req.params.id).then(result => {
+function deleteClient(req, res = response) {
+  ClientController.deleteClient(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(200).json(err)
   })
-})
+}
+
+// http://<HOST>/api/clients/active-clients
+router.get('/active-clients', [verifyToken], getActiveClients)
 
 // lista de clientes activos.
-router.get('/active-clients', verifyToken, async (req, res) => {
-  controller.getClientsActive(true).then(result => {
+function getActiveClients(req, res = response) {
+  ClientController.getClientsActive(true).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/clients/clients-disconnected
+router.get('/clients-disconnected', [verifyToken], getClientsDisconnected)
 
 // lista de clientes archivados.
-router.get('/clients-disconnected', verifyToken, async (req, res) => {
-  controller.getClientsActive(false).then(result => {
+function getClientsDisconnected(req, res = response) {
+  ClientController.getClientsActive(false).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const clientRouter = router
