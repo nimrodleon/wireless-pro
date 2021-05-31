@@ -1,57 +1,72 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {AveriaController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/averias
+router.get('/', [verifyToken], getAverias)
+
 // Lista de averias.
-router.get('/', verifyToken, async (req, res) => {
+function getAverias(req, res = response) {
   let {archived, search} = req.query
   if (!search) {
     search = ''
   }
   archived = archived === 'true'
-  controller.getAverias(search, archived).then(result => {
+  AveriaController.getAverias(search, archived).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/averias/:id
+router.get('/:id', [verifyToken], getAveria)
 
 // devolver averia por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getAveria(req.params.id).then(result => {
+function getAveria(req, res = response) {
+  AveriaController.getAveria(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/averias
+router.post('/', [verifyToken], addAveria)
 
 // registrar averia.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createAveria(req.body).then(result => {
+function addAveria(req, res = response) {
+  AveriaController.createAveria(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/averias/:id
+router.patch('/:id', [verifyToken], updateAveria)
 
 // actualizar averia.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateAveria(req.params.id, req.body).then(result => {
+function updateAveria(req, res = response) {
+  AveriaController.updateAveria(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/averias
+router.delete('/:id', [verifyToken], deleteAveria)
 
 // borrar averia.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteAveria(req.params.id).then(result => {
+function deleteAveria(req, res = response) {
+  AveriaController.deleteAveria(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const averiaRouter = router
