@@ -1,49 +1,56 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {CoverageController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/coverages
+router.get('/', [verifyToken], getCoverages)
+
 // Lista areas de cobertura.
-router.get('/', verifyToken, async (req, res) => {
+function getCoverages(req, res = response) {
   let query = req.query.search || ''
-  controller.getCoverages(query).then(result => {
+  CoverageController.getCoverages(query).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-// Cantidad de clientes por area cobertura. (DEPRECADO)
-router.get('/:id/count/client', verifyToken, async (req, res) => {
-  res.json(0)
-})
+// http://<HOST>/api/coverages
+router.post('/', [verifyToken], addCoverage)
 
 // registrar area cobertura.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createCoverage(req.body).then(result => {
+function addCoverage(req, res = response) {
+  CoverageController.createCoverage(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/coverages/:id
+router.patch('/:id', [verifyToken], updateCoverage)
 
 // actualizar area cobertura.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateCoverage(req.params.id, req.body).then(result => {
+function updateCoverage(req, res = response) {
+  CoverageController.updateCoverage(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/coverages/:id
+router.delete('/:id', [verifyToken], deleteCoverage)
 
 // borrar area cobertura.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteCoverage(req.params.id).then(result => {
+function deleteCoverage(req, res = response) {
+  CoverageController.deleteCoverage(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const coverageRouter = router
