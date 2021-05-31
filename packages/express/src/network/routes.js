@@ -1,5 +1,5 @@
+import * as network from './network'
 import infoRouter from '../components/info/network'
-import authRouter from '../components/auth/network'
 import clientRouter from '../components/client/network'
 import servicePlanRouter from '../components/serviceplan/network'
 import serviceRouter from '../components/service/network'
@@ -15,7 +15,7 @@ import deviceRouter from '../components/device/network'
 
 const routes = (server) => {
   server.use('/api/info', infoRouter)
-  server.use('/api/users', authRouter)
+  server.use('/api/users', network.authRouter)
   server.use('/api/clients', clientRouter)
   server.use('/api/service-plans', servicePlanRouter)
   server.use('/api/services', serviceRouter)

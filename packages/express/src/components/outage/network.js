@@ -1,6 +1,6 @@
 import express from 'express'
 import * as controller from './controller'
-import verifyToken from '../auth/verifyToken'
+import verifyToken from '../middlewares/verifyToken'
 
 const router = express.Router()
 

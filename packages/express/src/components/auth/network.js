@@ -1,81 +1,79 @@
-import express from 'express'
-import verifyToken from './verifyToken'
-import * as controller from './controller'
+import express, {response} from 'express'
+import verifyToken from '../middlewares/verifyToken'
+import {UserController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/users
+router.get('/', [verifyToken], getUsers)
+
 // Lista de usuarios.
-router.get('/', verifyToken, async (req, res) => {
+function getUsers(req, res = response) {
   const status = req.query.status || false
-  controller.getUsers(status).then(result => {
+  UserController.getUsers(status).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/users/:id/edit
+router.get('/:id/edit', [verifyToken], getUserEdit)
 
 // retornar usuario para editar.
-router.get('/:id/edit', verifyToken, async (req, res) => {
-  controller.getUser(req.params.id).then(result => {
+function getUserEdit(req, res = response) {
+  UserController.getUser(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/users/profile
+router.get('/profile', [verifyToken], getProfile)
 
 // devolver la información del usuario autenticado.
-router.get('/profile', verifyToken, async (req, res) => {
-  controller.getUser(req.userId).then(result => {
+function getProfile(req, res = response) {
+  UserController.getUser(req.userId).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-// permisos del usuario administrador.
-router.get('/is-admin', verifyToken, async (req, res) => {
-  res.json(req.isAdmin)
-})
-
-// permisos del usuario redes.
-router.get('/is-redes', verifyToken, async (req, res) => {
-  res.json(req.redes)
-})
-
-// permisos del usuario caja.
-router.get('/is-caja', verifyToken, async (req, res) => {
-  res.json(req.caja)
-})
+// http://<HOST>/api/users
+router.post('/', [verifyToken], addUser)
 
 // registrar usuario.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createUser(req.body).then(result => {
+function addUser(req, res = response) {
+  UserController.createUser(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/users/:id
+router.patch('/:id', [verifyToken], updateUser)
 
 // actualizar datos del usuario.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateUser(req.params.id, req.body).then(result => {
+function updateUser(req, res = response) {
+  UserController.updateUser(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-// dependencia de documentos.
-router.get('/:id/dependency', verifyToken, async (req, res) => {
-  res.status(200).json(0)
-})
+// http://<HOST>/api/users/:id
+router.delete('/:id', [verifyToken], deleteUser)
 
 // borrar usuarios.
-router.delete('/:id', verifyToken, async (req, res) => {
+function deleteUser(req, res = response) {
   if (!req.isAdmin) {
     return res.status(500).send('Unauthorized request')
   } else {
-    controller.deleteUser(req.params.id).then(result => {
+    UserController.deleteUser(req.params.id).then(result => {
       if (!result) {
         res.status(404).send('No item found')
       }
@@ -84,26 +82,32 @@ router.delete('/:id', verifyToken, async (req, res) => {
       res.status(500).json(err)
     })
   }
-})
+}
+
+// http://<HOST>/api/users/login
+router.post('/login', [verifyToken], loginUser)
 
 // Login de acceso.
-router.post('/login', async (req, res) => {
+function loginUser(req, res = response) {
   const {userName, password} = req.body
-  controller.userLogin(userName, password).then(token => {
+  UserController.userLogin(userName, password).then(token => {
     res.status(200).json(token)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/users/:id/change-password
+router.post('/:id/change-password', [verifyToken], passwordChange)
 
 // Cambiar contraseña.
-router.post('/:id/change-password', verifyToken, async (req, res) => {
+function passwordChange(req, res = response) {
   const {current} = req.body
-  controller.passwordChange(req.params.id, current).then(() => {
+  UserController.passwordChange(req.params.id, current).then(() => {
     res.status(200).send()
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const authRouter = router
