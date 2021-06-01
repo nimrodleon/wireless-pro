@@ -1,111 +1,115 @@
-import * as store from './store'
+import {ServiceStore} from './store'
 
-// Lista de servicios.
-export function getServices(clientId) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.getServices(clientId))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+// Lógica - services.
+export class ServiceController {
+  // Lista de servicios.
+  static getServices(clientId) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.getServices(clientId))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// obtener servicio por id.
-export function getService(id) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.getService(id))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // obtener servicio por id.
+  static getService(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.getService(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// registrar servicio.
-export function createService(data, userId) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.createService(data, userId))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // registrar servicio.
+  static createService(data, userId) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.createService(data, userId))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// actualizar servicio.
-export function updateService(id, data) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.updateService(id, data))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // actualizar servicio.
+  static updateService(id, data) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.updateService(id, data))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// borrar servicio.
-export function deleteService(id) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.deleteService(id))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // borrar servicio.
+  static deleteService(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.deleteService(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// reporte instalaciones diarias.
-export function reportDailyInstallations(date) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.reportDailyInstallations(date))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // reporte instalaciones diarias.
+  static reportDailyInstallations(date) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.reportDailyInstallations(date))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// reporte servicios sin registro de pago.
-export function reportServicesWithoutPayment() {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.reportServicesWithoutPayment())
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // reporte servicios sin registro de pago.
+  static reportServicesWithoutPayment() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.reportServicesWithoutPayment())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// Lista de servicios suspendidos.
-export function reportDisconnectedServices() {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.reportDisconnectedServices())
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // Lista de servicios suspendidos.
+  static reportDisconnectedServices() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.reportDisconnectedServices())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// Lista de servicios según tarifa de pago.
-export function reportServicesByServicePlan(id) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.reportServicesByServicePlan(id))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // Lista de servicios según tarifa de pago.
+  static reportServicesByServicePlan(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.reportServicesByServicePlan(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// Lista de clientes por cobrar.
-export function reportServicesPayable(date) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.reportServicesPayable(date))
-    } catch (err) {
-      reject(err)
-    }
-  })
+  // Lista de clientes por cobrar.
+  static reportServicesPayable(date) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.reportServicesPayable(date))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
 }

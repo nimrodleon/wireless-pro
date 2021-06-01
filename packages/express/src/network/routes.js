@@ -1,6 +1,5 @@
 import * as network from './network'
 import servicePlanRouter from '../components/serviceplan/network'
-import serviceRouter from '../components/service/network'
 import paymentRouter from '../components/payment/network'
 import taskRouter from '../components/task/network'
 import tramoRouter from '../components/tramo/network'
@@ -11,7 +10,7 @@ const routes = (server) => {
   server.use('/api/users', network.authRouter)
   server.use('/api/clients', network.clientRouter)
   server.use('/api/service-plans', servicePlanRouter)
-  server.use('/api/services', serviceRouter)
+  server.use('/api/services', network.serviceRouter)
   server.use('/api/services/outages', network.outageRouter)
   server.use('/api/payments', paymentRouter)
   server.use('/api/coverages', network.coverageRouter)

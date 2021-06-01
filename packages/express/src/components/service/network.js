@@ -1,102 +1,127 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {ServiceController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/services/:client/client
+router.get('/:client/client', [verifyToken], getServices)
+
 // Lista de servicio.
-router.get('/:client/client', verifyToken, async (req, res) => {
-  controller.getServices(req.params.client).then(result => {
+function getServices(req, res = response) {
+  ServiceController.getServices(req.params.client).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/:id
+router.get('/:id', [verifyToken], getService)
 
 // obtener servicio por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getService(req.params.id).then(result => {
+function getService(req, res = response) {
+  ServiceController.getService(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-// cantidad de pagos x servicio.
-router.get('/:id/payments/count', verifyToken, async (req, res) => {
-  res.json(0)
-})
+// http://<HOST>/api/services
+router.post('/', [verifyToken], addService)
 
 // registrar servicio.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createService(req.body).then(result => {
+function addService(req, res = response) {
+  ServiceController.createService(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/:id
+router.patch('/:id', [verifyToken], updateService)
 
 // actualizar servicio.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateService(req.params.id, req.body).then(result => {
+function updateService(req, res = response) {
+  ServiceController.updateService(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/:id
+router.delete('/:id', [verifyToken], deleteService)
 
 // borrar servicio.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteService(req.params.id).then(result => {
+function deleteService(req, res = response) {
+  ServiceController.deleteService(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/report/daily/:date
+router.get('/report/daily/:date', [verifyToken], reportInstallations)
 
 // instalaciones diarias.
-router.get('/report/daily/:date', verifyToken, async (req, res) => {
-  controller.reportDailyInstallations(req.params.date).then(result => {
+function reportInstallations(req, res = response) {
+  ServiceController.reportDailyInstallations(req.params.date).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/report/services-without-payment
+router.get('/report/services-without-payment', [verifyToken], reportServicesWithoutPayment)
 
 // lista de servicios sin registro de pago.
-router.get('/report/services-without-payment', verifyToken, async (req, res) => {
-  controller.reportServicesWithoutPayment().then(result => {
+function reportServicesWithoutPayment(req, res = response) {
+  ServiceController.reportServicesWithoutPayment().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/report/disconnected-services
+router.get('/report/disconnected-services', [verifyToken], reportDisconnectedServices)
 
 // Lista de servicios suspendidos.
-router.get('/report/disconnected-services', verifyToken, async (req, res) => {
-  controller.reportDisconnectedServices().then(result => {
+function reportDisconnectedServices(req, res = response) {
+  ServiceController.reportDisconnectedServices().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/report/customers-by-service-plan/:id
+router.get('/report/customers-by-service-plan/:id', [verifyToken], clientsByServicePlans)
 
 // Lista de servicios según tarifa de pago.
-router.get('/report/customers-by-service-plan/:id', verifyToken, async (req, res) => {
-  controller.reportServicesByServicePlan(req.params.id).then(result => {
+function clientsByServicePlans(req, res = response) {
+  ServiceController.reportServicesByServicePlan(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/report/receivables/:date
+router.get('/report/receivables/:date', [verifyToken], reportServicesPayable)
 
 // Lista de clientes por cobrar.
-router.get('/report/receivables/:date', verifyToken, async (req, res) => {
-  controller.reportServicesPayable(req.params.date).then(result => {
+function reportServicesPayable(req, res = response) {
+  ServiceController.reportServicesPayable(req.params.date).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const serviceRouter = router
