@@ -1,90 +1,94 @@
-import * as store from './store'
-import {countDevicesByTramo} from '../device/store'
+import {TramoStore} from './store'
+import {DeviceStore} from '../device/store'
 
-// Lista de tramos.
-export function getTramos(query) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.getTramos(query))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+// Lógica - Tramos.
+export class TramoController {
+  // Lista de tramos.
+  static getTramos(query) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.getTramos(query))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// devolver tramo por id.
-export function getTramo(id) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.getTramo(id))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // devolver tramo por id.
+  static getTramo(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.getTramo(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// registrar tramo.
-export function createTramo(data) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.createTramo(data))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // registrar tramo.
+  static createTramo(data) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.createTramo(data))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// actualizar tramo.
-export function updateTramo(id, data) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.updateTramo(id, data))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // actualizar tramo.
+  static updateTramo(id, data) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.updateTramo(id, data))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// borrar tramo.
-export function deleteTramo(id) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.deleteTramo(id))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // borrar tramo.
+  static deleteTramo(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.deleteTramo(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// Total de equipos para el tramo {id}.
-export function countDevices(tramoId) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(countDevicesByTramo(tramoId))
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // Total de equipos para el tramo {id}.
+  static countDevices(tramoId) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(DeviceStore.countDevicesByTramo(tramoId))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// Test coverages uniq.
-export function tramosByDistinctCoverage() {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.getTramosByDistinctCoverage())
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+  // Test coverages uniq.
+  static tramosByDistinctCoverage() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.getTramosByDistinctCoverage())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// obtener todas las coberturas por tramos.
-export function getCoveragesByTramos() {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.getCoveragesByTramos())
-    } catch (err) {
-      reject(err)
-    }
-  })
+  // obtener todas las coberturas por tramos.
+  static getCoveragesByTramos() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.getCoveragesByTramos())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
 }

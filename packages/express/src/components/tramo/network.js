@@ -1,89 +1,92 @@
-import express from 'express'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
-import * as controller from './controller'
+import {TramoController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/tramo
+router.get('/', [verifyToken], getTramos)
+
 // Lista de tramos.
-router.get('/', verifyToken, async (req, res) => {
+function getTramos(req, res = response) {
   const query = req.query.search || ''
-  controller.getTramos(query).then(result => {
+  TramoController.getTramos(query).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tramo/:id
+router.get('/:id', [verifyToken], getTramo)
 
 // devolver un tramo por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getTramo(req.params.id).then(result => {
+function getTramo(req, res = response) {
+  TramoController.getTramo(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-// devolver todos los tramos. (DEPRECADO)
-router.get('/v1/all', verifyToken, async (req, res) => {
-  controller.getTramos().then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(50).json(err)
-  })
-})
-
-// Total de equipos para el tramo {id}.
-router.get('/:id/count', verifyToken, async (req, res) => {
-  controller.countDevices(req.params.id).then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(500).json(err)
-  })
-})
+// http://<HOST>/api/tramo/coverages/uniq
+router.get('/coverages/uniq', [verifyToken], getTramosByCoverages)
 
 // Test Coverages uniq.
-router.get('/coverages/uniq', verifyToken, async (req, res) => {
-  controller.tramosByDistinctCoverage().then(result => {
+function getTramosByCoverages(req, res = response) {
+  TramoController.tramosByDistinctCoverage().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tramo/coverages/all
+router.get('/coverages/all', [verifyToken], getCoveragesByTramos)
 
 // Lista de areas cobertura.
-router.get('/coverages/all', verifyToken, async (req, res) => {
-  controller.getCoveragesByTramos().then(result => {
+function getCoveragesByTramos(req, res = response) {
+  TramoController.getCoveragesByTramos().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tramo
+router.post('/', [verifyToken], addTramo)
 
 // registrar tramo.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createTramo(req.body).then(result => {
+function addTramo(req, res = response) {
+  TramoController.createTramo(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tramo/:id
+router.patch('/:id', [verifyToken], updateTramo)
 
 // actualizar tramo.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateTramo(req.params.id, req.body).then(result => {
+function updateTramo(req, res = response) {
+  TramoController.updateTramo(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tramo/:id
+router.delete('/:id', [verifyToken], deleteTramo)
 
 // borrar tramo.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteTramo(req.params.id).then(result => {
+function deleteTramo(req, res = response) {
+  TramoController.deleteTramo(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const tramoRouter = router
