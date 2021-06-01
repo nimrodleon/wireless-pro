@@ -1,80 +1,92 @@
-import express from 'express'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
-import * as controller from './controller'
+import {TowerController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/tower
+router.get('/', [verifyToken], getTowers)
+
 // Lista de torres.
-router.get('/', verifyToken, async (req, res) => {
+function getTowers(req, res = response) {
   let query = req.query.search || ''
-  controller.getTowers(query).then(result => {
+  TowerController.getTowers(query).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tower/:id
+router.get('/:id', [verifyToken], getTower)
 
 // devolver torre por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getTower(req.params.id).then(result => {
+function getTower(req, res = response) {
+  TowerController.getTower(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tower/coverages/all
+router.get('/coverages/all', [verifyToken], getCoveragesByTower)
 
 // areas cobertura por torre.
-router.get('/coverages/all', verifyToken, async (req, res) => {
-  controller.getCoveragesByTowers().then(result => {
+function getCoveragesByTower(req, res = response) {
+  TowerController.getCoveragesByTowers().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tower/v1/all
+router.get('/v1/all', [verifyToken], getAllTowers)
 
 // Todas las torres.
-router.get('/v1/all', verifyToken, async (req, res) => {
-  controller.getTowers().then(result => {
+function getAllTowers(req, res = response) {
+  TowerController.getTowers().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-// total de equipos para la torre.
-router.get('/:id/count', verifyToken, async (req, res) => {
-  controller.countDevices(req.params.id).catch(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(500).json(err)
-  })
-})
+// http://<HOST>/api/tower
+router.post('/', [verifyToken], addTower)
 
 // registrar torre.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createTower(req.body).then(result => {
+function addTower(req, res = response) {
+  TowerController.createTower(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tower/:id
+router.patch('/:id', [verifyToken], updateTower)
 
 // actualizar torre.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateTower(req.params.id, req.body).then(result => {
+function updateTower(req, res = response) {
+  TowerController.updateTower(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tower/:id
+router.delete('/:id', [verifyToken], deleteTower)
 
 // borrar torre.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteTower(req.params.id).then(result => {
+function deleteTower(req, res = response) {
+  TowerController.deleteTower(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const towerRouter = router

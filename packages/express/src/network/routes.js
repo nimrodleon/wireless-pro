@@ -1,6 +1,5 @@
 import * as network from './network'
 import tramoRouter from '../components/tramo/network'
-import towerRouter from '../components/tower/network'
 
 const routes = (server) => {
   server.use('/api/info', network.infoRouter)
@@ -14,7 +13,7 @@ const routes = (server) => {
   server.use('/api/material', network.materialRouter)
   server.use('/api/tasks', network.taskRouter)
   server.use('/api/averias', network.averiaRouter)
-  server.use('/api/tower', towerRouter)
+  server.use('/api/tower', network.towerRouter)
   server.use('/api/tramo', tramoRouter)
   server.use('/api/devices', network.deviceRouter)
 }

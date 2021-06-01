@@ -1,45 +1,48 @@
 import {Tower} from './model'
-import {getCoveragesByTramosOrTowers} from '../coverage/store'
+import {CoverageStore} from '../coverage/store'
 
-// Listar torres.
-export async function getTowers(query = '') {
-  return Tower.find({
-    tower: {
-      $regex: query
-    }
-  }).populate('coverage')
-}
+// CRUD - tower.
+export class TowerStore {
+  // Listar torres.
+  static async getTowers(query = '') {
+    return Tower.find({
+      tower: {
+        $regex: query
+      }
+    }).populate('coverage')
+  }
 
-// devuelve una torre por id.
-export async function getTower(id) {
-  return Tower.findById(id)
-}
+  // devuelve una torre por id.
+  static async getTower(id) {
+    return Tower.findById(id)
+  }
 
-// registrar torre.
-export async function createTower(data) {
-  let _tower = new Tower(data)
-  await _tower.save()
-  return _tower
-}
+  // registrar torre.
+  static async createTower(data) {
+    let _tower = new Tower(data)
+    await _tower.save()
+    return _tower
+  }
 
-// actualizar torre.
-export async function updateTower(id, data) {
-  return Tower.findByIdAndUpdate(id, data, {new: true})
-}
+  // actualizar torre.
+  static async updateTower(id, data) {
+    return Tower.findByIdAndUpdate(id, data, {new: true})
+  }
 
-// borrar torre.
-export async function deleteTower(id) {
-  let _tower = await getTower(id)
-  _tower.isDeleted = true
-  return updateTower(id, _tower)
-}
+  // borrar torre.
+  static async deleteTower(id) {
+    let _tower = await this.getTower(id)
+    _tower.isDeleted = true
+    return this.updateTower(id, _tower)
+  }
 
-// torres por area cobertura.
-export async function getTowerByDistinctCoverage() {
-  return Tower.find().distinct('coverage')
-}
+  // torres por area cobertura.
+  static async getTowerByDistinctCoverage() {
+    return Tower.find().distinct('coverage')
+  }
 
-// areas de cobertura x torres.
-export async function getCoveragesByTowers() {
-  return getCoveragesByTramosOrTowers(getTowerByDistinctCoverage())
+  // areas de cobertura x torres.
+  static async getCoveragesByTowers() {
+    return CoverageStore.getCoveragesByTramosOrTowers(this.getTowerByDistinctCoverage())
+  }
 }
