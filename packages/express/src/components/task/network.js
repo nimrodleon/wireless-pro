@@ -1,74 +1,95 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {TaskController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/tasks/:status/v1
+router.get('/:status/v1', [verifyToken], getTasks)
+
 // filtrar por status V1.
-router.get('/:status/v1', verifyToken, async (req, res) => {
-  controller.getTasksByStatusV1(req.params.status).then(result => {
+function getTasks(req, res = response) {
+  TaskController.getTasksByStatusV1(req.params.status).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tasks/:status/v2
+router.get('/:status/v2', [verifyToken], getTasksFilterByStatus)
 
 // filtrar por status V2.
-router.get('/:status/v2', verifyToken, async (req, res) => {
+function getTasksFilterByStatus(req, res = response) {
   let status = req.params.status
   let query = req.query.search || ''
-  controller.getTasksByStatusV2(status, query).then(result => {
+  TaskController.getTasksByStatusV2(status, query).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tasks/:year/:month/s
+router.get('/:year/:month/s', [verifyToken], getTasksByDates)
 
 // buscar tareas por mes y año.
-router.get('/:year/:month/s', verifyToken, async (req, res) => {
+function getTasksByDates(req, res = response) {
   let query = req.query.search || ''
-  controller.getTasksByYearAndMonth(query,
+  TaskController.getTasksByYearAndMonth(query,
     req.params.year, req.params.month).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tasks/:id
+router.get('/:id', [verifyToken], getTask)
 
 // obtener task por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getTask(req.params.id).then(result => {
+function getTask(req, res = response) {
+  TaskController.getTask(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tasks
+router.post('/', [verifyToken], addTask)
 
 // registrar tarea.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createTask(req.body).then(result => {
+function addTask(req, res = response) {
+  TaskController.createTask(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tasks/:id
+router.patch('/:id', [verifyToken], updateTask)
 
 // actualizar tarea.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateTask(req.params.id, req.body).then(result => {
+function updateTask(req, res = response) {
+  TaskController.updateTask(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/tasks/:id
+router.delete('/:id', [verifyToken], deleteTask)
 
 // borrar tarea.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteTask(req.params.id).then(result => {
+function deleteTask(req, res = response) {
+  TaskController.deleteTask(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const taskRouter = router
