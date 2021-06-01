@@ -1,67 +1,80 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {ServicePlanController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/service-plans
+router.get('/', [verifyToken], getServicePlans)
+
 // Lista de planes de servicio.
-router.get('/', verifyToken, async (req, res) => {
+function getServicePlans(req, res = response) {
   let query = req.query.search || ''
-  controller.getServicePlans(query).then(result => {
+  ServicePlanController.getServicePlans(query).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/service-plans/:id
+router.get('/:id', [verifyToken], getServicePlan)
 
 // obtener plan de servicio por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getServicePlan(req.params.id).then(result => {
+function getServicePlan(req, res = response) {
+  ServicePlanController.getServicePlan(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-// cantidad de planes de servicio.
-router.get('/:id/count/services', verifyToken, async (req, res) => {
-  res.json(0)
-})
+// http://<HOST>/api/service-plans
+router.post('/', [verifyToken], addServicePlan)
 
 // registrar plan de servicio.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createServicePlan(req.body).then(result => {
+function addServicePlan(req, res = response) {
+  ServicePlanController.createServicePlan(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/service-plans/:id
+router.patch('/:id', [verifyToken], updateServicePlan)
 
 // actualizar plan de servicio.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateServicePlan(req.params.id, req.body).then(result => {
+function updateServicePlan(req, res = response) {
+  ServicePlanController.updateServicePlan(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/service-plans/:id
+router.delete('/:id', verifyToken, deleteServicePlan)
 
 // borrar plan de servicio.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteServicePlan(req.params.id).then(result => {
+function deleteServicePlan(req, res = response) {
+  ServicePlanController.deleteServicePlan(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/service-plans/:client/active
+router.get('/:client/active', [verifyToken], getActiveServicePlan)
 
 // Lista de planes de servicio activos de un cliente especifico.
-router.get('/:client/active', verifyToken, async (req, res) => {
-  controller.getServicePlansActive(req.params.client).then(result => {
+function getActiveServicePlan(req, res = response) {
+  ServicePlanController.getServicePlansActive(req.params.client).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const servicePlanRouter = router
