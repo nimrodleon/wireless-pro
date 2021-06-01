@@ -1,34 +1,43 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {OutageController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/services/outages
+router.get('/:id/service', [verifyToken], getOutages)
+
 // Lista de cortes.
-router.get('/:id/service', verifyToken, async (req, res) => {
-  controller.getOutages(req.params.id).then(result => {
+function getOutages(req, res = response) {
+  OutageController.getOutages(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/outages/:id
+router.get('/:id', [verifyToken], getOutage)
 
 // obtener corte por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getOutage(req.params.id).then(result => {
+function getOutage(req, res = response) {
+  OutageController.getOutage(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/services/outages
+router.post('/', [verifyToken], addOutage)
 
 // registrar corte.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createOutage(req.body).then(result => {
+function addOutage(req, res = response) {
+  OutageController.createOutage(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const outageRouter = router
