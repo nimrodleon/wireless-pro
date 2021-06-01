@@ -8,7 +8,6 @@ import materialRouter from '../components/material/network'
 import taskRouter from '../components/task/network'
 import tramoRouter from '../components/tramo/network'
 import towerRouter from '../components/tower/network'
-import deviceRouter from '../components/device/network'
 
 const routes = (server) => {
   server.use('/api/info', infoRouter)
@@ -24,7 +23,7 @@ const routes = (server) => {
   server.use('/api/averias', network.averiaRouter)
   server.use('/api/tower', towerRouter)
   server.use('/api/tramo', tramoRouter)
-  server.use('/api/devices', deviceRouter)
+  server.use('/api/devices', network.deviceRouter)
 }
 
 export default routes
