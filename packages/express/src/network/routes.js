@@ -1,6 +1,5 @@
 import * as network from './network'
 import servicePlanRouter from '../components/serviceplan/network'
-import paymentRouter from '../components/payment/network'
 import taskRouter from '../components/task/network'
 import tramoRouter from '../components/tramo/network'
 import towerRouter from '../components/tower/network'
@@ -12,7 +11,7 @@ const routes = (server) => {
   server.use('/api/service-plans', servicePlanRouter)
   server.use('/api/services', network.serviceRouter)
   server.use('/api/services/outages', network.outageRouter)
-  server.use('/api/payments', paymentRouter)
+  server.use('/api/payments', network.paymentRouter)
   server.use('/api/coverages', network.coverageRouter)
   server.use('/api/material', network.materialRouter)
   server.use('/api/tasks', taskRouter)

@@ -1,52 +1,67 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {PaymentController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/payments/:client/client
+router.get('/:client/client', [verifyToken], getPayments)
+
 // Listar pagos.
-router.get('/:client/client', verifyToken, async (req, res) => {
-  controller.getPayments(req.params.client).then(result => {
+function getPayments(req, res = response) {
+  PaymentController.getPayments(req.params.client).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/payments/:id
+router.get('/:id', [verifyToken], getPayment)
 
 // obtener pago por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getPayment(req.params.id).then(result => {
+function getPayment(req, res = response) {
+  PaymentController.getPayment(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/payments
+router.post('/', [verifyToken], addPayment)
 
 // crear nuevo pago.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createPayment(req.body, req.userId).then(result => {
+function addPayment(req, res = response) {
+  PaymentController.createPayment(req.body, req.userId).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/payments/:id
+router.delete('/:id', [verifyToken], deletePayment)
 
 // borrar pago existente.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deletePayment(req.params.id).then(result => {
+function deletePayment(req, res = response) {
+  PaymentController.deletePayment(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/payments/report/payment-journal/:date
+router.get('/report/payment-journal/:date', [verifyToken], reportDailyPay)
 
 // reporte de pagos diarios.
-router.get('/report/payment-journal/:date', verifyToken, async (req, res) => {
-  controller.reportDailyPay(req.params.date).then(result => {
+function reportDailyPay(req, res = response) {
+  PaymentController.reportDailyPay(req.params.date).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const paymentRouter = router
