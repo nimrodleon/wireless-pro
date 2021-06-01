@@ -3,7 +3,6 @@ import servicePlanRouter from '../components/serviceplan/network'
 import serviceRouter from '../components/service/network'
 import outageRouter from '../components/outage/network'
 import paymentRouter from '../components/payment/network'
-import materialRouter from '../components/material/network'
 import taskRouter from '../components/task/network'
 import tramoRouter from '../components/tramo/network'
 import towerRouter from '../components/tower/network'
@@ -17,7 +16,7 @@ const routes = (server) => {
   server.use('/api/services/outages', outageRouter)
   server.use('/api/payments', paymentRouter)
   server.use('/api/coverages', network.coverageRouter)
-  server.use('/api/material', materialRouter)
+  server.use('/api/material', network.materialRouter)
   server.use('/api/tasks', taskRouter)
   server.use('/api/averias', network.averiaRouter)
   server.use('/api/tower', towerRouter)

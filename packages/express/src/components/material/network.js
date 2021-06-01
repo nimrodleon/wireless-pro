@@ -1,58 +1,68 @@
-import express from 'express'
-import * as controller from './controller'
+import express, {response} from 'express'
 import verifyToken from '../middlewares/verifyToken'
+import {MaterialController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/material
+router.get('/', [verifyToken], getMaterials)
+
 // Listar materiales.
-router.get('/', verifyToken, async (req, res) => {
+function getMaterials(req, res = response) {
   let query = req.query.search || ''
-  controller.getMaterials(query).then(result => {
+  MaterialController.getMaterials(query).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/material/:id
+router.get('/:id', [verifyToken], getMaterial)
 
 // obtener material por id.
-router.get('/:id', verifyToken, async (req, res) => {
-  controller.getMaterial(req.params.id).then(result => {
+function getMaterial(req, res = response) {
+  MaterialController.getMaterial(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-// cantidad de material en tarea.
-router.get('/:id/count/material', verifyToken, async (req, res) => {
-  res.json(0)
-})
+// http://<HOST>/api/material
+router.post('/', [verifyToken], addMaterial)
 
 // registrar material.
-router.post('/', verifyToken, async (req, res) => {
-  controller.createMaterial(req.body).then(result => {
+function addMaterial(req, res = response) {
+  MaterialController.createMaterial(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/material/:id
+router.patch('/:id', [verifyToken], updateMaterial)
 
 // actualizar material.
-router.patch('/:id', verifyToken, async (req, res) => {
-  controller.updateMaterial(req.params.id, req.body).then(result => {
+function updateMaterial(req, res = response) {
+  MaterialController.updateMaterial(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/material/:id
+router.delete('/:id', [verifyToken], deleteMaterial)
 
 // borrar material.
-router.delete('/:id', verifyToken, async (req, res) => {
-  controller.deleteMaterial(req.params.id).then(result => {
+function deleteMaterial(req, res = response) {
+  MaterialController.deleteMaterial(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const materialRouter = router
