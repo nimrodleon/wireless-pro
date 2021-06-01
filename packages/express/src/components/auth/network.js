@@ -102,8 +102,8 @@ router.post('/:id/change-password', [verifyToken], passwordChange)
 
 // Cambiar contraseña.
 function passwordChange(req, res = response) {
-  const {current} = req.body
-  UserController.passwordChange(req.params.id, current).then(() => {
+  const {currentPassword} = req.body
+  UserController.passwordChange(req.params.id, currentPassword).then(() => {
     res.status(200).send()
   }).catch(err => {
     res.status(500).json(err)
