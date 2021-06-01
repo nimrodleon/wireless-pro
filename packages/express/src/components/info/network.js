@@ -1,25 +1,31 @@
-import express from 'express'
+import express, {response} from 'express'
 import * as controller from './controller'
 import verifyToken from '../middlewares/verifyToken'
 
 const router = express.Router()
 
+// http://<HOST>/api/info
+router.get('/', [verifyToken], getInfoCompany)
+
 // obtener info empresa.
-router.get('/', verifyToken, async (req, res) => {
+function getInfoCompany(req, res = response) {
   controller.getInfo().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
+
+// http://<HOST>/api/info/:id
+router.patch('/:id', [verifyToken], updateInfoCompany)
 
 // actualizar info empresa.
-router.patch('/:id', verifyToken, async (req, res) => {
+function updateInfoCompany(req, res = response) {
   controller.updateInfo(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
   })
-})
+}
 
-export default router
+export const infoRouter = router
