@@ -4,7 +4,7 @@ import {DeviceController} from './controller'
 
 const router = express.Router()
 
-// http://<HOST>/api/devices
+// http://<HOST>/api/devices/:id/:type
 router.get('/:id/:type', [verifyToken], getDevices)
 
 // Listar equipos.
