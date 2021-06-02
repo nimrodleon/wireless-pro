@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import {UserStore} from './store'
 
@@ -88,13 +88,10 @@ export class UserController {
         if (result === false) {
           reject(new Error('Contraseña Incorrecta'))
         } else {
-          let exp = _user.isAdmin || _user.redes ? '10m' : '4h'
+          let exp = _user.roles === 'ROLE_ADMIN' || _user.roles === 'ROLE_NETWORK' ? '60m' : '8h'
           let token = jwt.sign({
             _id: _user._id,
-            isAdmin: _user.isAdmin,
-            redes: _user.redes,
-            caja: _user.caja,
-          }, 'ias0SH23FN47L0ZciKN204BFfWwj6vNY', {expiresIn: exp})
+          }, process.env.JWT_SECRET_KEY, {expiresIn: exp})
           resolve(token)
         }
       })

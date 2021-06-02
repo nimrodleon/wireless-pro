@@ -85,15 +85,18 @@ function deleteUser(req, res = response) {
 }
 
 // http://<HOST>/api/users/login
-router.post('/login', [verifyToken], loginUser)
+router.post('/login', [], loginUser)
 
 // Login de acceso.
 function loginUser(req, res = response) {
   const {userName, password} = req.body
   UserController.userLogin(userName, password).then(token => {
-    res.status(200).json(token)
+    res.json({token})
   }).catch(err => {
-    res.status(500).json(err)
+    console.log('[loginUser]', err)
+    res.status(400).json({
+      msg: 'Usuario y/o Contraseña Invalida!'
+    })
   })
 }
 

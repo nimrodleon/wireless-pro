@@ -1,23 +1,44 @@
 import jwt from 'jsonwebtoken'
+import {UserStore} from '../auth/store'
+import {response} from 'express'
 
 // Middleware para verificar el Token de acceso.
-const verifyToken = (req, res, next) => {
+const verifyToken = (req, res = response, next) => {
   if (!req.headers.authorization) {
-    return res.status(401).send('Unauthorized request')
+    return res.status(401).json({
+      msg: 'Solicitud no autorizada'
+    })
   }
   const token = req.headers.authorization.split(' ')[1]
   if (token === null) {
-    return res.status(401).send('Unauthorized request')
+    return res.status(401).json({
+      msg: 'Solicitud no autorizada'
+    })
   }
   try {
-    const decoded = jwt.verify(token, 'ias0SH23FN47L0ZciKN204BFfWwj6vNY')
-    req.userId = decoded._id
-    req.isAdmin = decoded.isAdmin
-    req.redes = decoded.redes
-    req.caja = decoded.caja
-    next()
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
+    UserStore.getUser(decoded._id).then(currentUser => {
+      if (!currentUser) {
+        return res.status(401).json({
+          msg: 'Token invalido'
+        })
+      } else {
+        // verificar estado activo.
+        if (currentUser.suspended !== false) {
+          return res.status(401).json({
+            msg: 'Token invalido'
+          })
+        }
+        req.currentUser = currentUser
+        next()
+      }
+    }).catch(err => {
+      console.error(err)
+    })
   } catch (err) {
-    return res.status(401).send('Invalid token')
+    return res.status(401).json({
+      msg: 'Token invalido'
+    })
   }
 }
 
