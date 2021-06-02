@@ -4,7 +4,7 @@ import {OutageController} from './controller'
 
 const router = express.Router()
 
-// http://<HOST>/api/services/outages
+// http://<HOST>/api/services/outages/:id/service
 router.get('/:id/service', [verifyToken], getOutages)
 
 // Lista de cortes.
