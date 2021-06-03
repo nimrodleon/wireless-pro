@@ -17,8 +17,8 @@ function getUsers(req, res = response) {
   })
 }
 
-// http://<HOST>/api/users/:id/edit
-router.get('/:id/edit', [verifyToken], getUserEdit)
+// http://<HOST>/api/users/:id
+router.get('/:id', [verifyToken], getUserEdit)
 
 // retornar usuario para editar.
 function getUserEdit(req, res = response) {
@@ -34,11 +34,7 @@ router.get('/profile', [verifyToken], getProfile)
 
 // devolver la información del usuario autenticado.
 function getProfile(req, res = response) {
-  UserController.getUser(req.userId).then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(500).json(err)
-  })
+  res.json(req.currentUser)
 }
 
 // http://<HOST>/api/users
