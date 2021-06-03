@@ -3,7 +3,7 @@ import {UserStore} from '../auth/store'
 import {response} from 'express'
 
 // Middleware para verificar el Token de acceso.
-const verifyToken = (req, res = response, next) => {
+export const verifyToken = (req, res = response, next) => {
   if (!req.headers.authorization) {
     return res.status(401).json({
       msg: 'Solicitud no autorizada'
@@ -41,5 +41,3 @@ const verifyToken = (req, res = response, next) => {
     })
   }
 }
-
-export default verifyToken

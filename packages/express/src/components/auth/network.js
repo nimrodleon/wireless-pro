@@ -1,36 +1,33 @@
 import express, {response} from 'express'
-import verifyToken from '../middlewares/verifyToken'
+import {check} from 'express-validator'
+import {verifyToken, validate, userNameExist, userEmailExist, isValidRole, checkRolAdmin} from '../middlewares'
 import {UserController} from './controller'
 
 const router = express.Router()
 
 // http://<HOST>/api/users
-router.get('/', [verifyToken], getUsers)
+router.get('/', [verifyToken, checkRolAdmin], getUsers)
 
 // Lista de usuarios.
 function getUsers(req, res = response) {
   const status = req.query.status || false
   UserController.getUsers(status).then(result => {
     res.json(result)
-  }).catch(err => {
-    res.status(500).json(err)
   })
 }
 
 // http://<HOST>/api/users/:id
-router.get('/:id', [verifyToken], getUserEdit)
+router.get('/:id', [verifyToken, checkRolAdmin], getUser)
 
 // retornar usuario para editar.
-function getUserEdit(req, res = response) {
+function getUser(req, res = response) {
   UserController.getUser(req.params.id).then(result => {
     res.json(result)
-  }).catch(err => {
-    res.status(500).json(err)
   })
 }
 
-// http://<HOST>/api/users/profile
-router.get('/profile', [verifyToken], getProfile)
+// http://<HOST>/api/users/profile/currentUser
+router.get('/profile/currentUser', [verifyToken], getProfile)
 
 // devolver la información del usuario autenticado.
 function getProfile(req, res = response) {
@@ -38,46 +35,72 @@ function getProfile(req, res = response) {
 }
 
 // http://<HOST>/api/users
-router.post('/', [verifyToken], addUser)
+router.post('/', [
+  verifyToken, checkRolAdmin,
+  check('userName', 'El userName es obligatorio').not().isEmpty(),
+  check('userName').custom(userNameExist),
+  check('password', 'La contraseña debe ser más de 6 letras').isLength({min: 6}),
+  check('roles').custom(isValidRole),
+  check('email', 'El email es obligatorio').not().isEmpty(),
+  check('email', 'El E-Mail no es válido').isEmail(),
+  check('email').custom(userEmailExist),
+  validate
+], addUser)
 
 // registrar usuario.
 function addUser(req, res = response) {
   UserController.createUser(req.body).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json({
+      ok: false,
+      msg: 'No se puedo crear registro del usuario'
+    })
   })
 }
 
 // http://<HOST>/api/users/:id
-router.patch('/:id', [verifyToken], updateUser)
+router.patch('/:id', [
+  verifyToken, checkRolAdmin,
+  check('id', 'No es un ID válido').isMongoId(),
+  check('roles').custom(isValidRole),
+  validate
+], updateUser)
 
 // actualizar datos del usuario.
 function updateUser(req, res = response) {
   UserController.updateUser(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    console.error('[updateUser]', err)
+    res.status(400).json({
+      ok: false,
+      msg: 'No se pudo actualizar la información del usuario'
+    })
   })
 }
 
 // http://<HOST>/api/users/:id
-router.delete('/:id', [verifyToken], deleteUser)
+router.delete('/:id', [
+  verifyToken, checkRolAdmin,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], deleteUser)
 
 // borrar usuarios.
 function deleteUser(req, res = response) {
-  if (!req.isAdmin) {
-    return res.status(500).send('Unauthorized request')
-  } else {
-    UserController.deleteUser(req.params.id).then(result => {
-      if (!result) {
-        res.status(404).send('No item found')
-      }
-      res.status(200).send()
-    }).catch(err => {
-      res.status(500).json(err)
+  UserController.deleteUser(req.params.id).then(result => {
+    if (!result) {
+      res.status(404).send('No item found')
+    }
+    res.json({ok: true, _id: result._id})
+  }).catch(err => {
+    console.error('[deleteUser]', err)
+    res.status(400).json({
+      ok: false,
+      msg: 'No se pudo eliminar el usuario'
     })
-  }
+  })
 }
 
 // http://<HOST>/api/users/login
@@ -91,21 +114,30 @@ function loginUser(req, res = response) {
   }).catch(err => {
     console.log('[loginUser]', err)
     res.status(400).json({
+      ok: false,
       msg: 'Usuario y/o Contraseña Invalida!'
     })
   })
 }
 
 // http://<HOST>/api/users/:id/change-password
-router.post('/:id/change-password', [verifyToken], passwordChange)
+router.post('/:id/change-password', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], passwordChange)
 
 // Cambiar contraseña.
 function passwordChange(req, res = response) {
   const {currentPassword} = req.body
   UserController.passwordChange(req.params.id, currentPassword).then(() => {
-    res.status(200).send()
+    res.json({ok: true, _id: req.params.id})
   }).catch(err => {
-    res.status(500).json(err)
+    console.log('[passwordChange]', err)
+    res.status(400).json({
+      ok: false,
+      msg: 'No se pudo cambiar la contraseña'
+    })
   })
 }
 

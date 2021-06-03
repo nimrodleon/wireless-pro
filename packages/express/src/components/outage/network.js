@@ -1,5 +1,5 @@
 import express, {response} from 'express'
-import verifyToken from '../middlewares/verifyToken'
+import {verifyToken} from '../middlewares'
 import {OutageController} from './controller'
 
 const router = express.Router()

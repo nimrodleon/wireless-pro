@@ -4,7 +4,7 @@ import {User} from './model'
 export class UserStore {
   // Listar usuarios.
   static async getUsers(suspended = false) {
-    return User.find({suspended: suspended})
+    return User.find({suspended: suspended, isDeleted: false})
   }
 
   // devolver un usuario por id.
@@ -25,7 +25,9 @@ export class UserStore {
 
   // actualizar usuario.
   static async updateUser(id, data) {
-    return User.findByIdAndUpdate(id, data, {new: true})
+    // Excluir userName, password y email de la actualización en la base de datos.
+    const {userName, password, email, ...user} = data
+    return User.findByIdAndUpdate(id, user, {new: true})
   }
 
   // borrar usuario.

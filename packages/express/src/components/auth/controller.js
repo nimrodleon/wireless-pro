@@ -88,7 +88,7 @@ export class UserController {
         if (result === false) {
           reject(new Error('Contraseña Incorrecta'))
         } else {
-          let exp = _user.roles === 'ROLE_ADMIN' || _user.roles === 'ROLE_NETWORK' ? '60m' : '8h'
+          let exp = _user.roles === 'ROLE_ADMIN' || _user.roles === 'ROLE_NETWORK' ? '45m' : '8h'
           let token = jwt.sign({
             _id: _user._id,
           }, process.env.JWT_SECRET_KEY, {expiresIn: exp})
