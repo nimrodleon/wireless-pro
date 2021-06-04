@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<div class="wrap-body">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid">
+    <div class="root">
+      <div class="d-flex justify-content-center my-2 d-print-none">
+        <button type="button" (click)="print()" class="text-uppercase">Imprimir</button>
+      </div>
+      <p class="text-center m-0 text-uppercase">Recibo de Servicio</p>
+      <p class="text-center m-0">{{ info.company }}</p>
+      <p class="text-center m-0">{{ info.fullAddress }}</p>
+      <p class="text-center m-0">Cel. {{ info.phone }}</p>
+      <hr class="d-print-block my-1">
+      <table class="w-100">
+        <tr>
+          <th class="text-uppercase">Cliente:</th>
+          <td>{{ client.fullName }}</td>
+        </tr>
+      </table>
+      <hr class="d-print-block my-1">
+      <table class="w-100">
+        <tr>
+          <th class="text-uppercase">Fecha:</th>
+          <td>{{ currentDate|date:'dd MMM, yyyy' }}</td>
+        </tr>
+        <tr>
+          <th class="text-uppercase">Servicio:</th>
+          <td>ACCESO A RED DIRECOM</td>
+        </tr>
+        <tr>
+          <th class="text-uppercase">Período:</th>
+          <td>{{payment.payFrom|date}} a {{payment.payUp|date}} </td>
+        </tr>
+        <tr>
+          <th class="text-uppercase">Plan:</th>
+          <td>{{ servicePlan.name }}</td>
+        </tr>
+        <tr>
+          <th class="text-uppercase">Monto:</th>
+          <td>{{ payment.amount}} Soles </td>
+        </tr>
+      </table>
+      <hr class="d-print-block my-1">
+      <p class="text-center text-uppercase m-0">Horario de Atención</p>
+      <p class="text-center m-0">8:30 AM;12:50PM - 3:00PM;7:20PM</p>
+      <hr class="d-print-block my-1">
+      <p class="tag text-center m-0">{{payment._id}}</p>
+      <p class="tag text-center m-0">{{info.legendTicket}}</p>
+    </div>
+  </div>
+</div>

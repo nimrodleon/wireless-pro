@@ -1,0 +1,110 @@
+<div class="modal fade" id="app-add-client-service" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-uppercase">{{ title }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #serviceForm="ngForm">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
+                </div>
+                <input type="text" name="ipAddress" [(ngModel)]="service.ipAddress" class="form-control"
+                       placeholder="IP Address">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                </div>
+                <select [(ngModel)]="service.servicePlan" name="servicePlan" class="custom-select">
+                  <option *ngFor="let item of servicePlanList" [value]="item._id">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                </div>
+                <input type="date" name="dateFrom" [ngModel]="service.dateFrom"
+                       (ngModelChange)="service.dateFrom = $event" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" name="userName" [(ngModel)]="service.userName" placeholder="Username"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>
+                <input type="text" name="password" [(ngModel)]="service.password" placeholder="Password"
+                       class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea name="note" [(ngModel)]="service.note" class="form-control"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-signal"></i></span>
+                </div>
+                <select name="accessPoint" class="custom-select"></select>
+              </div>
+            </div>
+            <div class="form-group col-md-6 mb-0">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
+                </div>
+                <input type="text" [(ngModel)]="service.macAddress" name="macAddress"
+                       placeholder="MAC Address" class="form-control">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="d-flex w-100 justify-content-between">
+          <ng-container *ngIf="isAdmin">
+            <button type="button" (click)="deleteService()" *ngIf="service._id else elseIf"
+                    class="btn btn-danger text-white">
+              <i class="fas fa-trash-alt"></i> Borrar
+            </button>
+            <ng-template #elseIf>
+              <span>&nbsp;</span>
+            </ng-template>
+          </ng-container>
+          <ng-container *ngIf="!isAdmin">
+            <span>&nbsp;</span>
+          </ng-container>
+          <div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" (click)="saveChanges()" class="btn btn-primary ml-2">Guardar Cambios</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

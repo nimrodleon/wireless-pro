@@ -1,0 +1,57 @@
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr class="text-uppercase">
+        <th>Nombre</th>
+        <th>Modo</th>
+        <th>Ip Address</th>
+        <th>User</th>
+        <th>Password</th>
+        <th>SSID</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let device of devices" [id]="device._id">
+        <td>{{ device.name }}</td>
+        <td>
+          <ng-container *ngIf="device.mode === 'E'">
+            <span class="badge badge-primary">STA</span>
+          </ng-container>
+          <ng-container *ngIf="device.mode === 'P'">
+            <span class="badge badge-success">AP</span>
+          </ng-container>
+          <ng-container *ngIf="device.mode === 'R'">
+            <span class="badge badge-secondary">R.AP</span>
+          </ng-container>
+        </td>
+        <td><a href="http://{{ device.ipAddress }}" target="_blank">{{ device.ipAddress }}</a></td>
+        <td>
+          <div class="d-flex justify-content-between">
+            {{ device.userName }}
+            <a href="#" (click)="$event.preventDefault()" class="text-secondary"
+              [attr.data-clipboard-text]="device.userName"><i class="fas fa-clipboard"></i>
+            </a>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            {{ device.password }}
+            <a href="#" (click)="$event.preventDefault()" class="text-secondary"
+              [attr.data-clipboard-text]="device.password"><i class="fas fa-clipboard"></i>
+            </a>
+          </div>
+        </td>
+        <td>{{ device.ssid }}</td>
+        <td>
+          <div class="float-right btn-opt">
+            <button (click)="editDevice(device._id)" class="btn btn-secondary btn-sm mr-2"><i
+                class="fas fa-edit"></i></button>
+            <button (click)="deleteDevice(device._id)" class="btn btn-danger btn-sm"><i
+                class="fas fa-trash-alt"></i></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

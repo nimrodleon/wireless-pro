@@ -1,0 +1,18 @@
+<div class="d-flex align-items-center justify-content-between">
+  <ng-container *ngIf="editMode == false else input">
+    <span>{{taskMaterial.price|currency:undefined:'S/'}}</span>
+  </ng-container>
+  <ng-template #input>
+    <input type="number" [(ngModel)]="taskMaterial.price" name="price" step="0.01" class="form-control form-control-sm">
+  </ng-template>
+  <ng-container *ngIf="editMode == false else elseIf">
+    <a href="#" *ngIf="statusTask != 'F'" (click)="edit($event)">
+      <i class="fas fa-edit"></i>
+    </a>
+  </ng-container>
+  <ng-template #elseIf>
+    <a href="#" class="ml-2" (click)="saveChange($event)">
+      <i class="fas fa-save"></i>
+    </a>
+  </ng-template>
+</div>
