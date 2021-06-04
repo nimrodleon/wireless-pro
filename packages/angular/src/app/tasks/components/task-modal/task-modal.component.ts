@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 // Local Imports.
 declare var jQuery: any;
 import * as moment from 'moment';
-import { Task } from '../task.model';
+import { Task } from '../../interfaces/task';
 
 @Component({
   selector: 'app-task-modal',

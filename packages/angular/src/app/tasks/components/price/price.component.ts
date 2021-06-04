@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TaskMaterial} from '../task-material.model';
-import {TaskService} from '../task.service';
+import {TaskMaterial} from '../../interfaces/task-material';
+import {TaskService} from '../../services/task.service';
 
 @Component({
   selector: 'app-price',

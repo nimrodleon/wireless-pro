@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Task } from './task.model';
-import { TaskMaterial } from './task-material.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Task} from '../interfaces/task';
+import {TaskMaterial} from '../interfaces/task-material';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +11,19 @@ import { TaskMaterial } from './task-material.model';
 export class TaskService {
   private baseURL: string = environment.baseUrl + 'tasks';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getTasks(status: string, query: string): Observable<any> {
     let params = new HttpParams();
     params = params.append('search', query);
-    return this.http.get(this.baseURL + '/' + status + '/v2', { params: params });
+    return this.http.get(this.baseURL + '/' + status + '/v2', {params: params});
   }
 
   getTasks2(year: string, month: string, search: string): Observable<any> {
     let params = new HttpParams();
     params = params.append('search', search);
-    return this.http.get(this.baseURL + '/' + year + '/' + month + '/s', { params: params });
+    return this.http.get(this.baseURL + '/' + year + '/' + month + '/s', {params: params});
   }
 
   getTask(id: string): Observable<Task> {

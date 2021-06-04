@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { TaskService } from '../task.service';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-material-out',

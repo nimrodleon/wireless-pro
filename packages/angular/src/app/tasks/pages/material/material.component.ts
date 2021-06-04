@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {Material} from '../material.model';
-import {MaterialService} from '../material.service';
-import {AuthService} from '../../user/services/auth.service';
+import {Material} from '../../interfaces/material';
+import {MaterialService} from '../../services/material.service';
+import {AuthService} from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-material',
@@ -15,7 +15,8 @@ export class MaterialComponent implements OnInit {
   titleModal: string;
   materials: Material[];
   currentMaterial: Material;
-  isAdmin: boolean = false;
+  // TODO: borrar esta linea de código al refactorizar.
+  isAdmin: boolean = true;
   // Query Values.
   query: string = '';
 
@@ -26,8 +27,6 @@ export class MaterialComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMaterials();
-    this.authService.isAdmin()
-      .subscribe(res => this.isAdmin = res);
   }
 
   private getMaterials(): void {

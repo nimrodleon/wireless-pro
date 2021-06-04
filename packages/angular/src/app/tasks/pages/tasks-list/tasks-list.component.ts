@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {TaskService} from '../task.service';
-import {Task} from '../task.model';
-import {AuthService} from '../../user/services/auth.service';
+import {TaskService} from '../../services/task.service';
+import {Task} from '../../interfaces/task';
+import {AuthService} from '../../../user/services/auth.service';
 
 
 @Component({
@@ -18,8 +18,8 @@ export class TasksListComponent implements OnInit {
   tasks: Array<any> = new Array<any>();
   titleModal: string = '';
   currentTask: Task;
-  // Permissions to manage this module.
-  isAdmin: boolean = false;
+  // TODO: borrar esta linea de código al refactorizar.
+  isAdmin: boolean = true;
 
   constructor(private taskService: TaskService,
               private authService: AuthService) {
@@ -31,8 +31,6 @@ export class TasksListComponent implements OnInit {
       jQuery('[data-toggle="tooltip"]').tooltip();
     });
     this.getTasks();
-    this.authService.isAdmin()
-      .subscribe(res => this.isAdmin = res);
   }
 
   private getTasks(): void {

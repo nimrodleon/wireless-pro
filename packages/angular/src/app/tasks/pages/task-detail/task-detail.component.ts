@@ -3,10 +3,10 @@ import {ActivatedRoute} from '@angular/router';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {TaskService} from '../task.service';
-import {Task} from '../task.model';
-import {TaskMaterial} from '../task-material.model';
-import {AuthService} from '../../user/services/auth.service';
+import {TaskService} from '../../services/task.service';
+import {Task} from '../../interfaces/task';
+import {TaskMaterial} from '../../interfaces/task-material';
+import {AuthService} from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -18,6 +18,7 @@ export class TaskDetailComponent implements OnInit {
   taskMaterials: Array<any>;
   private idTask: string;
   // Permissions to manage this module.
+  // TODO: borrar esta linea al refactorizar el código.
   isAdmin: boolean = false;
 
   constructor(private taskService: TaskService, private authService: AuthService,
@@ -32,7 +33,6 @@ export class TaskDetailComponent implements OnInit {
       this.getTask(this.idTask);
       this.getTaskMaterials(this.idTask);
     });
-    this.authService.isAdmin().subscribe(res => this.isAdmin = res);
   }
 
   /*ngAfterViewInit(): void {
