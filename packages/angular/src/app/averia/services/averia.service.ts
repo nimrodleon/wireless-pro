@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Averia } from './averia.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Averia} from '../interfaces/averia';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,14 @@ import { Averia } from './averia.model';
 export class AveriaService {
   private baseURL: string = environment.baseUrl + 'averias';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAverias(archived: any, search: string): Observable<any> {
     let params = new HttpParams();
     params = params.append('archived', archived);
     params = params.append('search', search);
-    return this.http.get(this.baseURL, { params: params });
+    return this.http.get(this.baseURL, {params: params});
   }
 
   getAveria(id: string): Observable<any> {

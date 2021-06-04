@@ -4,8 +4,8 @@ declare var jQuery: any;
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import {environment} from 'src/environments/environment';
-import {Averia} from '../averia.model';
-import {AveriaService} from '../averia.service';
+import {Averia} from '../../interfaces/averia';
+import {AveriaService} from '../../services/averia.service';
 
 @Component({
   selector: 'app-averia-modal',

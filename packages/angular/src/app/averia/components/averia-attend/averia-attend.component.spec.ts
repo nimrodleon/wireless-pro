@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AveriaAttendComponent } from './averia-attend.component';
+import {AveriaAttendComponent} from './averia-attend.component';
 
 describe('AveriaAttendComponent', () => {
   let component: AveriaAttendComponent;
@@ -8,9 +8,9 @@ describe('AveriaAttendComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AveriaAttendComponent ]
+      declarations: [AveriaAttendComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {AveriaService} from '../averia.service';
-import {Averia} from '../averia.model';
-import {AuthService} from '../../user/services/auth.service';
+import {AveriaService} from '../../services/averia.service';
+import {Averia} from '../../interfaces/averia';
+import {AuthService} from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-averia-list',

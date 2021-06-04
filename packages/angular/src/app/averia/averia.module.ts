@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {GlobalModule} from '../global/global.module';
-import {AveriaListComponent} from './averia-list/averia-list.component';
+import {AveriaListComponent} from './pages/averia-list/averia-list.component';
 import {FormsModule} from '@angular/forms';
-import {AveriaModalComponent} from './averia-modal/averia-modal.component';
-import {AveriaService} from './averia.service';
+import {AveriaModalComponent} from './components/averia-modal/averia-modal.component';
+import {AveriaService} from './services/averia.service';
 import {AppRoutingModule} from '../app-routing.module';
-import {AveriaAttendComponent} from './averia-attend/averia-attend.component';
+import {AveriaAttendComponent} from './components/averia-attend/averia-attend.component';
 import {UserService} from '../user/services/user.service';
 import {AuthService} from '../user/services/auth.service';
 

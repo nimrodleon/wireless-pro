@@ -4,7 +4,7 @@ import {AuthGuard} from './auth.guard';
 import {SystemComponent} from './system/system.component';
 import {GeneralComponent} from './general/general.component';
 import {TicketComponent} from './ticket/ticket.component';
-import {AveriaListComponent} from './averia/averia-list/averia-list.component';
+import {AveriaListComponent} from './averia/pages/averia-list/averia-list.component';
 import {TasksListComponent} from './tasks/tasks-list/tasks-list.component';
 import {TaskDetailComponent} from './tasks/task-detail/task-detail.component';
 import {MaterialComponent} from './tasks/material/material.component';
