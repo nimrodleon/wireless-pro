@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import {ClientService} from '../client.service';
 import {PaymentService} from '../payment.service';
 import {ServiceService} from '../service.service';
-import {AuthService} from 'src/app/user/auth.service';
+import {AuthService} from 'src/app/user/services/auth.service';
 import {Service} from '../service.model';
 import {Client} from '../client.model';
 import {Payment} from '../payment.model';

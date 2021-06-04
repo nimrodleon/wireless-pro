@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 declare var jQuery: any;
-import { User } from '../user.model';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-user-modal',

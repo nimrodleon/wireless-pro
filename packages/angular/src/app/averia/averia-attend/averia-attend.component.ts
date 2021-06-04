@@ -2,8 +2,8 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 declare var jQuery: any;
 import {Averia} from '../averia.model';
-import {User} from 'src/app/user/user.model';
-import {UserService} from 'src/app/user/user.service';
+import {User} from 'src/app/user/interfaces/user';
+import {UserService} from 'src/app/user/services/user.service';
 
 @Component({
   selector: 'app-averia-attend',

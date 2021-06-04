@@ -1,11 +1,15 @@
 import {Injectable} from '@angular/core';
 import {
-  HttpErrorResponse, HttpEvent, HttpHandler,
-  HttpInterceptor, HttpRequest, HttpResponse
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse
 } from '@angular/common/http';
-import {AuthService} from './auth.service';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +44,13 @@ export class TokenInterceptorService implements HttpInterceptor {
           return event;
         }),
         catchError((error: HttpErrorResponse) => {
-          this.authService.logout();
+          console.log(error.status);
+          // Cuando el estado de la la respuesta sea: Unauthorized 401
+          // se debe cerrar la sesión automáticamente.
+          // TODO: comentar `this.authService.logout()` para testear.
+          if (error.status === 401) {
+            // this.authService.logout();
+          }
           return throwError(error);
         }));
   }

@@ -4,8 +4,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ReportRoutingModule } from '../report/report-routing.module';
 import { RouterLinkComponent } from './router-link/router-link.component';
-import { AuthService } from '../user/auth.service';
-import { UserService } from '../user/user.service';
+import { AuthService } from '../user/services/auth.service';
+import { UserService } from '../user/services/user.service';
 import { RouterModule } from '@angular/router';
 
 @NgModule({

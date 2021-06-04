@@ -15,9 +15,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
 // Import Auth Services.
-import {TokenInterceptorService} from './user/token-interceptor.service';
-import {AuthService} from './user/auth.service';
-import {UserService} from './user/user.service';
+import {TokenInterceptorService} from './user/services/token-interceptor.service';
+import {AuthService} from './user/services/auth.service';
+import {UserService} from './user/services/user.service';
 // Import Services.
 import {InfoService} from './general/info.service';
 // Import Components.

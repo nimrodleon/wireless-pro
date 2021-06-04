@@ -7,8 +7,8 @@ import {AveriaModalComponent} from './averia-modal/averia-modal.component';
 import {AveriaService} from './averia.service';
 import {AppRoutingModule} from '../app-routing.module';
 import {AveriaAttendComponent} from './averia-attend/averia-attend.component';
-import {UserService} from '../user/user.service';
-import {AuthService} from '../user/auth.service';
+import {UserService} from '../user/services/user.service';
+import {AuthService} from '../user/services/auth.service';
 
 @NgModule({
   declarations: [

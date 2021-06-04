@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../user/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../user/services/auth.service';
 
 @Component({
   selector: 'app-system',
@@ -7,12 +7,11 @@ import { AuthService } from '../user/auth.service';
   styleUrls: ['./system.component.css']
 })
 export class SystemComponent implements OnInit {
-  isAdmin: boolean;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
-    this.authService.isAdmin().subscribe(res => this.isAdmin = res);
   }
 
 }

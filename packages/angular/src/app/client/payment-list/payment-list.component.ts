@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 declare var jQuery: any;
 import _ from 'lodash';
-import { AuthService } from 'src/app/user/auth.service';
+import { AuthService } from 'src/app/user/services/auth.service';
 import Swal from 'sweetalert2';
 import { PaymentService } from '../payment.service';
 

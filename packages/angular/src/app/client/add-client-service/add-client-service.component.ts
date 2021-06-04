@@ -3,7 +3,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 declare var jQuery: any;
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
-import {AuthService} from 'src/app/user/auth.service';
+import {AuthService} from 'src/app/user/services/auth.service';
 import {ServicePlan} from '../service-plan.model';
 import {ServicePlanService} from '../service-plan.service';
 import {Service} from '../service.model';

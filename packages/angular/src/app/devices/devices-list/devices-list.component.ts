@@ -8,7 +8,7 @@ import {Device} from '../device.model';
 import {DeviceService} from '../device.service';
 import {Coverage} from 'src/app/client/coverage.model';
 import {CoverageService} from 'src/app/client/coverage.service';
-import {AuthService} from '../../user/auth.service';
+import {AuthService} from '../../user/services/auth.service';
 
 @Component({
   selector: 'app-devices-list',

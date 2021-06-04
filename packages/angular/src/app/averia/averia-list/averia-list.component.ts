@@ -4,7 +4,7 @@ declare var jQuery: any;
 import Swal from 'sweetalert2';
 import {AveriaService} from '../averia.service';
 import {Averia} from '../averia.model';
-import {AuthService} from '../../user/auth.service';
+import {AuthService} from '../../user/services/auth.service';
 
 @Component({
   selector: 'app-averia-list',
@@ -18,6 +18,7 @@ export class AveriaListComponent implements OnInit {
   // Variables para el Modal.
   titleModal: string;
   currentAveria: Averia;
+  // TODO: deprecado borrar esta linea al refactorizar.
   isAdmin: boolean = false;
 
   constructor(private averiaService: AveriaService,
@@ -30,8 +31,6 @@ export class AveriaListComponent implements OnInit {
       jQuery('[data-toggle="tooltip"]').tooltip();
     });
     this.getAverias();
-    this.authService.isAdmin()
-      .subscribe(res => this.isAdmin = res);
   }
 
   // carga las averias.

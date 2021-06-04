@@ -4,7 +4,7 @@ declare var jQuery: any;
 import Swal from 'sweetalert2';
 import {Tower} from '../tower.model';
 import {TowerService} from '../tower.service';
-import {AuthService} from '../../user/auth.service';
+import {AuthService} from '../../user/services/auth.service';
 
 @Component({
   selector: 'app-tower-list',

@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 // Local imports.
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {User} from '../user.model';
-import {UserService} from '../user.service';
+import {User} from '../../interfaces/user';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',

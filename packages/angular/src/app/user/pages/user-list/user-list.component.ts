@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {User} from '../user.model';
-import {UserService} from '../user.service';
-import {AuthService} from '../auth.service';
-import {Router} from '@angular/router';
+import {User} from '../../interfaces/user';
+import {UserService} from '../../services/user.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-user-list',
@@ -30,11 +30,12 @@ export class UserListComponent implements OnInit {
       jQuery('[data-toggle="tooltip"]').tooltip();
     });
     this.getUsers();
-    this.authService.isAdmin().subscribe(res => {
-      if (res != true) {
-        this.router.navigate(['/']);
-      }
-    });
+    // TODO: borrar esta linea de código.
+    // this.authService.isAdmin().subscribe(res => {
+    //   if (res != true) {
+    //     this.router.navigate(['/']);
+    //   }
+    // });
   }
 
   // Users List.

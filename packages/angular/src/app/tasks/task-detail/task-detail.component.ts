@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import {TaskService} from '../task.service';
 import {Task} from '../task.model';
 import {TaskMaterial} from '../task-material.model';
-import {AuthService} from '../../user/auth.service';
+import {AuthService} from '../../user/services/auth.service';
 
 @Component({
   selector: 'app-task-detail',

@@ -4,7 +4,7 @@ declare var jQuery: any;
 import Swal from 'sweetalert2';
 import {Material} from '../material.model';
 import {MaterialService} from '../material.service';
-import {AuthService} from '../../user/auth.service';
+import {AuthService} from '../../user/services/auth.service';
 
 @Component({
   selector: 'app-material',

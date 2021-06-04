@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import _ from 'lodash';
-import {AuthService} from 'src/app/user/auth.service';
+import {AuthService} from 'src/app/user/services/auth.service';
 import Swal from 'sweetalert2';
 import {Coverage} from '../coverage.model';
 import {CoverageService} from '../coverage.service';

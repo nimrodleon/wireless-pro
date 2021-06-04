@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {User} from './user.model';
+import {User} from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>(this.baseURL + '/profile');
+    return this.http.get<User>(this.baseURL + '/profile/currentUser');
   }
 
   getUsers(status: any = false): Observable<User[]> {

@@ -4,7 +4,7 @@ declare var jQuery: any;
 import Swal from 'sweetalert2';
 import {TaskService} from '../task.service';
 import {Task} from '../task.model';
-import {AuthService} from '../../user/auth.service';
+import {AuthService} from '../../user/services/auth.service';
 
 
 @Component({

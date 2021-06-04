@@ -4,7 +4,7 @@ declare var jQuery: any;
 import Swal from 'sweetalert2';
 import {TramoService} from '../tramo.service';
 import {Tramo} from '../tramo.model';
-import {AuthService} from '../../user/auth.service';
+import {AuthService} from '../../user/services/auth.service';
 
 @Component({
   selector: 'app-tramo-list',

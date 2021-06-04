@@ -15,8 +15,8 @@ import {MaterialComponent} from './material/material.component';
 import {MaterialModalComponent} from './material-modal/material-modal.component';
 import {Quantity2Component} from './quantity2/quantity2.component';
 import {MaterialOutComponent} from './material-out/material-out.component';
-import {UserService} from '../user/user.service';
-import {AuthService} from '../user/auth.service';
+import {UserService} from '../user/services/user.service';
+import {AuthService} from '../user/services/auth.service';
 import {PriceComponent} from './price/price.component';
 
 @NgModule({

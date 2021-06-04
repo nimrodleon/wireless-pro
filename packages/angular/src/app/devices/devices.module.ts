@@ -15,7 +15,7 @@ import {TramoListComponent} from './tramo-list/tramo-list.component';
 import {TramoModalComponent} from './tramo-modal/tramo-modal.component';
 import {DeviceTowerComponent} from './device-tower/device-tower.component';
 import {CoverageService} from '../client/coverage.service';
-import {AuthService} from '../user/auth.service';
+import {AuthService} from '../user/services/auth.service';
 
 
 @NgModule({
