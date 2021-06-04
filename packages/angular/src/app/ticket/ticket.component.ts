@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Client } from '../client/client.model';
-import { ClientService } from '../client/client.service';
-import { Payment } from '../client/payment.model';
-import { PaymentService } from '../client/payment.service';
-import { ServicePlan } from '../client/service-plan.model';
-import { ServicePlanService } from '../client/service-plan.service';
-import { Service } from '../client/service.model';
-import { ServiceService } from '../client/service.service';
+import { Client } from '../client/interfaces/client';
+import { ClientService } from '../client/services/client.service';
+import { Payment } from '../client/interfaces/payment';
+import { PaymentService } from '../client/services/payment.service';
+import { ServicePlan } from '../client/interfaces/service-plan';
+import { ServicePlanService } from '../client/services/service-plan.service';
+import { Service } from '../client/interfaces/service';
+import { ServiceService } from '../client/services/service.service';
 import { Info } from '../general/info.model';
 import { InfoService } from '../general/info.service';
 

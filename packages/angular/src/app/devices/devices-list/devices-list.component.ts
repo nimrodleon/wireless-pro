@@ -6,8 +6,8 @@ import {TramoService} from '../tramo.service';
 import {Tramo} from '../tramo.model';
 import {Device} from '../device.model';
 import {DeviceService} from '../device.service';
-import {Coverage} from 'src/app/client/coverage.model';
-import {CoverageService} from 'src/app/client/coverage.service';
+import {Coverage} from 'src/app/client/interfaces/coverage';
+import {CoverageService} from 'src/app/client/services/coverage.service';
 import {AuthService} from '../../user/services/auth.service';
 
 @Component({
@@ -28,7 +28,8 @@ export class DevicesListComponent implements OnInit {
   // titúlo modal equipos.
   titleModal: string;
   // Permisos para Administrar el módulo.
-  isRedes: boolean = false;
+  // TODO: refactorizar esta linea de código.
+  isRedes: boolean = true;
 
   constructor(private tramoService: TramoService,
               private coverageService: CoverageService, private deviceService: DeviceService,
@@ -62,8 +63,6 @@ export class DevicesListComponent implements OnInit {
         this.onPing();
       }
     });
-    // Cargar Permisos del Módulo.
-    this.authService.isRedes().subscribe(res => this.isRedes = res);
   }
 
   private request_image(url) {

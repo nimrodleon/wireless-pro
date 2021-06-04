@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from '../auth.guard';
-import {ClientDetailComponent} from './client-detail/client-detail.component';
-import {ClientListComponent} from './client-list/client-list.component';
-import {ClientOutletComponent} from './client-outlet/client-outlet.component';
-import {CoverageListComponent} from './coverage-list/coverage-list.component';
-import {PaymentListComponent} from './payment-list/payment-list.component';
-import {ServicePlanComponent} from './service-plan/service-plan.component';
-import {ServiceDetailComponent} from './service-detail/service-detail.component';
+import {ClientDetailComponent} from './pages/client-detail/client-detail.component';
+import {ClientListComponent} from './pages/client-list/client-list.component';
+import {ClientOutletComponent} from './components/client-outlet/client-outlet.component';
+import {CoverageListComponent} from './pages/coverage-list/coverage-list.component';
+import {PaymentListComponent} from './pages/payment-list/payment-list.component';
+import {ServicePlanComponent} from './pages/service-plan/service-plan.component';
+import {ServiceDetailComponent} from './pages/service-detail/service-detail.component';
 
 const routes: Routes = [
   {

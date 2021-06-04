@@ -17,7 +17,8 @@ export class TramoListComponent implements OnInit {
   titleModal: string;
   currentTramo: Tramo;
   // Permisos para Administrar el módulo.
-  isRedes: boolean = false;
+  // TODO: refactorizar esta linea de código.
+  isRedes: boolean = true;
 
   constructor(private tramoService: TramoService,
               private authService: AuthService) {
@@ -27,8 +28,6 @@ export class TramoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTramos();
-    this.authService.isRedes()
-      .subscribe(res => this.isRedes = res);
   }
 
   private getTramos(): void {

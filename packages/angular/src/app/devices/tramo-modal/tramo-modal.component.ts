@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Coverage } from 'src/app/client/coverage.model';
-import { CoverageService } from 'src/app/client/coverage.service';
+import { Coverage } from 'src/app/client/interfaces/coverage';
+import { CoverageService } from 'src/app/client/services/coverage.service';
 // Local Imports.
 declare var jQuery: any;
 import { Tramo } from '../tramo.model';

@@ -17,6 +17,7 @@ export class TowerListComponent implements OnInit {
   currentTower: Tower = new Tower();
   towers: Array<any> = new Array<any>();
   // Permisos para administrar módulo.
+  // TODO: refactorizar esta linea de código.
   isRedes: boolean = false;
 
   // Constructor de la Clase.
@@ -29,8 +30,6 @@ export class TowerListComponent implements OnInit {
       jQuery('[data-toggle="tooltip"]').tooltip();
     });
     this.getTowers();
-    this.authService.isRedes()
-      .subscribe(res => this.isRedes = res);
   }
 
   private getTowers(): void {
