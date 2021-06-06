@@ -17,7 +17,7 @@ import {ReportBaseComponent} from './report-base/report-base.component';
 import {ReportService} from './report.service';
 import {TotalClientsComponent} from './total-clients/total-clients.component';
 import {CoverageService} from '../client/services/coverage.service';
-import {ServicePlanService} from '../client/services/service-plan.service';
+import {ServicePlanService} from '../system/services/service-plan.service';
 
 
 @NgModule({

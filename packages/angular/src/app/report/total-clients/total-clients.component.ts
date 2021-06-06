@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 declare var Chart: any;
 import {CoverageService} from '../../client/services/coverage.service';
-import {ServicePlanService} from '../../client/services/service-plan.service';
+import {ServicePlanService} from '../../system/services/service-plan.service';
 
 @Component({
   selector: 'app-total-clients',

@@ -6,8 +6,8 @@ import {Client} from '../../interfaces/client';
 import {Service} from '../../interfaces/service';
 import {Device} from '../../../devices/interfaces/device';
 import {ActivatedRoute} from '@angular/router';
-import {ServicePlanService} from '../../services/service-plan.service';
-import {ServicePlan} from '../../interfaces/service-plan';
+import {ServicePlanService} from '../../../system/services/service-plan.service';
+import {ServicePlan} from '../../../system/interfaces/service-plan';
 
 @Component({
   selector: 'app-service-detail',

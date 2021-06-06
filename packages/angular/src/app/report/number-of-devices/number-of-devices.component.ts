@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import Swal from 'sweetalert2';
 import { ReportService } from '../report.service';
-import { ServicePlan } from 'src/app/client/interfaces/service-plan';
-import { ServicePlanService } from 'src/app/client/services/service-plan.service';
+import { ServicePlan } from 'src/app/system/interfaces/service-plan';
+import { ServicePlanService } from 'src/app/system/services/service-plan.service';
 
 @Component({
   selector: 'app-number-of-devices',
