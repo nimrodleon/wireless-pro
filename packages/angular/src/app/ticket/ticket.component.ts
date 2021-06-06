@@ -8,8 +8,8 @@ import { ServicePlan } from '../client/interfaces/service-plan';
 import { ServicePlanService } from '../client/services/service-plan.service';
 import { Service } from '../client/interfaces/service';
 import { ServiceService } from '../client/services/service.service';
-import { Info } from '../general/info.model';
-import { InfoService } from '../general/info.service';
+import { Info } from '../system/interfaces/info';
+import { InfoService } from '../system/services/info.service';
 
 @Component({
   selector: 'app-ticket',

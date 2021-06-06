@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Info } from './info.model';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Info} from '../interfaces/info';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,8 @@ import { Info } from './info.model';
 export class InfoService {
   private baseURL: string = environment.baseUrl + 'info';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getInfo(): Observable<Info> {
     return this.http.get<Info>(this.baseURL);

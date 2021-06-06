@@ -20,9 +20,8 @@ import {TokenInterceptorService} from './user/services/token-interceptor.service
 import {AuthService} from './user/services/auth.service';
 import {UserService} from './user/services/user.service';
 // Import Services.
-import {InfoService} from './general/info.service';
+import {InfoService} from './system/services/info.service';
 // Import Components.
-import {GeneralComponent} from './general/general.component';
 import {TicketComponent} from './ticket/ticket.component';
 import {LoginComponent} from './login/login.component';
 
@@ -30,7 +29,6 @@ import {LoginComponent} from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GeneralComponent,
     TicketComponent,
     LoginComponent
   ],

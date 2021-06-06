@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './auth.guard';
-import {GeneralComponent} from './general/general.component';
 import {TicketComponent} from './ticket/ticket.component';
 import {AveriaListComponent} from './averia/pages/averia-list/averia-list.component';
 import {TasksListComponent} from './tasks/pages/tasks-list/tasks-list.component';
@@ -16,7 +15,6 @@ import {LoginComponent} from './login/login.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]},
-  {path: 'general', component: GeneralComponent, canActivate: [AuthGuard]},
   {path: 'tasks', component: TasksListComponent, canActivate: [AuthGuard]},
   {path: 'task-detail/:id', component: TaskDetailComponent, canActivate: [AuthGuard]},
   {path: 'material', component: MaterialComponent, canActivate: [AuthGuard]},

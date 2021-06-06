@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
-import {AuthService} from '../user/services/auth.service';
-import {InfoService} from './info.service';
-import {Info} from './info.model';
+import {AuthService} from '../../../user/services/auth.service';
+import {InfoService} from '../../services/info.service';
+import {Info} from '../../interfaces/info';
 
 @Component({
   selector: 'app-general',
