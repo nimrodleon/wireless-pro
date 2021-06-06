@@ -9,7 +9,7 @@ import {ServicePlanService} from '../../services/service-plan.service';
 import {Service} from '../../interfaces/service';
 import {ServiceService} from '../../services/service.service';
 import {environment} from 'src/environments/environment';
-import {DeviceService} from '../../../devices/device.service';
+import {DeviceService} from '../../../devices/services/device.service';
 
 @Component({
   selector: 'app-add-client-service',

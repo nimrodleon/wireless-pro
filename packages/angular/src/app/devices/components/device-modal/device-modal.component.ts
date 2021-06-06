@@ -1,12 +1,12 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 declare var jQuery: any;
-import {Device} from '../device.model';
-import {Tramo} from '../tramo.model';
-import {TramoService} from '../tramo.service';
-import {Tower} from '../tower.model';
-import {TowerService} from '../tower.service';
-import {DeviceService} from '../device.service';
+import {Device} from '../../interfaces/device';
+import {Tramo} from '../../interfaces/tramo';
+import {TramoService} from '../../services/tramo.service';
+import {Tower} from '../../interfaces/tower';
+import {TowerService} from '../../services/tower.service';
+import {DeviceService} from '../../services/device.service';
 import {environment} from 'src/environments/environment';
 import {Coverage} from 'src/app/client/interfaces/coverage';
 

@@ -1,19 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 // Local imports.
 import _ from 'lodash';
-import { TowerService } from '../tower.service';
-import { Tower } from '../tower.model';
+import {TramoService} from '../../services/tramo.service';
+import {Tramo} from '../../interfaces/tramo';
 
 @Component({
-  selector: 'app-device-tower',
-  templateUrl: './device-tower.component.html',
-  styleUrls: ['./device-tower.component.scss']
+  selector: 'app-device-tramo',
+  templateUrl: './device-tramo.component.html',
+  styleUrls: ['./device-tramo.component.scss']
 })
-export class DeviceTowerComponent implements OnInit {
+export class DeviceTramoComponent implements OnInit {
   objTree: Array<any>;
   @Output() sendIdObj = new EventEmitter<string>();
 
-  constructor(private towerService: TowerService) {
+  constructor(private tramoService: TramoService) {
     this.objTree = new Array<any>();
   }
 
@@ -23,14 +23,14 @@ export class DeviceTowerComponent implements OnInit {
 
   private loadObjTree(): void {
     let coverages: any;
-    let towers: Array<Tower> = new Array<Tower>();
-    this.towerService.getCoverages()
+    let tramos: Array<Tramo> = new Array<Tramo>();
+    this.tramoService.getCoverages()
       .subscribe(res => {
         coverages = res;
-        this.towerService.getTowersV1().subscribe(res => {
-          towers = res;
+        this.tramoService.getTramosV1().subscribe(res => {
+          tramos = res;
           _.forEach(coverages, value => {
-            value.towers = _.filter(towers, obj => obj.coverage === value._id);
+            value.tramos = _.filter(tramos, obj => obj.coverage === value._id);
             this.objTree.push(value);
           });
           console.log(this.objTree);
@@ -49,5 +49,6 @@ export class DeviceTowerComponent implements OnInit {
     this.sendIdObj.emit(target.id);
     console.log(target.id);
   }
+
 
 }

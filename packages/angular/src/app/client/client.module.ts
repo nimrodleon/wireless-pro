@@ -24,7 +24,7 @@ import {ServicePlanModalComponent} from './components/service-plan-modal/service
 import {PaymentListComponent} from './pages/payment-list/payment-list.component';
 import {PaymentModalComponent} from './components/payment-modal/payment-modal.component';
 import {ServiceDetailComponent} from './pages/service-detail/service-detail.component';
-import {DeviceService} from '../devices/device.service';
+import {DeviceService} from '../devices/services/device.service';
 import {CardOutagesComponent} from './components/card-outages/card-outages.component';
 import {OutagesService} from './services/outages.service';
 

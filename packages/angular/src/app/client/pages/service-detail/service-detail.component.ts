@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ServiceService} from '../../services/service.service';
 import {ClientService} from '../../services/client.service';
-import {DeviceService} from '../../../devices/device.service';
+import {DeviceService} from '../../../devices/services/device.service';
 import {Client} from '../../interfaces/client';
 import {Service} from '../../interfaces/service';
-import {Device} from '../../../devices/device.model';
+import {Device} from '../../../devices/interfaces/device';
 import {ActivatedRoute} from '@angular/router';
 import {ServicePlanService} from '../../services/service-plan.service';
 import {ServicePlan} from '../../interfaces/service-plan';

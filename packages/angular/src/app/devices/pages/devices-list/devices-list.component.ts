@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {TramoService} from '../tramo.service';
-import {Tramo} from '../tramo.model';
-import {Device} from '../device.model';
-import {DeviceService} from '../device.service';
+import {TramoService} from '../../services/tramo.service';
+import {Tramo} from '../../interfaces/tramo';
+import {Device} from '../../interfaces/device';
+import {DeviceService} from '../../services/device.service';
 import {Coverage} from 'src/app/client/interfaces/coverage';
 import {CoverageService} from 'src/app/client/services/coverage.service';
-import {AuthService} from '../../user/services/auth.service';
+import {AuthService} from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-devices-list',

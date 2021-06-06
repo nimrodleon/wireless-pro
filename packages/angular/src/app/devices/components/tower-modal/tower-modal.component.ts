@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Coverage } from 'src/app/client/interfaces/coverage';
-import { CoverageService } from 'src/app/client/services/coverage.service';
-import { Tower } from '../tower.model';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Coverage} from 'src/app/client/interfaces/coverage';
+import {CoverageService} from 'src/app/client/services/coverage.service';
+import {Tower} from '../../interfaces/tower';
 
 declare var jQuery: any;
 

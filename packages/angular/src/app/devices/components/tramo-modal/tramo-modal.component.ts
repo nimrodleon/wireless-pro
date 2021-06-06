@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Coverage } from 'src/app/client/interfaces/coverage';
-import { CoverageService } from 'src/app/client/services/coverage.service';
-// Local Imports.
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+
 declare var jQuery: any;
-import { Tramo } from '../tramo.model';
+import {Tramo} from '../../interfaces/tramo';
+import {Coverage} from 'src/app/client/interfaces/coverage';
+import {CoverageService} from 'src/app/client/services/coverage.service';
 
 @Component({
   selector: 'app-tramo-modal',

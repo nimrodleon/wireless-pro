@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {Tower} from '../tower.model';
-import {TowerService} from '../tower.service';
-import {AuthService} from '../../user/services/auth.service';
+import {Tower} from '../../interfaces/tower';
+import {TowerService} from '../../services/tower.service';
+import {AuthService} from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-tower-list',

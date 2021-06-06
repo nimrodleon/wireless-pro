@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Device } from './device.model';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Device} from '../interfaces/device';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,8 @@ import { Device } from './device.model';
 export class DeviceService {
   private baseURL: string = environment.baseUrl + 'devices';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getDevices(id: string, opt: string): Observable<Device[]> {
     return this.http.get<Device[]>(this.baseURL + '/' + id + '/' + opt);

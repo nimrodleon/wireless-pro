@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Tower } from './tower.model';
+import {Injectable} from '@angular/core';
+import {environment} from 'src/environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Tower} from '../interfaces/tower';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,13 @@ import { Tower } from './tower.model';
 export class TowerService {
   private baseURL: string = environment.baseUrl + 'tower';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getTowers(search: string): Observable<any> {
     let params = new HttpParams();
     params = params.append('search', search);
-    return this.http.get(this.baseURL, { params: params });
+    return this.http.get(this.baseURL, {params: params});
   }
 
   getTower(id: string): Observable<Tower> {

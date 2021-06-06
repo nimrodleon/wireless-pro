@@ -9,9 +9,9 @@ import {TasksListComponent} from './tasks/pages/tasks-list/tasks-list.component'
 import {TaskDetailComponent} from './tasks/pages/task-detail/task-detail.component';
 import {MaterialComponent} from './tasks/pages/material/material.component';
 import {MaterialOutComponent} from './tasks/pages/material-out/material-out.component';
-import {DevicesListComponent} from './devices/devices-list/devices-list.component';
-import {TowerListComponent} from './devices/tower-list/tower-list.component';
-import {TramoListComponent} from './devices/tramo-list/tramo-list.component';
+import {DevicesListComponent} from './devices/pages/devices-list/devices-list.component';
+import {TowerListComponent} from './devices/pages/tower-list/tower-list.component';
+import {TramoListComponent} from './devices/pages/tramo-list/tramo-list.component';
 import {LoginComponent} from './login/login.component';
 
 const routes: Routes = [

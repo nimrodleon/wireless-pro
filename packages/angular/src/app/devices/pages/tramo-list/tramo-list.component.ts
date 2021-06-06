@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {TramoService} from '../tramo.service';
-import {Tramo} from '../tramo.model';
-import {AuthService} from '../../user/services/auth.service';
+import {TramoService} from '../../services/tramo.service';
+import {Tramo} from '../../interfaces/tramo';
+import {AuthService} from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-tramo-list',

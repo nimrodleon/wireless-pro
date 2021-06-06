@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Device} from '../device.model';
+import {Device} from '../../interfaces/device';
 import * as ClipboardJS from 'clipboard';
 
 @Component({
