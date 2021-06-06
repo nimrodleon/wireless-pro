@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './auth.guard';
-import {SystemComponent} from './system/system.component';
 import {GeneralComponent} from './general/general.component';
 import {TicketComponent} from './ticket/ticket.component';
 import {AveriaListComponent} from './averia/pages/averia-list/averia-list.component';
@@ -17,7 +16,6 @@ import {LoginComponent} from './login/login.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]},
-  {path: 'system', component: SystemComponent, canActivate: [AuthGuard]},
   {path: 'general', component: GeneralComponent, canActivate: [AuthGuard]},
   {path: 'tasks', component: TasksListComponent, canActivate: [AuthGuard]},
   {path: 'task-detail/:id', component: TaskDetailComponent, canActivate: [AuthGuard]},
@@ -27,6 +25,11 @@ const routes: Routes = [
   {path: 'devices', component: DevicesListComponent, canActivate: [AuthGuard]},
   {path: 'tower', component: TowerListComponent, canActivate: [AuthGuard]},
   {path: 'tramo', component: TramoListComponent, canActivate: [AuthGuard]},
+  {
+    path: 'system',
+    loadChildren: () => import('./system/system.module').then(m => m.SystemModule),
+    canActivate: [AuthGuard]
+  },
   {path: '', redirectTo: '/averia', pathMatch: 'full'},
 ];
 

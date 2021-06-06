@@ -7,9 +7,10 @@ import {GlobalModule} from './global/global.module';
 import {AveriaModule} from './averia/averia.module';
 import {TasksModule} from './tasks/tasks.module';
 import {DevicesModule} from './devices/devices.module';
-import {ReportModule} from './report/report.module';
 import {UserModule} from './user/user.module';
 import {ClientModule} from './client/client.module';
+import {SystemModule} from './system/system.module';
+import {ReportModule} from './report/report.module';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -21,8 +22,6 @@ import {UserService} from './user/services/user.service';
 // Import Services.
 import {InfoService} from './general/info.service';
 // Import Components.
-import {SystemComponent} from './system/system.component';
-import {SystemOptionComponent} from './system/system-option/system-option.component';
 import {GeneralComponent} from './general/general.component';
 import {TicketComponent} from './ticket/ticket.component';
 import {LoginComponent} from './login/login.component';
@@ -31,8 +30,6 @@ import {LoginComponent} from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SystemComponent,
-    SystemOptionComponent,
     GeneralComponent,
     TicketComponent,
     LoginComponent
@@ -48,7 +45,8 @@ import {LoginComponent} from './login/login.component';
     DevicesModule,
     ReportModule,
     UserModule,
-    ClientModule
+    ClientModule,
+    SystemModule
   ],
   providers: [
     AuthGuard,

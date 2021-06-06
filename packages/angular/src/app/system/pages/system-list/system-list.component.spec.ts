@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SystemComponent } from './system.component';
+import { SystemListComponent } from './system-list.component';
 
-describe('SystemComponent', () => {
-  let component: SystemComponent;
-  let fixture: ComponentFixture<SystemComponent>;
+describe('SystemListComponent', () => {
+  let component: SystemListComponent;
+  let fixture: ComponentFixture<SystemListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SystemComponent ]
+      declarations: [ SystemListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SystemComponent);
+    fixture = TestBed.createComponent(SystemListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
