@@ -1,33 +1,36 @@
-.sidebar {
+.Sidebar {
   width: 100px;
   background-color: #282c34;
   height: 100%;
+  border-right: 4px solid #61dafb;
 }
 
-.sidebar-item {
-  text-align: center;
-  padding: 10px;
+.SidebarItem {
+  a {
+    padding: 10px;
+    display: block;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+
+    i {
+      font-size: 40px;
+    }
+
+    .Text {
+      display: block;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+  }
+
   &:hover {
     background-color: #61dafb;
+
     a {
       color: #282c34;
     }
   }
 
-  a {
-    color: white;
-    text-decoration: none;
-  }
-}
-
-.link {
-  i {
-    font-size: 40px;
-  }
-}
-
-.text {
-  display: block;
-  font-size: 14px;
-  text-transform: uppercase;
 }

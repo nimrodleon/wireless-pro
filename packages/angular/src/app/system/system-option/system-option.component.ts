@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-system-option',
@@ -21,7 +21,8 @@ export class SystemOptionComponent implements OnInit {
   @Output()
   onClick = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
