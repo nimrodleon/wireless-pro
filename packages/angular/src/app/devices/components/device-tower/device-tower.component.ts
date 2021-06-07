@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 // Local imports.
 import _ from 'lodash';
-import { TowerService } from '../../services/tower.service';
-import { Tower } from '../../interfaces/tower';
+import { TowerService } from '../../../system/services/tower.service';
+import { Tower } from '../../../system/interfaces/tower';
 
 @Component({
   selector: 'app-device-tower',

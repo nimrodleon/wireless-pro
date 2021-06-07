@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 // Local imports.
 import _ from 'lodash';
-import {TramoService} from '../../services/tramo.service';
-import {Tramo} from '../../interfaces/tramo';
+import {TramoService} from '../../../system/services/tramo.service';
+import {Tramo} from '../../../system/interfaces/tramo';
 
 @Component({
   selector: 'app-device-tramo',

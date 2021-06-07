@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {TramoService} from '../../services/tramo.service';
-import {Tramo} from '../../interfaces/tramo';
+import {TramoService} from '../../../system/services/tramo.service';
+import {Tramo} from '../../../system/interfaces/tramo';
 import {Device} from '../../interfaces/device';
 import {DeviceService} from '../../services/device.service';
 import {Coverage} from 'src/app/system/interfaces/coverage';

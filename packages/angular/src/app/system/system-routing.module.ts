@@ -5,6 +5,8 @@ import {GeneralComponent} from './pages/general/general.component';
 import {ServicePlanComponent} from './pages/service-plan/service-plan.component';
 import {CoverageListComponent} from './pages/coverage-list/coverage-list.component';
 import {MaterialComponent} from './pages/material/material.component';
+import {TowerListComponent} from './pages/tower-list/tower-list.component';
+import {TramoListComponent} from './pages/tramo-list/tramo-list.component';
 
 const routes: Routes = [
   {
@@ -15,6 +17,8 @@ const routes: Routes = [
       {path: 'service-plans', component: ServicePlanComponent},
       {path: 'coverages', component: CoverageListComponent},
       {path: 'material', component: MaterialComponent},
+      {path: 'tower', component: TowerListComponent},
+      {path: 'tramo', component: TramoListComponent},
       {path: '**', redirectTo: ''}
     ]
   }

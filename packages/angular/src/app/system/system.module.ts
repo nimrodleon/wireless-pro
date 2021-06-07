@@ -13,6 +13,10 @@ import {CoverageListComponent} from './pages/coverage-list/coverage-list.compone
 import {CoverageModalComponent} from './components/coverage-modal/coverage-modal.component';
 import {MaterialComponent} from './pages/material/material.component';
 import {MaterialModalComponent} from './components/material-modal/material-modal.component';
+import {TowerListComponent} from './pages/tower-list/tower-list.component';
+import {TramoListComponent} from './pages/tramo-list/tramo-list.component';
+import {TowerModalComponent} from './components/tower-modal/tower-modal.component';
+import {TramoModalComponent} from './components/tramo-modal/tramo-modal.component';
 
 
 @NgModule({
@@ -25,7 +29,11 @@ import {MaterialModalComponent} from './components/material-modal/material-modal
     CoverageListComponent,
     CoverageModalComponent,
     MaterialComponent,
-    MaterialModalComponent
+    MaterialModalComponent,
+    TowerListComponent,
+    TowerModalComponent,
+    TramoListComponent,
+    TramoModalComponent
   ],
   imports: [
     CommonModule,

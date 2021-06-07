@@ -7,8 +7,6 @@ import {TasksListComponent} from './tasks/pages/tasks-list/tasks-list.component'
 import {TaskDetailComponent} from './tasks/pages/task-detail/task-detail.component';
 import {MaterialOutComponent} from './tasks/pages/material-out/material-out.component';
 import {DevicesListComponent} from './devices/pages/devices-list/devices-list.component';
-import {TowerListComponent} from './devices/pages/tower-list/tower-list.component';
-import {TramoListComponent} from './devices/pages/tramo-list/tramo-list.component';
 import {LoginComponent} from './login/login.component';
 
 const routes: Routes = [
@@ -19,8 +17,6 @@ const routes: Routes = [
   {path: 'tasks-list', component: MaterialOutComponent, canActivate: [AuthGuard]},
   {path: 'averia', component: AveriaListComponent, canActivate: [AuthGuard]},
   {path: 'devices', component: DevicesListComponent, canActivate: [AuthGuard]},
-  {path: 'tower', component: TowerListComponent, canActivate: [AuthGuard]},
-  {path: 'tramo', component: TramoListComponent, canActivate: [AuthGuard]},
   {
     path: 'system',
     loadChildren: () => import('./system/system.module').then(m => m.SystemModule),
