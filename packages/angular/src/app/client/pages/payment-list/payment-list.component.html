@@ -1,49 +1,55 @@
-<div class="row">
-  <div class="col-12">
-    <div class="d-flex align-items-center my-2">
-      <h4 class="m-0 mr-2 d-none d-md-block text-uppercase">Historial de Pagos</h4>
-      <button type="button" (click)="deletePayment()" *ngIf="isAdmin" class="btn btn-danger btn-sm text-uppercase">
-        <i class="fas fa-trash-alt"></i> Borrar
-      </button>
-      <button type="button" (click)="printPayment()" style="width: 70px;" class="btn btn-success btn-sm ml-2">
-        <i class="fas fa-print"></i>
-      </button>
-      <a class="font-weight-bold mt-1 ml-2 d-none d-sm-block" [routerLink]="['/client/detail', clientId]">Volver
-        Atras</a>
-    </div><!-- //.d-flex -->
-  </div><!-- //.col-12 -->
-  <div class="col-12">
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead class="thead-light">
-          <tr class="text-uppercase">
-            <th><input type="checkbox" disabled></th>
-            <th>Equipo</th>
-            <th>Mes de Servicio</th>
-            <th>Monto</th>
-            <th>M.Pago</th>
-            <th>Fecha</th>
-            <th>User</th>
-            <th>Nota</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let payment of paymentList">
-            <td><input type="checkbox" [value]="payment._id"></td>
-            <td>{{ payment.service.ipAddress }}</td>
-            <td>{{ payment.payFrom|date }} al {{ payment.payUp|date }}</td>
-            <td>{{ payment.amount }}</td>
-            <td>{{ payment.payment_method }}</td>
-            <td>{{ payment.created_date|date }}</td>
-            <td>
-              <ng-container *ngIf="payment.user">
-                {{ payment.user.userName }}
-              </ng-container>
-            </td>
-            <td>{{ payment.note }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div><!-- //.table-responsive -->
-  </div><!-- //.col-12 -->
-</div><!-- //.row -->
+<app-navbar></app-navbar>
+<div class="wrap-body">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex align-items-center my-2">
+          <h4 class="m-0 mr-2 d-none d-md-block text-uppercase">Historial de Pagos</h4>
+          <button type="button" (click)="deletePayment()" *ngIf="isAdmin" class="btn btn-danger btn-sm text-uppercase">
+            <i class="fas fa-trash-alt"></i> Borrar
+          </button>
+          <button type="button" (click)="printPayment()" style="width: 70px;" class="btn btn-success btn-sm ml-2">
+            <i class="fas fa-print"></i>
+          </button>
+          <a class="font-weight-bold mt-1 ml-2 d-none d-sm-block" [routerLink]="['/client/detail', clientId]">Volver
+            Atras</a>
+        </div><!-- //.d-flex -->
+      </div><!-- //.col-12 -->
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead class="thead-light">
+            <tr class="text-uppercase">
+              <th><input type="checkbox" disabled></th>
+              <th>Equipo</th>
+              <th>Mes de Servicio</th>
+              <th>Monto</th>
+              <th>M.Pago</th>
+              <th>Fecha</th>
+              <th>User</th>
+              <th>Nota</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let payment of paymentList">
+              <td><input type="checkbox" [value]="payment._id"></td>
+              <td>{{ payment.service.ipAddress }}</td>
+              <td>{{ payment.payFrom|date }} al {{ payment.payUp|date }}</td>
+              <td>{{ payment.amount }}</td>
+              <td>{{ payment.payment_method }}</td>
+              <td>{{ payment.created_date|date }}</td>
+              <td>
+                <ng-container *ngIf="payment.user">
+                  {{ payment.user.userName }}
+                </ng-container>
+              </td>
+              <td>{{ payment.note }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div><!-- //.table-responsive -->
+      </div><!-- //.col-12 -->
+    </div><!-- //.row -->
+  </div>
+</div>

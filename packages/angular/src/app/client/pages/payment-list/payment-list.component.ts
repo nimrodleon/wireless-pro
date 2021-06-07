@@ -46,7 +46,7 @@ export class PaymentListComponent implements OnInit {
         timer: 1500
       });
     } else {
-      this.router.navigate(['/ticket', chks[0].value]);
+      this.router.navigate(['/client/ticket', chks[0].value]);
     }
   }
 

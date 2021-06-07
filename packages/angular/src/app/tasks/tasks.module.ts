@@ -3,8 +3,7 @@ import {CommonModule} from '@angular/common';
 import {GlobalModule} from '../global/global.module';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {AppRoutingModule} from '../app-routing.module';
-
+import {TasksRoutingModule} from './tasks-routing.module';
 import {TaskService} from './services/task.service';
 import {MaterialService} from '../system/services/material.service';
 import {TasksListComponent} from './pages/tasks-list/tasks-list.component';
@@ -33,8 +32,8 @@ import {PriceComponent} from './components/price/price.component';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    GlobalModule,
-    AppRoutingModule
+    TasksRoutingModule,
+    GlobalModule
   ],
   exports: [
     TasksListComponent,

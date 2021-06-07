@@ -1,14 +1,12 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {ProfileComponent} from './pages/profile/profile.component';
-import {UserListComponent} from './pages/user-list/user-list.component';
+import {DevicesListComponent} from './pages/devices-list/devices-list.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      {path: 'list', component: UserListComponent},
-      {path: 'profile', component: ProfileComponent},
+      {path: '', component: DevicesListComponent},
       {path: '**', redirectTo: ''}
     ]
   }
@@ -18,5 +16,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UserRoutingModule {
+export class DevicesRoutingModule {
 }
