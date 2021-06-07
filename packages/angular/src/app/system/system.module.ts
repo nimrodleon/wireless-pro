@@ -9,6 +9,8 @@ import {SystemOptionComponent} from './components/system-option/system-option.co
 import {GeneralComponent} from './pages/general/general.component';
 import {ServicePlanComponent} from './pages/service-plan/service-plan.component';
 import {ServicePlanModalComponent} from './components/service-plan-modal/service-plan-modal.component';
+import {CoverageListComponent} from './pages/coverage-list/coverage-list.component';
+import {CoverageModalComponent} from './components/coverage-modal/coverage-modal.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import {ServicePlanModalComponent} from './components/service-plan-modal/service
     SystemOptionComponent,
     GeneralComponent,
     ServicePlanComponent,
-    ServicePlanModalComponent
+    ServicePlanModalComponent,
+    CoverageListComponent,
+    CoverageModalComponent
   ],
   imports: [
     CommonModule,

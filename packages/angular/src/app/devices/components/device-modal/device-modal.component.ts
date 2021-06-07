@@ -8,7 +8,7 @@ import {Tower} from '../../interfaces/tower';
 import {TowerService} from '../../services/tower.service';
 import {DeviceService} from '../../services/device.service';
 import {environment} from 'src/environments/environment';
-import {Coverage} from 'src/app/client/interfaces/coverage';
+import {Coverage} from 'src/app/system/interfaces/coverage';
 
 @Component({
   selector: 'app-device-modal',

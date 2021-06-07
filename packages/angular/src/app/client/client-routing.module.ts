@@ -4,7 +4,6 @@ import {AuthGuard} from '../auth.guard';
 import {ClientDetailComponent} from './pages/client-detail/client-detail.component';
 import {ClientListComponent} from './pages/client-list/client-list.component';
 import {ClientOutletComponent} from './components/client-outlet/client-outlet.component';
-import {CoverageListComponent} from './pages/coverage-list/coverage-list.component';
 import {PaymentListComponent} from './pages/payment-list/payment-list.component';
 import {ServiceDetailComponent} from './pages/service-detail/service-detail.component';
 
@@ -13,7 +12,6 @@ const routes: Routes = [
     path: 'client', component: ClientOutletComponent, children: [
       {path: 'list', component: ClientListComponent},
       {path: 'detail/:id', component: ClientDetailComponent},
-      {path: 'coverages', component: CoverageListComponent},
       {path: 'payments/:id', component: PaymentListComponent},
       {path: 'service-detail/:id', component: ServiceDetailComponent}
     ], canActivate: [AuthGuard]

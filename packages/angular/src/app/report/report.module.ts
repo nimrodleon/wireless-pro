@@ -16,7 +16,7 @@ import {ReportListComponent} from './report-list/report-list.component';
 import {ReportBaseComponent} from './report-base/report-base.component';
 import {ReportService} from './report.service';
 import {TotalClientsComponent} from './total-clients/total-clients.component';
-import {CoverageService} from '../client/services/coverage.service';
+import {CoverageService} from '../system/services/coverage.service';
 import {ServicePlanService} from '../system/services/service-plan.service';
 
 

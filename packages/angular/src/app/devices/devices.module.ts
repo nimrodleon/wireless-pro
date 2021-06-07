@@ -14,7 +14,7 @@ import {DeviceModalComponent} from './components/device-modal/device-modal.compo
 import {TramoListComponent} from './pages/tramo-list/tramo-list.component';
 import {TramoModalComponent} from './components/tramo-modal/tramo-modal.component';
 import {DeviceTowerComponent} from './components/device-tower/device-tower.component';
-import {CoverageService} from '../client/services/coverage.service';
+import {CoverageService} from '../system/services/coverage.service';
 import {AuthService} from '../user/services/auth.service';
 
 

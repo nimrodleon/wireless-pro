@@ -6,8 +6,8 @@ import {TramoService} from '../../services/tramo.service';
 import {Tramo} from '../../interfaces/tramo';
 import {Device} from '../../interfaces/device';
 import {DeviceService} from '../../services/device.service';
-import {Coverage} from 'src/app/client/interfaces/coverage';
-import {CoverageService} from 'src/app/client/services/coverage.service';
+import {Coverage} from 'src/app/system/interfaces/coverage';
+import {CoverageService} from 'src/app/system/services/coverage.service';
 import {AuthService} from '../../../user/services/auth.service';
 
 @Component({

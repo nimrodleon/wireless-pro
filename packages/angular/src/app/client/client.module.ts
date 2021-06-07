@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {ClientRoutingModule} from './client-routing.module';
 import {GlobalModule} from '../global/global.module';
 import {ClientService} from './services/client.service';
-import {CoverageService} from './services/coverage.service';
+import {CoverageService} from '../system/services/coverage.service';
 import {PaymentService} from './services/payment.service';
 import {ServicePlanService} from '../system/services/service-plan.service';
 import {ServiceService} from './services/service.service';
@@ -17,8 +17,6 @@ import {CardClientServiceComponent} from './components/card-client-service/card-
 import {CardClientDetailComponent} from './components/card-client-detail/card-client-detail.component';
 import {AddClientServiceComponent} from './components/add-client-service/add-client-service.component';
 import {ClientOutletComponent} from './components/client-outlet/client-outlet.component';
-import {CoverageListComponent} from './pages/coverage-list/coverage-list.component';
-import {CoverageModalComponent} from './components/coverage-modal/coverage-modal.component';
 import {PaymentListComponent} from './pages/payment-list/payment-list.component';
 import {PaymentModalComponent} from './components/payment-modal/payment-modal.component';
 import {ServiceDetailComponent} from './pages/service-detail/service-detail.component';
@@ -37,8 +35,6 @@ import {OutagesService} from './services/outages.service';
     CardClientDetailComponent,
     AddClientServiceComponent,
     ClientOutletComponent,
-    CoverageListComponent,
-    CoverageModalComponent,
     PaymentListComponent,
     PaymentModalComponent,
     ServiceDetailComponent,

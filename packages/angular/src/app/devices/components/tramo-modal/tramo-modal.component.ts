@@ -2,8 +2,8 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 declare var jQuery: any;
 import {Tramo} from '../../interfaces/tramo';
-import {Coverage} from 'src/app/client/interfaces/coverage';
-import {CoverageService} from 'src/app/client/services/coverage.service';
+import {Coverage} from 'src/app/system/interfaces/coverage';
+import {CoverageService} from 'src/app/system/services/coverage.service';
 
 @Component({
   selector: 'app-tramo-modal',

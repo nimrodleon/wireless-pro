@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {SystemListComponent} from './pages/system-list/system-list.component';
 import {GeneralComponent} from './pages/general/general.component';
 import {ServicePlanComponent} from './pages/service-plan/service-plan.component';
+import {CoverageListComponent} from './pages/coverage-list/coverage-list.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
       {path: '', component: SystemListComponent},
       {path: 'general', component: GeneralComponent},
       {path: 'service-plans', component: ServicePlanComponent},
+      {path: 'coverages', component: CoverageListComponent},
       {path: '**', redirectTo: ''}
     ]
   }

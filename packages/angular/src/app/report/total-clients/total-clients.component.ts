@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 declare var Chart: any;
-import {CoverageService} from '../../client/services/coverage.service';
+import {CoverageService} from '../../system/services/coverage.service';
 import {ServicePlanService} from '../../system/services/service-plan.service';
 
 @Component({

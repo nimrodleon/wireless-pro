@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 declare var jQuery: any;
 import { Client } from '../../interfaces/client';
-import { Coverage } from '../../interfaces/coverage';
-import { CoverageService } from '../../services/coverage.service';
+import { Coverage } from '../../../system/interfaces/coverage';
+import { CoverageService } from '../../../system/services/coverage.service';
 
 @Component({
   selector: 'app-client-form-modal',
