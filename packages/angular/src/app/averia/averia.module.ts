@@ -5,10 +5,10 @@ import {AveriaListComponent} from './pages/averia-list/averia-list.component';
 import {FormsModule} from '@angular/forms';
 import {AveriaModalComponent} from './components/averia-modal/averia-modal.component';
 import {AveriaService} from './services/averia.service';
-import {AppRoutingModule} from '../app-routing.module';
 import {AveriaAttendComponent} from './components/averia-attend/averia-attend.component';
 import {UserService} from '../user/services/user.service';
 import {AuthService} from '../user/services/auth.service';
+import {AveriaRoutingModule} from './averia-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,11 +19,8 @@ import {AuthService} from '../user/services/auth.service';
   imports: [
     CommonModule,
     FormsModule,
-    GlobalModule,
-    AppRoutingModule
-  ],
-  exports: [
-    AveriaListComponent
+    AveriaRoutingModule,
+    GlobalModule
   ],
   providers: [
     AveriaService,

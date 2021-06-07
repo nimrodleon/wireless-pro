@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './auth.guard';
 import {TicketComponent} from './ticket/ticket.component';
-import {AveriaListComponent} from './averia/pages/averia-list/averia-list.component';
 import {TasksListComponent} from './tasks/pages/tasks-list/tasks-list.component';
 import {TaskDetailComponent} from './tasks/pages/task-detail/task-detail.component';
 import {MaterialOutComponent} from './tasks/pages/material-out/material-out.component';
@@ -15,7 +14,11 @@ const routes: Routes = [
   {path: 'tasks', component: TasksListComponent, canActivate: [AuthGuard]},
   {path: 'task-detail/:id', component: TaskDetailComponent, canActivate: [AuthGuard]},
   {path: 'tasks-list', component: MaterialOutComponent, canActivate: [AuthGuard]},
-  {path: 'averia', component: AveriaListComponent, canActivate: [AuthGuard]},
+  {
+    path: 'averia',
+    loadChildren: () => import('./averia/averia.module').then(m => m.AveriaModule),
+    canActivate: [AuthGuard]
+  },
   {path: 'devices', component: DevicesListComponent, canActivate: [AuthGuard]},
   {
     path: 'system',
