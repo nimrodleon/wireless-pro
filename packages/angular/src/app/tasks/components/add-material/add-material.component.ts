@@ -2,8 +2,8 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {MaterialService} from '../../services/material.service';
-import {Material} from '../../interfaces/material';
+import {MaterialService} from '../../../system/services/material.service';
+import {Material} from '../../../system/interfaces/material';
 import {TaskMaterial} from '../../interfaces/task-material';
 
 @Component({

@@ -11,6 +11,8 @@ import {ServicePlanComponent} from './pages/service-plan/service-plan.component'
 import {ServicePlanModalComponent} from './components/service-plan-modal/service-plan-modal.component';
 import {CoverageListComponent} from './pages/coverage-list/coverage-list.component';
 import {CoverageModalComponent} from './components/coverage-modal/coverage-modal.component';
+import {MaterialComponent} from './pages/material/material.component';
+import {MaterialModalComponent} from './components/material-modal/material-modal.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import {CoverageModalComponent} from './components/coverage-modal/coverage-modal
     ServicePlanComponent,
     ServicePlanModalComponent,
     CoverageListComponent,
-    CoverageModalComponent
+    CoverageModalComponent,
+    MaterialComponent,
+    MaterialModalComponent
   ],
   imports: [
     CommonModule,

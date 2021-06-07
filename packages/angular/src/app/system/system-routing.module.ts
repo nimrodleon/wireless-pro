@@ -4,6 +4,7 @@ import {SystemListComponent} from './pages/system-list/system-list.component';
 import {GeneralComponent} from './pages/general/general.component';
 import {ServicePlanComponent} from './pages/service-plan/service-plan.component';
 import {CoverageListComponent} from './pages/coverage-list/coverage-list.component';
+import {MaterialComponent} from './pages/material/material.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       {path: 'general', component: GeneralComponent},
       {path: 'service-plans', component: ServicePlanComponent},
       {path: 'coverages', component: CoverageListComponent},
+      {path: 'material', component: MaterialComponent},
       {path: '**', redirectTo: ''}
     ]
   }

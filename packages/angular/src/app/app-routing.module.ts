@@ -5,7 +5,6 @@ import {TicketComponent} from './ticket/ticket.component';
 import {AveriaListComponent} from './averia/pages/averia-list/averia-list.component';
 import {TasksListComponent} from './tasks/pages/tasks-list/tasks-list.component';
 import {TaskDetailComponent} from './tasks/pages/task-detail/task-detail.component';
-import {MaterialComponent} from './tasks/pages/material/material.component';
 import {MaterialOutComponent} from './tasks/pages/material-out/material-out.component';
 import {DevicesListComponent} from './devices/pages/devices-list/devices-list.component';
 import {TowerListComponent} from './devices/pages/tower-list/tower-list.component';
@@ -17,7 +16,6 @@ const routes: Routes = [
   {path: 'ticket/:id', component: TicketComponent, canActivate: [AuthGuard]},
   {path: 'tasks', component: TasksListComponent, canActivate: [AuthGuard]},
   {path: 'task-detail/:id', component: TaskDetailComponent, canActivate: [AuthGuard]},
-  {path: 'material', component: MaterialComponent, canActivate: [AuthGuard]},
   {path: 'tasks-list', component: MaterialOutComponent, canActivate: [AuthGuard]},
   {path: 'averia', component: AveriaListComponent, canActivate: [AuthGuard]},
   {path: 'devices', component: DevicesListComponent, canActivate: [AuthGuard]},
