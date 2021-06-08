@@ -7,8 +7,8 @@ export const ServicePlan = model('ServicePlan',
       uppercase: true
     },
     priceMonthly: Number,
-    downloadSpeed: Number,
-    uploadSpeed: Number,
+    downloadSpeed: String,
+    uploadSpeed: String,
     isDeleted: {
       type: Boolean,
       default: false

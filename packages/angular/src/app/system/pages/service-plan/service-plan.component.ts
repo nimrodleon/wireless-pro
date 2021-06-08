@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import _ from 'lodash';
-import {AuthService} from 'src/app/user/services/auth.service';
 import Swal from 'sweetalert2';
+import {AuthService} from 'src/app/user/services/auth.service';
 import {ServicePlan} from '../../interfaces/service-plan';
 import {ServicePlanService} from '../../services/service-plan.service';
 
@@ -13,8 +13,6 @@ import {ServicePlanService} from '../../services/service-plan.service';
   styleUrls: ['./service-plan.component.scss']
 })
 export class ServicePlanComponent implements OnInit {
-  // TODO: refactorizar esta linea de código.
-  isAdmin: boolean;
   servicePlanList: ServicePlan[];
   servicePlan: ServicePlan = new ServicePlan();
   titleModal: string = '';
@@ -60,24 +58,10 @@ export class ServicePlanComponent implements OnInit {
   setServicePlan(servicePlan: ServicePlan): void {
     if (servicePlan._id === undefined) {
       this.servicePlanService.create(servicePlan).subscribe(res => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Plan de Servicio ' + res.name + ' registrado!',
-          showConfirmButton: false,
-          timer: 1500
-        });
         this.servicePlanList.push(res);
       });
     } else {
       this.servicePlanService.update(servicePlan).subscribe(res => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Plan de Servicio ' + res.name + ' Actualizado!',
-          showConfirmButton: false,
-          timer: 1500
-        });
         _.forEach(this.servicePlanList, (item, key) => {
           if (item._id == res._id) {
             this.servicePlanList[key] = res;
@@ -89,45 +73,27 @@ export class ServicePlanComponent implements OnInit {
 
   // delete service-plan.
   deleteServicePlan(id: string): void {
-    if (!this.isAdmin) {
-      Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
-        'error'
-      );
-    } else {
-      Swal.fire({
-        title: '¿Estás seguro de borrar?',
-        text: '¡No podrás revertir esto!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.value) {
-          this.servicePlanService.countServices(id).subscribe(res => {
-            if (res.count > 0) {
-              Swal.fire(
-                'No se pudo borrar?',
-                'Existe mas de un servicio asociado a este registro?',
-                'warning'
-              );
-            } else {
-              this.servicePlanService.delete(id).subscribe(res => {
-                this.getServicePlanList();
-                Swal.fire(
-                  'Borrado!',
-                  'El registro ha sido borrado.',
-                  'success'
-                );
-              });
-            }
-          });
-        }
-      });
-    }
+    Swal.fire({
+      title: '¿Estás seguro de borrar?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, bórralo!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicePlanService.delete(id).subscribe(res => {
+          this.getServicePlanList();
+          Swal.fire(
+            'Borrado!',
+            'El registro ha sido borrado.',
+            'success'
+          );
+        });
+      }
+    });
   }
 
   onSearch(): void {

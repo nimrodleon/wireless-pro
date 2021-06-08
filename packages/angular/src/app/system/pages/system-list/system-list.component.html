@@ -18,7 +18,7 @@
                                [detail]="'Configuración de usuarios y permisos'">
             </app-system-option>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" *ngIf="currentRole === roles.ROLE_ADMIN">
             <app-system-option [icon]="'fas fa-tags'"
                                [href]="'/system/service-plans'"
                                [title]="'Planes de Servicio'"

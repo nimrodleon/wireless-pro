@@ -7,6 +7,7 @@ export class ServicePlanStore {
   // Listar planes de servicios.
   static async getServicePlans(query = '') {
     return ServicePlan.find({
+      isDeleted: false,
       $or: [{name: {$regex: query}}]
     }).sort({'name': 1})
   }
