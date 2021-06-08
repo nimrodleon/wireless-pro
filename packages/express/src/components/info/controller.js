@@ -1,23 +1,27 @@
-import * as store from './store'
+import {InfoStore} from './store'
 
-// obtener la info empresa.
-export function getInfo() {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.getInfo())
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
+// Lógica - Info.
+export class InfoController {
+  // obtener la info empresa.
+  static getInfo() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(InfoStore.getInfo())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
-// actualizar info empresa.
-export function updateInfo(id, data) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(store.updateInfo(id, data))
-    } catch (err) {
-      reject(err)
-    }
-  })
+  // actualizar info empresa.
+  static updateInfo(id, data) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(InfoStore.updateInfo(id, data))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
 }

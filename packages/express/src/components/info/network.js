@@ -1,15 +1,18 @@
 import express, {response} from 'express'
-import * as controller from './controller'
-import {verifyToken} from '../middlewares'
+import {checkRolAdmin, verifyToken} from '../middlewares'
+import {InfoController} from './controller'
 
 const router = express.Router()
 
 // http://<HOST>/api/info
-router.get('/', [verifyToken], getInfoCompany)
+router.get('/', [
+  verifyToken,
+  checkRolAdmin,
+], getInfoCompany)
 
 // obtener info empresa.
 function getInfoCompany(req, res = response) {
-  controller.getInfo().then(result => {
+  InfoController.getInfo().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
@@ -21,7 +24,7 @@ router.patch('/:id', [verifyToken], updateInfoCompany)
 
 // actualizar info empresa.
 function updateInfoCompany(req, res = response) {
-  controller.updateInfo(req.params.id, req.body).then(result => {
+  InfoController.updateInfo(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)

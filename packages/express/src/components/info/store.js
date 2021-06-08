@@ -1,15 +1,19 @@
 import {Info} from './model'
 
-// devolver info por id.
-export async function getInfo() {
-  if (Info.find().countDocuments() <= 0) {
-    let _info = new Info({company: 'EMPRESA 1'})
-    await _info.save()
+// CRUD - info.
+export class InfoStore {
+  // devolver info por id.
+  static async getInfo() {
+    if (Info.find().countDocuments() <= 0) {
+      let _info = new Info({company: 'EMPRESA 1'})
+      await _info.save()
+    }
+    return Info.findOne({})
   }
-  return Info.findOne({})
-}
 
-// actualizar info.
-export async function updateInfo(id, info) {
-  return Info.findByIdAndUpdate(id, info, {new: true})
+  // actualizar info.
+  static async updateInfo(id, info) {
+    return Info.findByIdAndUpdate(id, info, {new: true})
+  }
+
 }
