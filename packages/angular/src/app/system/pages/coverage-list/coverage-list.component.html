@@ -2,19 +2,18 @@
 <div class="wrap-body">
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
-
     <div class="row">
       <div class="col-12">
-        <div class="d-flex my-2 justify-content-between">
+        <div class="d-flex align-items-center my-2 justify-content-between">
           <h4 class="text-uppercase m-0">Lista de Areas cobertura</h4>
           <form (ngSubmit)="onSearch()" class="form-inline">
-            <button type="button" (click)="onCreate()" class="btn btn-primary btn-sm mr-2">
+            <button type="button" (click)="onCreate()" class="btn btn-primary mr-2">
               <i class="fas fa-plus"></i><span class="text-uppercase"> Cobertura</span>
             </button>
             <input type="search" [(ngModel)]="query" name="query"
-                   class="form-control form-control-sm mr-2"
+                   class="form-control mr-2"
                    placeholder="Cobertura...">
-            <button type="submit" class="btn btn-success btn-sm">
+            <button type="submit" class="btn btn-success">
               <i class="fas fa-search"></i><span class="text-uppercase"> Buscar</span>
             </button>
           </form>
@@ -58,6 +57,5 @@
       [coverage]="currentCoverage"
       (sendCoverage)="onSave($event)">
     </app-coverage-modal>
-
   </div>
 </div>

@@ -14,26 +14,33 @@ import {CoverageService} from '../../services/coverage.service';
 })
 export class CoverageListComponent implements OnInit {
   coverages: Coverage[];
-  // TODO: refactorizar esta linea de código.
-  isAdmin: boolean;
   titleModal: string;
   currentCoverage: Coverage = new Coverage();
   query: string = '';
+  currentRole: string;
 
-  constructor(private coverageService: CoverageService, private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private coverageService: CoverageService) {
+  }
+
+  get roles() {
+    return this.authService.roles;
   }
 
   ngOnInit(): void {
     this.getCoverages();
+    // Obtener el rol del usuario autentificado.
+    this.authService.getRoles().subscribe(res => this.currentRole = res);
   }
 
-  // Optiene las áreas de cobertura.
+  // Obtiene las áreas de cobertura.
   private getCoverages(): void {
     this.coverageService.getCoverages(this.query)
       .subscribe(res => this.coverages = res);
   }
 
-  // Optiene una área cobertura.
+  // Obtiene una área cobertura.
   private getCoverage(id: string): void {
     this.coverageService.getCoverage(id).subscribe(res => this.currentCoverage = res);
   }
@@ -49,13 +56,14 @@ export class CoverageListComponent implements OnInit {
   }
 
   deleteCoverage(id: string): void {
-    if (!this.isAdmin) {
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
+        'Información',
+        'No es admin, no puede hacer esto!',
         'error'
       );
     } else {
+      // Borrar el usuario tiene permisos.
       Swal.fire({
         title: '¿Estás seguro de borrar?',
         text: '¡No podrás revertir esto!',
@@ -66,24 +74,14 @@ export class CoverageListComponent implements OnInit {
         confirmButtonText: 'Sí, bórralo!',
         cancelButtonText: 'Cancelar'
       }).then((result) => {
-        if (result.value) {
-          this.coverageService.countClients(id).subscribe(res => {
-            if (res.count > 0) {
-              Swal.fire(
-                'No se pudo borrar?',
-                'Existe mas de un cliente asociado a este registro?',
-                'warning'
-              );
-            } else {
-              this.coverageService.delete(id).subscribe(res => {
-                this.getCoverages();
-                Swal.fire(
-                  'Borrado!',
-                  'El registro ha sido borrado.',
-                  'success'
-                );
-              });
-            }
+        if (result.isConfirmed) {
+          this.coverageService.delete(id).subscribe(res => {
+            this.getCoverages();
+            Swal.fire(
+              'Borrado!',
+              'El registro ha sido borrado.',
+              'success'
+            );
           });
         }
       });
@@ -104,7 +102,7 @@ export class CoverageListComponent implements OnInit {
     jQuery('#app-coverage-modal').modal('show');
   }
 
-  // Envia una área de covertura para almacenar en la base de datos.
+  // Envía una área de cobertura para almacenar en la base de datos.
   onSave(coverage: Coverage): void {
     if (coverage._id == undefined) {
       this.coverageService.create(coverage).subscribe(res => {

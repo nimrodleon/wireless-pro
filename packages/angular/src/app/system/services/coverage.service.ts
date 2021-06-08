@@ -35,10 +35,6 @@ export class CoverageService {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
-  countClients(id: string): Observable<any> {
-    return this.http.get(this.baseURL + '/' + id + '/count/client');
-  }
-
   totalClients(): Observable<any> {
     return this.http.get(this.baseURL + '/report/total');
   }

@@ -5,6 +5,7 @@ export class CoverageStore {
   // Listar areas cobertura.
   static async getCoverages(query) {
     return Coverage.find({
+      isDeleted: false,
       $or: [{name: {$regex: query}}]
     }).sort({'name': 1})
   }
