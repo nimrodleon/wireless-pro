@@ -20,7 +20,10 @@ function getInfoCompany(req, res = response) {
 }
 
 // http://<HOST>/api/info/:id
-router.patch('/:id', [verifyToken], updateInfoCompany)
+router.patch('/:id', [
+  verifyToken,
+  checkRolAdmin,
+], updateInfoCompany)
 
 // actualizar info empresa.
 function updateInfoCompany(req, res = response) {

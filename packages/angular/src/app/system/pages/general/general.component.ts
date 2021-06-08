@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
-import {Router} from '@angular/router';
-import {AuthService} from '../../../user/services/auth.service';
 import {InfoService} from '../../services/info.service';
 import {Info} from '../../interfaces/info';
 
@@ -13,16 +11,11 @@ import {Info} from '../../interfaces/info';
 export class GeneralComponent implements OnInit {
   info: Info = new Info();
 
-  constructor(private infoService: InfoService,
-              private authService: AuthService, private router: Router) {
+  constructor(private infoService: InfoService) {
   }
 
   ngOnInit(): void {
     this.getInfo();
-    // TODO: eliminar esta linea de código.
-    // this.authService.isAdmin().subscribe(res => {
-    //   if (res != true) this.router.navigate(['/']);
-    // });
   }
 
   private getInfo(): void {
@@ -37,7 +30,7 @@ export class GeneralComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Su Información ha sido guardado',
+        title: 'Actualización correcta!',
         showConfirmButton: false,
         timer: 1500
       });

@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 
 import {GlobalModule} from '../global/global.module';
 import {SystemRoutingModule} from './system-routing.module';
+import {AuthService} from '../user/services/auth.service';
 import {SystemListComponent} from './pages/system-list/system-list.component';
 import {SystemOptionComponent} from './components/system-option/system-option.component';
 import {GeneralComponent} from './pages/general/general.component';
@@ -17,7 +18,6 @@ import {TowerListComponent} from './pages/tower-list/tower-list.component';
 import {TramoListComponent} from './pages/tramo-list/tramo-list.component';
 import {TowerModalComponent} from './components/tower-modal/tower-modal.component';
 import {TramoModalComponent} from './components/tramo-modal/tramo-modal.component';
-
 
 @NgModule({
   declarations: [
@@ -40,6 +40,9 @@ import {TramoModalComponent} from './components/tramo-modal/tramo-modal.componen
     FormsModule,
     SystemRoutingModule,
     GlobalModule
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class SystemModule {

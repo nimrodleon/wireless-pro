@@ -34,6 +34,15 @@ function getProfile(req, res = response) {
   res.json(req.currentUser)
 }
 
+// http://<HOST>/api/users/profile/roles
+router.get('/profile/roles', [verifyToken], getRoles)
+
+// Obtener el rol del usuario autentificado.
+function getRoles(req, res = response) {
+  const {roles} = req.currentUser
+  res.json(roles)
+}
+
 // http://<HOST>/api/users
 router.post('/', [
   verifyToken, checkRolAdmin,

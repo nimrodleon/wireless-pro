@@ -6,7 +6,7 @@
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-4" *ngIf="currentRole === roles.ROLE_ADMIN">
             <app-system-option [icon]="'fas fa-cog'"
                                [href]="'/system/general'" [title]="'General'"
                                [detail]="'Información de la Empresa'">
