@@ -5,6 +5,7 @@ export class MaterialStore {
   // Listar materiales.
   static async getMaterials(query = '') {
     return Material.find({
+      isDeleted: false,
       $or: [
         {description: {$regex: query}}
       ]

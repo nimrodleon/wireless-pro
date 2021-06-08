@@ -15,18 +15,23 @@ export class MaterialComponent implements OnInit {
   titleModal: string;
   materials: Material[];
   currentMaterial: Material;
-  // TODO: borrar esta linea de código al refactorizar.
-  isAdmin: boolean = true;
-  // Query Values.
   query: string = '';
+  currentRole: string;
 
-  constructor(private materialService: MaterialService,
-              private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private materialService: MaterialService) {
     this.currentMaterial = new Material();
   }
 
   ngOnInit(): void {
     this.getMaterials();
+    // Obtener el rol del usuario autentificado.
+    this.authService.getRoles().subscribe(res => this.currentRole = res);
+  }
+
+  get roles() {
+    return this.authService.roles;
   }
 
   private getMaterials(): void {
@@ -62,10 +67,10 @@ export class MaterialComponent implements OnInit {
 
   // delete material.
   deleteMaterial(id: string): void {
-    if (!this.isAdmin) {
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
+        'Información',
+        'No es admin, no puede hacer esto!',
         'error'
       );
     } else {
@@ -79,24 +84,14 @@ export class MaterialComponent implements OnInit {
         confirmButtonText: 'Sí, bórralo!',
         cancelButtonText: 'Cancelar'
       }).then((result) => {
-        if (result.value) {
-          this.materialService.countTaskMaterials(id).subscribe(res => {
-            if (res.count > 0) {
-              Swal.fire(
-                'No se pudo borrar?',
-                'Existe mas de un item de Tarea asociado a este registro?',
-                'warning'
-              );
-            } else {
-              this.materialService.delete(id).subscribe(res => {
-                this.getMaterials();
-                Swal.fire(
-                  'Borrado!',
-                  'El registro ha sido borrado.',
-                  'success'
-                );
-              });
-            }
+        if (result.isConfirmed) {
+          this.materialService.delete(id).subscribe(res => {
+            this.getMaterials();
+            Swal.fire(
+              'Borrado!',
+              'El registro ha sido borrado.',
+              'success'
+            );
           });
         }
       });
