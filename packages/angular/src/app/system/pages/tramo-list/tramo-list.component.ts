@@ -16,18 +16,23 @@ export class TramoListComponent implements OnInit {
   query: string = '';
   titleModal: string;
   currentTramo: Tramo;
-  // Permisos para Administrar el módulo.
-  // TODO: refactorizar esta linea de código.
-  isRedes: boolean = true;
+  currentRole: string;
 
-  constructor(private tramoService: TramoService,
-              private authService: AuthService) {
+  constructor(
+    private tramoService: TramoService,
+    private authService: AuthService) {
     this.tramos = Array<any>();
     this.currentTramo = new Tramo();
   }
 
   ngOnInit(): void {
     this.getTramos();
+    // Obtener rol del usuario autentificado.
+    this.authService.getRoles().subscribe(res => this.currentRole = res);
+  }
+
+  get roles() {
+    return this.authService.roles;
   }
 
   private getTramos(): void {
@@ -46,40 +51,24 @@ export class TramoListComponent implements OnInit {
   }
 
   addTramo(): void {
-    if (!this.isRedes) {
-      Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
-        'error'
-      );
-    } else {
-      this.titleModal = 'Agregar Tramo';
-      this.currentTramo = new Tramo();
-      jQuery('#app-tramo-modal').modal('show');
-    }
+    this.titleModal = 'Agregar Tramo';
+    this.currentTramo = new Tramo();
+    jQuery('#app-tramo-modal').modal('show');
   }
 
   editTramo(id: string): void {
-    if (!this.isRedes) {
-      Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
-        'error'
-      );
-    } else {
-      this.titleModal = 'Editar Tramo';
-      this.tramoService.getTramo(id).subscribe(res => {
-        this.currentTramo = res;
-        jQuery('#app-tramo-modal').modal('show');
-      });
-    }
+    this.titleModal = 'Editar Tramo';
+    this.tramoService.getTramo(id).subscribe(res => {
+      this.currentTramo = res;
+      jQuery('#app-tramo-modal').modal('show');
+    });
   }
 
   deleteTramo(id: string): void {
-    if (!this.isRedes) {
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
+        'Información',
+        'No es admin, no puede hacer esto!',
         'error'
       );
     } else {
@@ -94,25 +83,14 @@ export class TramoListComponent implements OnInit {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.tramoService.countDevices(id)
+          this.tramoService.delete(id)
             .subscribe(res => {
-              if (res > 0) {
-                Swal.fire(
-                  'No se pudo borrar?',
-                  'Existe mas de un equipo asociado a este registro?',
-                  'warning'
-                );
-              } else {
-                this.tramoService.delete(id)
-                  .subscribe(res => {
-                    this.getTramos();
-                    Swal.fire(
-                      'Borrado!',
-                      'El Tramo ha sido borrado.',
-                      'success'
-                    );
-                  });
-              }
+              this.getTramos();
+              Swal.fire(
+                'Borrado!',
+                'El Tramo ha sido borrado.',
+                'success'
+              );
             });
         }
       });

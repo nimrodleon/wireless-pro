@@ -1,6 +1,7 @@
 import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
+import {validate, verifyToken} from '../middlewares'
 import {TramoController} from './controller'
+import {check} from 'express-validator'
 
 const router = express.Router()
 
@@ -13,7 +14,7 @@ function getTramos(req, res = response) {
   TramoController.getTramos(query).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -25,7 +26,7 @@ function getTramo(req, res = response) {
   TramoController.getTramo(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -37,7 +38,7 @@ function getTramosByCoverages(req, res = response) {
   TramoController.tramosByDistinctCoverage().then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -49,31 +50,41 @@ function getCoveragesByTramos(req, res = response) {
   TramoController.getCoveragesByTramos().then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
 // http://<HOST>/api/tramo
-router.post('/', [verifyToken], addTramo)
+router.post('/', [
+  verifyToken,
+  check('tramo', 'El nombre es obligatorio').not().isEmpty(),
+  check('coverage', 'La area cobertura es obligatorio').not().isEmpty(),
+  validate
+], addTramo)
 
 // registrar tramo.
 function addTramo(req, res = response) {
   TramoController.createTramo(req.body).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
 // http://<HOST>/api/tramo/:id
-router.patch('/:id', [verifyToken], updateTramo)
+router.patch('/:id', [
+  verifyToken,
+  check('tramo', 'El nombre es obligatorio').not().isEmpty(),
+  check('coverage', 'La area cobertura es obligatorio').not().isEmpty(),
+  validate
+], updateTramo)
 
 // actualizar tramo.
 function updateTramo(req, res = response) {
   TramoController.updateTramo(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -85,7 +96,7 @@ function deleteTramo(req, res = response) {
   TramoController.deleteTramo(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
