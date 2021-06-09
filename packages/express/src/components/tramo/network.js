@@ -1,5 +1,5 @@
 import express, {response} from 'express'
-import {validate, verifyToken} from '../middlewares'
+import {checkRolAdmin, checkRolNetwork, validate, verifyToken} from '../middlewares'
 import {TramoController} from './controller'
 import {check} from 'express-validator'
 
@@ -57,6 +57,7 @@ function getCoveragesByTramos(req, res = response) {
 // http://<HOST>/api/tramo
 router.post('/', [
   verifyToken,
+  checkRolNetwork,
   check('tramo', 'El nombre es obligatorio').not().isEmpty(),
   check('coverage', 'La area cobertura es obligatorio').not().isEmpty(),
   validate
@@ -74,6 +75,7 @@ function addTramo(req, res = response) {
 // http://<HOST>/api/tramo/:id
 router.patch('/:id', [
   verifyToken,
+  checkRolNetwork,
   check('tramo', 'El nombre es obligatorio').not().isEmpty(),
   check('coverage', 'La area cobertura es obligatorio').not().isEmpty(),
   validate
@@ -89,7 +91,10 @@ function updateTramo(req, res = response) {
 }
 
 // http://<HOST>/api/tramo/:id
-router.delete('/:id', [verifyToken], deleteTramo)
+router.delete('/:id', [
+  verifyToken,
+  checkRolAdmin,
+], deleteTramo)
 
 // borrar tramo.
 function deleteTramo(req, res = response) {

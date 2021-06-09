@@ -6,6 +6,7 @@ export class TramoStore {
   // Listar tramos.
   static async getTramos(query = '') {
     return Tramo.find({
+      isDeleted: false,
       tramo: {
         $regex: query
       }

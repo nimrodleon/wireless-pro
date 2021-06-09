@@ -6,6 +6,7 @@ export class TowerStore {
   // Listar torres.
   static async getTowers(query = '') {
     return Tower.find({
+      isDeleted: false,
       tower: {
         $regex: query
       }

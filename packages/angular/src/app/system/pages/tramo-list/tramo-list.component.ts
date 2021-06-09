@@ -51,17 +51,33 @@ export class TramoListComponent implements OnInit {
   }
 
   addTramo(): void {
-    this.titleModal = 'Agregar Tramo';
-    this.currentTramo = new Tramo();
-    jQuery('#app-tramo-modal').modal('show');
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      Swal.fire(
+        'Información',
+        'No tiene permisos para realizar esta tarea!',
+        'error'
+      );
+    } else {
+      this.titleModal = 'Agregar Tramo';
+      this.currentTramo = new Tramo();
+      jQuery('#app-tramo-modal').modal('show');
+    }
   }
 
   editTramo(id: string): void {
-    this.titleModal = 'Editar Tramo';
-    this.tramoService.getTramo(id).subscribe(res => {
-      this.currentTramo = res;
-      jQuery('#app-tramo-modal').modal('show');
-    });
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      Swal.fire(
+        'Información',
+        'No tiene permisos para realizar esta tarea!',
+        'error'
+      );
+    } else {
+      this.titleModal = 'Editar Tramo';
+      this.tramoService.getTramo(id).subscribe(res => {
+        this.currentTramo = res;
+        jQuery('#app-tramo-modal').modal('show');
+      });
+    }
   }
 
   deleteTramo(id: string): void {

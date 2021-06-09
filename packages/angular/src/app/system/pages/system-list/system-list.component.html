@@ -6,19 +6,19 @@
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-4" *ngIf="currentRole === roles.ROLE_ADMIN">
+          <div class="col-md-4" *ngIf="checkRolAdmin()">
             <app-system-option [icon]="'fas fa-cog'"
                                [href]="'/system/general'" [title]="'General'"
                                [detail]="'Información de la Empresa'">
             </app-system-option>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" *ngIf="checkRolAdmin()">
             <app-system-option [icon]="'fas fa-user'"
                                [href]="'/user/list'" [title]="'Usuarios'"
                                [detail]="'Configuración de usuarios y permisos'">
             </app-system-option>
           </div>
-          <div class="col-md-4" *ngIf="currentRole === roles.ROLE_ADMIN">
+          <div class="col-md-4" *ngIf="checkRolAdmin()">
             <app-system-option [icon]="'fas fa-tags'"
                                [href]="'/system/service-plans'"
                                [title]="'Planes de Servicio'"
@@ -38,18 +38,25 @@
             </app-system-option>
           </div>
           <div class="col-md-4">
+            <app-system-option [icon]="'fas fa-network-wired'"
+                               [href]="'/devices'" [title]="'Lista de Equipos'"
+                               [detail]="'Lista de Equipos'">
+            </app-system-option>
+          </div>
+          <div class="col-md-4">
             <app-system-option [icon]="'fas fa-tasks'"
                                [href]="'/tasks-list'" [title]="'Lista de Tareas'"
                                [detail]="'Buscador de Tareas por mes'">
             </app-system-option>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" *ngIf="checkRolNetwork()">
             <app-system-option [icon]="'fas fa-directions'" [href]="'/system/tramo'"
                                [title]="'Tramos de Red'" [detail]="'Lista de Tramos de Red'">
             </app-system-option>
           </div>
-          <div class="col-md-4">
-            <app-system-option [icon]="'fas fa-broadcast-tower'" [href]="'/system/tower'" [title]="'Torres'"
+          <div class="col-md-4" *ngIf="checkRolNetwork()">
+            <app-system-option [icon]="'fas fa-broadcast-tower'"
+                               [href]="'/system/tower'" [title]="'Torres'"
                                [detail]="'Lista de Torres'">
             </app-system-option>
           </div>

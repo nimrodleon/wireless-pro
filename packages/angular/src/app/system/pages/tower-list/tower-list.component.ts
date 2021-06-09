@@ -16,13 +16,12 @@ export class TowerListComponent implements OnInit {
   query: string = '';
   currentTower: Tower = new Tower();
   towers: Array<any> = new Array<any>();
-  // Permisos para administrar módulo.
-  // TODO: refactorizar esta linea de código.
-  isRedes: boolean = false;
+  currentRole: string;
 
   // Constructor de la Clase.
-  constructor(private towerService: TowerService,
-              private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private towerService: TowerService) {
   }
 
   ngOnInit(): void {
@@ -30,6 +29,13 @@ export class TowerListComponent implements OnInit {
       jQuery('[data-toggle="tooltip"]').tooltip();
     });
     this.getTowers();
+    // Obtener el rol del usuario autentificado.
+    this.authService.getRoles()
+      .subscribe(res => this.currentRole = res);
+  }
+
+  get roles() {
+    return this.authService.roles;
   }
 
   private getTowers(): void {
@@ -38,10 +44,10 @@ export class TowerListComponent implements OnInit {
   }
 
   addTower(): void {
-    if (!this.isRedes) {
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
       Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
+        'Información',
+        'No tiene permisos para realizar esta tarea!',
         'error'
       );
     } else {
@@ -52,10 +58,10 @@ export class TowerListComponent implements OnInit {
   }
 
   editTower(id: string): void {
-    if (!this.isRedes) {
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
       Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
+        'Información',
+        'No tiene permisos para realizar esta tarea!',
         'error'
       );
     } else {
@@ -83,10 +89,10 @@ export class TowerListComponent implements OnInit {
   }
 
   deleteTower(id: string): void {
-    if (!this.isRedes) {
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
+        'Información',
+        'No es admin, no puede hacer esto!',
         'error'
       );
     } else {
@@ -100,26 +106,15 @@ export class TowerListComponent implements OnInit {
         confirmButtonText: 'Sí, bórralo!',
         cancelButtonText: 'Cancelar',
       }).then((result) => {
-        if (result.value) {
-          this.towerService.countDevices(id)
-            .subscribe(res => {
-              if (res > 0) {
-                Swal.fire(
-                  'No se pudo borrar?',
-                  'Existe mas de un equipo asociado a este registro?',
-                  'warning'
-                );
-              } else {
-                this.towerService.delete(id).subscribe(res => {
-                  this.getTowers();
-                  Swal.fire(
-                    'Borrado!',
-                    'El registro ha sido borrado.',
-                    'success'
-                  );
-                });
-              }
-            });
+        if (result.isConfirmed) {
+          this.towerService.delete(id).subscribe(res => {
+            this.getTowers();
+            Swal.fire(
+              'Borrado!',
+              'El registro ha sido borrado.',
+              'success'
+            );
+          });
         }
       });
     }
