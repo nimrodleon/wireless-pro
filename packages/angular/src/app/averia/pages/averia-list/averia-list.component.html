@@ -47,7 +47,9 @@
               </td>
               <td>
                 <span class="d-block">{{ averia.averia }}</span>
-                <a [routerLink]="['/client/detail', averia.client._id]">{{ averia.client.fullName }}</a>
+                <a [routerLink]="['/client/detail', averia.client._id]">{{ averia.client.fullName }} - {{averia.client.phone}}</a>
+                <!-- COMENTARIO -->
+                <div class="card px-2" *ngIf="averia.solution">{{averia.solution}}</div>
                 <div class="d-flex">
                   <!-- ESTADO -->
                   <span class="mr-1">

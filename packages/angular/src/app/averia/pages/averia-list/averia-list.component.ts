@@ -15,19 +15,24 @@ export class AveriaListComponent implements OnInit {
   query: string = '';
   archived: boolean = false;
   averias: Array<any> = new Array<any>();
-  // Variables para el Modal.
   titleModal: string;
   currentAveria: Averia;
-  // TODO: deprecado borrar esta linea al refactorizar.
-  isAdmin: boolean = false;
+  currentRole: string;
 
-  constructor(private averiaService: AveriaService,
-              private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private averiaService: AveriaService) {
     this.currentAveria = new Averia();
   }
 
   ngOnInit(): void {
     this.getAverias();
+    // Obtener rol del usuario autentificado.
+    this.authService.getRoles().subscribe(res => this.currentRole = res);
+  }
+
+  get roles() {
+    return this.authService.roles;
   }
 
   // carga las averias.
@@ -73,10 +78,10 @@ export class AveriaListComponent implements OnInit {
 
   // delete averia.
   onDeleteAveria(id: string): void {
-    if (!this.isAdmin) {
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
+        'Información',
+        'No es admin, no puede hacer esto!',
         'error'
       );
     } else {

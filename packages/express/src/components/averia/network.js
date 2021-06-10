@@ -1,6 +1,7 @@
 import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
+import {checkRolAdmin, validate, verifyToken} from '../middlewares'
 import {AveriaController} from './controller'
+import {check} from 'express-validator'
 
 const router = express.Router()
 
@@ -22,7 +23,11 @@ function getAverias(req, res = response) {
 }
 
 // http://<HOST>/api/averias/:id
-router.get('/:id', [verifyToken], getAveria)
+router.get('/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate,
+], getAveria)
 
 // devolver averia por id.
 function getAveria(req, res = response) {
@@ -34,7 +39,11 @@ function getAveria(req, res = response) {
 }
 
 // http://<HOST>/api/averias
-router.post('/', [verifyToken], addAveria)
+router.post('/', [
+  verifyToken,
+  check('client', 'El cliente es obligatorio').not().isEmpty(),
+  validate,
+], addAveria)
 
 // registrar averia.
 function addAveria(req, res = response) {
@@ -46,7 +55,12 @@ function addAveria(req, res = response) {
 }
 
 // http://<HOST>/api/averias/:id
-router.patch('/:id', [verifyToken], updateAveria)
+router.patch('/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  check('client', 'El cliente es obligatorio').not().isEmpty(),
+  validate,
+], updateAveria)
 
 // actualizar averia.
 function updateAveria(req, res = response) {
@@ -58,7 +72,12 @@ function updateAveria(req, res = response) {
 }
 
 // http://<HOST>/api/averias
-router.delete('/:id', [verifyToken], deleteAveria)
+router.delete('/:id', [
+  verifyToken,
+  checkRolAdmin,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate,
+], deleteAveria)
 
 // borrar averia.
 function deleteAveria(req, res = response) {

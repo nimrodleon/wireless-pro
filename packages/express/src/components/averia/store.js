@@ -6,10 +6,11 @@ export class AveriaStore {
   // Lista de averias.
   static async getAverias(query, status) {
     let _averias = await Averia.find({
-      archived: status
+      isDeleted: false,
+      archived: status,
     }).populate({
       path: 'client',
-      select: 'fullName',
+      select: 'fullName phone',
       match: {fullName: {$regex: query}}
     }).populate({
       path: 'user',
