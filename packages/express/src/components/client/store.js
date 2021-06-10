@@ -39,7 +39,8 @@ export class ClientStore {
 
   // buscador de select2.
   static async getClientsS2(term) {
-    let _clients = Client.find({
+    let _clients = await Client.find({
+      isDeleted: false,
       $or: [
         {dni: {$regex: term}},
         {fullName: {$regex: term}}

@@ -13,15 +13,15 @@ import {UserService} from 'src/app/user/services/user.service';
 export class AveriaAttendComponent implements OnInit {
   @Input() averia: Averia;
   @Output() sendModel = new EventEmitter<Averia>();
-  users: Array<User> = new Array<User>();
+  users: any;
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
     jQuery('#app-averia-attend').on('shown.bs.modal', () => {
-      this.userService.getUsers(false)
-        .subscribe(res => this.users = res);
+      this.userService.getUsersWithSelect2('')
+        .subscribe(res => this.users = res.results);
     });
   }
 

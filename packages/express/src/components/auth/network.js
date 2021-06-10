@@ -150,4 +150,17 @@ function passwordChange(req, res = response) {
   })
 }
 
+// http://<HOST>/api/users/select2/:q?
+router.get('/select2/:q?', [verifyToken], getUsersWithSelect2)
+
+// Buscar usuarios con select2.
+function getUsersWithSelect2(req, res = response) {
+  let {term = ''} = req.query
+  UserController.getUsersWithSelect2(term).then(result => {
+    res.json(result)
+  }).catch(err => {
+    res.status(400).json(err)
+  })
+}
+
 export const authRouter = router

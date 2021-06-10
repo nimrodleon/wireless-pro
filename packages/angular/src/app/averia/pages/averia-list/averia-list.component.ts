@@ -27,9 +27,6 @@ export class AveriaListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    jQuery(() => {
-      jQuery('[data-toggle="tooltip"]').tooltip();
-    });
     this.getAverias();
   }
 
@@ -108,8 +105,7 @@ export class AveriaListComponent implements OnInit {
   }
 
   // attend averia.
-  onAttendAveria(event, id: string): void {
-    event.preventDefault();
+  onAttendAveria(id: string): void {
     this.averiaService.getAveria(id).subscribe(res => {
       this.currentAveria = res;
       // if (this.currentAveria.status === 'P') {

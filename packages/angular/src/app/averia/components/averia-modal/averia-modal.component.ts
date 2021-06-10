@@ -14,26 +14,29 @@ import {AveriaService} from '../../services/averia.service';
 })
 export class AveriaModalComponent implements OnInit {
   private baseURL: string = environment.baseUrl + 'clients';
-  // Input variables.
-  @Input() title: string;
-  @Input() averia: Averia;
-  // Output variables.
-  @Output() sendModel = new EventEmitter<Averia>();
+
+  @Input()
+  title: string;
+
+  @Input()
+  averia: Averia;
+
+  @Output()
+  sendModel = new EventEmitter<Averia>();
 
   constructor(private averiaService: AveriaService) {
   }
 
   ngOnInit(): void {
-    // jQuery(() => {
-    //   jQuery('[data-toggle="tooltip"]').tooltip();
-    // });
-    // Show modal.
     jQuery('#app-averia-modal').on('shown.bs.modal', () => {
       jQuery('select[name="clientId"]').select2({
         theme: 'bootstrap4',
-        minimumInputLength: 4,
+        dropdownParent: jQuery('#app-averia-modal'),
         ajax: {
-          url: this.baseURL + '/select2/s'
+          url: this.baseURL + '/select2/s',
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
         }
       });
       // Preselecting options in an remotely-sourced.
@@ -63,6 +66,5 @@ export class AveriaModalComponent implements OnInit {
       jQuery('#app-averia-modal').modal('hide');
     }
   }
-
 
 }

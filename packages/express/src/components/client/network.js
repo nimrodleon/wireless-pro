@@ -18,7 +18,7 @@ function getClients(req, res = response) {
     res.json(result)
     console.log(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -31,7 +31,7 @@ function getClientsS2(req, res = response) {
   ClientController.getClientsS2(term).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -43,7 +43,7 @@ function getClient(req, res = response) {
   ClientController.getClient(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -55,7 +55,7 @@ function addClient(req, res = response) {
   ClientController.createClient(req.body).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -67,7 +67,7 @@ function updateClient(req, res = response) {
   ClientController.updateClient(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -79,7 +79,7 @@ function deleteClient(req, res = response) {
   ClientController.deleteClient(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
-    res.status(200).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -91,7 +91,7 @@ function getActiveClients(req, res = response) {
   ClientController.getClientsActive(true).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -103,7 +103,7 @@ function getClientsDisconnected(req, res = response) {
   ClientController.getClientsActive(false).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 

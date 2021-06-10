@@ -116,4 +116,15 @@ export class UserController {
       })
     })
   }
+
+  // Buscar usuarios con select2.
+  static getUsersWithSelect2(term) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(UserStore.getUsersWithSelect2(term))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }

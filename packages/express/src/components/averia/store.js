@@ -13,7 +13,7 @@ export class AveriaStore {
       match: {fullName: {$regex: query}}
     }).populate({
       path: 'user',
-      select: 'name'
+      select: 'fullName'
     }).hint({$natural: -1}).limit(50)
     return _.filter(_averias, obj => obj.client != null)
   }
