@@ -17,7 +17,7 @@ export class TaskService {
   getTasks(status: string, query: string): Observable<any> {
     let params = new HttpParams();
     params = params.append('search', query);
-    return this.http.get(this.baseURL + '/' + status + '/v2', {params: params});
+    return this.http.get(this.baseURL + '/' + status + '/v2', {params});
   }
 
   getTasks2(year: string, month: string, search: string): Observable<any> {

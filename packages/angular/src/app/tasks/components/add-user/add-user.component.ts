@@ -22,9 +22,9 @@ export class AddUserComponent implements OnInit {
 
   ngOnInit(): void {
     jQuery('#app-add-user').on('show.bs.modal', (event) => {
-      this.userService.getUsers(false)
-        .subscribe(res => this.users = res);
-      this.userId = '';
+      // this.userService.getUsers(false)
+      //   .subscribe(res => this.users = res);
+      // this.userId = '';
     });
   }
 

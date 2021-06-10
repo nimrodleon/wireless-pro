@@ -4,26 +4,26 @@ import {TaskController} from './controller'
 
 const router = express.Router()
 
-// http://<HOST>/api/tasks/:status/v1
-router.get('/:status/v1', [verifyToken], getTasks)
-
-// filtrar por status V1.
-function getTasks(req, res = response) {
-  TaskController.getTasksByStatusV1(req.params.status).then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(500).json(err)
-  })
-}
+// // http://<HOST>/api/tasks/:status/v1
+// router.get('/:status/v1', [verifyToken], getTasks)
+//
+// // filtrar por status V1.
+// function getTasks(req, res = response) {
+//   TaskController.getTasksByStatusV1(req.params.status).then(result => {
+//     res.json(result)
+//   }).catch(err => {
+//     res.status(500).json(err)
+//   })
+// }
 
 // http://<HOST>/api/tasks/:status/v2
 router.get('/:status/v2', [verifyToken], getTasksFilterByStatus)
 
 // filtrar por status V2.
 function getTasksFilterByStatus(req, res = response) {
-  let status = req.params.status
-  let query = req.query.search || ''
-  TaskController.getTasksByStatusV2(status, query).then(result => {
+  console.log('hola .............')
+  const {search = ''} = req.query
+  TaskController.getTasksByStatusV2(req.params.status, search).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)

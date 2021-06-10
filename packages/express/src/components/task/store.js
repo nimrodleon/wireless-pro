@@ -39,30 +39,30 @@ export class TaskStore {
   }
 
   // Filtrar tareas por status V1.
-  static async getTasksByStatusV1(status) {
-    if (status === 'F') {
-      return Task.find({status: status})
-        .populate({path: 'user', select: 'name'})
-        .hint({$natural: -1}).limit(10)
-    } else {
-      return Task.find({status: status})
-        .populate({path: 'user', select: 'name'})
-        .sort({'forDate': 1})
-    }
-  }
+  // static async getTasksByStatusV1(status) {
+  //   if (status === 'F') {
+  //     return Task.find({status: status})
+  //       .populate({path: 'user', select: 'name'})
+  //       .hint({$natural: -1}).limit(10)
+  //   } else {
+  //     return Task.find({status: status})
+  //       .populate({path: 'user', select: 'name'})
+  //       .sort({'forDate': 1})
+  //   }
+  // }
 
   // Filtrar tareas por status V2.
   static async getTasksByStatusV2(status, query) {
     if (status === 'F') {
       return Task.find({
-        status: status, $or: [
+        status: 'F', $or: [
           {title: {$regex: query}}, {fullName: {$regex: query}}
         ]
       }).populate({path: 'user', select: 'name'})
         .hint({$natural: -1}).limit(25)
     } else {
       return Task.find({
-        status: {$ne: status}, $or: [
+        status: {$ne: 'F'}, $or: [
           {title: {$regex: query}}, {fullName: {$regex: query}}
         ]
       }).populate({path: 'user', select: 'name'})

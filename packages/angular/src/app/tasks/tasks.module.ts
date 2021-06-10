@@ -35,16 +35,11 @@ import {PriceComponent} from './components/price/price.component';
     TasksRoutingModule,
     GlobalModule
   ],
-  exports: [
-    TasksListComponent,
-    TaskDetailComponent,
-    MaterialOutComponent
-  ],
   providers: [
+    UserService,
+    AuthService,
     TaskService,
     MaterialService,
-    UserService,
-    AuthService
   ]
 })
 export class TasksModule {

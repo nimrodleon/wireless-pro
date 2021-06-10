@@ -58,15 +58,15 @@ export class TaskController {
   }
 
   // filtrar por status v1.
-  static getTasksByStatusV1(status) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(TaskStore.getTasksByStatusV1(status))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
+  // static getTasksByStatusV1(status) {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       resolve(TaskStore.getTasksByStatusV1(status))
+  //     } catch (err) {
+  //       reject(err)
+  //     }
+  //   })
+  // }
 
   // filtrar por status v2.
   static getTasksByStatusV2(status, query) {

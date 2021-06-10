@@ -12,7 +12,9 @@ export class NavbarComponent implements OnInit {
   user: User;
   avatarContent: string = '';
 
-  constructor(private authService: AuthService, private userService: UserService) {
+  constructor(
+    private authService: AuthService,
+    private userService: UserService) {
     this.user = new User();
   }
 
@@ -25,6 +27,7 @@ export class NavbarComponent implements OnInit {
   getCurrentUser(): void {
     this.userService.getCurrentUser().subscribe(res => {
       this.user = res;
+      console.log(res);
       const arr = res.name.split(' ');
       if (arr.length > 1) {
         this.avatarContent = arr[0][0] + arr[1][0];
@@ -34,7 +37,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  loggedIn(): boolean {
+  loggedIn() {
     return this.authService.loggedIn();
   }
 

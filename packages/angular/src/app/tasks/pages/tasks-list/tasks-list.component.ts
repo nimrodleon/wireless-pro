@@ -6,7 +6,6 @@ import {TaskService} from '../../services/task.service';
 import {Task} from '../../interfaces/task';
 import {AuthService} from '../../../user/services/auth.service';
 
-
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
@@ -18,19 +17,23 @@ export class TasksListComponent implements OnInit {
   tasks: Array<any> = new Array<any>();
   titleModal: string = '';
   currentTask: Task;
-  // TODO: borrar esta linea de código al refactorizar.
-  isAdmin: boolean = true;
+  currentRole: string;
 
-  constructor(private taskService: TaskService,
-              private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private taskService: TaskService) {
     this.currentTask = new Task();
   }
 
   ngOnInit(): void {
-    jQuery(() => {
-      jQuery('[data-toggle="tooltip"]').tooltip();
-    });
     this.getTasks();
+    // Obtener el rol del usuario autentificado.
+    this.authService.getRoles().subscribe(res => this.currentRole = res);
+    console.log(localStorage.getItem('token'));
+  }
+
+  get roles() {
+    return this.authService.roles;
   }
 
   private getTasks(): void {
@@ -73,10 +76,10 @@ export class TasksListComponent implements OnInit {
   }
 
   deleteTask(id: string): void {
-    if (!this.isAdmin) {
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
-        'Oops...',
-        'Necesitas permisos para esta Operación!',
+        'Información',
+        'No es admin, no puede hacer esto!',
         'error'
       );
     } else {

@@ -24,8 +24,8 @@ export class AddMaterialComponent implements OnInit {
 
   ngOnInit(): void {
     jQuery('#app-add-material').on('show.bs.modal', (event) => {
-      this.materialService.getMaterials().subscribe(res => this.materials = res);
-      this.taskMaterial = new TaskMaterial();
+      // this.materialService.getMaterials().subscribe(res => this.materials = res);
+      // this.taskMaterial = new TaskMaterial();
     });
   }
 
