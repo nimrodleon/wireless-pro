@@ -13,10 +13,10 @@ export class CoverageService {
   constructor(private http: HttpClient) {
   }
 
-  getCoverages(query: string = ''): Observable<Coverage[]> {
+  getCoverages(query: string = ''): Observable<Array<Coverage>> {
     let params = new HttpParams();
     params = params.append('search', query);
-    return this.http.get<Coverage[]>(this.baseURL, {params: params});
+    return this.http.get<Array<Coverage>>(this.baseURL, {params: params});
   }
 
   getCoverage(id: string): Observable<Coverage> {

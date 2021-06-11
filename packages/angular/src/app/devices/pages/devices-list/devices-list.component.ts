@@ -1,14 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
-// import Swal from 'sweetalert2';
-// import {TramoService} from '../../../system/services/tramo.service';
-// import {Tramo} from '../../../system/interfaces/tramo';
-// import {Device} from '../../interfaces/device';
-// import {DeviceService} from '../../services/device.service';
-// import {Coverage} from 'src/app/system/interfaces/coverage';
-// import {CoverageService} from 'src/app/system/services/coverage.service';
-// import {AuthService} from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-devices-list',
@@ -16,45 +8,11 @@ declare var jQuery: any;
   styleUrls: ['./devices-list.component.scss']
 })
 export class DevicesListComponent implements OnInit {
-  // optionSearch: string = 'T0';
-  // idTreeObj: string = '';
-  // tramos: Array<Tramo>;
-  // // Areas cobertura.
-  // coverages: Array<Coverage>;
-  // // equipo actual.
-  // currentDevice: Device;
-  // // lista de equipos.
-  // devices: Array<Device>;
-  // // titúlo modal equipos.
-  // titleModal: string;
-  // // Permisos para Administrar el módulo.
-  // // TODO: refactorizar esta linea de código.
-  // isRedes: boolean = true;
 
   constructor() {
   }
 
-  // constructor(private tramoService: TramoService,
-  //             private coverageService: CoverageService, private deviceService: DeviceService,
-  //             private authService: AuthService) {
-  //   // this.coverages = new Array<Coverage>();
-  //   // this.currentDevice = new Device();
-  //   // this.devices = new Array<Device>();
-  // }
-
   ngOnInit(): void {
-    // this.getCoverages();
-    // jQuery(() => {
-    //   jQuery('[data-toggle="tooltip"]').tooltip();
-    // });
-    // test ping.
-    // this.ping("http://angular.io")
-    //   .then(delta => {
-    //     console.log('Ping time was ' + delta + ' ms');
-    //   })
-    //   .catch(error => {
-    //     console.error('Could not ping remote URL', error);
-    //   });
     // const body = document.querySelector('body');
     // body.addEventListener('keydown', e => {
     //   if (e.key == 'F7') {
@@ -97,110 +55,7 @@ export class DevicesListComponent implements OnInit {
     });
   }
 
-  // Lista de coberturas.
-  // private getCoverages(): void {
-  //   this.coverageService.getCoverages()
-  //     .subscribe(res => this.coverages = res);
-  // }
-
-  // addDevice(): void {
-  //   if (!this.isRedes) {
-  //     Swal.fire(
-  //       'Oops...',
-  //       'Necesitas permisos para esta Operación!',
-  //       'error'
-  //     );
-  //   } else {
-  //     this.titleModal = 'Agregar Equipo';
-  //     this.currentDevice = new Device();
-  //     jQuery('#app-device-modal').modal('show');
-  //   }
-  // }
-
-  // Cambia el filtro (torre/tramo).
-  // optSearch(opt: string): void {
-  //   this.optionSearch = opt;
-  // }
-
-  // Listar equipos.
-  // getDevices(id: string): void {
-  //   const old = document.getElementById(this.idTreeObj);
-  //   if (old) {
-  //     old.classList.remove('font-weight-bold', 'text-success');
-  //   }
-  //   // Cambiar css elemento activo.
-  //   const el = document.getElementById(id);
-  //   if (el) {
-  //     el.classList.add('font-weight-bold', 'text-success');
-  //   }
-  //   // Cargar equipos en la tabla.
-  //   this.idTreeObj = id;
-  //   this.deviceService.getDevices(this.idTreeObj, this.optionSearch)
-  //     .subscribe(res => this.devices = res);
-  // }
-
-  // guardar equipos.
-  // saveChanges(device: Device): void {
-  //   if (device._id === undefined) {
-  //     this.deviceService.create(device).subscribe(res => {
-  //       this.getDevices(this.idTreeObj);
-  //     });
-  //   } else {
-  //     this.deviceService.update(device).subscribe(res => {
-  //       this.getDevices(this.idTreeObj);
-  //     });
-  //   }
-  // }
-
-  // editDevice(id: string): void {
-  //   if (!this.isRedes) {
-  //     Swal.fire(
-  //       'Oops...',
-  //       'Necesitas permisos para esta Operación!',
-  //       'error'
-  //     );
-  //   } else {
-  //     this.titleModal = 'Editar Equipo';
-  //     this.deviceService.getDevice(id).subscribe(res => {
-  //       this.currentDevice = res;
-  //       jQuery('#app-device-modal').modal('show');
-  //     });
-  //   }
-  // }
-
-  // deleteDevice(id: string): void {
-  //   if (!this.isRedes) {
-  //     Swal.fire(
-  //       'Oops...',
-  //       'Necesitas permisos para esta Operación!',
-  //       'error'
-  //     );
-  //   } else {
-  //     Swal.fire({
-  //       title: 'Seguro de borrar este equipo?',
-  //       text: '¡No podrás revertir esto!',
-  //       icon: 'warning',
-  //       showCancelButton: true,
-  //       confirmButtonColor: '#3085d6',
-  //       cancelButtonColor: '#d33',
-  //       confirmButtonText: 'Sí, bórralo!',
-  //       cancelButtonText: 'Cancelar'
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         this.deviceService.delete(id).subscribe(res => {
-  //           this.getDevices(this.idTreeObj);
-  //           Swal.fire(
-  //             'Borrado!',
-  //             'El equipo ha sido borrado.',
-  //             'success'
-  //           );
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
-
-  // boton para hacer ping.
+  // botón para hacer ping.
   // onPing(): void {
   //   if (this.devices.length > 0) {
   //     this.devices.forEach(item => {

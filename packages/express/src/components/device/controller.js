@@ -3,10 +3,21 @@ import {DeviceStore} from './store'
 // Lógica - Equipos.
 export class DeviceController {
   // Listar equipos.
-  static getDevices(id, type = 'T0') {
+  // static getDevices(id, type = 'T0') {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       resolve(DeviceStore.getDevices(id, type))
+  //     } catch (err) {
+  //       reject(err)
+  //     }
+  //   })
+  // }
+
+  // Obtener equipos por tramos.
+  static getDevicesByTramo(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(DeviceStore.getDevices(id, type))
+        resolve(DeviceStore.getDevicesByTramo(id))
       } catch (err) {
         reject(err)
       }

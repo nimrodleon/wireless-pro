@@ -13,7 +13,7 @@ import {CoverageService} from '../../services/coverage.service';
   styleUrls: ['./coverage-list.component.scss']
 })
 export class CoverageListComponent implements OnInit {
-  coverages: Coverage[];
+  coverages: Array<Coverage>;
   titleModal: string;
   currentCoverage: Coverage;
   query: string = '';
@@ -22,6 +22,10 @@ export class CoverageListComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private coverageService: CoverageService) {
+    // Valor inicial area cobertura actual.
+    this.currentCoverage = {
+      _id: '', name: ''
+    };
   }
 
   get roles() {
@@ -37,12 +41,15 @@ export class CoverageListComponent implements OnInit {
   // Obtiene las áreas de cobertura.
   private getCoverages(): void {
     this.coverageService.getCoverages(this.query)
-      .subscribe(res => this.coverages = res);
+      .subscribe(res => {
+        this.coverages = res;
+      });
   }
 
   // Obtiene una área cobertura.
   private getCoverage(id: string): void {
-    this.coverageService.getCoverage(id).subscribe(res => this.currentCoverage = res);
+    this.coverageService.getCoverage(id)
+      .subscribe(res => this.currentCoverage = res);
   }
 
   // Ordenar coverages.

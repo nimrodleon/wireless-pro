@@ -5,14 +5,24 @@ import {DeviceController} from './controller'
 const router = express.Router()
 
 // http://<HOST>/api/devices/:id/:type
-router.get('/:id/:type', [verifyToken], getDevices)
+// router.get('/:id/:type', [verifyToken], getDevices)
 
 // Listar equipos.
-function getDevices(req, res = response) {
-  DeviceController.getDevices(req.params.id, req.params.type).then(result => {
+// function getDevices(req, res = response) {
+//   DeviceController.getDevices(req.params.id, req.params.type).then(result => {
+//     res.json(result)
+//   }).catch(err => {
+//     res.status(500).json(err)
+//   })
+// }
+
+// http://<HOST>/api/devices/tramo/:id
+router.get('/tramo/:id', [verifyToken], getDevicesByTramo)
+
+// Obtener equipos por tramos de red.
+function getDevicesByTramo(req, res = response) {
+  DeviceController.getDevicesByTramo(req.params.id).then(result => {
     res.json(result)
-  }).catch(err => {
-    res.status(500).json(err)
   })
 }
 

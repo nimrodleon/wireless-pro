@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {DeviceTramoService} from './device-tramo.service';
+import {Device} from '../interfaces/device';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class DeviceListService {
   private baseURL: string = environment.baseUrl + 'devices';
   private _coverages: Array<any> | undefined;
   private _currentTramoId: string;
+  private _devices: Array<Device> | undefined;
 
   constructor(
     private http: HttpClient,
@@ -31,6 +33,11 @@ export class DeviceListService {
     return this._coverages!;
   }
 
+  // Lista de equipos.
+  get devices(): Array<Device> {
+    return this._devices;
+  }
+
   // Id del tramo actual.
   get currentTramoId(): string {
     return this._currentTramoId;
@@ -39,6 +46,12 @@ export class DeviceListService {
   // actualizar el id del tramo actual.
   setCurrentTramoId(id): void {
     this._currentTramoId = id;
+  }
+
+  // Obtener equipos por tramo.
+  getDevicesByTramo(id): void {
+    this.http.get<Array<Device>>(this.baseURL + '/tramo/' + id)
+      .subscribe(res => this._devices = res);
   }
 
 }

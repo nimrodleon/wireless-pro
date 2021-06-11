@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Device} from '../../interfaces/device';
+import {Component, OnInit} from '@angular/core';
+import {DeviceListService} from '../../services/device-list.service';
 import * as ClipboardJS from 'clipboard';
 
 @Component({
@@ -8,23 +8,22 @@ import * as ClipboardJS from 'clipboard';
   styleUrls: ['./device-table.component.scss']
 })
 export class DeviceTableComponent implements OnInit {
-  @Input() devices: Array<Device>;
-  @Output() edit = new EventEmitter<string>();
-  @Output() delete = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private deviceListService: DeviceListService) {
   }
 
   ngOnInit(): void {
     new ClipboardJS('[data-clipboard-text]');
   }
 
+  get devices() {
+    return this.deviceListService.devices;
+  }
+
   editDevice(id: string): void {
-    this.edit.emit(id);
   }
 
   deleteDevice(id: string): void {
-    this.delete.emit(id);
   }
 
 }

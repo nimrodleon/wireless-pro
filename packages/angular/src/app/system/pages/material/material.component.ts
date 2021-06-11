@@ -21,6 +21,13 @@ export class MaterialComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private materialService: MaterialService) {
+    // Valor inicial del material actual.
+    this.currentMaterial = {
+      _id: '',
+      und: '',
+      description: '',
+      price: 0
+    };
   }
 
   ngOnInit(): void {

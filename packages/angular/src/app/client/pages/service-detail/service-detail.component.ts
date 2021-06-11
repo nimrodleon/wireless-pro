@@ -19,7 +19,7 @@ export class ServiceDetailComponent implements OnInit {
   // Variables for Service use.
   client: Client = new Client();
   service: Service = new Service();
-  device: Device = new Device();
+  device: Device;
   servicePlan: ServicePlan;
 
   // Class constructor.

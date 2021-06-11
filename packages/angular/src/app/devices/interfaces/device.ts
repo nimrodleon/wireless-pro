@@ -1,4 +1,4 @@
-export class Device {
+export interface Device {
   _id: string;
   ipAddress: string;
   mode: string;

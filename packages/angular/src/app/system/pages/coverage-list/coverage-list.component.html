@@ -39,10 +39,12 @@
               <td>{{ coverage.name }}</td>
               <td>
                 <div class="float-right">
-                  <button type="button" (click)="onEdit(coverage._id)" class="btn btn-secondary btn-sm mr-2">
+                  <button type="button" (click)="onEdit(coverage._id)"
+                          class="btn btn-secondary btn-sm mr-2">
                     <i class="fas fa-edit"></i></button>
                   <button type="submit" (click)="deleteCoverage(coverage._id)"
-                          class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                          class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i></button>
                 </div>
               </td>
             </tr>

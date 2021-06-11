@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
 declare var jQuery: any;
-import { Coverage } from '../../interfaces/coverage';
+import {Coverage} from '../../interfaces/coverage';
 
 @Component({
   selector: 'app-coverage-modal',
@@ -17,7 +18,8 @@ export class CoverageModalComponent implements OnInit {
   @Output()
   sendCoverage = new EventEmitter<Coverage>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

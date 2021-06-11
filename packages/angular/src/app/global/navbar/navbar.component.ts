@@ -10,7 +10,7 @@ import {UserService} from 'src/app/user/services/user.service';
 })
 export class NavbarComponent implements OnInit {
   user: User;
-  avatarContent: string = '';
+  avatarContent = '';
 
   constructor(
     private authService: AuthService,
@@ -27,11 +27,10 @@ export class NavbarComponent implements OnInit {
   getCurrentUser(): void {
     this.userService.getCurrentUser().subscribe(res => {
       this.user = res;
-      console.log(res);
       const arr = res.name.split(' ');
       if (arr.length > 1) {
         this.avatarContent = arr[0][0] + arr[1][0];
-      } else if (arr.length == 1) {
+      } else if (arr.length === 1) {
         this.avatarContent = arr[0][0];
       }
     });

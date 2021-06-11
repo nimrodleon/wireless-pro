@@ -4,12 +4,17 @@ import {Device} from './model'
 // CRUD - equipos.
 export class DeviceStore {
   // Listar dispositivos.
-  static async getDevices(id, type = 'T0') {
-    if (type === 'T0') {
-      return Device.find({tramo: id})
-    } else {
-      return Device.find({tower: id})
-    }
+  // static async getDevices(id, type = 'T0') {
+  //   if (type === 'T0') {
+  //     return Device.find({tramo: id})
+  //   } else {
+  //     return Device.find({tower: id})
+  //   }
+  // }
+
+  // obtener dispositivos por tramos.
+  static async getDevicesByTramo(id) {
+    return Device.find({tramo: id, isDeleted: false})
   }
 
   // devolver dispositivo por id.
