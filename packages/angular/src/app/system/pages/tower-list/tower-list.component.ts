@@ -14,7 +14,7 @@ import {AuthService} from '../../../user/services/auth.service';
 export class TowerListComponent implements OnInit {
   titleModal: string = '';
   query: string = '';
-  currentTower: Tower = new Tower();
+  currentTower: Tower;
   towers: Array<any> = new Array<any>();
   currentRole: string;
 
@@ -52,7 +52,7 @@ export class TowerListComponent implements OnInit {
       );
     } else {
       this.titleModal = 'Agregar Torre';
-      this.currentTower = new Tower();
+      this.currentTower = null;
       jQuery('#app-tower-modal').modal('show');
     }
   }

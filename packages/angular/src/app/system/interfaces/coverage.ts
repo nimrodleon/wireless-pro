@@ -1,4 +1,4 @@
-export class Coverage {
+export interface Coverage {
   _id: string;
   name: string;
 }

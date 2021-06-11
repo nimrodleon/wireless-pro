@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Client } from '../../interfaces/client';
-import { ClientService } from '../../services/client.service';
-import { Payment } from '../../interfaces/payment';
-import { PaymentService } from '../../services/payment.service';
-import { ServicePlan } from '../../../system/interfaces/service-plan';
-import { ServicePlanService } from '../../../system/services/service-plan.service';
-import { Service } from '../../interfaces/service';
-import { ServiceService } from '../../services/service.service';
-import { Info } from '../../../system/interfaces/info';
-import { InfoService } from '../../../system/services/info.service';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Client} from '../../interfaces/client';
+import {ClientService} from '../../services/client.service';
+import {Payment} from '../../interfaces/payment';
+import {PaymentService} from '../../services/payment.service';
+import {ServicePlan} from '../../../system/interfaces/service-plan';
+import {ServicePlanService} from '../../../system/services/service-plan.service';
+import {Service} from '../../interfaces/service';
+import {ServiceService} from '../../services/service.service';
+import {Info} from '../../../system/interfaces/info';
+import {InfoService} from '../../../system/services/info.service';
 
 @Component({
   selector: 'app-ticket',
@@ -17,17 +17,18 @@ import { InfoService } from '../../../system/services/info.service';
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent implements OnInit {
-  info: Info = new Info();
+  info: Info;
   client: Client = new Client();
   payment: Payment = new Payment();
   service: Service = new Service();
-  servicePlan: ServicePlan = new ServicePlan();
+  servicePlan: ServicePlan;
   currentDate: Date = new Date();
 
   constructor(private paymentService: PaymentService,
-    private router: Router, private activatedRoute: ActivatedRoute,
-    private clientService: ClientService, private serviceService: ServiceService,
-    private infoService: InfoService, private servicePlanService: ServicePlanService) { }
+              private router: Router, private activatedRoute: ActivatedRoute,
+              private clientService: ClientService, private serviceService: ServiceService,
+              private infoService: InfoService, private servicePlanService: ServicePlanService) {
+  }
 
   ngOnInit(): void {
     this.infoService.getInfo().subscribe(res => this.info = res);

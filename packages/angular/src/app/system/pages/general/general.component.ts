@@ -9,7 +9,7 @@ import {Info} from '../../interfaces/info';
   styleUrls: ['./general.component.css']
 })
 export class GeneralComponent implements OnInit {
-  info: Info = new Info();
+  info: Info;
 
   constructor(private infoService: InfoService) {
   }

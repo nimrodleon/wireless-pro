@@ -20,7 +20,7 @@ export class ServiceDetailComponent implements OnInit {
   client: Client = new Client();
   service: Service = new Service();
   device: Device = new Device();
-  servicePlan: ServicePlan = new ServicePlan();
+  servicePlan: ServicePlan;
 
   // Class constructor.
   constructor(private activatedRoute: ActivatedRoute,

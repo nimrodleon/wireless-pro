@@ -37,13 +37,18 @@ export class TramoStore {
     return this.updateTramo(id, _tramo)
   }
 
-  // tramos de por areas de cobertura.
+  // areas de cobertura de los tramos.
   static async getTramosByDistinctCoverage() {
-    return Tramo.find().distinct('coverage')
+    return Tramo.find({isDeleted: false}).distinct('coverage')
   }
 
   // areas de cobertura x tramos.
   static async getCoveragesByTramos() {
-    return CoverageStore.getCoveragesByTramosOrTowers(this.getTramosByDistinctCoverage())
+    return CoverageStore.getCoveragesByTramosOrTowers(await this.getTramosByDistinctCoverage())
+  }
+
+  // obtener tramos por area cobertura.
+  static async getTramosByCoverage(id) {
+    return Tramo.find({coverage: id})
   }
 }

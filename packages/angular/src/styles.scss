@@ -16,57 +16,58 @@ a {
   width: 75px;
 }
 
-// Tree
-.objtree {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0;
-  font-size: 1.2rem;
-  width: 250px;
-  max-height: calc(100vh - 145px);
-  overflow-y: auto;
-
-  .objtree-item {
-    cursor: pointer;
-
-    &::before {
-      content: "\f07b";
-      font-family: "Font Awesome 5 Free";
-      display: inline-block;
-      padding-right: 4px;
-      font-weight: bold;
-    }
-  }
-
-  .objtree-item--hover {
-    &::before {
-      content: "\f07c";
-      font-family: "Font Awesome 5 Free";
-      display: inline-block;
-      padding-right: 4px;
-      font-weight: bold;
-    }
-
-    .subtree {
-      display: block;
-    }
-  }
-}
-
-.subtree {
-  display: none;
-  list-style: none;
-  padding-left: 24px;
-
-  .subtree-item {
-    cursor: pointer;
-
-    &::before {
-      content: "\f2d0";
-      font-family: "Font Awesome 5 Free";
-      display: inline-block;
-      padding-right: 4px;
-      font-weight: bold;
-    }
-  }
-}
+//
+//// Tree
+//.objtree {
+//  list-style: none;
+//  padding-left: 0;
+//  margin-bottom: 0;
+//  font-size: 1.2rem;
+//  width: 250px;
+//  max-height: calc(100vh - 145px);
+//  overflow-y: auto;
+//
+//  .objtree-item {
+//    cursor: pointer;
+//
+//    &::before {
+//      content: "\f07b";
+//      font-family: "Font Awesome 5 Free";
+//      display: inline-block;
+//      padding-right: 4px;
+//      font-weight: bold;
+//    }
+//  }
+//
+//  .objtree-item--hover {
+//    &::before {
+//      content: "\f07c";
+//      font-family: "Font Awesome 5 Free";
+//      display: inline-block;
+//      padding-right: 4px;
+//      font-weight: bold;
+//    }
+//
+//    .subtree {
+//      display: block;
+//    }
+//  }
+//}
+//
+//.subtree {
+//  display: none;
+//  list-style: none;
+//  padding-left: 24px;
+//
+//  .subtree-item {
+//    cursor: pointer;
+//
+//    &::before {
+//      content: "\f2d0";
+//      font-family: "Font Awesome 5 Free";
+//      display: inline-block;
+//      padding-right: 4px;
+//      font-weight: bold;
+//    }
+//  }
+//}

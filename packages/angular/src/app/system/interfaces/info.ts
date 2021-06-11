@@ -1,4 +1,4 @@
-export class Info {
+export interface Info {
   _id: string;
   ruc: string;
   company: string;

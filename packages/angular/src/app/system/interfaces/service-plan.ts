@@ -1,4 +1,4 @@
-export class ServicePlan {
+export interface ServicePlan {
   _id: string;
   name: string;
   priceMonthly: number;

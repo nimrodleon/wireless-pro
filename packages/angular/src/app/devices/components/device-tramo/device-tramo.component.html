@@ -1,3 +1,4 @@
+<!--
 <ul class="objtree">
     <li *ngFor="let coverage of objTree" [id]="coverage._id" (click)="objTreeItem($event)" class="objtree-item">
         {{ coverage.name }}
@@ -6,4 +7,23 @@
                 class="subtree-item">{{ tramo.tramo  }}</li>
         </ul>
     </li>
+</ul>-->
+
+<ul class="TreeCoverage">
+  <li *ngFor="let coverage of coverages"
+      [id]="coverage._id" (click)="coverageItemClick($event)"
+      class="TreeCoverageItem">
+    {{coverage.name}}
+    <ul *ngIf="coverage.tramos" class="TreeTramo">
+      <li *ngFor="let tramo of coverage.tramos"
+          [id]="tramo._id" (click)="tramoItemClick($event)"
+          class="TreeTramoItem">{{tramo.tramo}}</li>
+    </ul>
+  </li>
 </ul>
+
+<!--
+<pre>
+  {{coverages|json}}
+</pre>
+-->

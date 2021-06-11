@@ -22,7 +22,6 @@ export class TramoListComponent implements OnInit {
     private tramoService: TramoService,
     private authService: AuthService) {
     this.tramos = Array<any>();
-    this.currentTramo = new Tramo();
   }
 
   ngOnInit(): void {
@@ -59,7 +58,7 @@ export class TramoListComponent implements OnInit {
       );
     } else {
       this.titleModal = 'Agregar Tramo';
-      this.currentTramo = new Tramo();
+      this.currentTramo = null;
       jQuery('#app-tramo-modal').modal('show');
     }
   }

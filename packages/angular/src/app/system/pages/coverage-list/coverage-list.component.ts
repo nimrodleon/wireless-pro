@@ -15,7 +15,7 @@ import {CoverageService} from '../../services/coverage.service';
 export class CoverageListComponent implements OnInit {
   coverages: Coverage[];
   titleModal: string;
-  currentCoverage: Coverage = new Coverage();
+  currentCoverage: Coverage;
   query: string = '';
   currentRole: string;
 
@@ -91,7 +91,7 @@ export class CoverageListComponent implements OnInit {
   // Open Modal Coverage.
   onCreate(): void {
     this.titleModal = 'Agregar área cobertura';
-    this.currentCoverage = new Coverage();
+    this.currentCoverage = null;
     jQuery('#app-coverage-modal').modal('show');
   }
 

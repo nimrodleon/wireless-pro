@@ -30,18 +30,6 @@ function getTramo(req, res = response) {
   })
 }
 
-// http://<HOST>/api/tramo/coverages/uniq
-router.get('/coverages/uniq', [verifyToken], getTramosByCoverages)
-
-// Test Coverages uniq.
-function getTramosByCoverages(req, res = response) {
-  TramoController.tramosByDistinctCoverage().then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(400).json(err)
-  })
-}
-
 // http://<HOST>/api/tramo/coverages/all
 router.get('/coverages/all', [verifyToken], getCoveragesByTramos)
 
@@ -51,6 +39,20 @@ function getCoveragesByTramos(req, res = response) {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
+  })
+}
+
+// http://<HOST>/api/tramo/coverage/id
+router.get('/coverage/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate,
+], getTramosByCoverage)
+
+// Obtener tramos por areas cobertura.
+function getTramosByCoverage(req, res = response) {
+  TramoController.getTramosByCoverage(req.params.id).then(result => {
+    res.json(result)
   })
 }
 

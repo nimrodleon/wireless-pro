@@ -21,7 +21,6 @@ export class MaterialComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private materialService: MaterialService) {
-    this.currentMaterial = new Material();
   }
 
   ngOnInit(): void {
@@ -41,7 +40,7 @@ export class MaterialComponent implements OnInit {
 
   addMaterial(): void {
     this.titleModal = 'Nuevo Material';
-    this.currentMaterial = new Material();
+    this.currentMaterial = null;
     jQuery('#app-material-modal').modal('show');
   }
 

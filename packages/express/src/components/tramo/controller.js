@@ -1,5 +1,4 @@
 import {TramoStore} from './store'
-import {DeviceStore} from '../device/store'
 
 // Lógica - Tramos.
 export class TramoController {
@@ -58,33 +57,22 @@ export class TramoController {
     })
   }
 
-  // Total de equipos para el tramo {id}.
-  static countDevices(tramoId) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(DeviceStore.countDevicesByTramo(tramoId))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
-  // Test coverages uniq.
-  static tramosByDistinctCoverage() {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(TramoStore.getTramosByDistinctCoverage())
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
   // obtener todas las coberturas por tramos.
   static getCoveragesByTramos() {
     return new Promise((resolve, reject) => {
       try {
         resolve(TramoStore.getCoveragesByTramos())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  // Obtener tramos por areas cobertura.
+  static getTramosByCoverage(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.getTramosByCoverage(id))
       } catch (err) {
         reject(err)
       }
