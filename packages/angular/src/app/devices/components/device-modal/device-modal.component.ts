@@ -1,14 +1,9 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
 declare var jQuery: any;
-import {Device} from '../../interfaces/device';
-import {Tramo} from '../../../system/interfaces/tramo';
-import {TramoService} from '../../../system/services/tramo.service';
-import {Tower} from '../../../system/interfaces/tower';
-import {TowerService} from '../../../system/services/tower.service';
-import {DeviceService} from '../../services/device.service';
+import {Device} from '../../interfaces';
+import {DeviceListService} from '../../services';
 import {environment} from 'src/environments/environment';
-import {Coverage} from 'src/app/system/interfaces/coverage';
 
 @Component({
   selector: 'app-device-modal',
@@ -18,53 +13,73 @@ import {Coverage} from 'src/app/system/interfaces/coverage';
 export class DeviceModalComponent implements OnInit {
   @Input()
   title: string;
-  @Input()
-  coverages: Array<Coverage>;
-  @Input()
   device: Device;
-  // Output data.
-  @Output()
-  sendModel = new EventEmitter<Device>();
-  // Variables Locales.
-  tramos: Array<Tramo>;
-  towers: Array<Tower>;
   // baseURL para select2.
   baseURL: string = environment.baseUrl + 'devices';
 
-  constructor(private tramoService: TramoService,
-              private towerService: TowerService, private deviceService: DeviceService) {
-    this.tramos = new Array<Tramo>();
-    this.towers = new Array<Tower>();
+  constructor(
+    private deviceListService: DeviceListService) {
+    this.device = this.currentDevice;
   }
 
   ngOnInit(): void {
+    // Cargar Cada Vez se carga el Modal.
     jQuery('#app-device-modal').on('shown.bs.modal', () => {
+      this.device = this.currentDevice;
+      this.deviceListService.loadValuesDeviceModal();
+      // Configuraciones Select2.
       jQuery('select[name="accessPoint"]').select2({
         theme: 'bootstrap4',
-        minimumInputLength: 4,
+        dropdownParent: jQuery('#app-device-modal'),
         ajax: {
-          url: this.baseURL + '/v1/select2/s'
+          url: this.baseURL + '/v1/select2/s',
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
         }
       });
       // Preselecting options in an remotely-sourced.
       jQuery('select[name="accessPoint').val(null).trigger('change');
       if (this.device._id) {
         if (this.device.accessPoint) {
-          this.deviceService.getDevice(this.device.accessPoint).subscribe(res => {
-            const option = new Option(res.name + ' - ' + res.ipAddress, res._id, true, true);
-            jQuery('select[name="accessPoint').append(option).trigger('change');
-          });
+          // this.deviceService.getDevice(this.device.accessPoint).subscribe(res => {
+          //   const option = new Option(res.name + ' - ' + res.ipAddress, res._id, true, true);
+          //   jQuery('select[name="accessPoint').append(option).trigger('change');
+          // });
         }
       }
-      this.tramoService.getTramosV1().subscribe(res => this.tramos = res);
-      this.towerService.getTowersV1().subscribe(res => this.towers = res);
     });
   }
 
+  // Dispositivo actual.
+  get currentDevice() {
+    return this.deviceListService.currentDevice;
+  }
+
+  // Lista de areas cobertura.
+  get coverages() {
+    return this.deviceListService.coveragesList;
+  }
+
+  // Lista de tramos.
+  get tramos() {
+    return this.deviceListService.tramosList;
+  }
+
+  // Lista de torres.
+  get towers() {
+    return this.deviceListService.towersList;
+  }
+
+  // retorna true si el modo dispositivo es distinto a punto  de acceso.
+  checkApMode(): boolean {
+    return this.device.mode !== 'P';
+  }
+
   saveChanges(): void {
-    this.device.accessPoint = jQuery('select[name="accessPoint"]').val();
-    this.sendModel.emit(this.device);
-    jQuery('#app-device-modal').modal('hide');
+    // this.device.accessPoint = jQuery('select[name="accessPoint"]').val();
+    // this.sendModel.emit(this.device);
+    // jQuery('#app-device-modal').modal('hide');
   }
 
 }

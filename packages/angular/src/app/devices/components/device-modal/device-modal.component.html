@@ -16,7 +16,7 @@
                   <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
                 </div>
                 <input type="text" [(ngModel)]="device.ipAddress" name="ipAddress" placeholder="Ip Address"
-                  class="form-control">
+                       class="form-control">
               </div>
             </div>
             <div class="form-group col-md-4">
@@ -24,7 +24,9 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-signal"></i></span>
                 </div>
-                <select [(ngModel)]="device.mode" name="mode" class="custom-select">
+                <select
+                  [(ngModel)]="device.mode" name="mode"
+                  class="custom-select">
                   <option value="E">Estación</option>
                   <option value="P">Punto de acceso</option>
                   <option value="R">Repetidor AP</option>
@@ -47,7 +49,7 @@
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
                 <input type="text" [(ngModel)]="device.userName" name="userName" placeholder="User"
-                  class="form-control">
+                       class="form-control">
               </div>
             </div>
             <div class="form-group col-md-6">
@@ -56,7 +58,7 @@
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
                 <input type="text" [(ngModel)]="device.password" name="password" placeholder="Password"
-                  class="form-control">
+                       class="form-control">
               </div>
             </div>
           </div>
@@ -75,8 +77,7 @@
                   <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
                 <select [(ngModel)]="device.coverage" name="coverage" class="custom-select">
-                  <option *ngFor="let coverage of coverages" [value]="coverage._id">
-                    {{ coverage.name }}</option>
+                  <option *ngFor="let coverage of coverages" [value]="coverage._id">{{ coverage.name }}</option>
                 </select>
               </div>
             </div>
@@ -85,7 +86,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-broadcast-tower"></i></span>
                 </div>
-                <select [(ngModel)]="device.tower" name="tower" class="custom-select">
+                <select [(ngModel)]="device.tower" name="tower" [disabled]="checkApMode()" class="custom-select">
                   <option *ngFor="let tower of towers" [value]="tower._id">{{ tower.tower }}</option>
                 </select>
               </div>
@@ -107,8 +108,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-wifi"></i></span>
                 </div>
-                <select name="accessPoint" class="custom-select">
-                </select>
+                <select name="accessPoint" [disabled]="!checkApMode()" class="custom-select"></select>
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ declare var jQuery: any;
 import _ from 'lodash';
 import {AuthService} from 'src/app/user/services/auth.service';
 import Swal from 'sweetalert2';
-import {PaymentService} from '../../services/payment.service';
+import {PaymentService} from '../../services';
 
 @Component({
   selector: 'app-payment-list',

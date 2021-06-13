@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 declare var jQuery: any;
-import {Tramo} from '../../interfaces/tramo';
+import {Tramo} from '../../interfaces';
 import {Coverage} from 'src/app/system/interfaces/coverage';
 import {CoverageService} from 'src/app/system/services/coverage.service';
 

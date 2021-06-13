@@ -14,6 +14,17 @@ export class TowerController {
     })
   }
 
+  // Lista de torres.
+  static getTowersV1() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TowerStore.getTowersV1())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // devolver torre por id.
   static getTower(id) {
     return new Promise((resolve, reject) => {

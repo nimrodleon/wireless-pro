@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {Tower} from '../../interfaces/tower';
-import {TowerService} from '../../services/tower.service';
+import {Tower} from '../../interfaces';
+import {TowerService} from '../../services';
 import {AuthService} from '../../../user/services/auth.service';
 
 @Component({

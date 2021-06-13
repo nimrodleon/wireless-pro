@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+
 declare var jQuery: any;
-import { Client } from '../../interfaces/client';
+import {Client} from '../../interfaces';
 
 @Component({
   selector: 'app-card-client-detail',
@@ -10,7 +11,8 @@ import { Client } from '../../interfaces/client';
 export class CardClientDetailComponent implements OnInit {
   @Input() client: Client;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

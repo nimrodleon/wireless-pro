@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {DeviceListService} from '../../services/device-list.service';
 import * as ClipboardJS from 'clipboard';
+import {DeviceListService} from '../../services';
 
 @Component({
   selector: 'app-device-table',

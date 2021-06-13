@@ -4,12 +4,12 @@ declare var jQuery: any;
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import {AuthService} from 'src/app/user/services/auth.service';
-import {ServicePlan} from '../../../system/interfaces/service-plan';
-import {ServicePlanService} from '../../../system/services/service-plan.service';
-import {Service} from '../../interfaces/service';
-import {ServiceService} from '../../services/service.service';
+import {ServicePlan} from '../../../system/interfaces';
+import {ServicePlanService} from '../../../system/services';
+import {Service} from '../../interfaces';
+import {ServiceService} from '../../services';
+import {DeviceService} from '../../../devices/services';
 import {environment} from 'src/environments/environment';
-import {DeviceService} from '../../../devices/services/device.service';
 
 @Component({
   selector: 'app-add-client-service',

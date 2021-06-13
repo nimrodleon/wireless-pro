@@ -13,6 +13,11 @@ export class TowerStore {
     }).populate('coverage')
   }
 
+  // Lista de torres v1.
+  static async getTowersV1() {
+    return Tower.find({isDeleted: false})
+  }
+
   // devuelve una torre por id.
   static async getTower(id) {
     return Tower.findById(id)

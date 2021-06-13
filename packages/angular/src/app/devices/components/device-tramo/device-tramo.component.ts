@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DeviceListService} from '../../services/device-list.service';
+import {DeviceListService} from '../../services';
 
 @Component({
   selector: 'app-device-tramo',

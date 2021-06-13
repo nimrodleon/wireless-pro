@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import {Router} from '@angular/router';
-import {Client} from '../../interfaces/client';
-import {ClientService} from '../../services/client.service';
+import {Client} from '../../interfaces';
+import {ClientService} from '../../services';
 
 @Component({
   selector: 'app-client-list',

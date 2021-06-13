@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Coverage} from 'src/app/system/interfaces/coverage';
 import {CoverageService} from 'src/app/system/services/coverage.service';
-import {Tower} from '../../interfaces/tower';
+import {Tower} from '../../interfaces';
 
 declare var jQuery: any;
 

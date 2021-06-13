@@ -1,18 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import * as moment from 'moment';
-import {ClientService} from '../../services/client.service';
-import {PaymentService} from '../../services/payment.service';
-import {ServiceService} from '../../services/service.service';
-import {AuthService} from 'src/app/user/services/auth.service';
-import {Service} from '../../interfaces/service';
-import {Client} from '../../interfaces/client';
-import {Payment} from '../../interfaces/payment';
-import {Outage} from '../../interfaces/outage';
-import {OutagesService} from '../../services/outages.service';
 
 declare var jQuery: any;
+import {AuthService} from 'src/app/user/services/auth.service';
+import {ClientService, PaymentService, ServiceService, OutagesService} from '../../services';
+import {Service, Client, Payment} from '../../interfaces';
 
 @Component({
   selector: 'app-client-detail',

@@ -13,6 +13,17 @@ export class TramoController {
     })
   }
 
+  // Lista de tramos v1.
+  static getTramosV1() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(TramoStore.getTramosV1())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // devolver tramo por id.
   static getTramo(id) {
     return new Promise((resolve, reject) => {

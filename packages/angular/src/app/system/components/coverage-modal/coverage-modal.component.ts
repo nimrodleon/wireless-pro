@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 declare var jQuery: any;
-import {Coverage} from '../../interfaces/coverage';
+import {Coverage} from '../../interfaces';
 
 @Component({
   selector: 'app-coverage-modal',

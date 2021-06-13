@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
 declare var jQuery: any;
-import { Client } from '../../interfaces/client';
-import { Coverage } from '../../../system/interfaces/coverage';
-import { CoverageService } from '../../../system/services/coverage.service';
+import {Client} from '../../interfaces';
+import {Coverage} from '../../../system/interfaces';
+import {CoverageService} from '../../../system/services';
 
 @Component({
   selector: 'app-client-form-modal',
@@ -16,7 +17,8 @@ export class ClientFormModalComponent implements OnInit {
   @Input() editMode: boolean;
   coverages: Coverage[];
 
-  constructor(private coverageService: CoverageService) { }
+  constructor(private coverageService: CoverageService) {
+  }
 
   ngOnInit(): void {
     jQuery('#app-client-form-modal').on('show.bs.modal', e => {

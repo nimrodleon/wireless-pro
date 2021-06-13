@@ -4,26 +4,46 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex justify-content-between my-2">
-          <h4 class="text-uppercase mb-0">Lista de Equipos</h4>
-          <form class="form-inline">
-            <button type="button" class="btn btn-secondary mr-2">
-              <i class="fas fa-wave-square"></i>
-              <span class="text-uppercase ml-1">Ping</span>
-            </button>
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="fas fa-plus"></i>
-              <span class="text-uppercase ml-1">Nuevo</span>
-            </button>
-            <!--<button type="button" (click)="onPing()" class="btn btn-secondary mr-2">
-              <i class="fas fa-wave-square"></i>
-              <span class="text-uppercase">&nbsp;Ping</span>
-            </button>-->
-            <!--<button (click)="addDevice()" type="button" class="btn btn-primary mr-2">
-              <i class="fas fa-plus"></i>
-              <span class="text-uppercase">&nbsp;Nuevo</span>
-            </button>-->
-          </form>
+        <div class="d-flex align-items-center justify-content-between my-2">
+          <h3 class="text-uppercase Title mb-0">Lista de Equipos</h3>
+          <div class="d-flex align-items-center justify-content-between w-100">
+            <div class="QuickSearch">
+              <i class="fas fa-search"></i>
+              <span>Buscador rápido</span>
+              <span class="Ctrl">Ctrl K</span>
+            </div>
+            <form class="form-inline">
+              <button type="button" (click)="clearPing()" class="btn btn-warning mr-2">
+                <i class="fas fa-broom"></i>
+                <span class="text-uppercase ml-1">Limpiar</span>
+              </button>
+              <div class="btn-group mr-2">
+                <button type="button" (click)="onPing()" class="btn btn-success">
+                  <i class="fas fa-wave-square"></i>
+                  <span class="text-uppercase ml-1">Ping</span>
+                </button>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                        data-toggle="dropdown">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="#">Descargar Script</a>
+                </div>
+              </div>
+              <button type="button" (click)="addDeviceClick()" class="btn btn-primary mr-2">
+                <i class="fas fa-plus"></i>
+                <span class="text-uppercase ml-1">Nuevo</span>
+              </button>
+              <!--<button type="button" (click)="onPing()" class="btn btn-secondary mr-2">
+                <i class="fas fa-wave-square"></i>
+                <span class="text-uppercase">&nbsp;Ping</span>
+              </button>-->
+              <!--<button (click)="addDevice()" type="button" class="btn btn-primary mr-2">
+                <i class="fas fa-plus"></i>
+                <span class="text-uppercase">&nbsp;Nuevo</span>
+              </button>-->
+            </form>
+          </div>
         </div>
       </div>
     </div><!-- // .row -->
@@ -38,7 +58,5 @@
       </div><!-- // .col-12 -->
     </div><!-- // .row -->
   </div><!-- // .container-fluid -->
-  <!--<app-device-modal [title]="titleModal" [coverages]="coverages" [device]="currentDevice"
-                    (sendModel)="saveChanges($event)">
-  </app-device-modal>-->
+  <app-device-modal [title]="title"></app-device-modal>
 </div><!-- // .wrap-body -->

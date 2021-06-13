@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ServicePlan } from '../../interfaces/service-plan';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
 declare var jQuery: any;
+import {ServicePlan} from '../../interfaces';
 
 @Component({
   selector: 'app-service-plan-modal',
@@ -12,7 +13,8 @@ export class ServicePlanModalComponent implements OnInit {
   @Input() servicePlan: ServicePlan;
   @Output() sendServicePlan = new EventEmitter<ServicePlan>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

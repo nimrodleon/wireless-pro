@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
-import {ServiceService} from '../../services/service.service';
 import * as ClipboardJS from 'clipboard';
-import {OutagesService} from '../../services/outages.service';
-import {Outage} from '../../interfaces/outage';
+import {ServiceService, OutagesService} from '../../services';
+import {Outage} from '../../interfaces';
 
 @Component({
   selector: 'app-card-client-service',

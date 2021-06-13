@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 // Local Imports.
 declare var jQuery: any;
-import { Material } from '../../interfaces/material';
-import { MaterialService } from '../../services/material.service';
+import { Material } from '../../interfaces';
+import { MaterialService } from '../../services';
 
 @Component({
   selector: 'app-material-modal',

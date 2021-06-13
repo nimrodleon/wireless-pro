@@ -4,8 +4,8 @@ declare var jQuery: any;
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import {AuthService} from 'src/app/user/services/auth.service';
-import {ServicePlan} from '../../interfaces/service-plan';
-import {ServicePlanService} from '../../services/service-plan.service';
+import {ServicePlan} from '../../interfaces';
+import {ServicePlanService} from '../../services';
 
 @Component({
   selector: 'app-service-plan',

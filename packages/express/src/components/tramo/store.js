@@ -13,6 +13,11 @@ export class TramoStore {
     }).populate('coverage')
   }
 
+  // Lista de tramos v1.
+  static async getTramosV1() {
+    return Tramo.find({isDeleted: false})
+  }
+
   // devolver tramo por id.
   static async getTramo(id) {
     return Tramo.findById(id)

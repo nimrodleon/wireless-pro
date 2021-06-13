@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ServiceService} from '../../services/service.service';
-import {ClientService} from '../../services/client.service';
-import {DeviceService} from '../../../devices/services/device.service';
-import {Client} from '../../interfaces/client';
-import {Service} from '../../interfaces/service';
-import {Device} from '../../../devices/interfaces/device';
+import {ServiceService, ClientService} from '../../services';
+import {DeviceService} from '../../../devices/services';
+import {Client, Service} from '../../interfaces';
+import {Device} from '../../../devices/interfaces';
 import {ActivatedRoute} from '@angular/router';
-import {ServicePlanService} from '../../../system/services/service-plan.service';
-import {ServicePlan} from '../../../system/interfaces/service-plan';
+import {ServicePlanService} from '../../../system/services';
+import {ServicePlan} from '../../../system/interfaces';
 
 @Component({
   selector: 'app-service-detail',

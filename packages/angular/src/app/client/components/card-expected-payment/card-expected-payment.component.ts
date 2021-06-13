@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-card-expected-payment',
@@ -8,7 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CardExpectedPaymentComponent implements OnInit {
   @Input() expectedPayment: number;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

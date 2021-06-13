@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
-import {InfoService} from '../../services/info.service';
-import {Info} from '../../interfaces/info';
+import {InfoService} from '../../services';
+import {Info} from '../../interfaces';
 
 @Component({
   selector: 'app-general',

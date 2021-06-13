@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
+import {DeviceListService} from '../../services';
+import {AuthService} from '../../../user/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-devices-list',
@@ -8,11 +11,20 @@ declare var jQuery: any;
   styleUrls: ['./devices-list.component.scss']
 })
 export class DevicesListComponent implements OnInit {
+  title: string;
+  currentRole: string;
 
-  constructor() {
+  constructor(
+    private deviceListService: DeviceListService,
+    private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    // Obtener el rol del usuario autentificado.
+    this.authService.getRoles().subscribe(res => this.currentRole = res);
+    // Cargar areas de cobertura.
+    this.deviceListService.loadCoverages();
+
     // const body = document.querySelector('body');
     // body.addEventListener('keydown', e => {
     //   if (e.key == 'F7') {
@@ -24,6 +36,28 @@ export class DevicesListComponent implements OnInit {
     //     this.onPing();
     //   }
     // });
+  }
+
+  get devices() {
+    return this.deviceListService.devices;
+  }
+
+  get roles() {
+    return this.authService.roles;
+  }
+
+  // botón agregar equipo.
+  addDeviceClick(): void {
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      Swal.fire(
+        'Información',
+        'No tiene permisos para realizar esta tarea!',
+        'error'
+      );
+    } else {
+      this.title = 'Agregar Equipo';
+      jQuery('#app-device-modal').modal('show');
+    }
   }
 
   private request_image(url) {
@@ -56,25 +90,31 @@ export class DevicesListComponent implements OnInit {
   }
 
   // botón para hacer ping.
-  // onPing(): void {
-  //   if (this.devices.length > 0) {
-  //     this.devices.forEach(item => {
-  //       const _item = item;
-  //       this.ping('http://' + _item.ipAddress)
-  //         .then(delta => {
-  //           const dom = document.getElementById(_item._id);
-  //           if (dom) {
-  //             dom.classList.add('text-success');
-  //           }
-  //         })
-  //         .catch(err => {
-  //           const dom = document.getElementById(_item._id);
-  //           if (dom) {
-  //             dom.classList.add('text-danger');
-  //           }
-  //         });
-  //     });
-  //   }
-  // }
+  onPing(): void {
+    if (this.devices.length > 0) {
+      this.devices.forEach(item => {
+        const _item = item;
+        this.ping('http://' + _item.ipAddress)
+          .then(delta => {
+            const dom = document.getElementById(_item._id);
+            if (dom) {
+              dom.classList.add('text-success');
+            }
+          })
+          .catch(err => {
+            const dom = document.getElementById(_item._id);
+            if (dom) {
+              dom.classList.add('text-danger');
+            }
+          });
+      });
+    }
+  }
+
+  // Limpiar ping.
+  clearPing(): void {
+    const trArr = document.querySelectorAll('tr');
+    Array.from(trArr).forEach(tr => tr.classList.remove('text-success', 'text-danger'));
+  }
 
 }

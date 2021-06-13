@@ -1,15 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Client} from '../../interfaces/client';
-import {ClientService} from '../../services/client.service';
-import {Payment} from '../../interfaces/payment';
-import {PaymentService} from '../../services/payment.service';
-import {ServicePlan} from '../../../system/interfaces/service-plan';
-import {ServicePlanService} from '../../../system/services/service-plan.service';
-import {Service} from '../../interfaces/service';
-import {ServiceService} from '../../services/service.service';
-import {Info} from '../../../system/interfaces/info';
-import {InfoService} from '../../../system/services/info.service';
+import {Client, Payment, Service} from '../../interfaces';
+import {ClientService, PaymentService, ServiceService} from '../../services';
+import {ServicePlan, Info} from '../../../system/interfaces';
+import {ServicePlanService, InfoService} from '../../../system/services';
 
 @Component({
   selector: 'app-ticket',

@@ -4,8 +4,8 @@ declare var jQuery: any;
 import _ from 'lodash';
 import {AuthService} from 'src/app/user/services/auth.service';
 import Swal from 'sweetalert2';
-import {Coverage} from '../../interfaces/coverage';
-import {CoverageService} from '../../services/coverage.service';
+import {Coverage} from '../../interfaces';
+import {CoverageService} from '../../services';
 
 @Component({
   selector: 'app-coverage-list',

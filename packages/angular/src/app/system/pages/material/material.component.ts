@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import Swal from 'sweetalert2';
-import {Material} from '../../interfaces/material';
-import {MaterialService} from '../../services/material.service';
+import {Material} from '../../interfaces';
+import {MaterialService} from '../../services';
 import {AuthService} from '../../../user/services/auth.service';
 
 @Component({

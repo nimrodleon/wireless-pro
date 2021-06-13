@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Service} from '../../interfaces/service';
-import {OutagesService} from '../../services/outages.service';
-import {Outage} from '../../interfaces/outage';
+import {OutagesService} from '../../services';
+import {Outage} from '../../interfaces';
 
 @Component({
   selector: 'app-card-outages',

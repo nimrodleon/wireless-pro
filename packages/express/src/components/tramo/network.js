@@ -18,6 +18,16 @@ function getTramos(req, res = response) {
   })
 }
 
+// http://<HOST>/api/tramo/v1/all
+router.get('/v1/all', [verifyToken], getTramosV1)
+
+// Lista de tramos v1.
+function getTramosV1(req, res = response) {
+  TramoController.getTramosV1().then(result => {
+    res.json(result)
+  })
+}
+
 // http://<HOST>/api/tramo/:id
 router.get('/:id', [verifyToken], getTramo)
 

@@ -4,8 +4,7 @@ declare var jQuery: any;
 import _ from 'lodash';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
-import {Client} from '../../interfaces/client';
-import {Payment} from '../../interfaces/payment';
+import {Client, Payment} from '../../interfaces';
 
 @Component({
   selector: 'app-payment-modal',

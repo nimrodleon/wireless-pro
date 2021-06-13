@@ -18,6 +18,16 @@ function getTowers(req, res = response) {
   })
 }
 
+// http://<HOST>/api/tower/v1/all
+router.get('/v1/all', [verifyToken], getTowersV1)
+
+// Lista de torres.
+function getTowersV1(req, res = response) {
+  TowerController.getTowersV1().then(result => {
+    res.json(result)
+  })
+}
+
 // http://<HOST>/api/tower/:id
 router.get('/:id', [verifyToken], getTower)
 
