@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import {DeviceListService} from '../../services';
-import {AuthService} from '../../../user/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,17 +10,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./devices-list.component.scss']
 })
 export class DevicesListComponent implements OnInit {
-  title: string;
-  currentRole: string;
 
   constructor(
-    private deviceListService: DeviceListService,
-    private authService: AuthService) {
+    private deviceListService: DeviceListService) {
   }
 
   ngOnInit(): void {
     // Obtener el rol del usuario autentificado.
-    this.authService.getRoles().subscribe(res => this.currentRole = res);
+    this.deviceListService.getRoles();
+    // this.authService.getRoles().subscribe(res => this.currentRole = res);
     // Cargar areas de cobertura.
     this.deviceListService.loadCoverages();
 
@@ -38,12 +35,18 @@ export class DevicesListComponent implements OnInit {
     // });
   }
 
-  get devices() {
-    return this.deviceListService.devices;
+  // Lista de roles.
+  get roles() {
+    return this.deviceListService.roles;
   }
 
-  get roles() {
-    return this.authService.roles;
+  // rol actual del usuario autentificado.
+  get currentRole() {
+    return this.deviceListService.currentRole;
+  }
+
+  get devices() {
+    return this.deviceListService.devices;
   }
 
   // botón agregar equipo.
@@ -55,7 +58,8 @@ export class DevicesListComponent implements OnInit {
         'error'
       );
     } else {
-      this.title = 'Agregar Equipo';
+      this.deviceListService.titleModal = 'Agregar Equipo';
+      this.deviceListService.setDefaultDeviceEmpty();
       jQuery('#app-device-modal').modal('show');
     }
   }

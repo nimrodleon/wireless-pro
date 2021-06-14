@@ -2,9 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {DeviceTramoService} from './device-tramo.service';
+import {DeviceService} from './device.service';
+import {AuthService} from '../../user/services/auth.service';
 import {Device} from '../interfaces';
 import {Coverage, Tramo, Tower} from '../../system/interfaces';
 import {CoverageService, TowerService, TramoService} from '../../system/services';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -14,30 +17,46 @@ export class DeviceListService {
   private _coverages: Array<any> | undefined;
   private _currentTramoId: string;
   private _devices: Array<Device> | undefined;
-  private _currentDevice: Device = {
-    _id: '',
-    ipAddress: '',
-    mode: '',
-    name: '',
-    userName: '',
-    password: '',
-    ssid: '',
-    coverage: '',
-    tower: '',
-    tramo: '',
-    accessPoint: '',
-  };
+  private _currentDevice: Device = DeviceListService.defaultDeviceEmpty();
   // Variables para el formulario modal.
   private _coveragesList: Array<Coverage> | undefined;
   private _tramosList: Array<Tramo> | undefined;
   private _towersList: Array<Tower> | undefined;
+  public titleModal: string;
+  // Variables de autentificación y autorización.
+  private _currentRole: string;
 
   constructor(
     private http: HttpClient,
+    private authService: AuthService,
+    private deviceService: DeviceService,
     private deviceTramoService: DeviceTramoService,
     private coverageService: CoverageService,
     private tramoService: TramoService,
     private towerService: TowerService) {
+  }
+
+  // valor por defecto del nuevo equipo.
+  private static defaultDeviceEmpty(): Device {
+    return {
+      _id: '',
+      ipAddress: '',
+      mode: '',
+      name: '',
+      userName: '',
+      password: '',
+      ssid: '',
+      coverage: '',
+      tower: '',
+      tramo: '',
+      accessPoint: '',
+    };
+  }
+
+  // Obtener el rol del usuario autentificado.
+  getRoles(): void {
+    this.authService.getRoles()
+      .subscribe(res => this._currentRole = res);
   }
 
   // Cargar areas de cobertura.
@@ -51,6 +70,16 @@ export class DeviceListService {
             .subscribe(res => item.tramos = res);
         });
       });
+  }
+
+  // Lista de roles.
+  get roles() {
+    return this.authService.roles;
+  }
+
+  // Rol del usuario autentificado.
+  get currentRole() {
+    return this._currentRole;
   }
 
   // Dispositivo actual.
@@ -93,6 +122,11 @@ export class DeviceListService {
     this._currentTramoId = id;
   }
 
+  // reiniciar valores por defecto del equipo.
+  setDefaultDeviceEmpty(): void {
+    this._currentDevice = DeviceListService.defaultDeviceEmpty();
+  }
+
   // Obtener equipos por tramo.
   getDevicesByTramo(id): void {
     this.http.get<Array<Device>>(this.baseURL + '/tramo/' + id)
@@ -112,5 +146,36 @@ export class DeviceListService {
       .subscribe(res => this._towersList = res);
   }
 
+  // cargar el equipo actual.
+  getDevice(id: string): void {
+    this.deviceService.getDevice(id)
+      .subscribe(res => this._currentDevice = res);
+  }
+
+  // registrar equipo.
+  addDevice(device: Device): void {
+    this.deviceService.create(device).subscribe(() => {
+      this.getDevicesByTramo(this._currentTramoId);
+    });
+  }
+
+  // actualizar equipo.
+  updateDevice(device: Device): void {
+    this.deviceService.update(device).subscribe(() => {
+      this.getDevicesByTramo(this._currentTramoId);
+    });
+  }
+
+  // borrar equipo.
+  deleteDevice(id: string): void {
+    this.deviceService.delete(id).subscribe(() => {
+      this.getDevicesByTramo(this._currentTramoId);
+      Swal.fire(
+        'Borrado!',
+        'El registro ha sido borrado.',
+        'success'
+      );
+    });
+  }
 
 }

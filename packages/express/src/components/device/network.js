@@ -1,5 +1,5 @@
 import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
+import {checkRolAdmin, checkRolNetwork, verifyToken} from '../middlewares'
 import {DeviceController} from './controller'
 
 const router = express.Router()
@@ -52,7 +52,10 @@ function getDevicesS2(req, res = response) {
 }
 
 // http://<HOST>/api/devices
-router.post('/', [verifyToken], addDevice)
+router.post('/', [
+  verifyToken,
+  checkRolNetwork,
+], addDevice)
 
 // registrar equipo.
 function addDevice(req, res = response) {
@@ -64,7 +67,10 @@ function addDevice(req, res = response) {
 }
 
 // http://<HOST>/api/devices/:id
-router.patch('/:id', [verifyToken], updateDevice)
+router.patch('/:id', [
+  verifyToken,
+  checkRolNetwork,
+], updateDevice)
 
 // actualizar equipo.
 function updateDevice(req, res = response) {
@@ -76,7 +82,10 @@ function updateDevice(req, res = response) {
 }
 
 // http://<HOST>/api/devices/:id
-router.delete('/:id', [verifyToken], deleteDevice)
+router.delete('/:id', [
+  verifyToken,
+  checkRolAdmin,
+], deleteDevice)
 
 // borrar equipo.
 function deleteDevice(req, res = response) {

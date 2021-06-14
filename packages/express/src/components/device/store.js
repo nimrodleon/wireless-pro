@@ -23,7 +23,8 @@ export class DeviceStore {
   }
 
   // registrar dispositivo.
-  static async createDevice(data) {
+  // excluir el (_id) del objeto para registrar el equipo.
+  static async createDevice({_id, ...data}) {
     let _device = new Device(data)
     await _device.save()
     return _device

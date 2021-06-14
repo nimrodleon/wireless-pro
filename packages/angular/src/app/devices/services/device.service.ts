@@ -13,9 +13,9 @@ export class DeviceService {
   constructor(private http: HttpClient) {
   }
 
-  getDevices(id: string, opt: string): Observable<Device[]> {
-    return this.http.get<Device[]>(this.baseURL + '/' + id + '/' + opt);
-  }
+  // getDevices(id: string, opt: string): Observable<Device[]> {
+  //   return this.http.get<Device[]>(this.baseURL + '/' + id + '/' + opt);
+  // }
 
   getDevice(id: string): Observable<Device> {
     return this.http.get<Device>(this.baseURL + '/' + id);

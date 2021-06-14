@@ -7,7 +7,9 @@ import {DeviceListService} from '../../services';
   styleUrls: ['./device-tramo.component.scss']
 })
 export class DeviceTramoComponent implements OnInit {
-  constructor(private deviceListService: DeviceListService) {
+
+  constructor(
+    private deviceListService: DeviceListService) {
   }
 
   ngOnInit(): void {

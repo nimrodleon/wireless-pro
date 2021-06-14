@@ -17,7 +17,7 @@ import {AuthGuard} from './auth.guard';
 import {TokenInterceptorService} from './user/services/token-interceptor.service';
 import {AuthService} from './user/services/auth.service';
 import {UserService} from './user/services/user.service';
-import {InfoService} from './system/services/info.service';
+import {InfoService} from './system/services';
 import {LoginComponent} from './login/login.component';
 
 @NgModule({
