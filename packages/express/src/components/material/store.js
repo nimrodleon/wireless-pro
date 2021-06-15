@@ -18,7 +18,7 @@ export class MaterialStore {
   }
 
   // registrar material.
-  static async createMaterial(data) {
+  static async createMaterial({_id, ...data}) {
     let _material = new Material(data)
     await _material.save()
     return _material

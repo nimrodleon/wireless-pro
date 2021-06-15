@@ -14,20 +14,15 @@ import {AuthService} from '../../../user/services/auth.service';
 export class MaterialComponent implements OnInit {
   titleModal: string;
   materials: Material[];
-  currentMaterial: Material;
+  currentMaterial: Material = {
+    _id: '', und: '', description: '', price: 0
+  };
   query: string = '';
   currentRole: string;
 
   constructor(
     private authService: AuthService,
     private materialService: MaterialService) {
-    // Valor inicial del material actual.
-    this.currentMaterial = {
-      _id: '',
-      und: '',
-      description: '',
-      price: 0
-    };
   }
 
   ngOnInit(): void {
@@ -47,7 +42,9 @@ export class MaterialComponent implements OnInit {
 
   addMaterial(): void {
     this.titleModal = 'Nuevo Material';
-    this.currentMaterial = null;
+    this.currentMaterial = {
+      _id: '', und: '', description: '', price: 0
+    };
     jQuery('#app-material-modal').modal('show');
   }
 
@@ -60,7 +57,7 @@ export class MaterialComponent implements OnInit {
   }
 
   saveChanges(material: Material): void {
-    if (material._id === undefined) {
+    if (material._id === '') {
       this.materialService.create(material).subscribe(res => {
         this.getMaterials();
       });

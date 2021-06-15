@@ -24,7 +24,7 @@ export class TowerStore {
   }
 
   // registrar torre.
-  static async createTower(data) {
+  static async createTower({_id, ...data}) {
     let _tower = new Tower(data)
     await _tower.save()
     return _tower

@@ -24,7 +24,7 @@ export class TramoStore {
   }
 
   // registrar tramo.
-  static async createTramo(data) {
+  static async createTramo({_id, ...data}) {
     let _tramo = new Tramo(data)
     await _tramo.save()
     return _tramo

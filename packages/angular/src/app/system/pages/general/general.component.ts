@@ -9,7 +9,14 @@ import {Info} from '../../interfaces';
   styleUrls: ['./general.component.css']
 })
 export class GeneralComponent implements OnInit {
-  info: Info;
+  info: Info = {
+    _id: '',
+    ruc: '',
+    company: '',
+    fullAddress: '',
+    phone: '',
+    legendTicket: '',
+  };
 
   constructor(private infoService: InfoService) {
   }

@@ -14,7 +14,13 @@ import {ServicePlanService} from '../../services';
 })
 export class ServicePlanComponent implements OnInit {
   servicePlanList: ServicePlan[];
-  servicePlan: ServicePlan;
+  servicePlan: ServicePlan = {
+    _id: undefined,
+    name: '',
+    priceMonthly: 0,
+    downloadSpeed: '',
+    uploadSpeed: '',
+  };
   titleModal: string = '';
   query: string = '';
 
@@ -33,7 +39,13 @@ export class ServicePlanComponent implements OnInit {
 
   addServicePlan(): void {
     this.titleModal = 'Agregar Plan de Servicio';
-    this.servicePlan = null;
+    this.servicePlan = {
+      _id: undefined,
+      name: '',
+      priceMonthly: 0,
+      downloadSpeed: '',
+      uploadSpeed: '',
+    };
     jQuery('#app-service-plan-modal').modal('show');
   }
 

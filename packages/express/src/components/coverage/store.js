@@ -16,7 +16,7 @@ export class CoverageStore {
   }
 
   // registrar cobertura.
-  static async createCoverage(data) {
+  static async createCoverage({_id, ...data}) {
     const _coverage = new Coverage(data)
     await _coverage.save()
     return _coverage

@@ -15,17 +15,15 @@ import {CoverageService} from '../../services';
 export class CoverageListComponent implements OnInit {
   coverages: Array<Coverage>;
   titleModal: string;
-  currentCoverage: Coverage;
+  currentCoverage: Coverage = {
+    _id: '', name: ''
+  };
   query: string = '';
   currentRole: string;
 
   constructor(
     private authService: AuthService,
     private coverageService: CoverageService) {
-    // Valor inicial area cobertura actual.
-    this.currentCoverage = {
-      _id: '', name: ''
-    };
   }
 
   get roles() {
@@ -98,7 +96,9 @@ export class CoverageListComponent implements OnInit {
   // Open Modal Coverage.
   onCreate(): void {
     this.titleModal = 'Agregar área cobertura';
-    this.currentCoverage = null;
+    this.currentCoverage = {
+      _id: '', name: ''
+    };
     jQuery('#app-coverage-modal').modal('show');
   }
 
@@ -111,7 +111,7 @@ export class CoverageListComponent implements OnInit {
 
   // Envía una área de cobertura para almacenar en la base de datos.
   onSave(coverage: Coverage): void {
-    if (coverage._id == undefined) {
+    if (coverage._id === '') {
       this.coverageService.create(coverage).subscribe(res => {
         this.coverages.push(res);
       });

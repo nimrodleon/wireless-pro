@@ -11,13 +11,15 @@ import {CoverageService} from 'src/app/system/services/coverage.service';
   styleUrls: ['./tramo-modal.component.scss']
 })
 export class TramoModalComponent implements OnInit {
-  @Input() title: string;
-  @Input() tramo: Tramo;
+  @Input()
+  title: string;
+  @Input()
+  tramo: Tramo;
   coverages: Array<Coverage>;
   @Output() sendModel = new EventEmitter<Tramo>();
 
-  constructor(private coverageService: CoverageService) {
-    this.coverages = new Array<Coverage>();
+  constructor(
+    private coverageService: CoverageService) {
   }
 
   ngOnInit(): void {

@@ -15,8 +15,12 @@ export class TramoListComponent implements OnInit {
   tramos: Array<any>;
   query: string = '';
   titleModal: string;
-  currentTramo: Tramo;
   currentRole: string;
+  currentTramo: Tramo = {
+    _id: '',
+    tramo: '',
+    coverage: '',
+  };
 
   constructor(
     private tramoService: TramoService,
@@ -40,7 +44,7 @@ export class TramoListComponent implements OnInit {
   }
 
   saveChanges(tramo: Tramo) {
-    if (tramo._id === undefined) {
+    if (tramo._id === '') {
       this.tramoService.create(tramo)
         .subscribe(res => this.getTramos());
     } else {
@@ -58,7 +62,11 @@ export class TramoListComponent implements OnInit {
       );
     } else {
       this.titleModal = 'Agregar Tramo';
-      this.currentTramo = null;
+      this.currentTramo = {
+        _id: '',
+        tramo: '',
+        coverage: '',
+      };
       jQuery('#app-tramo-modal').modal('show');
     }
   }
