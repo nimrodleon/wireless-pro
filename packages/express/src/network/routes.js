@@ -10,7 +10,6 @@ const routes = (server) => {
   server.use('/api/payments', network.paymentRouter)
   server.use('/api/coverages', network.coverageRouter)
   server.use('/api/material', network.materialRouter)
-  server.use('/api/tasks', network.taskRouter)
   server.use('/api/averias', network.averiaRouter)
   server.use('/api/tower', network.towerRouter)
   server.use('/api/tramo', network.tramoRouter)

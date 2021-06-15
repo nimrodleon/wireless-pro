@@ -2,10 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-
 import {GlobalModule} from './global/global.module';
 import {AveriaModule} from './averia/averia.module';
-import {TasksModule} from './tasks/tasks.module';
 import {DevicesModule} from './devices/devices.module';
 import {UserModule} from './user/user.module';
 import {ClientModule} from './client/client.module';
@@ -32,7 +30,6 @@ import {LoginComponent} from './login/login.component';
     AppRoutingModule,
     GlobalModule,
     AveriaModule,
-    TasksModule,
     DevicesModule,
     ReportModule,
     UserModule,

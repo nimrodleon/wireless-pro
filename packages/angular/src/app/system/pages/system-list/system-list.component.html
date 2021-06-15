@@ -2,7 +2,7 @@
 <div class="wrap-body">
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
-    <h4 class="my-2 text-uppercase">Ajustes del Sistema</h4>
+    <h4 class="my-2 text-uppercase">Opciones del Sistema</h4>
     <div class="card">
       <div class="card-body">
         <div class="row">
@@ -41,12 +41,6 @@
             <app-system-option [icon]="'fas fa-network-wired'"
                                [href]="'/devices'" [title]="'Lista de Equipos'"
                                [detail]="'Lista de Equipos'">
-            </app-system-option>
-          </div>
-          <div class="col-md-4">
-            <app-system-option [icon]="'fas fa-tasks'"
-                               [href]="'/tasks-list'" [title]="'Lista de Tareas'"
-                               [detail]="'Buscador de Tareas por mes'">
             </app-system-option>
           </div>
           <div class="col-md-4" *ngIf="checkRolNetwork()">
