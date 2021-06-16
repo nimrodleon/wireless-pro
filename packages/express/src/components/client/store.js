@@ -10,7 +10,8 @@ export class ClientStore {
         {dni: {$regex: query}},
         {fullName: {$regex: query}}
       ]
-    }).populate('coverage').limit(50).sort({'fullName': 1})
+    }).hint({$natural: -1})
+      .limit(50)
   }
 
   // devolver cliente por id.

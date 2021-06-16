@@ -1,5 +1,5 @@
 <div class="modal fade" id="app-client-form-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
@@ -10,19 +10,12 @@
       <div class="modal-body">
         <form #clientForm="ngForm">
           <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-8">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                 </div>
                 <input type="text" placeholder="D.N.I" name="dni" [(ngModel)]="client.dni" class="form-control">
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <div class="custom-control mt-2 custom-switch">
-                <input type="checkbox" #rural [checked]="client.type === 'R'" (change)="onChange(rural.checked)"
-                  class="custom-control-input" id="customSwitch4">
-                <label class="custom-control-label text-uppercase" for="customSwitch4">Cliente Rural</label>
               </div>
             </div>
           </div>
@@ -32,7 +25,7 @@
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
               </div>
               <input type="text" name="fullName" [(ngModel)]="client.fullName" placeholder="Nombres y Apellidos"
-                class="form-control">
+                     class="form-control">
             </div>
           </div>
           <div class="form-group">
@@ -41,29 +34,23 @@
                 <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
               </div>
               <input type="text" name="fullAddress" [(ngModel)]="client.fullAddress" placeholder="Dirección"
-                class="form-control">
+                     class="form-control">
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-8">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-signal"></i></span>
-                </div>
-                <select [(ngModel)]="client.coverage" name="coverage" class="custom-select">
-                  <option *ngFor="let coverage of coverages" [value]="coverage._id">{{ coverage.name }}</option>
-                </select>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
               </div>
+              <input type="text" name="phone" [(ngModel)]="client.phone" placeholder="Telefono" class="form-control">
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-8">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                </div>
-                <input type="text" name="phone" [(ngModel)]="client.phone" placeholder="Telefono" class="form-control">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-envelope-open-text"></i></span>
               </div>
+              <input type="text" name="email" [(ngModel)]="client.email" placeholder="E-Mail" class="form-control">
             </div>
           </div>
           <div class="form-group mb-0">
@@ -84,7 +71,7 @@
             <ng-template #elseIf>
               <button type="button" (click)="onEnableClient()" class="btn btn-success text-white">
                 <i class="fas fa-check-circle"></i><span
-                  class="d-none d-sm-inline-block">&nbsp;Habilitar</span></button>
+                class="d-none d-sm-inline-block">&nbsp;Habilitar</span></button>
             </ng-template>
           </ng-template>
           <div>

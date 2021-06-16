@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 declare var jQuery: any;
 import {Client} from '../../interfaces';
-import {Coverage} from '../../../system/interfaces';
 import {CoverageService} from '../../../system/services';
 
 @Component({
@@ -15,38 +14,19 @@ export class ClientFormModalComponent implements OnInit {
   @Input() client: Client;
   @Output() sendClient = new EventEmitter<Client>();
   @Input() editMode: boolean;
-  coverages: Coverage[];
 
   constructor(private coverageService: CoverageService) {
   }
 
   ngOnInit(): void {
-    jQuery('#app-client-form-modal').on('show.bs.modal', e => {
-      this.getCoverages();
-    });
-  }
-
-  // Optiene la lista áreas de cobertura.
-  private getCoverages(): void {
-    this.coverageService.getCoverages().subscribe(res => this.coverages = res);
+    // jQuery('#app-client-form-modal').on('show.bs.modal', e => {
+    // });
   }
 
   // Envia los datos de cliente para guardar en la base de datos.
   saveChanges(): void {
     this.sendClient.emit(this.client);
     jQuery('#app-client-form-modal').modal('hide');
-  }
-
-  /**
-   * Establece el cliente como rural.
-   * @param checked type
-   */
-  onChange(checked: any): void {
-    if (checked === true) {
-      this.client.type = 'R';
-    } else {
-      this.client.type = 'U';
-    }
   }
 
   // Archivar Cliente.

@@ -16,7 +16,6 @@ function getClients(req, res = response) {
   status = status === 'true'
   ClientController.getClients(search, status).then(result => {
     res.json(result)
-    console.log(result)
   }).catch(err => {
     res.status(400).json(err)
   })

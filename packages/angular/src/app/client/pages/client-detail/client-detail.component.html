@@ -6,7 +6,7 @@
   <span class="text-uppercase"><a routerLink="/client/list">Clientes</a> /<a
     [routerLink]="['/client/detail', client._id]">{{ client.fullName }}</a></span>
       <ng-container *ngIf="client.is_active">
-        <button (click)="addServices()" class="btn btn-success btn-sm ml-2 text-uppercase">
+        <button (click)="addServices()" class="btn btn-success ml-2 text-uppercase">
           <i class="fas fa-plus"></i> Servicio
         </button>
       </ng-container>
