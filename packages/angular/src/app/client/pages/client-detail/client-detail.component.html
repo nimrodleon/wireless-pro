@@ -3,37 +3,71 @@
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
     <div class="d-flex align-items-center mt-2">
-  <span class="text-uppercase"><a routerLink="/client/list">Clientes</a> /<a
-    [routerLink]="['/client/detail', client._id]">{{ client.fullName }}</a></span>
-      <ng-container *ngIf="client.is_active">
+    <span class="text-uppercase h4">
+      <a routerLink="/client/list">Clientes</a> / <a
+      [routerLink]="['/client/detail', currentClient._id]">{{ currentClient.fullName }}</a>
+    </span>
+      <ng-container *ngIf="currentClient.is_active">
         <button (click)="addServices()" class="btn btn-success ml-2 text-uppercase">
           <i class="fas fa-plus"></i> Servicio
         </button>
       </ng-container>
-      <ng-container *ngIf="isAdmin">
-        <button type="button" *ngIf="!client.is_active" (click)="onDeleteClient()"
-                class="btn btn-danger btn-sm ml-2 text-uppercase">
-          <i class="fas fa-trash-alt"></i> Borrar
-        </button>
-      </ng-container>
+      <button
+        type="button" *ngIf="!currentClient.is_active"
+        (click)="deleteClient(currentClient._id)"
+        class="btn btn-danger ml-2 text-uppercase"><i class="fas fa-trash-alt"></i> Borrar
+      </button>
     </div>
     <div class="row mt-2">
       <div class="col-md-6">
-        <app-card-expected-payment [expectedPayment]="expectedPayment">
-        </app-card-expected-payment>
-        <app-card-client-service *ngFor="let service of serviceList" [service]="service"
+        <!-- ##(Begin) Pago esperado. -->
+        <div class="card mb-2">
+          <div class="card-body">
+            <i class="far fa-credit-card"></i>
+            <span> Pago esperado: <strong>{{ expectedPayment }} SOLES / mes</strong></span>
+          </div>
+        </div>
+        <!-- ##(End) Pago esperado. -->
+        <!-- ##(Begin) Lista de servicios contratados. -->
+        <!--<app-card-client-service *ngFor="let service of serviceList" [service]="service"
                                  (sendServiceList)="onEditService($event)"
                                  (sendLoadServices)="loadServices($event)">
-        </app-card-client-service>
+        </app-card-client-service>-->
+        <!-- ##(End) Lista de servicios contratados. -->
       </div>
       <div class="col-md-6">
-        <app-card-client-detail [client]="client"></app-card-client-detail>
+        <!-- ##(Begin) Información del Cliente actual. -->
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+              <span class="font-weight-bold">{{ currentClient.fullName }}</span>
+              <a href="#" (click)="showClientModal($event)"><i class="fas fa-edit"></i></a>
+            </div>
+            <div class="border-top text-uppercase">
+              <p class="my-1">
+                <span class="font-weight-bold text-dark">
+                <i class="fas fa-street-view"></i> Dirección: </span> {{ currentClient.fullAddress }}
+              </p>
+              <p class="my-1">
+                <span class="font-weight-bold text-dark">
+                <i class="fas fa-phone-alt"></i> Telefono: </span> {{ currentClient.phone }}
+              </p>
+              <p class="my-1">
+                <span class="font-weight-bold text-dark">
+                <i class="fas fa-envelope-open-text"></i> E-Mail: </span>
+                <span class="text-lowercase">{{ currentClient.email }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- ##(End) Información Cliente. -->
         <div class="card my-2">
           <div class="card-body">
             <button type="button" (click)="addPayment()" class="btn btn-success text-uppercase mr-2">
               <i class="fas fa-file-invoice-dollar"></i> Registrar Pago
             </button>
-            <button [routerLink]="['/client/payments', client._id]" class="btn btn-info text-uppercase mt-2 mt-sm-0">
+            <button [routerLink]="['/client/payments', currentClient._id]"
+                    class="btn btn-info text-uppercase mt-2 mt-sm-0">
               <i class="far fa-list-alt"></i> Lista de Pago
             </button>
           </div>
@@ -43,20 +77,19 @@
     <!-- // Components -->
     <app-client-form-modal
       [title]="titleModal"
-      [client]="client"
-      [editMode]="editMode"
-      (sendClient)="setClient($event)">
+      [client]="currentClient"
+      (updateClientEvent)="updateClient($event)">
     </app-client-form-modal>
 
-    <app-add-client-service
+    <!--<app-add-client-service
       [title]="titleServiceModal"
       [clientId]="client._id"
       [service]="service"
       (sendService)="setService($event)"
       (sendDeleteService)="deleteService($event)">
-    </app-add-client-service>
+    </app-add-client-service>-->
 
-    <app-payment-modal
+    <!--<app-payment-modal
       [title]="titlePaymentModal"
       [client]="client"
       [serviceList]="serviceList"
@@ -64,6 +97,6 @@
       [currentService]="currentService"
       (sendPrintReceipt)="setPrintReceipt($event)"
       (sendPayment)="setPayment($event)">
-    </app-payment-modal>
+    </app-payment-modal>-->
   </div>
 </div>

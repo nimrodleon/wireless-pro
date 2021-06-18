@@ -12,24 +12,25 @@ import {ClientService} from '../../services';
 })
 export class ClientListComponent implements OnInit {
   clients: any[];
-  currentClient: Client = new Client();
+  currentClient: Client;
   titleModal: string = '';
-  editMode: boolean = false;
   // Campos del Buscador.
   status: boolean = true;
-  query: any = {search: '', page: 0};
+  search: string = '';
 
-  constructor(private clientService: ClientService, private router: Router) {
+  constructor(
+    private clientService: ClientService,
+    private router: Router) {
+    this.currentClientDefaultValues();
   }
 
   ngOnInit(): void {
-    this.getClients(this.query);
+    this.getClients(this.search);
   }
 
   // Se Ejecuta desde el Buscador.
   onSearch(): void {
-    this.query.page = 0;
-    this.getClients(this.query);
+    this.getClients(this.search);
   }
 
   // Actualiza el Valor de Status.
@@ -41,18 +42,18 @@ export class ClientListComponent implements OnInit {
   private getClients(query: any): void {
     this.clientService.getClients(query, this.status)
       .subscribe(res => {
-        console.log(res);
         this.clients = res;
-        this.query.nPages = res.nPages;
-        this.query.page = res.page;
-        console.log(this.query);
       });
   }
 
+  // valor por defecto cliente.
+  private currentClientDefaultValues(): void {
+    this.currentClient = this.clientService.clientDefaultValues();
+  }
+
   showModal(): void {
-    this.editMode = false;
     this.titleModal = 'Agregar Cliente';
-    this.currentClient = new Client();
+    this.currentClientDefaultValues();
     jQuery('#app-client-form-modal').modal('show');
   }
 
@@ -61,10 +62,6 @@ export class ClientListComponent implements OnInit {
     if (client._id === undefined) {
       this.clientService.create(client).subscribe(client => {
         this.router.navigate(['/client/detail', client._id]);
-      });
-    } else {
-      this.clientService.update(client).subscribe(res => {
-        this.getClients(this.query);
       });
     }
   }

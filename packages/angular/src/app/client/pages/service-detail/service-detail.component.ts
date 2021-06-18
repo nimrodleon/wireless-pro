@@ -15,7 +15,7 @@ import {ServicePlan} from '../../../system/interfaces';
 export class ServiceDetailComponent implements OnInit {
   serviceId: string;
   // Variables for Service use.
-  client: Client = new Client();
+  client: Client;
   service: Service = new Service();
   device: Device;
   servicePlan: ServicePlan;

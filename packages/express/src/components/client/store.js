@@ -6,12 +6,16 @@ export class ClientStore {
   // Listar clientes.
   static async getClients(query, status) {
     return Client.find({
-      is_active: status, $or: [
+      isDeleted: false,
+      is_active: status,
+      $or: [
         {dni: {$regex: query}},
-        {fullName: {$regex: query}}
+        {fullName: {$regex: query}},
+        {fullAddress: {$regex: query}},
+        {phone: {$regex: query}}
       ]
     }).hint({$natural: -1})
-      .limit(50)
+      .limit(32)
   }
 
   // devolver cliente por id.
@@ -20,7 +24,7 @@ export class ClientStore {
   }
 
   // crear cliente.
-  static async createClient(data) {
+  static async createClient({_id, ...data}) {
     const _client = new Client(data)
     await _client.save()
     return _client

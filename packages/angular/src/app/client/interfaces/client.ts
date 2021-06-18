@@ -1,9 +1,8 @@
-export class Client {
+export interface Client {
   _id: string;
   dni: string;
   fullName: string;
   fullAddress: string;
-  coverage: string;
   email: string;
   phone: string;
   type: string;

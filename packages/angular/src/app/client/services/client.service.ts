@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {Client} from '../interfaces/client';
+import {Client} from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,25 @@ export class ClientService {
   constructor(private http: HttpClient) {
   }
 
+  // valor por defecto cliente.
+  clientDefaultValues(): Client {
+    return {
+      _id: undefined,
+      dni: '',
+      fullName: '',
+      fullAddress: '',
+      email: '',
+      phone: '',
+      type: '',
+      note: '',
+      is_active: true,
+    };
+  }
+
   getClients(query: any, status: any): Observable<any> {
     let params = new HttpParams();
     params = params.append('status', status);
-    params = params.append('search', query.search);
-    params = params.append('page', query.page);
+    params = params.append('search', query);
     return this.http.get(this.baseURL, {params: params});
   }
 

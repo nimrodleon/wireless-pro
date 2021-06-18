@@ -12,7 +12,7 @@ import {ServicePlanService, InfoService} from '../../../system/services';
 })
 export class TicketComponent implements OnInit {
   info: Info;
-  client: Client = new Client();
+  client: Client;
   payment: Payment = new Payment();
   service: Service = new Service();
   servicePlan: ServicePlan;

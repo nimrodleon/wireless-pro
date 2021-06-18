@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 declare var jQuery: any;
 import {Client} from '../../interfaces';
-import {CoverageService} from '../../../system/services';
 
 @Component({
   selector: 'app-client-form-modal',
@@ -10,12 +9,15 @@ import {CoverageService} from '../../../system/services';
   styleUrls: ['./client-form-modal.component.scss']
 })
 export class ClientFormModalComponent implements OnInit {
-  @Input() title: string;
-  @Input() client: Client;
-  @Output() sendClient = new EventEmitter<Client>();
-  @Input() editMode: boolean;
+  @Input()
+  title: string;
+  @Input()
+  client: Client;
+  @Output()
+  updateClientEvent = new EventEmitter<Client>();
+  infoAlert: boolean = false;
 
-  constructor(private coverageService: CoverageService) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -23,24 +25,33 @@ export class ClientFormModalComponent implements OnInit {
     // });
   }
 
-  // Envia los datos de cliente para guardar en la base de datos.
+  // Envía los datos de cliente para guardar en la base de datos.
   saveChanges(): void {
-    this.sendClient.emit(this.client);
+    this.updateClientEvent.emit(this.client);
     jQuery('#app-client-form-modal').modal('hide');
   }
 
   // Archivar Cliente.
   onArchiveClient(): void {
-    this.client.is_active = false;
-    this.sendClient.emit(this.client);
-    jQuery('#app-client-form-modal').modal('hide');
+    if (this.client._id === undefined) {
+      this.changeInfoAlert();
+    } else {
+      this.client.is_active = false;
+      this.updateClientEvent.emit(this.client);
+      jQuery('#app-client-form-modal').modal('hide');
+    }
   }
 
   // Habilitar Cliente.
   onEnableClient(): void {
     this.client.is_active = true;
-    this.sendClient.emit(this.client);
+    this.updateClientEvent.emit(this.client);
     jQuery('#app-client-form-modal').modal('hide');
+  }
+
+  //  Cambiar valor del infoAlert.
+  changeInfoAlert(): void {
+    this.infoAlert = !this.infoAlert;
   }
 
 }
