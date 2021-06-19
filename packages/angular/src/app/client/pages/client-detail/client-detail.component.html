@@ -81,13 +81,13 @@
       (updateClientEvent)="updateClient($event)">
     </app-client-form-modal>
 
-    <!--<app-add-client-service
+    <app-add-client-service
       [title]="titleServiceModal"
-      [clientId]="client._id"
+      [clientId]="currentClient._id"
       [service]="service"
       (sendService)="setService($event)"
       (sendDeleteService)="deleteService($event)">
-    </app-add-client-service>-->
+    </app-add-client-service>
 
     <!--<app-payment-modal
       [title]="titlePaymentModal"

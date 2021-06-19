@@ -15,15 +15,7 @@ export class ClientDetailComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private clientDetailService: ClientDetailService,
-    /**
-     *
-     *
-     */
-    /*private clientService: ClientService, private router: Router,
-    private serviceService: ServiceService, private paymentService: PaymentService,
-    private activatedRoute: ActivatedRoute, private authService: AuthService,
-    private outageService: OutagesService*/) {
+    private clientDetailService: ClientDetailService) {
   }
 
   ngOnInit(): void {
