@@ -17,6 +17,7 @@ import {AuthService} from './user/services/auth.service';
 import {UserService} from './user/services/user.service';
 import {InfoService} from './system/services';
 import {LoginComponent} from './login/login.component';
+import {OrdersModule} from './orders/orders.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {LoginComponent} from './login/login.component';
     AppRoutingModule,
     GlobalModule,
     AveriaModule,
+    OrdersModule,
     DevicesModule,
     ReportModule,
     UserModule,
