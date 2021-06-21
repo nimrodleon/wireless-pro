@@ -6,13 +6,15 @@ import {GlobalModule} from '../global/global.module';
 import {InstallationOrderService} from './services';
 import {InstallationOrdersComponent} from './pages/installation-orders/installation-orders.component';
 import {InstallationFormComponent} from './pages/installation-form/installation-form.component';
-import { InstallationDetailComponent } from './pages/installation-detail/installation-detail.component';
+import {InstallationDetailComponent} from './pages/installation-detail/installation-detail.component';
+import {ItemMaterialComponent} from './components/item-material/item-material.component';
 
 @NgModule({
   declarations: [
     InstallationOrdersComponent,
     InstallationFormComponent,
-    InstallationDetailComponent
+    InstallationDetailComponent,
+    ItemMaterialComponent
   ],
   imports: [
     CommonModule,

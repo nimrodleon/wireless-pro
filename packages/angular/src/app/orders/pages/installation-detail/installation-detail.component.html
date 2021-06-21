@@ -3,7 +3,110 @@
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
     <!-- ##(Begin) Content -->
-    <p>installation-detail works!</p>
+    <div class="row">
+      <div class="col-7 mt-2">
+        <h4 class="text-uppercase">Detalles Orden de Instalación</h4>
+        <hr>
+        <div>
+          <button class="btn btn-primary mr-2">
+            <i class="fas fa-box"></i>
+            <span class="text-uppercase ml-1">Agregar Material</span>
+          </button>
+          <button class="btn btn-info">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="text-uppercase ml-1">Finalizar Instalación</span>
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped mt-2">
+            <thead>
+            <tr>
+              <th>SALIDA</th>
+              <th>DESCRIPCIÓN</th>
+              <th>USADA</th>
+              <th>PRECIO</th>
+              <th>DIFERENCIA</th>
+              <th>IMPORTE</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>4</td>
+              <td>Antena Ubiquiti Rocket M5 Sectorial</td>
+              <td>2</td>
+              <td>350</td>
+              <td>2</td>
+              <td>700</td>
+              <td>
+                <button class="btn btn-secondary btn-sm">
+                  <i class="fas fa-cog"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Antena Ubiquiti Rocket M5 Sectorial</td>
+              <td>2</td>
+              <td>350</td>
+              <td>2</td>
+              <td>700</td>
+              <td>
+                <button class="btn btn-secondary btn-sm">
+                  <i class="fas fa-cog"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <a href="#" class="text-uppercase">Imprimir Orden de Instalación</a><br>
+          <a href="#" class="text-uppercase">Imprimir Ticket</a>
+        </div>
+      </div>
+      <div class="col-5 mt-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between">
+              <h5 class="mb-0 card-title text-uppercase">Información</h5>
+              <a href="#"><i class="fas fa-edit"></i></a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between border-bottom">
+              <span>
+                <i class="fas fa-calendar-alt"></i>
+                Creado el
+              </span>
+              <span>2021-15-14</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-user"></i> Técnico</span>
+              <span>User1</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-user"></i> Cliente</span>
+              <span>Ana Blue</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-map-marker-alt"></i> Dirección</span>
+              <span>Jr. jose carlos maria tech 2414</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-server"></i> Plan</span>
+              <span>4MB Internet</span>
+            </div>
+            <h5 class="text-uppercase"><i class="fas fa-map-marker-alt"></i> Ubicación del Cliente</h5>
+            <!-- ##(Begin) map -->
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31015.952962683597!2d-73.39309230839163!3d-13.658121286107715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916d2bc7ff979013%3A0x7622e6cfe777add5!2sAndahuaylas!5e0!3m2!1ses!2spe!4v1624243954924!5m2!1ses!2spe"
+              width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <!-- ##(End) map -->
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- ##(End) Content -->
   </div>
 </div>

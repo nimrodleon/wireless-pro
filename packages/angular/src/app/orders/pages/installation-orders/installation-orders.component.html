@@ -8,11 +8,21 @@
         <div class="d-flex my-2 justify-content-between">
           <div class="d-flex align-items-center">
             <h4 class="text-uppercase m-0 mr-2">Órdenes de Instalación</h4>
-            <button type="button"
-                    routerLink="/installation_orders/new"
-                    class="btn btn-success"><i class="fas fa-plus"></i>
-              <span class="text-uppercase ml-1">Orden</span>
-            </button>
+            <div class="btn-group">
+              <button type="button"
+                      routerLink="/installation_orders/new"
+                      class="btn btn-success">
+                <i class="fas fa-plus"></i>
+                <span class="text-uppercase ml-1">Orden</span>
+              </button>
+              <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                      data-toggle="dropdown">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Informe</a>
+              </div>
+            </div>
           </div><!-- //.d-flex -->
           <form class="form-inline">
             <input type="text" name="search"
