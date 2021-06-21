@@ -10,6 +10,7 @@ const routes: Routes = [
     children: [
       {path: '', component: InstallationOrdersComponent},
       {path: 'new', component: InstallationFormComponent},
+      {path: 'edit/:id', component: InstallationFormComponent},
       {path: 'detail/:id', component: InstallationDetailComponent},
       {path: '**', redirectTo: ''}
     ]
