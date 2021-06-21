@@ -8,13 +8,21 @@ import {InstallationOrdersComponent} from './pages/installation-orders/installat
 import {InstallationFormComponent} from './pages/installation-form/installation-form.component';
 import {InstallationDetailComponent} from './pages/installation-detail/installation-detail.component';
 import {ItemMaterialComponent} from './components/item-material/item-material.component';
+import {InstallationReportComponent} from './pages/installation-report/installation-report.component';
+import {AddMaterialComponent} from './components/add-material/add-material.component';
+import {AddUserComponent} from './components/add-user/add-user.component';
+import {InstallationTicketComponent} from './pages/installation-ticket/installation-ticket.component';
 
 @NgModule({
   declarations: [
     InstallationOrdersComponent,
     InstallationFormComponent,
     InstallationDetailComponent,
-    ItemMaterialComponent
+    ItemMaterialComponent,
+    InstallationReportComponent,
+    AddMaterialComponent,
+    AddUserComponent,
+    InstallationTicketComponent
   ],
   imports: [
     CommonModule,

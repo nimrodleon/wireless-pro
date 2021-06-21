@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+<div class="wrap-body">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid">
+    <!-- ##(Begin) Content -->
+    <div class="row">
+      <div class="col-12">
+        <form class="form-inline my-2">
+          <h4 class="text-uppercase mb-0 mr-2">Lista Ordenes de Instalación</h4>
+          <input type="number" name="year" class="form-control mr-2" style="width: 100px;">
+          <select name="month" class="custom-select mr-2">
+            <option value="01">ENERO</option>
+            <option value="02">FEBRERO</option>
+            <option value="03">MARZO</option>
+            <option value="04">ABRIL</option>
+            <option value="05">MAYO</option>
+            <option value="06">JUNIO</option>
+            <option value="07">JULIO</option>
+            <option value="08">AGOSTO</option>
+            <option value="09">SEPTIEMBRE</option>
+            <option value="10">OCTUBRE</option>
+            <option value="11">NOVIEMBRE</option>
+            <option value="12">DICIEMBRE</option>
+          </select>
+          <input type="search" name="search" class="form-control mr-2"
+                 placeholder="CLIENTE...">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+            <span class="text-uppercase ml-1">Buscar</span>
+          </button>
+        </form>
+      </div><!-- //.col-12 -->
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr class="text-uppercase">
+              <th>Cliente</th>
+              <th>Responsable</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <div class="text-uppercase">
+                  <span class="badge badge-info">Instalación</span>
+                </div>
+                <a [routerLink]="['/installation_orders/detail', 0]"
+                   class="text-uppercase">Cliente Apellido / 956-454-141</a>
+                <div class="text-uppercase">
+                  <span class="badge badge-primary">Pendiente</span>
+                </div>
+                <span class="d-block blockquote-footer">2021-02-02, 09:32:57 AM</span>
+              </td>
+              <td>Usuario</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="text-uppercase">
+                  <span class="badge badge-info">Instalación</span>
+                </div>
+                <a [routerLink]="['/installation_orders/detail', 0]"
+                   class="text-uppercase">Cliente Apellido / 956-454-141</a>
+                <div class="text-uppercase">
+                  <span class="badge badge-warning">En Proceso</span>
+                </div>
+                <span class="d-block blockquote-footer">2021-02-02, 09:32:57 AM</span>
+              </td>
+              <td>Usuario</td>
+            </tr>
+            </tbody>
+          </table>
+        </div><!-- //.table-responsive -->
+      </div><!-- //.col-12 -->
+    </div>
+    <!-- ##(End) Content -->
+  </div>
+</div>

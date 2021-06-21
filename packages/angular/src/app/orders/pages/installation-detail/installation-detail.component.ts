@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-installation-detail',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InstallationDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  // Agregar usuario.
+  addUserClick(): void {
+    jQuery('#add-user').modal('show');
+  }
+
+  // Agregar material.
+  addMaterial(): void {
+    jQuery('#add-material').modal('show');
+  }
+
+  // Editar item material.
+  editItemMaterial(): void {
+    jQuery('#item-material').modal('show');
   }
 
 }
