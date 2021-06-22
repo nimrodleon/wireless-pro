@@ -8,7 +8,6 @@ import {DevicesModule} from './devices/devices.module';
 import {UserModule} from './user/user.module';
 import {ClientModule} from './client/client.module';
 import {SystemModule} from './system/system.module';
-import {ReportModule} from './report/report.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
@@ -33,7 +32,6 @@ import {OrdersModule} from './orders/orders.module';
     AveriaModule,
     OrdersModule,
     DevicesModule,
-    ReportModule,
     UserModule,
     ClientModule,
     SystemModule

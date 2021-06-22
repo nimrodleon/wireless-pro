@@ -1,32 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { ReportRoutingModule } from '../report/report-routing.module';
-import { RouterLinkComponent } from './router-link/router-link.component';
-import { AuthService } from '../user/services/auth.service';
-import { UserService } from '../user/services/user.service';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {NavbarComponent} from './navbar/navbar.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {AuthService} from '../user/services/auth.service';
+import {UserService} from '../user/services/user.service';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    SidebarComponent,
-    RouterLinkComponent
+    SidebarComponent
   ],
   imports: [
     CommonModule,
-    RouterModule,
-    ReportRoutingModule
+    RouterModule
   ],
   exports: [
     NavbarComponent,
-    SidebarComponent,
-    RouterLinkComponent
+    SidebarComponent
   ],
   providers: [
     AuthService,
     UserService
   ]
 })
-export class GlobalModule { }
+export class GlobalModule {
+}

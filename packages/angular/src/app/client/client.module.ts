@@ -16,6 +16,8 @@ import {PaymentModalComponent} from './components/payment-modal/payment-modal.co
 import {ServiceDetailComponent} from './pages/service-detail/service-detail.component';
 import {CardOutagesComponent} from './components/card-outages/card-outages.component';
 import {TicketComponent} from './pages/ticket/ticket.component';
+import {ReceivableComponent} from './pages/receivable/receivable.component';
+import {PaymentDailyComponent} from './pages/payment-daily/payment-daily.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {TicketComponent} from './pages/ticket/ticket.component';
     PaymentModalComponent,
     ServiceDetailComponent,
     CardOutagesComponent,
-    TicketComponent
+    TicketComponent,
+    ReceivableComponent,
+    PaymentDailyComponent
   ],
   imports: [
     CommonModule,

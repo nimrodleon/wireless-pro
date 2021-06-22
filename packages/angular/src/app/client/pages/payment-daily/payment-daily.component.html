@@ -1,0 +1,60 @@
+<app-navbar></app-navbar>
+<div class="wrap-body">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid">
+    <!-- ##(Begin) Content -->
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex align-items-center my-2">
+          <h4 class="text-uppercase m-0 mr-2">Diario de Pagos</h4>
+          <div class="input-group mr-2" style="width: 240px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+            </div>
+            <input type="date" name="createdAt" class="form-control">
+          </div>
+          <button type="button" class="btn btn-success text-uppercase">
+            <i class="fas fa-search"></i> Buscar
+          </button>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="thead-light">
+            <tr class="text-uppercase">
+              <th>Cliente</th>
+              <th>Dirección Ip</th>
+              <th>Desde</th>
+              <th>Hasta</th>
+              <th>Monto</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <a [routerLink]="['/client/detail', 0]">
+                  CLIENTE APELLIDO
+                </a>
+              </td>
+              <td>10.0.1.10</td>
+              <td>2020-10-20</td>
+              <td>2020-10-12</td>
+              <td>200</td>
+            </tr>
+            <ng-container>
+              <tr class="bg-secondary font-weight-bold">
+                <td colspan="4" class="text-white">
+                  <span class="text-uppercase">Total de Registros [ 0 ]</span>
+                </td>
+                <td class="text-white">200</td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- ##(End) Content -->
+  </div>
+</div>

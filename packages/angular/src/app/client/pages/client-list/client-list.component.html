@@ -7,9 +7,19 @@
         <div class="d-flex my-2 justify-content-between">
           <div class="d-flex align-items-center">
             <h4 class="text-uppercase m-0 mr-2">Lista de Clientes</h4>
-            <button type="button" (click)="showModal()" class="btn btn-success">
-              <i class="fas fa-plus"></i><span class="text-uppercase">&nbsp;Cliente</span>
-            </button>
+            <div class="btn-group">
+              <button type="button" (click)="showModal()" class="btn btn-success">
+                <i class="fas fa-plus"></i><span class="text-uppercase ml-1">Cliente</span>
+              </button>
+              <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                      data-toggle="dropdown">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" routerLink="/client/payment-daily">Diario de pagos</a>
+                <a class="dropdown-item" routerLink="/client/receivable">Clientes por Cobrar</a>
+              </div>
+            </div>
           </div><!-- //.d-flex -->
           <form (submit)="onSearch()" class="form-inline">
             <div class="custom-control custom-switch">
