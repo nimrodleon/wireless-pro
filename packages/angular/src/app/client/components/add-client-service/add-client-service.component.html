@@ -9,90 +9,190 @@
       </div>
       <div class="modal-body">
         <form #serviceForm="ngForm">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
-                </div>
-                <input type="text" name="ipAddress" [(ngModel)]="service.ipAddress" class="form-control"
-                       placeholder="IP Address">
-              </div>
+          <!-- ##(Begin) Tab -->
+          <nav class="text-uppercase">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="nav-basic-tab"
+                 data-toggle="tab" href="#nav-basic" role="tab" aria-selected="true">
+                <i class="fas fa-cog"></i> Básico</a>
+              <a class="nav-link" id="nav-address-tab"
+                 data-toggle="tab" href="#nav-address" role="tab"
+                 aria-controls="nav-address" aria-selected="false">
+                <i class="fas fa-map-marker-alt"></i> Dirección</a>
+              <a class="nav-link" id="nav-contact-tab"
+                 data-toggle="tab" href="#nav-invoice" role="tab"
+                 aria-controls="nav-contact" aria-selected="false">
+                <i class="fas fa-file-invoice"></i> Facturación</a>
             </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-basic" role="tabpanel">
+              <!-- ##(Begin) Básico -->
+              <div class="form-row mt-2">
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
+                    </div>
+                    <input type="text" name="ipAddress" [(ngModel)]="service.ipAddress" class="form-control"
+                           placeholder="IP Address">
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-heartbeat"></i></span>
+                    </div>
+                    <select name="servicePlan" class="custom-select">
+                      <option>Habilitado</option>
+                      <option>Deshabilitado</option>
+                      <option>Notificado</option>
+                      <option>Suspendido</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                    </div>
+                    <select [(ngModel)]="service.servicePlan" name="servicePlan" class="custom-select">
+                      <option *ngFor="let item of servicePlanList" [value]="item._id">{{ item.name }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                    </div>
+                    <input type="date" name="dateFrom" [ngModel]="service.dateFrom"
+                           (ngModelChange)="service.dateFrom = $event" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-server"></i></span>
+                    </div>
+                    <select name="servicePlan" class="custom-select">
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
+                    </div>
+                    <select name="servicePlan" class="custom-select">
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" name="userName" [(ngModel)]="service.userName" placeholder="Username"
+                           class="form-control">
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input type="text" name="password" [(ngModel)]="service.password" placeholder="Password"
+                           class="form-control">
+                  </div>
+                </div>
+              </div>
+              <!--<div class="form-group">
+                <textarea name="note" [(ngModel)]="service.note" class="form-control"></textarea>
+              </div>-->
+              <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-signal"></i></span>
+                    </div>
+                    <select name="accessPoint" class="custom-select"></select>
+                  </div>
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
+                    </div>
+                    <input type="text" [(ngModel)]="service.macAddress" name="macAddress"
+                           placeholder="MAC Address" class="form-control">
+                  </div>
+                </div>
+              </div>
+
+              <!-- ##(End) Básico -->
+            </div>
+            <div class="tab-pane fade" id="nav-address" role="tabpanel">
+              <!-- ##(Begin) Básico -->
+              <div class="row mt-2">
+                <div class="col-6">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                      </div>
+                      <input type="text" name="address" placeholder="Dirección" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-city"></i></span>
+                      </div>
+                      <input type="text" name="address" placeholder="Ciudad" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
+                      </div>
+                      <input type="text" name="address" placeholder="Región" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="plan" class="col-form-label">Area Cobertura</label>
+                    <select class="custom-select" id="plan"></select>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <div class="form-inline justify-content-end">
+                      <label class="mr-2">* Lat/Long</label>
+                      <input class="form-control mr-2">
+                      <input class="form-control">
+                    </div>
+                  </div>
+                  <!-- ##(Begin) map -->
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31015.952962683597!2d-73.39309230839163!3d-13.658121286107715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916d2bc7ff979013%3A0x7622e6cfe777add5!2sAndahuaylas!5e0!3m2!1ses!2spe!4v1624243954924!5m2!1ses!2spe"
+                    width="100%" height="310" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                  <!-- ##(End) map -->
+                </div>
+              </div>
+              <!-- ##(End) Básico -->
+            </div>
+            <div class="tab-pane fade" id="nav-invoice" role="tabpanel">...facturación</div>
           </div>
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-robot"></i></span>
-              </div>
-              <input type="text" name="ipAddress" class="form-control" placeholder="Nombre Identificador">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                </div>
-                <select [(ngModel)]="service.servicePlan" name="servicePlan" class="custom-select">
-                  <option *ngFor="let item of servicePlanList" [value]="item._id">{{ item.name }}</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
-                </div>
-                <input type="date" name="dateFrom" [ngModel]="service.dateFrom"
-                       (ngModelChange)="service.dateFrom = $event" class="form-control">
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
-                <input type="text" name="userName" [(ngModel)]="service.userName" placeholder="Username"
-                       class="form-control">
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                </div>
-                <input type="text" name="password" [(ngModel)]="service.password" placeholder="Password"
-                       class="form-control">
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <textarea name="note" [(ngModel)]="service.note" class="form-control"></textarea>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6 mb-0">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-signal"></i></span>
-                </div>
-                <select name="accessPoint" class="custom-select"></select>
-              </div>
-            </div>
-            <div class="form-group col-md-6 mb-0">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
-                </div>
-                <input type="text" [(ngModel)]="service.macAddress" name="macAddress"
-                       placeholder="MAC Address" class="form-control">
-              </div>
-            </div>
-          </div>
+          <!-- ##(End) Tab -->
         </form>
-      </div>
+      </div><!-- //.modal-body -->
       <div class="modal-footer">
         <div class="d-flex w-100 justify-content-between">
           <ng-container *ngIf="isAdmin">
