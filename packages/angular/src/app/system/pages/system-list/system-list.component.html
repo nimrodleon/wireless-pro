@@ -43,6 +43,12 @@
                                [detail]="'Lista de Equipos'">
             </app-system-option>
           </div>
+          <div class="col-md-4">
+            <app-system-option [icon]="'fas fa-server'"
+                               [href]="'/system/mikrotik'" [title]="'Equipos Mikrotik'"
+                               [detail]="'Lista de Equipos Mikrotik'">
+            </app-system-option>
+          </div>
           <div class="col-md-4" *ngIf="checkRolNetwork()">
             <app-system-option [icon]="'fas fa-directions'" [href]="'/system/tramo'"
                                [title]="'Tramos de Red'" [detail]="'Lista de Tramos de Red'">

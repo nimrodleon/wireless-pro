@@ -7,6 +7,7 @@ import {CoverageListComponent} from './pages/coverage-list/coverage-list.compone
 import {MaterialComponent} from './pages/material/material.component';
 import {TowerListComponent} from './pages/tower-list/tower-list.component';
 import {TramoListComponent} from './pages/tramo-list/tramo-list.component';
+import {MikrotikListComponent} from './pages/mikrotik-list/mikrotik-list.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       {path: 'material', component: MaterialComponent},
       {path: 'tower', component: TowerListComponent},
       {path: 'tramo', component: TramoListComponent},
+      {path: 'mikrotik', component: MikrotikListComponent},
       {path: '**', redirectTo: ''}
     ]
   }

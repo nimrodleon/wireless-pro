@@ -18,6 +18,7 @@ import {TowerListComponent} from './pages/tower-list/tower-list.component';
 import {TramoListComponent} from './pages/tramo-list/tramo-list.component';
 import {TowerModalComponent} from './components/tower-modal/tower-modal.component';
 import {TramoModalComponent} from './components/tramo-modal/tramo-modal.component';
+import {MikrotikListComponent} from './pages/mikrotik-list/mikrotik-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {TramoModalComponent} from './components/tramo-modal/tramo-modal.componen
     TowerListComponent,
     TowerModalComponent,
     TramoListComponent,
-    TramoModalComponent
+    TramoModalComponent,
+    MikrotikListComponent
   ],
   imports: [
     CommonModule,
