@@ -62,48 +62,45 @@
           <div class="card-body">
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-link active" id="nav-home-tab" data-toggle="tab"
-                   href="#nav-home" role="tab" aria-selected="true">
+                <a class="nav-link active" id="nav-basic-tab" data-toggle="tab"
+                   href="#nav-basic" role="tab" aria-selected="true">
                   <i class="fas fa-info-circle"></i><span class="text-uppercase ml-1">Básico</span></a>
-                <a class="nav-link" id="nav-profile-tab" data-toggle="tab"
-                   href="#nav-profile" role="tab" aria-selected="false">
+                <a class="nav-link" id="nav-status-change-tab" data-toggle="tab"
+                   href="#nav-status-change" role="tab" aria-selected="false">
                   <i class="fas fa-exchange-alt"></i><span class="text-uppercase ml-1">Estado de Cambios</span></a>
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-home" role="tabpanel">...</div>
-              <div class="tab-pane fade" id="nav-profile" role="tabpanel">...</div>
-            </div>
+              <div class="tab-pane fade show active" id="nav-basic" role="tabpanel">
+                <!-- ##(Begin) Básico -->
+                <div class="d-flex justify-content-between border-bottom">
+                  <span class="text-uppercase"><i class="fas fa-user"></i> Nombre</span>
+                  <span>User1</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                  <span class="text-uppercase"><i class="fas fa-user"></i> Usuario</span>
+                  <span>rbot</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                  <span class="text-uppercase"><i class="fas fa-key"></i> Contraseña</span>
+                  <span>supersecret</span>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                  <span class="text-uppercase"><i class="fas fa-server"></i> Host-(IP)</span>
+                  <a href="#" (click)="$event.preventDefault();" class="font-weight-bold">10.0.1.1</a>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                  <span class="text-uppercase"><i class="fas fa-eye"></i> Puerto</span>
+                  <span>8452</span>
+                </div>
+                <!-- ##(Begin) Básico -->
+              </div>
+              <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
+                <!-- ##(Begin) Estado de cambios -->
 
-
-
-            <div class="d-flex justify-content-between border-bottom">
-              <span><i class="fas fa-user"></i> Nombre</span>
-              <span>User1</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom">
-              <span><i class="fas fa-user"></i> Usuario</span>
-              <span>rbot</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom">
-              <span><i class="fas fa-map-marker-alt"></i> Password</span>
-              <span>supersecret</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom">
-              <span>
-                <i class="fas fa-calendar-alt"></i> Host
-              </span>
-              <a href="#" class="font-weight-bold">10.0.1.1</a>
-            </div>
-            <div class="d-flex justify-content-between border-bottom">
-              <span><i class="fas fa-server"></i> Puerto</span>
-              <span>8452</span>
-            </div>
-            <div class="d-flex justify-content-between border-bottom">
-              <span><i class="fas fa-server"></i> M.A.C.</span>
-              <span>12:45:A1:01:45</span>
-            </div>
-
+                <!-- ##(Begin) Estado de cambios -->
+              </div>
+            </div><!-- //.tab-content -->
           </div>
         </div>
       </div><!-- //.col-5 -->
