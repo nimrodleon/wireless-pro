@@ -3,7 +3,111 @@
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
     <!-- ##(Begin) Content -->
-    <p>mikrotik-list works!</p>
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex my-2 justify-content-between">
+          <div class="d-flex align-items-center">
+            <h4 class="text-uppercase m-0 mr-2">Lista de Equipos Mikrotik</h4>
+            <button type="button" routerLink="/installation_orders/new" class="btn btn-success">
+              <i class="fas fa-plus"></i><span class="text-uppercase ml-1">Mikrotik</span>
+            </button>
+          </div><!-- //.d-flex -->
+          <form class="form-inline">
+            <input type="text" name="search"
+                   class="form-control mr-2" placeholder="MIKROTIK...">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-search"></i> BUSCAR
+            </button>
+          </form><!-- //.form-inline -->
+        </div><!-- //.d-flex -->
+      </div><!-- //.col-12 -->
+      <div class="col-7">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="thead-light">
+            <tr class="text-uppercase">
+              <th>Nombre</th>
+              <th>Servicios</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>MK-URBANOS</td>
+              <td>
+                <span class="badge badge-success">200</span>
+                <span class="mx-1">/</span>
+                <span class="badge badge-secondary">10</span>
+              </td>
+            </tr>
+            <tr>
+              <td>MK-DISTRITOS</td>
+              <td>
+                <span class="badge badge-success">400</span>
+                <span class="mx-1">/</span>
+                <span class="badge badge-secondary">50</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div><!-- //.table-responsive -->
+      </div><!-- //.col-7 -->
+      <div class="col-5">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between">
+              <h5 class="mb-0 card-title text-uppercase">Información</h5>
+              <a href="#"><i class="fas fa-edit"></i></a>
+            </div>
+          </div>
+          <div class="card-body">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-link active" id="nav-home-tab" data-toggle="tab"
+                   href="#nav-home" role="tab" aria-selected="true">
+                  <i class="fas fa-info-circle"></i><span class="text-uppercase ml-1">Básico</span></a>
+                <a class="nav-link" id="nav-profile-tab" data-toggle="tab"
+                   href="#nav-profile" role="tab" aria-selected="false">
+                  <i class="fas fa-exchange-alt"></i><span class="text-uppercase ml-1">Estado de Cambios</span></a>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel">...</div>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel">...</div>
+            </div>
+
+
+
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-user"></i> Nombre</span>
+              <span>User1</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-user"></i> Usuario</span>
+              <span>rbot</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-map-marker-alt"></i> Password</span>
+              <span>supersecret</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span>
+                <i class="fas fa-calendar-alt"></i> Host
+              </span>
+              <a href="#" class="font-weight-bold">10.0.1.1</a>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-server"></i> Puerto</span>
+              <span>8452</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span><i class="fas fa-server"></i> M.A.C.</span>
+              <span>12:45:A1:01:45</span>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- //.col-5 -->
+    </div>
     <!-- ##(End) Content -->
   </div>
 </div>
