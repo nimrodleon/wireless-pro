@@ -1,0 +1,46 @@
+<div class="modal fade" id="mikrotik-form" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-uppercase">Agregar Mikrotik</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- ##(Begin) Content -->
+        <form>
+          <nav class="text-uppercase">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-link active" id="nav-basic-tab" data-toggle="tab"
+                 href="#nav-basic-content" role="tab" aria-selected="true">
+                <i class="fas fa-info-circle"></i> Básico</a>
+              <a class="nav-link" id="nav-interface-tab" data-toggle="tab"
+                 href="#nav-interface-content" role="tab" aria-selected="false">
+                <i class="fas fa-ethernet"></i> Interfaces</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-basic-content" role="tabpanel">
+              <!-- ##(Begin) Básico -->
+              <div class="form-group row">
+                <label class="col-4 col-form-label">Nombre</label>
+                <div class="col-8">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+
+              <!-- ##(End) Básico -->
+            </div>
+            <div class="tab-pane fade" id="nav-interface-content" role="tabpanel">...</div>
+          </div>
+        </form>
+        <!-- ##(End) Content -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>

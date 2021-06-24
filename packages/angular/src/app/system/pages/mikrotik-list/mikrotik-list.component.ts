@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-mikrotik-list',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MikrotikListComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  // Agregar Mikrotik.
+  addMikrotikClick(): void {
+    jQuery('#mikrotik-form').modal('show');
   }
 
 }

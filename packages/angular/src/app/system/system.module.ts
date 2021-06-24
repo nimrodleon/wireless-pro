@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-
 import {GlobalModule} from '../global/global.module';
 import {SystemRoutingModule} from './system-routing.module';
 import {AuthService} from '../user/services/auth.service';
@@ -19,6 +18,7 @@ import {TramoListComponent} from './pages/tramo-list/tramo-list.component';
 import {TowerModalComponent} from './components/tower-modal/tower-modal.component';
 import {TramoModalComponent} from './components/tramo-modal/tramo-modal.component';
 import {MikrotikListComponent} from './pages/mikrotik-list/mikrotik-list.component';
+import {MikrotikFormComponent} from './components/mikrotik-form/mikrotik-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import {MikrotikListComponent} from './pages/mikrotik-list/mikrotik-list.compone
     TowerModalComponent,
     TramoListComponent,
     TramoModalComponent,
-    MikrotikListComponent
+    MikrotikListComponent,
+    MikrotikFormComponent
   ],
   imports: [
     CommonModule,
