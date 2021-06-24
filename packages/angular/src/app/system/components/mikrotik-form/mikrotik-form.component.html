@@ -23,16 +23,79 @@
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-basic-content" role="tabpanel">
               <!-- ##(Begin) Básico -->
-              <div class="form-group row">
-                <label class="col-4 col-form-label">Nombre</label>
-                <div class="col-8">
-                  <input type="text" class="form-control">
+              <div class="form-group row mt-2">
+                <label class="col-3 col-form-label text-right">Nombre</label>
+                <div class="col-9">
+                  <input type="text" class="form-control" placeholder="Mikrotik">
                 </div>
               </div>
-
+              <div class="form-group row">
+                <label class="col-3 col-form-label text-right">Host</label>
+                <div class="col-9">
+                  <input type="text" class="form-control" placeholder="192.168.88.1">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-3 col-form-label text-right">Puerto</label>
+                <div class="col-9">
+                  <input type="number" class="form-control" placeholder="8728">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-3 col-form-label text-right">Usuario</label>
+                <div class="col-9">
+                  <input type="text" class="form-control" placeholder="admin">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-3 col-form-label text-right">Contraseña</label>
+                <div class="col-9">
+                  <input type="text" class="form-control" placeholder="**********">
+                </div>
+              </div>
+              <div class="form-group row mb-0">
+                <label class="col-3 col-form-label text-right">URL(BitWorker)</label>
+                <div class="col-9">
+                  <input type="text" class="form-control" placeholder="https://192.168.88.200:5000">
+                </div>
+              </div>
               <!-- ##(End) Básico -->
             </div>
-            <div class="tab-pane fade" id="nav-interface-content" role="tabpanel">...</div>
+            <div class="tab-pane fade" id="nav-interface-content" role="tabpanel">
+              <!-- ##(Begin) Interface -->
+              <div class="form-group mt-2">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Nombre Interface">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button">Agregar</button>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                  <thead>
+                  <tr class="text-uppercase">
+                    <th>Nombre</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>ether1</td>
+                    <td>
+                      <div class="float-right btn-opt">
+                        <button class="btn btn-secondary btn-sm mr-2">
+                          <i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm">
+                          <i class="fas fa-trash-alt"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- ##(End) Interface -->
+            </div>
           </div>
         </form>
         <!-- ##(End) Content -->
