@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
 import {InfoService} from '../../services';
 import {Info} from '../../interfaces';
@@ -17,6 +18,7 @@ export class GeneralComponent implements OnInit {
     phone: '',
     legendTicket: '',
   };
+  Editor = ClassicEditor;
 
   constructor(private infoService: InfoService) {
   }

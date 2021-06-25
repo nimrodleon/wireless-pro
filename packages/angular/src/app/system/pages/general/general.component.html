@@ -2,61 +2,135 @@
 <div class="wrap-body">
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
-    <h4 class="my-2">Información general</h4>
-    <div class="row">
-      <div class="col-md-8">
-        <form #generalForm="ngForm">
-          <div class="card">
-            <div class="card-body">
-              <div class="form-row">
-                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">R.U.C.</label>
-                <div class="form-group col-md-4">
-                  <input type="text" [(ngModel)]="info.ruc" name="ruc" class="form-control">
-                </div>
-              </div>
-              <div class="form-row">
-                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">Razon Social</label>
-                <div class="form-group col-md-10">
-                  <input type="text" [(ngModel)]="info.company" name="company" class="form-control">
-                </div>
-              </div>
-              <div class="form-row">
-                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">Dirección</label>
-                <div class="form-group col-md-10">
-                  <input type="text" [(ngModel)]="info.fullAddress" name="fullAddress" class="form-control">
-                </div>
-              </div>
-              <div class="form-row">
-                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">Telefono</label>
-                <div class="form-group mb-0 col-md-4">
-                  <input type="text" [(ngModel)]="info.phone" name="phone" class="form-control">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card mt-md-2">
-            <div class="card-body">
-              <div class="form-row">
-                <label for="" class="col-form-label col-md-2 text-md-right font-weight-bold">Leyenda</label>
-                <div class="form-group mb-0 col-md-10">
-                  <textarea [(ngModel)]="info.legendTicket" name="legendTicket" class="form-control"></textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card border-0 my-2">
-            <div class="card-body py-1">
-              <div class="form-row">
-                <div class="form-group offset-md-2 col-md-4">
-                  <button type="button" (click)="update()" class="btn btn-dark"><i class="fas fa-save"></i>
-                    Guardar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+    <!-- ##(Begin) Content -->
+    <nav class="text-uppercase  mt-2">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-link active" id="nav-general-tab" data-toggle="tab"
+           href="#nav-general" role="tab" aria-selected="true">
+          <i class="fas fa-info-circle"></i> Información general</a>
+        <a class="nav-link" id="nav-application-tab" data-toggle="tab"
+           href="#nav-application" role="tab" aria-selected="false">
+          <i class="fas fa-rocket"></i> Aplicaciones</a>
+        <!--<a class="nav-link" id="nav-licence-tab" data-toggle="tab"
+           href="#nav-licence" role="tab" aria-selected="false">
+          <i class="far fa-file-alt"></i> Términos y Condiciones</a>-->
       </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-general" role="tabpanel">
+        <!-- ##(Begin) General -->
+        <div class="row">
+          <div class="col-md-8">
+            <form #generalForm="ngForm">
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="form-row">
+                    <label class="col-form-label col-md-2 text-md-right font-weight-bold">R.U.C.</label>
+                    <div class="form-group col-md-4">
+                      <input type="text" [(ngModel)]="info.ruc" name="ruc" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <label class="col-form-label col-md-2 text-md-right font-weight-bold">Razon Social</label>
+                    <div class="form-group col-md-10">
+                      <input type="text" [(ngModel)]="info.company" name="company" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <label class="col-form-label col-md-2 text-md-right font-weight-bold">Dirección</label>
+                    <div class="form-group col-md-10">
+                      <input type="text" [(ngModel)]="info.fullAddress" name="fullAddress" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <label class="col-form-label col-md-2 text-md-right font-weight-bold">Telefono</label>
+                    <div class="form-group mb-0 col-md-4">
+                      <input type="text" [(ngModel)]="info.phone" name="phone" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="form-row">
+                    <label class="col-form-label col-md-2 text-md-right font-weight-bold">Ancho Papel</label>
+                    <div class="form-group mb-0 col-md-4">
+                      <input type="number" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="form-row">
+                    <label class="col-form-label col-md-2 text-md-right font-weight-bold">Google Maps</label>
+                    <div class="form-group mb-0 col-md-10">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-2">
+                <div class="card-body">
+                  <ckeditor [editor]="Editor" name="legendTicket"
+                            [config]="{toolbar: [
+                            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                            'outdent', 'indent', '|',
+                            'blockQuote', 'insertTable', 'undo', 'redo']}"
+                            [(ngModel)]="info.legendTicket"></ckeditor>
+                </div>
+              </div>
+              <div class="card border-0 my-2">
+                <div class="card-body py-1">
+                  <div class="form-row">
+                    <div class="form-group offset-md-2 col-md-4">
+                      <button type="button" (click)="update()" class="btn btn-dark"><i class="fas fa-save"></i>
+                        Guardar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- ##(End) General -->
+      </div>
+      <div class="tab-pane fade" id="nav-application" role="tabpanel">
+        <!-- ##(Begin) Aplicaciones -->
+        <button class="btn btn-success my-2">
+          <span class="text-uppercase">Generar Token</span>
+        </button>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="thead-light">
+            <tr class="text-uppercase">
+              <th>Nombre</th>
+              <th>Api-Key</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>MK BITWORKER</td>
+              <td>=*`HDRRj7xf+Pa2rL"N(s"2htaT$(J`Vk\*EAtP-PUR=L~b,!FV)[`:h>u,63(h4</td>
+              <td class="text-right">
+                <button class="btn btn-danger">
+                  <span class="text-uppercase">Borrar</span>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- ##(End) Aplicaciones -->
+      </div>
+      <!--<div class="tab-pane fade" id="nav-licence" role="tabpanel">
+        &lt;!&ndash;  ##(Begin) Licencia &ndash;&gt;
+        <p class="mt-2">Licencia 2021</p>
+        &lt;!&ndash;  ##(End) Licencia &ndash;&gt;
+      </div>-->
     </div>
+    <!-- ##(End) Content -->
   </div>
 </div>

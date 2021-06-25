@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {GlobalModule} from '../global/global.module';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {SystemRoutingModule} from './system-routing.module';
 import {AuthService} from '../user/services/auth.service';
 import {SystemListComponent} from './pages/system-list/system-list.component';
@@ -42,7 +43,8 @@ import {MikrotikFormComponent} from './components/mikrotik-form/mikrotik-form.co
     CommonModule,
     FormsModule,
     SystemRoutingModule,
-    GlobalModule
+    GlobalModule,
+    CKEditorModule
   ],
   providers: [
     AuthService
