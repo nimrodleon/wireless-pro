@@ -1,49 +1,200 @@
-<div class="jumbotron my-2 py-4">
-  <h1 class="display-4">{{client.fullName}}</h1>
-  <p class="lead m-0">
-    <a [routerLink]="['/client/detail', service.client]">{{servicePlan.name}} - {{service.ipAddress}}</a>
-  </p>
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <div class="card" *ngIf="service.accessPoint">
-      <div class="card-body">
-        <h5 class="card-title text-uppercase">Información del Punto de Acceso</h5>
-        <p class="my-1">
-          <span><i class="fas fa-network-wired"></i> Ip Address: </span>
-          <a href="http://{{ device.ipAddress }}" target="_blank">{{ device.ipAddress }}</a>
-        </p>
+<app-navbar></app-navbar>
+<div class="wrap-body">
+  <app-sidebar></app-sidebar>
+  <div class="container-fluid">
+    <!-- ##(Begin) Content -->
+    <div class="jumbotron px-3 py-2 my-2">
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <h4 class="text-uppercase">CLIENTE APELLIDO</h4>
+          <p class="lead m-0">
+            <a [routerLink]="['/client/detail', 0]" class="font-weight-bold">PLAN 4MB - INTERNET - 127.0.0.1</a>
+          </p>
+        </div>
+        <button type="button" class="btn btn-primary">
+          <i class="fas fa-edit"></i><span class="text-uppercase ml-1">Editar</span>
+        </button>
+      </div>
+    </div>
+    <!-- ##(Begin) Tabs -->
+    <ul class="nav nav-tabs text-uppercase" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="payment-tab" data-toggle="tab"
+           href="#payment" role="tab" aria-selected="true">
+          <i class="far fa-credit-card"></i> Información de Pagos</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="averias-tab" data-toggle="tab"
+           href="#averias" role="tab" aria-selected="false">
+          <i class="fas fa-phone-square-alt"></i> Registro de Averias</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="access-point-tab" data-toggle="tab"
+           href="#access-point" role="tab" aria-selected="false">
+          <i class="fas fa-wifi"></i> Punto de Acceso</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="state-changes-tab" data-toggle="tab"
+           href="#state-changes" role="tab" aria-selected="false">
+          <i class="fas fa-exchange-alt"></i> Estado de Cambios</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="payment" role="tabpanel">
+        <!-- ##(Begin) Información de pagos -->
+        <div class="row">
+          <div class="col-12">
+            <form class="form-inline my-2">
+              <input type="number" class="form-control mr-2" placeholder="Year">
+              <button type="button" class="btn btn-primary mr-2">
+                <i class="fas fa-sync"></i><span class="text-uppercase ml-1">Cargar</span>
+              </button>
+              <button type="button" class="btn btn-success mr-2">
+                <i class="fas fa-print"></i><span class="text-uppercase ml-1">Imprimir</span>
+              </button>
+              <button type="button" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i><span class="text-uppercase ml-1">Borrar</span>
+              </button>
+            </form>
+          </div><!-- //.col-12-->
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead class="thead-light">
+                <tr class="text-uppercase">
+                  <th><input type="checkbox" disabled></th>
+                  <th>Equipo</th>
+                  <th>Mes de Servicio</th>
+                  <th>Monto</th>
+                  <th>M.Pago</th>
+                  <th>Fecha</th>
+                  <th>User</th>
+                  <th>Nota</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><input type="checkbox" [value]="0"></td>
+                  <td>127.0.0.1</td>
+                  <td>2020-10-10 al 2021-12-01</td>
+                  <td>100.00</td>
+                  <td>Caja</td>
+                  <td>2021-06-25</td>
+                  <td>User1</td>
+                  <td>Tiene saldo a favor de 10 soles</td>
+                </tr>
+                </tbody>
+              </table>
+            </div><!-- //.table-responsive -->
+          </div><!-- //.col-12 -->
+        </div><!-- //.row -->
+        <!-- ##(End) Información de pagos -->
+      </div>
+      <div class="tab-pane fade" id="averias" role="tabpanel">
+        <!-- ##(Begin) Averias -->
+        <button class="btn btn-success my-2">
+          <i class="fas fa-plus"></i>
+          <span class="text-uppercase ml-1">Registrar Averia</span>
+        </button>
         <div class="table-responsive">
-          <table class="table m-0">
-            <tr class="bg-warning">
-              <th><i class="fas fa-user"></i> User</th>
+          <table class="table table-striped">
+            <thead>
+            <tr class="text-uppercase">
+              <th>Averia</th>
+              <th></th>
+              <th>Responsable</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
               <td>
-                <div class="d-flex justify-content-between">
-                  {{ device.userName }}
-                  <a href="#" (click)="$event.preventDefault()" class="text-secondary"
-                     [attr.data-clipboard-text]="device.userName"><i class="fas fa-clipboard"></i>
-                  </a>
+                <span class="d-block">NO TIENE INTERNET</span>
+                <a [routerLink]="['/client/detail', 0]">CLIENTE APELLIDO - 956-954-441</a>
+                <!-- COMENTARIO -->
+                <div class="card px-2" *ngIf="true">Se ha reiniciado su antena</div>
+                <div class="d-flex">
+                  <!-- ESTADO -->
+                  <span class="mr-1">
+                    <span class="badge badge-primary">PENDIENTE</span>
+                  </span>
+                  <!-- PRIORIDAD -->
+                  <span class="ml-1">
+                    <span class="badge badge-info">BAJA</span>
+                  </span>
                 </div>
+                <span class="d-block blockquote-footer">2021-12-14</span>
               </td>
-              <th><i class="fas fa-unlock-alt"></i> Password</th>
+              <td class="text-center">
+                <button class="btn btn-info btn-sm">
+                  <span class="text-uppercase">Atender</span>
+                </button>
+              </td>
               <td>
-                <div class="d-flex justify-content-between">
-                  {{ device.password }}
-                  <a href="#" (click)="$event.preventDefault()" class="text-secondary"
-                     [attr.data-clipboard-text]="device.password"><i class="fas fa-clipboard"></i>
-                  </a>
+                <ng-container *ngIf="true">
+                  <span class="text-uppercase">User1</span>
+                </ng-container>
+              </td>
+              <td>
+                <div class="float-right btn-opt">
+                  <button class="btn btn-secondary btn-sm mr-2">
+                    <i class="fas fa-edit"></i></button>
+                  <button class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i></button>
                 </div>
               </td>
             </tr>
+            </tbody>
           </table>
         </div>
+        <!-- ##(End) Averias -->
+      </div>
+      <div class="tab-pane fade" id="access-point" role="tabpanel">
+        <!-- ##(Begin) AccessPoint -->
+        <div class="row">
+          <div class="col-6 mt-2">
+            <h5 class="card-title text-uppercase">Información del Punto de Acceso</h5>
+            <p class="my-1">
+              <span><i class="fas fa-network-wired"></i> Ip Address: </span>
+              <a href="http://127.0.0.1" target="_blank">127.0.0.1</a>
+            </p>
+            <div class="table-responsive">
+              <table class="table m-0">
+                <tr class="bg-warning">
+                  <th><i class="fas fa-user"></i> User</th>
+                  <td>
+                    <div class="d-flex justify-content-between">
+                      ubnt
+                      <a href="#" (click)="$event.preventDefault()" class="text-secondary">
+                        <i class="fas fa-clipboard"></i>
+                      </a>
+                    </div>
+                  </td>
+                  <th><i class="fas fa-unlock-alt"></i> Password</th>
+                  <td>
+                    <div class="d-flex justify-content-between">
+                      ubnt123
+                      <a href="#" (click)="$event.preventDefault()" class="text-secondary">
+                        <i class="fas fa-clipboard"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div><!-- //.col-6 -->
+        </div><!-- //.row -->
+        <!-- ##(End) AccessPoint -->
+      </div>
+      <div class="tab-pane fade" id="state-changes" role="tabpanel">
+        <!-- ##(Begin) Estado de cambios -->
+        <app-card-outages
+          [serviceId]="serviceId">
+        </app-card-outages>
+        <!-- ##(End) Estado de cambios -->
       </div>
     </div>
-    <app-card-outages
-      [serviceId]="serviceId">
-    </app-card-outages>
-  </div><!-- //.col-md-6 -->
-  <div class="col-md-6">
-
-  </div><!-- //.col-md-6 -->
+    <!-- ##(End) Tabs -->
+    <!-- ##(End) Content -->
+  </div>
 </div>
