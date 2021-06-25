@@ -1,3 +1,4 @@
+<!--
 <div class="card mb-2">
   <div class="card-body">
     <h5 class="card-title">
@@ -64,6 +65,91 @@
       </button>
       <button (click)="onChangeStatus(false)"
               *ngIf="service.isActive" class="btn btn-danger ml-2">
+        <i class="fas fa-times"></i>
+        <span class="text-uppercase ml-1">Suspender</span>
+      </button>
+    </div>
+    <button class="btn btn-info">
+      <i class="fas fa-money-check"></i>
+      <span class="text-uppercase ml-1">Pagar</span>
+    </button>
+  </div>
+</div>
+-->
+
+<!-- ## TEMPLATE -->
+<div class="card mb-2">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title text-uppercase mb-0">
+        <a [routerLink]="['/client/service-detail', 0]">Jr. Andahuaylas 241</a>
+      </h5>
+      <img src="/assets/mikrotik.svg" height="20" alt="mikrotik">
+    </div>
+    <p class="my-1">
+      <span><i class="fas fa-network-wired"></i> Ip Address: </span>
+      <a href="http://127.0.0.1" class="mr-1" target="_blank">127.0.0.1</a>
+      <a href="#" (click)="$event.preventDefault()" class="text-secondary">
+        <i class="fas fa-clipboard"></i>
+      </a>
+    </p>
+    <div class="table-responsive">
+      <table class="table m-0">
+        <tr class="bg-warning">
+          <th><i class="fas fa-user"></i> User</th>
+          <td>
+            <div class="d-flex justify-content-between">
+              ubnt
+              <a href="#" (click)="$event.preventDefault()" class="text-secondary">
+                <i class="fas fa-clipboard"></i>
+              </a>
+            </div>
+          </td>
+          <th><i class="fas fa-unlock-alt"></i> Password</th>
+          <td>
+            <div class="d-flex justify-content-between">
+              ubnt123
+              <a href="#" (click)="$event.preventDefault()" class="text-secondary">
+                <i class="fas fa-clipboard"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p class="my-1">
+      <span><i class="fas fa-desktop"></i> Estado: </span>
+      <ng-container *ngIf="true">
+        <span class="text-success">Activo desde 2020-10-20</span>
+      </ng-container>
+      <ng-template #elseIf>
+        <span class="text-danger">Suspendido desde 2020-09-10</span>
+      </ng-template>
+    </p>
+    <ng-container *ngIf="true">
+      <p class="my-1">
+        <span><i class="fas fa-calendar-alt"></i> Registro: </span>
+        <span class="text-success">2020-10-20</span>
+      </p>
+    </ng-container>
+    <p class="my-1">
+      <span><i class="far fa-credit-card"></i> Precio: </span> 45.00
+    </p>
+    <p *ngIf="true" class="card-text">El cliente tiene una nota.</p>
+  </div>
+  <div class="card-footer d-flex justify-content-between">
+    <div>
+      <button (click)="onEdit()" class="btn btn-primary">
+        <i class="fas fa-edit"></i>
+        <span class="text-uppercase ml-1">Editar</span>
+      </button>
+      <button (click)="onChangeStatus(true)"
+              *ngIf="false" class="btn btn-success ml-2">
+        <i class="fas fa-check"></i>
+        <span class="text-uppercase ml-1">Habilitar</span>
+      </button>
+      <button (click)="onChangeStatus(false)"
+              *ngIf="true" class="btn btn-danger ml-2">
         <i class="fas fa-times"></i>
         <span class="text-uppercase ml-1">Suspender</span>
       </button>
