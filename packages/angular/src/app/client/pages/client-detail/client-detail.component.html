@@ -34,6 +34,7 @@
                                  (sendLoadServices)="loadServices($event)">
         </app-card-client-service>-->
         <app-card-client-service></app-card-client-service>
+        <app-card-client-service></app-card-client-service>
         <!-- ##(End) Lista de servicios contratados. -->
       </div>
       <div class="col-md-6">
@@ -73,6 +74,45 @@
             </button>
           </div>
         </div>
+        <!-- ##(Begin) Últimas Instalaciones -->
+        <div class="card">
+          <div class="card-body">
+            <span class="font-weight-bold text-uppercase mb-0">Últimas Ordenes de Instalación</span>
+            <div class="table-responsive">
+              <table class="table table-striped mb-0">
+                <tbody>
+                <tr>
+                  <td>
+                    <div class="text-uppercase">
+                      <span class="badge badge-info">Instalación</span>
+                    </div>
+                    <a [routerLink]="['/installation_orders/detail', 0]"
+                       class="text-uppercase">Cliente Apellido / 956-454-141</a>
+                    <div class="text-uppercase">
+                      <span class="badge badge-primary">Pendiente</span>
+                    </div>
+                    <span class="d-block blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="text-uppercase">
+                      <span class="badge badge-info">Instalación</span>
+                    </div>
+                    <a [routerLink]="['/installation_orders/detail', 0]"
+                       class="text-uppercase">Cliente Apellido / 956-454-141</a>
+                    <div class="text-uppercase">
+                      <span class="badge badge-warning">En Proceso</span>
+                    </div>
+                    <span class="d-block blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div><!-- //.table-responsive -->
+          </div>
+        </div>
+        <!-- ##(Begin) Últimas Instalaciones -->
       </div>
     </div>
     <!-- // Components -->
