@@ -2,28 +2,34 @@
 <div class="wrap-body">
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
-    <div class="row my-2">
+    <div class="row">
       <div class="col-12">
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between py-2">
           <h4 class="text-uppercase mb-0">Materiales y Servicios</h4>
-          <form (ngSubmit)="onSearch()" class="form-inline">
-            <button (click)="addMaterial()" type="button" class="btn btn-primary mr-2">
-              <i class="fas fa-plus"></i>
-              <span class="text-uppercase">&nbsp;Material</span>
-            </button>
-            <input type="search" [(ngModel)]="query" name="query" class="form-control mr-2"
-                   placeholder="Materiales...">
-            <button type="submit" class="btn btn-success">
-              <i class="fas fa-search"></i>
-              <span class="text-uppercase"> Buscar</span>
-            </button>
+          <form (ngSubmit)="onSearch()" class="row row-cols-auto g-2">
+            <div class="col-auto">
+              <button (click)="addMaterial()" type="button" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                <span class="text-uppercase ms-1">Material</span>
+              </button>
+            </div>
+            <div class="col-auto">
+              <input type="search" [(ngModel)]="query" name="query" class="form-control"
+                     placeholder="MATERIAL...">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-success">
+                <i class="fas fa-search"></i>
+                <span class="text-uppercase ms-1">Buscar</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
       <div class="col-12">
         <div class="table-responsive">
-          <table class="table table-striped mt-2">
-            <thead class="thead-light">
+          <table class="table table-striped">
+            <thead>
             <tr class="text-uppercase">
               <th>Und.</th>
               <th>Descripción</th>
@@ -37,8 +43,8 @@
               <td>{{ material.description }}</td>
               <td>{{ material.price|currency:undefined:'S/' }}</td>
               <td>
-                <div class="float-right">
-                  <button (click)="editMaterial(material._id)" class="btn btn-secondary btn-sm mr-2">
+                <div class="btn-opt ms-auto">
+                  <button (click)="editMaterial(material._id)" class="btn btn-secondary btn-sm me-2">
                     <i class="fas fa-edit"></i>
                   </button>
                   <button (click)="deleteMaterial(material._id)" class="btn btn-danger btn-sm"><i
