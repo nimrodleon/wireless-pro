@@ -6,17 +6,23 @@
       <div class="col-12">
         <div class="d-flex align-items-center justify-content-between my-2">
           <h4 class="text-uppercase mb-0">Tramos de Red</h4>
-          <form (submit)="onSearch()" class="form-inline">
-            <button type="button" (click)="addTramo()" class="btn btn-primary mr-2">
-              <i class="fas fa-plus"></i>
-              <span class="text-uppercase ml-1">Tramo</span>
-            </button>
-            <input type="search" [(ngModel)]="query" name="query"
-                   placeholder="Tramo..." class="form-control mr-2">
-            <button type="submit" class="btn btn-success">
-              <i class="fas fa-search"></i>
-              <span class="text-uppercase">&nbsp;Buscar</span>
-            </button>
+          <form (submit)="onSearch()" class="row row-cols-auto g-2">
+            <div class="col-auto">
+              <button type="button" (click)="addTramo()" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                <span class="text-uppercase ms-1">Tramo</span>
+              </button>
+            </div>
+            <div class="col-auto">
+              <input type="search" [(ngModel)]="query" name="query"
+                     placeholder="TRAMO..." class="form-control">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-success">
+                <i class="fas fa-search"></i>
+                <span class="text-uppercase ms-1">Buscar</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -25,7 +31,7 @@
       <div class="col-12">
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead class="thead-light">
+            <thead>
             <tr class="text-uppercase">
               <th>Tramo</th>
               <th>Cobertura</th>
@@ -37,8 +43,8 @@
               <td>{{ tramo.tramo }}</td>
               <td>{{ tramo.coverage.name }}</td>
               <td>
-                <div class="float-right btn-opt">
-                  <button (click)="editTramo(tramo._id)" class="btn btn-secondary btn-sm mr-2">
+                <div class="btn-opt ms-auto">
+                  <button (click)="editTramo(tramo._id)" class="btn btn-secondary btn-sm me-2">
                     <i class="fas fa-edit"></i></button>
                   <button (click)="deleteTramo(tramo._id)" class="btn btn-danger btn-sm">
                     <i class="fas fa-trash-alt"></i></button>
