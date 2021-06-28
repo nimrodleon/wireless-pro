@@ -3,47 +3,42 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form #serviceForm="ngForm">
           <!-- ##(Begin) Tab -->
-          <nav class="text-uppercase">
+          <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-link active" id="nav-basic-tab"
-                 data-toggle="tab" href="#nav-basic" role="tab" aria-selected="true">
-                <i class="fas fa-cog"></i> Básico</a>
-              <a class="nav-link" id="nav-address-tab"
-                 data-toggle="tab" href="#nav-address" role="tab"
-                 aria-controls="nav-address" aria-selected="false">
-                <i class="fas fa-map-marker-alt"></i> Dirección</a>
-              <a class="nav-link" id="nav-pay-tab"
-                 data-toggle="tab" href="#nav-pay" role="tab"
-                 aria-controls="nav-pay" aria-selected="false">
-                <i class="far fa-credit-card"></i> Pagos</a>
+              <button class="nav-link active" data-bs-toggle="tab"
+                      data-bs-target="#nav-basic" type="button" role="tab">
+                <i class="fas fa-cog"></i><span class="text-uppercase ms-1">Básico</span>
+              </button>
+              <button class="nav-link" data-bs-toggle="tab"
+                      data-bs-target="#nav-address" type="button" role="tab">
+                <i class="fas fa-map-marker-alt"></i><span class="text-uppercase ms-1">Dirección</span>
+              </button>
+              <button class="nav-link" data-bs-toggle="tab"
+                      data-bs-target="#nav-pay" type="button" role="tab">
+                <i class="far fa-credit-card"></i><span class="text-uppercase ms-1">Pagos</span>
+              </button>
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-basic" role="tabpanel">
               <!-- ##(Begin) Básico -->
-              <div class="form-row mt-2">
-                <div class="form-group col-md-6">
+              <div class="row mt-2">
+                <div class="col-6 pb-3">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
-                    </div>
+                    <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
                     <input type="text" name="ipAddress" [(ngModel)]="service.ipAddress" class="form-control"
                            placeholder="IP Address">
                   </div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="col-6 pb-3">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-heartbeat"></i></span>
-                    </div>
-                    <select name="servicePlan" class="custom-select">
+                    <span class="input-group-text"><i class="fas fa-heartbeat"></i></span>
+                    <select name="servicePlan" class="form-select">
                       <option>Habilitado</option>
                       <option>Deshabilitado</option>
                       <option>Notificado</option>
@@ -52,84 +47,66 @@
                   </div>
                 </div>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
+              <div class="row">
+                <div class="col-6 pb-3">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                    </div>
-                    <select [(ngModel)]="service.servicePlan" name="servicePlan" class="custom-select">
+                    <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                    <select [(ngModel)]="service.servicePlan" name="servicePlan" class="form-select">
                       <option *ngFor="let item of servicePlanList" [value]="item._id">{{ item.name }}</option>
                     </select>
                   </div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="col-6 pb-3">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
-                    </div>
+                    <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
                     <input type="date" name="dateFrom" [ngModel]="service.dateFrom"
                            (ngModelChange)="service.dateFrom = $event" class="form-control">
                   </div>
                 </div>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
+              <div class="row">
+                <div class="col-6 pb-3">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-server"></i></span>
-                    </div>
-                    <select name="servicePlan" class="custom-select">
-                    </select>
+                    <span class="input-group-text"><i class="fas fa-server"></i></span>
+                    <select name="servicePlan" class="form-select"> </select>
                   </div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="col-6 pb-3">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-sim-card"></i></span>
-                    </div>
-                    <select name="servicePlan" class="custom-select">
-                    </select>
+                    <span class="input-group-text"><i class="fas fa-sim-card"></i></span>
+                    <select name="servicePlan" class="form-select"> </select>
                   </div>
                 </div>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
+              <div class="row">
+                <div class="col-6 pb-3">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    </div>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                     <input type="text" name="userName" [(ngModel)]="service.userName" placeholder="Username"
                            class="form-control">
                   </div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="col-6 pb-3">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    </div>
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
                     <input type="text" name="password" [(ngModel)]="service.password" placeholder="Password"
                            class="form-control">
                   </div>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="pb-3">
                 <textarea name="note" [(ngModel)]="service.note" class="form-control"></textarea>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6 mb-0">
+              <div class="row">
+                <div class="col-6">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-signal"></i></span>
-                    </div>
-                    <select name="accessPoint" class="custom-select"></select>
+                    <span class="input-group-text"><i class="fas fa-signal"></i></span>
+                    <select name="accessPoint" class="form-select"></select>
                   </div>
                 </div>
-                <div class="form-group col-md-6 mb-0">
+                <div class="col-6">
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
-                    </div>
+                    <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
                     <input type="text" [(ngModel)]="service.macAddress" name="macAddress"
                            placeholder="MAC Address" class="form-control">
                   </div>
@@ -141,59 +118,45 @@
               <!-- ##(Begin) Dirección -->
               <div class="row mt-2">
                 <div class="col-12">
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="searchAddress"
+                  <div class="pb-3">
+                    <input type="text" class="form-control" id="searchAddress" disabled
                            placeholder="Ingrese una dirección para buscar en google...">
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="form-group">
+                  <div class="pb-3">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                      </div>
+                      <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                       <input type="text" name="address" placeholder="Dirección" class="form-control">
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="pb-3">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-city"></i></span>
-                      </div>
+                      <span class="input-group-text"><i class="fas fa-city"></i></span>
                       <input type="text" name="address" placeholder="Ciudad" class="form-control">
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="pb-3">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
-                      </div>
+                      <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
                       <input type="text" name="address" placeholder="Región" class="form-control">
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="pb-3">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-wifi"></i></span>
-                      </div>
-                      <select class="custom-select" id="plan"></select>
+                      <span class="input-group-text"><i class="fas fa-wifi"></i></span>
+                      <select class="form-select" id="plan"></select>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="pb-3">
                     <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
-                      </div>
-                      <input type="text" name="address" placeholder="Lat" class="form-control">
+                      <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
+                      <input type="text" name="address" placeholder="Lat" class="form-control" disabled>
                     </div>
                   </div>
-                  <div class="form-group mb-0">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
-                      </div>
-                      <input type="text" name="address" placeholder="Long" class="form-control">
-                    </div>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
+                    <input type="text" name="address" placeholder="Long" class="form-control" disabled>
                   </div>
                 </div>
                 <div class="col-6">
@@ -208,31 +171,31 @@
             </div>
             <div class="tab-pane fade" id="nav-pay" role="tabpanel">
               <!-- ##(Begin) Pagos -->
-              <div class="form-group row mt-2">
-                <label class="col-2 col-form-label text-right">Tipo</label>
+              <div class="row pb-3 mt-2">
+                <label class="col-2 col-form-label text-end">Tipo</label>
                 <div class="col-4">
-                  <select class="custom-select">
+                  <select class="form-select">
                     <option>PRE-PAGO</option>
                     <option>POS-PAGO</option>
                   </select>
                 </div>
                 <div class="col-6">
-                  <div class="custom-control custom-switch mt-2">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                    <label class="custom-control-label" for="customSwitch1">Definir un precio en particular</label>
+                  <div class="form-check form-switch pt-2">
+                    <input type="checkbox" class="form-check-input" id="customSwitch1">
+                    <label class="form-check-label" for="customSwitch1">Definir un precio en particular</label>
                   </div>
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-2 col-form-label text-right">Precio</label>
+              <div class="row pb-3">
+                <label class="col-2 col-form-label text-end">Precio</label>
                 <div class="col-6">
                   <input type="number" step="0.01" class="form-control">
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-2 col-form-label text-right">Frecuencia</label>
+              <div class="row pb-3">
+                <label class="col-2 col-form-label text-end">Frecuencia</label>
                 <div class="col-6">
-                  <select class="custom-select">
+                  <select class="form-select">
                     <option>Mensual</option>
                     <option>Bimestral</option>
                     <option>Trimestral</option>
@@ -241,10 +204,8 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group mb-0">
-                <label class="col-form-label">Información adicional</label>
-                <textarea class="form-control"></textarea>
-              </div>
+              <label class="form-label">Información adicional</label>
+              <textarea class="form-control"></textarea>
               <!-- ##(End) Pagos -->
             </div>
           </div>
@@ -253,21 +214,13 @@
       </div><!-- //.modal-body -->
       <div class="modal-footer">
         <div class="d-flex w-100 justify-content-between">
-          <ng-container *ngIf="isAdmin">
-            <button type="button" (click)="deleteService()" *ngIf="service._id else elseIf"
-                    class="btn btn-danger text-white">
-              <i class="fas fa-trash-alt"></i> Borrar
-            </button>
-            <ng-template #elseIf>
-              <span>&nbsp;</span>
-            </ng-template>
-          </ng-container>
-          <ng-container *ngIf="!isAdmin">
-            <span>&nbsp;</span>
-          </ng-container>
+          <button type="button" (click)="deleteService()" class="btn btn-danger text-white">
+            <i class="fas fa-trash-alt"></i><span class="text-uppercase ms-1">Borrar</span>
+          </button>
           <div>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" (click)="saveChanges()" class="btn btn-primary ml-2">Guardar Cambios</button>
+            <button type="button" class="btn btn-secondary text-uppercase me-2" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" (click)="saveChanges()" class="btn btn-primary text-uppercase">Guardar Cambios
+            </button>
           </div>
         </div>
       </div>

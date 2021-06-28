@@ -6,46 +6,50 @@
       <div class="col-12">
         <div class="d-flex my-2 justify-content-between">
           <div class="d-flex align-items-center">
-            <h4 class="text-uppercase m-0 mr-2">Lista de Clientes</h4>
+            <h4 class="text-uppercase m-0 me-2">Lista de Clientes</h4>
             <div class="btn-group">
               <button type="button" (click)="showModal()" class="btn btn-success">
-                <i class="fas fa-plus"></i><span class="text-uppercase ml-1">Cliente</span>
+                <i class="fas fa-plus"></i><span class="text-uppercase ms-1">Cliente</span>
               </button>
               <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                      data-toggle="dropdown">
-                <span class="sr-only">Toggle Dropdown</span>
+                      data-bs-toggle="dropdown">
+                <span class="visually-hidden">Toggle Dropdown</span>
               </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" routerLink="/client/payment-daily">Diario de pagos</a>
-                <a class="dropdown-item" routerLink="/client/receivable">Clientes por Cobrar</a>
-              </div>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" routerLink="/client/payment-daily">Diario de pagos</a></li>
+                <li><a class="dropdown-item" routerLink="/client/receivable">Clientes por Cobrar</a></li>
+              </ul>
             </div>
           </div><!-- //.d-flex -->
-          <form (submit)="onSearch()" class="form-inline">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" #chkStatus [checked]="status" (change)="onChangeStatus(chkStatus.checked)"
-                     class="custom-control-input" id="customSwitch0">
-              <label class="custom-control-label text-uppercase font-weight-bold" for="customSwitch0">Activo</label>
+          <form (submit)="onSearch()" class="row row-cols-auto g-2">
+            <div class="col-auto">
+              <div class="form-check form-switch pt-2">
+                <input type="checkbox" #chkStatus [checked]="status" (change)="onChangeStatus(chkStatus.checked)"
+                       class="form-check-input" id="customSwitch0">
+                <label class="form-check-label text-uppercase fw-bold" for="customSwitch0">Activo</label>
+              </div>
             </div>
-            <input type="text" [(ngModel)]="search" name="search"
-                   class="form-control mt-2 mt-sm-0 ml-sm-2" placeholder="D.N.I/Nombre/Dirección/Teléfono">
-            <button type="submit" class="btn btn-primary mt-2 mt-sm-0 ml-sm-2">
-              <i class="fas fa-search"></i> BUSCAR
-            </button>
+            <div class="col-auto">
+              <input type="text" [(ngModel)]="search" name="search"
+                     class="form-control" placeholder="D.N.I/Nombre/Dirección/Teléfono">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> BUSCAR
+              </button>
+            </div>
           </form><!-- //.form-inline -->
         </div><!-- //.d-flex -->
       </div><!-- //.col-12 -->
       <div class="col-12">
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead class="thead-light">
+            <thead>
             <tr class="text-uppercase">
               <th>D.N.I</th>
               <th>Nombres</th>
               <th>Dirección</th>
               <th>Teléfono</th>
-              <!--<th>Cobertura</th>-->
-              <!--<th>Tipo</th>-->
             </tr>
             </thead>
             <tbody>
@@ -58,19 +62,6 @@
               </td>
               <td>{{ client.fullAddress }}</td>
               <td>{{ client.phone }}</td>
-              <!--<td>
-                <ng-container *ngIf="client.coverage">
-                  {{client.coverage.name}}
-                </ng-container>
-              </td>-->
-              <!--<td>
-                <ng-container *ngIf="client.type == 'U' else elseIf">
-                  <span class="text-uppercase">Urbano</span>
-                </ng-container>
-                <ng-template #elseIf>
-                  <span class="text-uppercase">Rural</span>
-                </ng-template>
-              </td>-->
             </tr>
             </tbody>
           </table>

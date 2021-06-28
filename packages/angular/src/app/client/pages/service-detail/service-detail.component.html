@@ -3,7 +3,7 @@
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
     <!-- ##(Begin) Content -->
-    <div class="jumbotron px-3 py-2 my-2">
+    <div class="rounded-3 px-3 py-2 my-2" style="background: #e9ecef;">
       <div class="d-flex align-items-center justify-content-between">
         <div>
           <h4 class="text-uppercase">CLIENTE APELLIDO</h4>
@@ -17,53 +17,61 @@
       </div>
     </div>
     <!-- ##(Begin) Tabs -->
-    <ul class="nav nav-tabs text-uppercase" role="tablist">
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="payment-tab" data-toggle="tab"
-           href="#payment" role="tab" aria-selected="true">
-          <i class="far fa-credit-card"></i> Información de Pagos</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="averias-tab" data-toggle="tab"
-           href="#averias" role="tab" aria-selected="false">
-          <i class="fas fa-phone-square-alt"></i> Registro de Averias</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="access-point-tab" data-toggle="tab"
-           href="#access-point" role="tab" aria-selected="false">
-          <i class="fas fa-wifi"></i> Punto de Acceso</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link" id="state-changes-tab" data-toggle="tab"
-           href="#state-changes" role="tab" aria-selected="false">
-          <i class="fas fa-exchange-alt"></i> Estado de Cambios</a>
-      </li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane fade show active" id="payment" role="tabpanel">
+    <nav>
+      <div class="nav nav-tabs" role="tablist">
+        <button class="nav-link active" data-bs-toggle="tab"
+                data-bs-target="#nav-payment" type="button" role="tab">
+          <i class="far fa-credit-card"></i><span class="text-uppercase ms-1">Información de Pagos</span>
+        </button>
+        <button class="nav-link" data-bs-toggle="tab"
+                data-bs-target="#nav-averias" type="button" role="tab">
+          <i class="fas fa-phone-square-alt"></i><span class="text-uppercase ms-1">Registro de Averias</span>
+        </button>
+        <button class="nav-link" data-bs-toggle="tab"
+                data-bs-target="#nav-access-point" type="button" role="tab">
+          <i class="fas fa-wifi"></i><span class="text-uppercase ms-1">Punto de Acceso</span>
+        </button>
+        <button class="nav-link" data-bs-toggle="tab"
+                data-bs-target="#nav-status-change" type="button" role="tab">
+          <i class="fas fa-exchange-alt"></i><span class="text-uppercase ms-1">Estado de Cambios</span>
+        </button>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-payment" role="tabpanel">
         <!-- ##(Begin) Información de pagos -->
         <div class="row">
           <div class="col-12">
-            <form class="form-inline my-2">
-              <input type="number" class="form-control mr-2" placeholder="Year">
-              <button type="button" class="btn btn-primary mr-2">
-                <i class="fas fa-sync"></i><span class="text-uppercase ml-1">Cargar</span>
-              </button>
-              <button type="button" class="btn btn-info mr-2">
-                <i class="fas fa-money-check"></i><span class="text-uppercase ml-1">Pagar</span>
-              </button>
-              <button type="button" class="btn btn-success mr-2">
-                <i class="fas fa-print"></i><span class="text-uppercase ml-1">Imprimir</span>
-              </button>
-              <button type="button" class="btn btn-danger">
-                <i class="fas fa-trash-alt"></i><span class="text-uppercase ml-1">Borrar</span>
-              </button>
+            <form class="row row-cols-auto g-2 my-2">
+              <div class="col-auto">
+                <input type="number" class="form-control" placeholder="Year">
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-primary">
+                  <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
+                </button>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-info">
+                  <i class="fas fa-money-check"></i><span class="text-uppercase ms-1">Pagar</span>
+                </button>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-success">
+                  <i class="fas fa-print"></i><span class="text-uppercase ms-1">Imprimir</span>
+                </button>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-danger">
+                  <i class="fas fa-trash-alt"></i><span class="text-uppercase ms-1">Borrar</span>
+                </button>
+              </div>
             </form>
           </div><!-- //.col-12-->
           <div class="col-12">
             <div class="table-responsive">
               <table class="table table-striped">
-                <thead class="thead-light">
+                <thead>
                 <tr class="text-uppercase">
                   <th><input type="checkbox" disabled></th>
                   <th>Equipo</th>
@@ -93,15 +101,15 @@
         </div><!-- //.row -->
         <!-- ##(End) Información de pagos -->
       </div>
-      <div class="tab-pane fade" id="averias" role="tabpanel">
+      <div class="tab-pane fade" id="nav-averias" role="tabpanel">
         <!-- ##(Begin) Averias -->
         <button class="btn btn-success my-2">
           <i class="fas fa-plus"></i>
-          <span class="text-uppercase ml-1">Registrar Averia</span>
+          <span class="text-uppercase ms-1">Registrar Averia</span>
         </button>
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead class="thead-light">
+            <thead>
             <tr class="text-uppercase">
               <th>Averia</th>
               <th></th>
@@ -118,15 +126,15 @@
                 <div class="card px-2" *ngIf="true">Se ha reiniciado su antena</div>
                 <div class="d-flex">
                   <!-- ESTADO -->
-                  <span class="mr-1">
-                    <span class="badge badge-primary">PENDIENTE</span>
+                  <span class="me-1">
+                    <span class="badge bg-primary">PENDIENTE</span>
                   </span>
                   <!-- PRIORIDAD -->
-                  <span class="ml-1">
-                    <span class="badge badge-info">BAJA</span>
+                  <span class="ms-1">
+                    <span class="badge bg-info">BAJA</span>
                   </span>
                 </div>
-                <span class="d-block blockquote-footer">2021-12-14</span>
+                <span class="blockquote-footer">2021-12-14</span>
               </td>
               <td class="text-center">
                 <button class="btn btn-info btn-sm">
@@ -139,11 +147,9 @@
                 </ng-container>
               </td>
               <td>
-                <div class="float-right btn-opt">
-                  <button class="btn btn-secondary btn-sm mr-2">
-                    <i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger btn-sm">
-                    <i class="fas fa-trash-alt"></i></button>
+                <div class="btn-opt ms-auto">
+                  <button class="btn btn-secondary btn-sm me-2"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                 </div>
               </td>
             </tr>
@@ -152,7 +158,7 @@
         </div>
         <!-- ##(End) Averias -->
       </div>
-      <div class="tab-pane fade" id="access-point" role="tabpanel">
+      <div class="tab-pane fade" id="nav-access-point" role="tabpanel">
         <!-- ##(Begin) AccessPoint -->
         <div class="row">
           <div class="col-6 mt-2">
@@ -189,7 +195,7 @@
         </div><!-- //.row -->
         <!-- ##(End) AccessPoint -->
       </div>
-      <div class="tab-pane fade" id="state-changes" role="tabpanel">
+      <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
         <!-- ##(Begin) Estado de cambios -->
         <app-card-outages
           [serviceId]="serviceId">
