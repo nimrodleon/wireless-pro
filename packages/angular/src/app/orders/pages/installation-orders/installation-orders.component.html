@@ -7,36 +7,39 @@
       <div class="col-12">
         <div class="d-flex my-2 justify-content-between">
           <div class="d-flex align-items-center">
-            <h4 class="text-uppercase m-0 mr-2">Órdenes de Instalación</h4>
+            <h4 class="text-uppercase m-0 me-2">Órdenes de Instalación</h4>
             <div class="btn-group">
               <button type="button"
                       routerLink="/installation_orders/new"
                       class="btn btn-success">
                 <i class="fas fa-plus"></i>
-                <span class="text-uppercase ml-1">Orden</span>
+                <span class="text-uppercase ms-1">Orden</span>
               </button>
               <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                      data-toggle="dropdown">
-                <span class="sr-only">Toggle Dropdown</span>
+                      data-bs-toggle="dropdown">
+                <span class="visually-hidden">Toggle Dropdown</span>
               </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" routerLink="/installation_orders/report">Reporte</a>
-              </div>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" routerLink="/installation_orders/report">Reporte</a></li>
+              </ul>
             </div>
           </div><!-- //.d-flex -->
-          <form class="form-inline">
-            <input type="text" name="search"
-                   class="form-control mt-2 mt-sm-0 ml-sm-2" placeholder="CLIENTE...">
-            <button type="submit" class="btn btn-primary mt-2 mt-sm-0 ml-sm-2">
-              <i class="fas fa-search"></i> BUSCAR
-            </button>
+          <form class="row row-cols-auto g-2">
+            <div class="col-auto">
+              <input type="text" name="search" class="form-control" placeholder="CLIENTE...">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> BUSCAR
+              </button>
+            </div>
           </form><!-- //.form-inline -->
         </div><!-- //.d-flex -->
       </div><!-- //.col-12 -->
       <div class="col-12">
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead class="thead-light">
+            <thead>
             <tr class="text-uppercase">
               <th>Cliente</th>
               <th>Responsable</th>
@@ -47,19 +50,19 @@
             <tr>
               <td>
                 <div class="text-uppercase">
-                  <span class="badge badge-info">Instalación</span>
+                  <span class="badge bg-info">Instalación</span>
                 </div>
                 <a [routerLink]="['/installation_orders/detail', 0]"
                    class="text-uppercase">Cliente Apellido / 956-454-141</a>
                 <div class="text-uppercase">
-                  <span class="badge badge-primary">Pendiente</span>
+                  <span class="badge bg-primary">Pendiente</span>
                 </div>
-                <span class="d-block blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
               </td>
               <td>Usuario</td>
               <td>
-                <div class="float-right btn-opt">
-                  <button class="btn btn-secondary btn-sm mr-2">
+                <div class="btn-opt ms-auto">
+                  <button class="btn btn-secondary btn-sm me-2">
                     <i class="fas fa-edit"></i></button>
                   <button class="btn btn-danger btn-sm">
                     <i class="fas fa-trash-alt"></i></button>
@@ -69,19 +72,19 @@
             <tr>
               <td>
                 <div class="text-uppercase">
-                  <span class="badge badge-info">Instalación</span>
+                  <span class="badge bg-info">Instalación</span>
                 </div>
                 <a [routerLink]="['/installation_orders/detail', 0]"
                    class="text-uppercase">Cliente Apellido / 956-454-141</a>
                 <div class="text-uppercase">
-                  <span class="badge badge-warning">En Proceso</span>
+                  <span class="badge bg-warning">En Proceso</span>
                 </div>
-                <span class="d-block blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
               </td>
               <td>Usuario</td>
               <td>
-                <div class="float-right btn-opt">
-                  <button class="btn btn-secondary btn-sm mr-2">
+                <div class="btn-opt ms-auto">
+                  <button class="btn btn-secondary btn-sm me-2">
                     <i class="fas fa-edit"></i></button>
                   <button class="btn btn-danger btn-sm">
                     <i class="fas fa-trash-alt"></i></button>
