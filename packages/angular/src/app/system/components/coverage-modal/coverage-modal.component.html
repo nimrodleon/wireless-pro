@@ -3,25 +3,21 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-group mb-0">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-signal"></i></span>
-              </div>
-              <input type="text" name="name" [(ngModel)]="coverage.name" placeholder="Nombre" class="form-control">
-            </div>
+          <div class="input-group">
+            <span class="input-group-text">
+                <i class="fas fa-signal"></i>
+              </span>
+            <input type="text" name="name" [(ngModel)]="coverage.name" placeholder="Nombre" class="form-control">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" (click)="onSaveChanges()" class="btn btn-primary">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" (click)="onSaveChanges()" class="btn btn-primary text-uppercase">Guardar Cambios</button>
       </div>
     </div>
   </div>

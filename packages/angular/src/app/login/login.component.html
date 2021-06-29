@@ -3,31 +3,29 @@
     <div class="card">
       <form (submit)="login()">
         <div class="card-body">
-          <h5 class="card-title text-uppercase text-center">Acceso al sistema</h5>
-          <div class="form-group">
+          <h5 class="card-title text-uppercase text-center pb-1">Acceso al sistema</h5>
+          <div class="mb-3">
             <div class="input-group input-group-lg">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-              </div>
-              <input type="text" name="userName" [(ngModel)]="user.userName" class="form-control"
-                     placeholder="Username">
+              <span class="input-group-text">
+                <i class="fas fa-user"></i></span>
+              <input type="text" name="userName" [(ngModel)]="user.userName"
+                     class="form-control" placeholder="Username">
             </div>
           </div>
-          <div class="form-group mb-0">
-            <div class="input-group input-group-lg">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-              </div>
-              <input type="password" name="password" [(ngModel)]="user.password" class="form-control"
-                     placeholder="Password">
-            </div>
+          <div class="input-group input-group-lg">
+              <span class="input-group-text">
+                <i class="fas fa-lock"></i></span>
+            <input type="password" name="password" [(ngModel)]="user.password"
+                   class="form-control" placeholder="Password">
           </div>
         </div><!-- //.card-body -->
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary btn-block btn-lg">
-            <i class="fas fa-sign-in-alt"></i>
-            <span class="text-uppercase ml-1">Iniciar Sesión</span>
-          </button>
+          <div class="d-grid py-2">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-sign-in-alt"></i>
+              <span class="text-uppercase"> Iniciar Sesión</span>
+            </button>
+          </div>
         </div><!-- //.card-footer -->
       </form>
     </div><!-- //.card -->

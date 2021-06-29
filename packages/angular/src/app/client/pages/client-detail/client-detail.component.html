@@ -4,18 +4,19 @@
   <div class="container-fluid">
     <div class="d-flex align-items-center mt-2">
     <span class="text-uppercase h4">
-      <a routerLink="/client/list">Clientes</a> / <a
-      [routerLink]="['/client/detail', currentClient._id]">{{ currentClient.fullName }}</a>
+      <a routerLink="/client/list">Clientes</a><span class="mx-1">/</span>
+      <a [routerLink]="['/client/detail', currentClient._id]" class="me-2">{{ currentClient.fullName }}</a>
     </span>
       <ng-container *ngIf="currentClient.is_active">
-        <button (click)="addServices()" class="btn btn-success ml-2 text-uppercase">
+        <button (click)="addServices()" class="btn btn-success text-uppercase">
           <i class="fas fa-plus"></i> Servicio
         </button>
       </ng-container>
       <button
         type="button" *ngIf="!currentClient.is_active"
         (click)="deleteClient(currentClient._id)"
-        class="btn btn-danger ml-2 text-uppercase"><i class="fas fa-trash-alt"></i> Borrar
+        class="btn btn-danger text-uppercase">
+        <i class="fas fa-trash-alt"></i> Borrar
       </button>
     </div>
     <div class="row mt-2">
@@ -42,20 +43,20 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex align-items-center justify-content-between">
-              <span class="font-weight-bold">{{ currentClient.fullName }}</span>
+              <span class="fw-bold">{{ currentClient.fullName }}</span>
               <a href="#" (click)="showClientModal($event)"><i class="fas fa-edit"></i></a>
             </div>
             <div class="border-top text-uppercase">
               <p class="my-1">
-                <span class="font-weight-bold text-dark">
+                <span class="fw-bold">
                 <i class="fas fa-street-view"></i> Dirección: </span> {{ currentClient.fullAddress }}
               </p>
               <p class="my-1">
-                <span class="font-weight-bold text-dark">
+                <span class="fw-bold">
                 <i class="fas fa-phone-alt"></i> Telefono: </span> {{ currentClient.phone }}
               </p>
               <p class="my-1">
-                <span class="font-weight-bold text-dark">
+                <span class="fw-bold">
                 <i class="fas fa-envelope-open-text"></i> E-Mail: </span>
                 <span class="text-lowercase">{{ currentClient.email }}</span>
               </p>
@@ -65,7 +66,7 @@
         <!-- ##(End) Información Cliente. -->
         <div class="card my-2">
           <div class="card-body">
-            <button type="button" (click)="addPayment()" class="btn btn-success text-uppercase mr-2">
+            <button type="button" (click)="addPayment()" class="btn btn-success text-uppercase me-2">
               <i class="fas fa-file-invoice-dollar"></i> Registrar Pago
             </button>
             <button [routerLink]="['/client/payments', currentClient._id]"
@@ -77,34 +78,34 @@
         <!-- ##(Begin) Últimas Instalaciones -->
         <div class="card">
           <div class="card-body">
-            <span class="font-weight-bold text-uppercase mb-0">Últimas Ordenes de Instalación</span>
+            <span class="fw-bold text-uppercase mb-0">Últimas Ordenes de Instalación</span>
             <div class="table-responsive">
               <table class="table table-striped mb-0">
                 <tbody>
                 <tr>
                   <td>
                     <div class="text-uppercase">
-                      <span class="badge badge-info">Instalación</span>
+                      <span class="badge bg-info">Instalación</span>
                     </div>
                     <a [routerLink]="['/installation_orders/detail', 0]"
                        class="text-uppercase">Cliente Apellido / 956-454-141</a>
                     <div class="text-uppercase">
-                      <span class="badge badge-primary">Pendiente</span>
+                      <span class="badge bg-primary">Pendiente</span>
                     </div>
-                    <span class="d-block blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                    <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <div class="text-uppercase">
-                      <span class="badge badge-info">Instalación</span>
+                      <span class="badge bg-info">Instalación</span>
                     </div>
                     <a [routerLink]="['/installation_orders/detail', 0]"
                        class="text-uppercase">Cliente Apellido / 956-454-141</a>
                     <div class="text-uppercase">
-                      <span class="badge badge-warning">En Proceso</span>
+                      <span class="badge bg-warning">En Proceso</span>
                     </div>
-                    <span class="d-block blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                    <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
                   </td>
                 </tr>
                 </tbody>

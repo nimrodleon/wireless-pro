@@ -8,6 +8,10 @@
   text-decoration: none;
 }
 
+.link {
+  text-decoration: none;
+}
+
 .link span.first {
   color: #006fc6;
   font-weight: bold;

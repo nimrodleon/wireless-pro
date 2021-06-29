@@ -3,30 +3,22 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <div class="input-group" data-toggle="tooltip" title="Ip Address">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
-                </div>
+          <div class="row">
+            <div class="pb-3 col-6">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
                 <input type="text" [(ngModel)]="device.ipAddress" name="ipAddress" placeholder="Ip Address"
                        class="form-control">
               </div>
             </div>
-            <div class="form-group col-md-4">
-              <div class="input-group" data-toggle="tooltip" title="Modo">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-signal"></i></span>
-                </div>
-                <select
-                  [(ngModel)]="device.mode" name="mode"
-                  class="custom-select">
+            <div class="pb-3 col-4">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-signal"></i></span>
+                <select [(ngModel)]="device.mode" name="mode" class="form-select">
                   <option value="E">Estación</option>
                   <option value="P">Punto de acceso</option>
                   <option value="R">Repetidor AP</option>
@@ -34,89 +26,79 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <div class="input-group" data-toggle="tooltip" title="Nombre">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-tasks"></i></span>
-              </div>
+          <div class="pb-3">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-tasks"></i></span>
               <input type="text" [(ngModel)]="device.name" name="name" placeholder="Nombre" class="form-control">
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <div class="input-group" data-toggle="tooltip" title="User">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
+          <div class="row">
+            <div class="pb-3 col-6">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
                 <input type="text" [(ngModel)]="device.userName" name="userName" placeholder="User"
                        class="form-control">
               </div>
             </div>
-            <div class="form-group col-md-6">
-              <div class="input-group" data-toggle="tooltip" title="Password">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
-                </div>
+            <div class="pb-3 col-6">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
                 <input type="text" [(ngModel)]="device.password" name="password" placeholder="Password"
                        class="form-control">
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <div class="input-group" data-toggle="tooltip" title="SSID">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-globe"></i></span>
-              </div>
+          <div class="pb-3">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-globe"></i></span>
               <input type="text" [(ngModel)]="device.ssid" name="ssid" placeholder="SSID" class="form-control">
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <div class="input-group" data-toggle="tooltip" title="Area cobertura">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                </div>
-                <select [(ngModel)]="device.coverage" name="coverage" class="custom-select">
+          <div class="row">
+            <div class="pb-3 col-6">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-map-marker-alt"></i>
+                </span>
+                <select [(ngModel)]="device.coverage" name="coverage" class="form-select">
                   <option *ngFor="let coverage of coverages" [value]="coverage._id">{{ coverage.name }}</option>
                 </select>
               </div>
             </div>
-            <div class="form-group col-md-6">
-              <div class="input-group" data-toggle="tooltip" title="Torre">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-broadcast-tower"></i></span>
-                </div>
-                <select [(ngModel)]="device.tower" name="tower" [disabled]="checkApMode()" class="custom-select">
+            <div class="pb-3 col-6">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-broadcast-tower"></i>
+                </span>
+                <select [(ngModel)]="device.tower" name="tower" [disabled]="checkApMode()" class="form-select">
                   <option *ngFor="let tower of towers" [value]="tower._id">{{ tower.tower }}</option>
                 </select>
               </div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group mb-0 col-md-6">
-              <div class="input-group" data-toggle="tooltip" title="Tramo">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-route"></i></span>
-                </div>
-                <select [(ngModel)]="device.tramo" name="tramo" class="custom-select">
+          <div class="row">
+            <div class="col-6">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-route"></i>
+                </span>
+                <select [(ngModel)]="device.tramo" name="tramo" class="form-select">
                   <option *ngFor="let tramo of tramos" [value]="tramo._id">{{ tramo.tramo }}</option>
                 </select>
               </div>
             </div>
-            <div class="form-group mb-0 col-md-6">
-              <div class="input-group" data-toggle="tooltip" title="Punto de Acceso">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-wifi"></i></span>
-                </div>
-                <select name="accessPoint" [disabled]="!checkApMode()" class="custom-select"></select>
+            <div class="col-6">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-wifi"></i></span>
+                <select name="accessPoint" [disabled]="!checkApMode()" class="form-select"></select>
               </div>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" (click)="saveChanges()" class="btn btn-primary">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" (click)="saveChanges()" class="btn btn-primary text-uppercase">Guardar Cambios</button>
       </div>
     </div>
   </div>

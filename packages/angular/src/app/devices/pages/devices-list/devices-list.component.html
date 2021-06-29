@@ -12,28 +12,34 @@
               <span>Buscador rápido</span>
               <span class="Ctrl">Ctrl K</span>
             </div>
-            <form class="form-inline">
-              <button type="button" (click)="clearPing()" class="btn btn-warning mr-2">
-                <i class="fas fa-broom"></i>
-                <span class="text-uppercase ml-1">Limpiar</span>
-              </button>
-              <div class="btn-group mr-2">
-                <button type="button" (click)="onPing()" class="btn btn-success">
-                  <i class="fas fa-wave-square"></i>
-                  <span class="text-uppercase ml-1">Ping</span>
+            <form class="row row-cols-auto g-2">
+              <div class="col-auto">
+                <button type="button" (click)="clearPing()" class="btn btn-warning">
+                  <i class="fas fa-broom"></i>
+                  <span class="text-uppercase ms-1">Limpiar</span>
                 </button>
-                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                        data-toggle="dropdown">
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="#">Descargar Script</a>
+              </div>
+              <div class="col-auto">
+                <div class="btn-group">
+                  <button type="button" (click)="onPing()" class="btn btn-success">
+                    <i class="fas fa-wave-square"></i>
+                    <span class="text-uppercase ms-1">Ping</span>
+                  </button>
+                  <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                          data-bs-toggle="dropdown">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Descargar Script</a></li>
+                  </ul>
                 </div>
               </div>
-              <button type="button" (click)="addDeviceClick()" class="btn btn-primary mr-2">
-                <i class="fas fa-plus"></i>
-                <span class="text-uppercase ml-1">Nuevo</span>
-              </button>
+              <div class="col-auto">
+                <button type="button" (click)="addDeviceClick()" class="btn btn-primary mr-2">
+                  <i class="fas fa-plus"></i>
+                  <span class="text-uppercase ms-1">Nuevo</span>
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -42,7 +48,7 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex">
-          <div class="pr-2">
+          <div class="pe-2">
             <app-device-tramo></app-device-tramo>
           </div>
           <app-device-table class="w-100"></app-device-table>

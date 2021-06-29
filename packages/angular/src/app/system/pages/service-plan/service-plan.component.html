@@ -5,24 +5,29 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex my-2 align-items-center justify-content-between">
-          <h4 class="m-0 mr-2 d-none d-sm-block text-uppercase">Lista de Servicios</h4>
-          <form (ngSubmit)="onSearch()" class="form-inline">
-            <button type="button" (click)="addServicePlan()" class="btn btn-primary mr-2">
-              <i class="fas fa-plus"></i><span class="text-uppercase"> Plan de Servicio</span>
-            </button>
-            <input type="search" [(ngModel)]="query" name="query"
-                   placeholder="Plan de Servicio..."
-                   class="form-control mr-2">
-            <button type="submit" class="btn btn-success">
-              <i class="fas fa-search"></i><span class="text-uppercase"> Buscar</span>
-            </button>
+          <h4 class="m-0 text-uppercase">Lista de Servicios</h4>
+          <form (ngSubmit)="onSearch()" class="row row-cols-auto g-2">
+            <div class="col-auto">
+              <button type="button" (click)="addServicePlan()" class="btn btn-primary">
+                <i class="fas fa-plus"></i><span class="text-uppercase"> Plan de Servicio</span>
+              </button>
+            </div>
+            <div class="col-auto">
+              <input type="search" [(ngModel)]="query" name="query"
+                     placeholder="PLAN DE SERVICIO..." class="form-control">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-success">
+                <i class="fas fa-search"></i><span class="text-uppercase"> Buscar</span>
+              </button>
+            </div>
           </form>
         </div>
       </div><!-- //.col-12 -->
       <div class="col-12">
         <div class="table-responsive">
           <table class="table table-striped">
-            <thead class="thead-light">
+            <thead>
             <tr class="text-uppercase">
               <th>
                 <div class="d-flex justify-content-between">
@@ -45,8 +50,8 @@
               <td>{{ service.downloadSpeed }}</td>
               <td>{{ service.uploadSpeed }}</td>
               <td>
-                <div class="float-right">
-                  <button type="button" (click)="editServicePlan(service._id)" class="btn btn-secondary btn-sm mr-2">
+                <div class="btn-opt ms-auto">
+                  <button type="button" (click)="editServicePlan(service._id)" class="btn btn-secondary btn-sm me-2">
                     <i class="fas fa-edit"></i></button>
                   <button type="button" (click)="deleteServicePlan(service._id)"
                           class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>

@@ -3,72 +3,70 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-uppercase">Agregar Mikrotik</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- ##(Begin) Content -->
         <form>
-          <nav class="text-uppercase">
+          <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-link active" id="nav-basic-tab" data-toggle="tab"
-                 href="#nav-basic-content" role="tab" aria-selected="true">
-                <i class="fas fa-info-circle"></i> Básico</a>
-              <a class="nav-link" id="nav-interface-tab" data-toggle="tab"
-                 href="#nav-interface-content" role="tab" aria-selected="false">
-                <i class="fas fa-ethernet"></i> Interfaces</a>
+              <button class="nav-link active" data-bs-toggle="tab"
+                      data-bs-target="#nav-content" type="button" role="tab">
+                <i class="fas fa-info-circle"></i><span class="text-uppercase ms-1">Básico</span>
+              </button>
+              <button class="nav-link" data-bs-toggle="tab"
+                      data-bs-target="#nav-interface" type="button" role="tab">
+                <i class="fas fa-ethernet"></i><span class="text-uppercase ms-1">Interfaces</span>
+              </button>
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-basic-content" role="tabpanel">
+            <div class="tab-pane fade show active" id="nav-content" role="tabpanel">
               <!-- ##(Begin) Básico -->
-              <div class="form-group row mt-2">
-                <label class="col-3 col-form-label text-right">Nombre</label>
+              <div class="row pb-3 mt-2">
+                <label class="col-3 col-form-label text-end">Nombre</label>
                 <div class="col-9">
                   <input type="text" class="form-control" placeholder="Mikrotik">
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label text-right">Host</label>
+              <div class="row pb-3">
+                <label class="col-3 col-form-label text-end">Host</label>
                 <div class="col-9">
                   <input type="text" class="form-control" placeholder="192.168.88.1">
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label text-right">Puerto</label>
+              <div class="row pb-3">
+                <label class="col-3 col-form-label text-end">Puerto</label>
                 <div class="col-9">
                   <input type="number" class="form-control" placeholder="8728">
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label text-right">Usuario</label>
+              <div class="row pb-3">
+                <label class="col-3 col-form-label text-end">Usuario</label>
                 <div class="col-9">
                   <input type="text" class="form-control" placeholder="admin">
                 </div>
               </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label text-right">Contraseña</label>
+              <div class="row pb-3">
+                <label class="col-3 col-form-label text-end">Contraseña</label>
                 <div class="col-9">
                   <input type="text" class="form-control" placeholder="**********">
                 </div>
               </div>
-              <div class="form-group row mb-0">
-                <label class="col-3 col-form-label text-right">URL(BitWorker)</label>
+              <div class="row">
+                <label class="col-3 col-form-label text-end">URL(BitWorker)</label>
                 <div class="col-9">
                   <input type="text" class="form-control" placeholder="https://192.168.88.200:5000">
                 </div>
               </div>
               <!-- ##(End) Básico -->
             </div>
-            <div class="tab-pane fade" id="nav-interface-content" role="tabpanel">
+            <div class="tab-pane fade" id="nav-interface" role="tabpanel">
               <!-- ##(Begin) Interface -->
-              <div class="form-group mt-2">
+              <div class="mt-2 pb-3">
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Nombre Interface">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="button">Agregar</button>
-                  </div>
+                  <button class="btn btn-outline-primary" type="button">Agregar</button>
                 </div>
               </div>
               <div class="table-responsive">
@@ -83,8 +81,8 @@
                   <tr>
                     <td>ether1</td>
                     <td>
-                      <div class="float-right btn-opt">
-                        <button class="btn btn-secondary btn-sm mr-2">
+                      <div class="btn-opt ms-auto">
+                        <button class="btn btn-secondary btn-sm me-2">
                           <i class="fas fa-edit"></i></button>
                         <button class="btn btn-danger btn-sm">
                           <i class="fas fa-trash-alt"></i></button>
@@ -101,8 +99,8 @@
         <!-- ##(End) Content -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary text-uppercase">Guardar Cambios</button>
       </div>
     </div>
   </div>

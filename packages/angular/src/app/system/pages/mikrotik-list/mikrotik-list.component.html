@@ -7,24 +7,27 @@
       <div class="col-12">
         <div class="d-flex my-2 justify-content-between">
           <div class="d-flex align-items-center">
-            <h4 class="text-uppercase m-0 mr-2">Lista de Equipos Mikrotik</h4>
+            <h4 class="text-uppercase m-0 me-2">Lista de Equipos Mikrotik</h4>
             <button type="button" (click)="addMikrotikClick()" class="btn btn-success">
-              <i class="fas fa-plus"></i><span class="text-uppercase ml-1">Mikrotik</span>
+              <i class="fas fa-plus"></i><span class="text-uppercase ms-1">Mikrotik</span>
             </button>
           </div><!-- //.d-flex -->
-          <form class="form-inline">
-            <input type="text" name="search"
-                   class="form-control mr-2" placeholder="MIKROTIK...">
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-search"></i> BUSCAR
-            </button>
+          <form class="row row-cols-auto g-2">
+            <div class="col-auto">
+              <input type="text" name="search" class="form-control" placeholder="MIKROTIK...">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> BUSCAR
+              </button>
+            </div>
           </form><!-- //.form-inline -->
         </div><!-- //.d-flex -->
       </div><!-- //.col-12 -->
       <div class="col-7">
         <div class="table-responsive">
           <table class="table table-hover">
-            <thead class="thead-light">
+            <thead>
             <tr class="text-uppercase">
               <th>Nombre</th>
               <th>Servicios</th>
@@ -34,17 +37,17 @@
             <tr>
               <td>MK-URBANOS</td>
               <td>
-                <span class="badge badge-success">200</span>
+                <span class="badge bg-success">200</span>
                 <span class="mx-1">/</span>
-                <span class="badge badge-secondary">10</span>
+                <span class="badge bg-secondary">10</span>
               </td>
             </tr>
             <tr>
               <td>MK-DISTRITOS</td>
               <td>
-                <span class="badge badge-success">400</span>
+                <span class="badge bg-success">400</span>
                 <span class="mx-1">/</span>
-                <span class="badge badge-secondary">50</span>
+                <span class="badge bg-secondary">50</span>
               </td>
             </tr>
             </tbody>
@@ -61,13 +64,15 @@
           </div>
           <div class="card-body">
             <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-link active" id="nav-basic-tab" data-toggle="tab"
-                   href="#nav-basic" role="tab" aria-selected="true">
-                  <i class="fas fa-info-circle"></i><span class="text-uppercase ml-1">Básico</span></a>
-                <a class="nav-link" id="nav-status-change-tab" data-toggle="tab"
-                   href="#nav-status-change" role="tab" aria-selected="false">
-                  <i class="fas fa-exchange-alt"></i><span class="text-uppercase ml-1">Estado de Cambios</span></a>
+              <div class="nav nav-tabs" role="tablist">
+                <button class="nav-link active" data-bs-toggle="tab"
+                        data-bs-target="#nav-basic" type="button" role="tab">
+                  <i class="fas fa-info-circle"></i><span class="text-uppercase ms-1">Básico</span>
+                </button>
+                <button class="nav-link" data-bs-toggle="tab"
+                        data-bs-target="#nav-status-change" type="button" role="tab">
+                  <i class="fas fa-exchange-alt"></i><span class="text-uppercase ms-1">Estado de Cambios</span>
+                </button>
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -93,15 +98,15 @@
                   <span class="text-uppercase"><i class="fas fa-eye"></i> Puerto</span>
                   <span>8452</span>
                 </div>
-                <!-- ##(Begin) Básico -->
+                <!-- ##(End) Básico -->
               </div>
               <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
                 <!-- ##(Begin) Estado de cambios -->
 
-                <!-- ##(Begin) Estado de cambios -->
+                <!-- ##(End) Estado de cambios -->
               </div>
-            </div><!-- //.tab-content -->
-          </div>
+            </div>
+          </div><!-- //.card-body -->
         </div>
       </div><!-- //.col-5 -->
     </div>

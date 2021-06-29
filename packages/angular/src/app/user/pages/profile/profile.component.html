@@ -5,28 +5,32 @@
     <!-- ##(Begin) Content -->
     <div class="row">
       <div class="col-12">
-        <h6 class="m-0 mt-2 font-weight-bold">Perfil del usuario</h6>
+        <h6 class="m-0 mt-2 fw-bold">Perfil del usuario</h6>
         <hr class="my-2">
       </div><!-- //.col-12 -->
-      <div class="col-md-6">
+      <div class="col-6">
         <form (submit)="update()">
-          <div class="form-group">
-            <label>Nombres y Apellidos</label>
+          <div class="pb-3">
+            <label class="form-label">Nombres y Apellidos</label>
             <input type="text" name="name" [(ngModel)]="user.name" class="form-control">
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Usuario</label>
+          <div class="row">
+            <div class="pb-3 col-6">
+              <label class="form-label">Usuario</label>
               <input type="text" name="userName" [(ngModel)]="user.userName" class="form-control">
             </div>
           </div>
-          <div class="form-group">
+          <div class="pb-3">
             <input type="file" name="file" disabled>
           </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Info</button>
-            <button type="button" (click)="changePassword()" class="btn btn-danger ml-md-2">
-              <i class="fas fa-key"></i> Cambiar Contraseña
+          <div class="d-flex">
+            <button type="submit" class="btn btn-primary me-2">
+              <i class="fas fa-save"></i>
+              <span class="text-uppercase ms-1">Guardar Info</span>
+            </button>
+            <button type="button" (click)="changePassword()" class="btn btn-danger">
+              <i class="fas fa-key"></i>
+              <span class="text-uppercase ms-1">Cambiar Contraseña</span>
             </button>
           </div>
         </form>

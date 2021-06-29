@@ -3,53 +3,45 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-group">
+          <div class="pb-3">
             <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
+              <span class="input-group-text">
                   <i class="fas fa-id-card-alt"></i>
-                </span>
-              </div>
-              <input type="text" [(ngModel)]="user.name" name="name" class="form-control"
-                     placeholder="Nombres y Apellidos">
+              </span>
+              <input type="text" [(ngModel)]="user.name" name="name"
+                     class="form-control" placeholder="Nombres y Apellidos">
             </div>
           </div>
-          <div class="form-group">
+          <div class="pb-3">
             <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fas fa-user"></i>
-                </span>
-              </div>
-              <input type="text" [(ngModel)]="user.userName" name="userName" class="form-control"
-                     placeholder="Username">
+              <span class="input-group-text">
+                <i class="fas fa-user"></i>
+              </span>
+              <input type="text" [(ngModel)]="user.userName" name="userName"
+                     class="form-control" placeholder="Username">
             </div>
           </div>
           <ng-container *ngIf="!editMode">
-            <div class="form-group">
+            <div class="pb-3">
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-key"></i>
-                  </span>
-                </div>
-                <input type="text" [(ngModel)]="user.password" name="password" class="form-control"
-                       placeholder="Password">
+                <span class="input-group-text">
+                  <i class="fas fa-key"></i>
+                </span>
+                <input type="text" [(ngModel)]="user.password" name="password"
+                       class="form-control" placeholder="Password">
               </div>
             </div>
           </ng-container>
-          <div class="form-group">
+          <div class="pb-3">
             <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
-              </div>
-              <select class="custom-select">
+              <span class="input-group-text">
+                <i class="fas fa-user-tag"></i>
+              </span>
+              <select class="form-select">
                 <option value="ROLE_ADMIN">ROLE_ADMIN</option>
                 <option value="ROLE_NETWORK">ROLE_NETWORK</option>
                 <option value="ROLE_CASH">ROLE_CASH</option>
@@ -57,26 +49,25 @@
               </select>
             </div>
           </div>
-          <div class="form-group">
+          <div class="pb-3">
             <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-              </div>
-              <input type="text" [(ngModel)]="user.name" name="name" class="form-control" placeholder="E-Mail">
+              <span class="input-group-text">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <input type="text" [(ngModel)]="user.name" name="name"
+                     class="form-control" placeholder="E-Mail">
             </div>
           </div>
-          <div class="form-group mb-0">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" #suspended [checked]="user.suspended" (change)="onSuspended(suspended.checked)"
-                     class="custom-control-input" id="customSwitch3">
-              <label class="custom-control-label" for="customSwitch3">Suspender Cuenta</label>
-            </div>
+          <div class="form-check form-switch">
+            <input type="checkbox" #suspended [checked]="user.suspended" (change)="onSuspended(suspended.checked)"
+                   class="form-check-input" id="customSwitch3">
+            <label class="form-check-label" for="customSwitch3">Suspender Cuenta</label>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cerrar</button>
-        <button type="button" (click)="saveChanges()" class="btn btn-primary">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary text-uppercase mr-2" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" (click)="saveChanges()" class="btn btn-primary text-uppercase">Guardar Cambios</button>
       </div>
     </div>
   </div>
