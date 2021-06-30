@@ -24,7 +24,7 @@ export class OrderStore {
           fullName: true,
           InstallationOrder: {
             $filter: {
-              input: '$InstallationOrder',
+              input: '$Order',
               as: 'order',
               cond: {
                 $and: [
@@ -37,7 +37,7 @@ export class OrderStore {
         }
       },
       {
-        $unwind: '$InstallationOrder'
+        $unwind: '$Order'
       }
     ])
   }
@@ -63,7 +63,7 @@ export class OrderStore {
           fullName: true,
           InstallationOrder: {
             $filter: {
-              input: '$InstallationOrder',
+              input: '$Order',
               as: 'order',
               cond: {
                 $and: [
@@ -76,7 +76,7 @@ export class OrderStore {
         }
       },
       {
-        $unwind: '$InstallationOrder'
+        $unwind: '$Order'
       }
     ])
   }

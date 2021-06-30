@@ -8,7 +8,6 @@ const router = express.Router()
 // http://<HOST>/api/service-plans
 router.get('/', [
   verifyToken,
-  checkRolAdmin
 ], getServicePlans)
 
 // Lista de planes de servicio.
@@ -24,7 +23,6 @@ function getServicePlans(req, res = response) {
 // http://<HOST>/api/service-plans/:id
 router.get('/:id', [
   verifyToken,
-  checkRolAdmin
 ], getServicePlan)
 
 // obtener plan de servicio por id.

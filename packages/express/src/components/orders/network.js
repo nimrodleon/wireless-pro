@@ -1,4 +1,6 @@
-import express from 'express'
+import express, {response} from 'express'
+import {verifyToken} from '../middlewares'
+import {OrderController} from './controller'
 
 const router = express.Router()
 
@@ -11,8 +13,20 @@ const router = express.Router()
 // Lista de ordenes filtrado por mes y año.
 
 // Obtener orden de instalación por id.
+
+// http://<HOST>/api/installation_orders
+router.post('/', [verifyToken], addOrderInstallation)
+
 // Registrar orden de instalación.
+function addOrderInstallation(req, res = response) {
+  OrderController.addOrder(req.body).then(result => {
+    res.json(result)
+  })
+}
+
 // actualizar orden de instalación.
+
+
 // Borrar orden de instalación.
 
 // ========================================
