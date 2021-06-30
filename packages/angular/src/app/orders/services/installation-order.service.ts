@@ -5,6 +5,8 @@ import {ServicePlanService} from '../../system/services';
 import {Order} from '../interfaces';
 import {Observable} from 'rxjs';
 import {ServicePlan} from '../../system/interfaces';
+import {Client} from '../../client/interfaces';
+import {ClientService} from '../../client/services';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +16,14 @@ export class InstallationOrderService {
 
   constructor(
     private http: HttpClient,
-    private servicePlanService: ServicePlanService) {
+    private servicePlanService: ServicePlanService,
+    private clientService: ClientService) {
   }
 
   // Valores por defecto.
   orderDefaultValues(): Order {
     return {
+      _id: undefined,
       clientId: '',
       address: '',
       city: '',
@@ -30,6 +34,21 @@ export class InstallationOrderService {
       amount: 0,
       statusOrder: 'PENDIENTE'
     };
+  }
+
+  // Valores por defecto cliente.
+  clientDefaultValues(): Client {
+    return this.clientService.clientDefaultValues();
+  }
+
+  // Obtener datos del cliente por id.
+  getClientById(id): Observable<Client> {
+    return this.clientService.getClient(id);
+  }
+
+  // Agregar cliente.
+  addClient(data: Client): Observable<Client> {
+    return this.clientService.create(data);
   }
 
   // Lista de planes de servicio.

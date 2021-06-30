@@ -4,7 +4,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 import {OrdersRoutingModule} from './orders-routing.module';
 import {GlobalModule} from '../global/global.module';
+import {ClientModule} from '../client/client.module';
 import {InstallationOrderService} from './services';
+import {ServicePlanService} from '../system/services';
+import {ClientService} from '../client/services';
 import {InstallationOrdersComponent} from './pages/installation-orders/installation-orders.component';
 import {InstallationFormComponent} from './pages/installation-form/installation-form.component';
 import {InstallationDetailComponent} from './pages/installation-detail/installation-detail.component';
@@ -29,10 +32,13 @@ import {InstallationTicketComponent} from './pages/installation-ticket/installat
     CommonModule,
     OrdersRoutingModule,
     ReactiveFormsModule,
-    GlobalModule
+    GlobalModule,
+    ClientModule
   ],
   providers: [
-    InstallationOrderService
+    InstallationOrderService,
+    ServicePlanService,
+    ClientService
   ]
 })
 export class OrdersModule {

@@ -40,6 +40,9 @@ import {PaymentDailyComponent} from './pages/payment-daily/payment-daily.compone
     FormsModule,
     GlobalModule
   ],
+  exports: [
+    ClientFormModalComponent
+  ],
   providers: [
     ClientService,
     ClientDetailService,
