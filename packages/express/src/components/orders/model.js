@@ -21,6 +21,23 @@ const orderSchema = new Schema({
   },
   costInstallation: Number,
   amount: Number,
+  statusOrder: {
+    type: String,
+    default: 'PENDIENTE',
+    enum: ['PENDIENTE', 'EN PROCESO', 'FINALIZADO']
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
+  },
+  year: {
+    type: String,
+    default: moment().utc().format('YYYY')
+  },
+  month: {
+    type: String,
+    default: moment().utc().format('MM')
+  },
   createdAt: {
     type: Date,
     default: moment().utc().toDate()

@@ -14,6 +14,7 @@ const routes = (server) => {
   server.use('/api/tower', network.towerRouter)
   server.use('/api/tramo', network.tramoRouter)
   server.use('/api/devices', network.deviceRouter)
+  server.use('/api/installation_orders', network.installationOrderRouter)
 }
 
 export default routes
