@@ -9,4 +9,5 @@ export interface InstallationOrder {
   costInstallation: number;
   amount: number;
   statusOrder: string;
+  createdAt: any;
 }

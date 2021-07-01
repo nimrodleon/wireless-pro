@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {OrdersRoutingModule} from './orders-routing.module';
 import {GlobalModule} from '../global/global.module';
 import {ClientModule} from '../client/client.module';
-import {InstallationOrderService} from './services';
+import {InstallationOrderService, InstallationOrderDetailService} from './services';
 import {ServicePlanService} from '../system/services';
 import {ClientService} from '../client/services';
 import {InstallationOrdersComponent} from './pages/installation-orders/installation-orders.component';
@@ -37,6 +37,7 @@ import {InstallationTicketComponent} from './pages/installation-ticket/installat
   ],
   providers: [
     InstallationOrderService,
+    InstallationOrderDetailService,
     ServicePlanService,
     ClientService
   ]

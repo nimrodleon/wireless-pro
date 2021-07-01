@@ -75,7 +75,8 @@
           <div class="card-header">
             <div class="d-flex justify-content-between">
               <h5 class="mb-0 card-title text-uppercase">Información</h5>
-              <a href="#"><i class="fas fa-edit"></i></a>
+              <a [routerLink]="['/installation_orders/edit', currentInstallationOrder._id]">
+                <i class="fas fa-edit"></i></a>
             </div>
           </div>
           <div class="card-body">
@@ -84,7 +85,7 @@
                 <i class="fas fa-calendar-alt"></i>
                 Creado el
               </span>
-              <span>2021-15-14</span>
+              <span>{{currentInstallationOrder.createdAt}}</span>
             </div>
             <div class="d-flex justify-content-between border-bottom">
               <span><i class="fas fa-user"></i> Técnico</span>
@@ -92,15 +93,15 @@
             </div>
             <div class="d-flex justify-content-between border-bottom">
               <span><i class="fas fa-user"></i> Cliente</span>
-              <span>Ana Blue</span>
+              <span>{{currentClient.fullName}}</span>
             </div>
             <div class="d-flex justify-content-between border-bottom">
               <span><i class="fas fa-map-marker-alt"></i> Dirección</span>
-              <span>Jr. jose carlos maria tech 2414</span>
+              <span>{{currentInstallationOrder.address}}</span>
             </div>
             <div class="d-flex justify-content-between border-bottom">
               <span><i class="fas fa-server"></i> Plan</span>
-              <span>4MB Internet</span>
+              <span>{{currentServicePlan.name}}</span>
             </div>
             <h5 class="text-uppercase"><i class="fas fa-map-marker-alt"></i> Ubicación del Cliente</h5>
             <!-- ##(Begin) map -->

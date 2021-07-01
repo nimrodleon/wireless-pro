@@ -32,7 +32,8 @@ export class InstallationOrderService {
       servicePlanId: '',
       costInstallation: 0,
       amount: 0,
-      statusOrder: 'PENDIENTE'
+      statusOrder: 'PENDIENTE',
+      createdAt: undefined,
     };
   }
 
@@ -56,6 +57,11 @@ export class InstallationOrderService {
     return this.servicePlanService.getServicePlans('');
   }
 
+  // Obtener plan de servicio por id.
+  getServicePlanById(id: string): Observable<ServicePlan> {
+    return this.servicePlanService.getServicePlan(id);
+  }
+
   // Lista de ordenes de instalación.
   getInstallationOrders(query: string): Observable<any> {
     let params = new HttpParams();
@@ -70,6 +76,7 @@ export class InstallationOrderService {
 
   // registrar orden de instalación.
   addOrder(data: InstallationOrder): Observable<InstallationOrder> {
+    delete data.createdAt;
     return this.http.post<InstallationOrder>(this.baseURL, data);
   }
 

@@ -51,7 +51,7 @@
             <tbody>
             <tr *ngFor="let item of installationOrders">
               <td>
-                <a [routerLink]="['/installation_orders/detail', 0]"
+                <a [routerLink]="['/installation_orders/detail', item.InstallationOrder._id]"
                    class="text-uppercase">{{item.fullName}}</a>
                 <div class="d-flex">
                   <div class="text-uppercase me-1">
