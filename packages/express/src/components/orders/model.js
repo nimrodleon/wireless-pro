@@ -32,11 +32,11 @@ const orderSchema = new Schema({
   },
   year: {
     type: String,
-    default: moment().utc().format('YYYY')
+    default: moment().format('YYYY')
   },
   month: {
     type: String,
-    default: moment().utc().format('MM')
+    default: moment().format('MM')
   },
   createdAt: {
     type: Date,

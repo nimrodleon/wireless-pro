@@ -25,11 +25,11 @@ export class OrderStore {
           InstallationOrder: {
             $filter: {
               input: '$InstallationOrder',
-              as: 'order',
+              as: 'ord',
               cond: {
-                $and: [
-                  {$eq: {'$$order.statusOrder': 'PENDIENTE'}},
-                  {$eq: {'$$order.statusOrder': 'EN PROCESO'}},
+                $or: [
+                  {$eq: ['$$ord.statusOrder', 'PENDIENTE']},
+                  {$eq: ['$$ord.statusOrder', 'EN PROCESO']},
                 ]
               }
             }
