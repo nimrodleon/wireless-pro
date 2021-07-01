@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
@@ -27,8 +27,9 @@ export class InstallationFormComponent implements OnInit {
     region: ['', [Validators.required]],
     typeInstallation: ['', [Validators.required]],
     servicePlanId: ['', [Validators.required]],
-    costInstallation: [0, [Validators.required, Validators.min(1)]],
-    amount: [0, [Validators.required, Validators.min(1)]],
+    costInstallation: [0, [Validators.required, Validators.min(0)]],
+    amount: [0, [Validators.required, Validators.min(0)]],
+    statusOrder: ['PENDIENTE']
   });
   servicePlanList: ServicePlan[];
   currentClientSelected: Client;
@@ -38,6 +39,7 @@ export class InstallationFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private installationOrderService: InstallationOrderService) {
     // Cargar valores por defecto.
     this.installationOrder = this.installationOrderService.orderDefaultValues();
@@ -45,6 +47,15 @@ export class InstallationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // cargar datos orden de instalación modo edición.
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.installationOrderService.getInstallationOrderById(params.get('id'))
+        .subscribe(result => {
+          this.installationOrderForm.reset({...result});
+          this.installationOrderService.getClientById(result.clientId)
+            .subscribe(result => this.currentClientSelected = result);
+        });
+    });
     // Select2 buscador de clientes.
     jQuery('#searchClient').select2({
       theme: 'bootstrap4',
@@ -136,7 +147,6 @@ export class InstallationFormComponent implements OnInit {
         return;
       }
       // Guardar datos, sólo si es válido el formulario.
-      console.log(this.installationOrderForm.value);
       if (this.installationOrder._id === null) {
         delete this.installationOrder._id;
         this.installationOrderService.addOrder(this.installationOrder)
@@ -145,7 +155,10 @@ export class InstallationFormComponent implements OnInit {
               .then(() => console.info('Imprimir Ticket!!'));
           });
       } else {
-        console.log('Actualizar orden de instalación...');
+        this.installationOrderService.updateOrder(this.installationOrder).subscribe(() => {
+          this.router.navigate(['/installation_orders'])
+            .then(() => console.info('Orden de Instalación actualizada!'));
+        });
       }
     }
   }

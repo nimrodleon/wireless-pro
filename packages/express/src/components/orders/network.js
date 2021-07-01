@@ -12,7 +12,6 @@ function getOrderList(req, res = response) {
   let {search = ''} = req.query
   console.info(search)
   OrderController.getOrderList(search).then(result => {
-    console.info(result)
     res.json(result)
   })
 }
@@ -20,7 +19,15 @@ function getOrderList(req, res = response) {
 // http://<HOST>/api/installation_orders
 // Lista de ordenes filtrado por mes y año.
 
+// http://<HOST>/api/installation_orders/:id
+router.get('/:id', [verifyToken], getOrderById)
+
 // Obtener orden de instalación por id.
+function getOrderById(req, res = response) {
+  OrderController.getOrderById(req.params.id).then(result => {
+    res.json(result)
+  })
+}
 
 // http://<HOST>/api/installation_orders
 router.post('/', [verifyToken], addOrderInstallation)
@@ -32,8 +39,15 @@ function addOrderInstallation(req, res = response) {
   })
 }
 
-// actualizar orden de instalación.
+// http://<HOST>/api/installation_orders/:id
+router.patch('/:id', [verifyToken], updateOrder)
 
+// actualizar orden de instalación.
+function updateOrder(req, res = response) {
+  OrderController.updateOrder(req.params.id, req.body).then(result => {
+    res.json(result)
+  })
+}
 
 // Borrar orden de instalación.
 

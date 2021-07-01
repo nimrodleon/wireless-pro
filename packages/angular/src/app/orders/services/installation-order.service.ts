@@ -51,6 +51,11 @@ export class InstallationOrderService {
     return this.clientService.create(data);
   }
 
+  // Lista de planes de servicio.
+  getServicePlans(): Observable<ServicePlan[]> {
+    return this.servicePlanService.getServicePlans('');
+  }
+
   // Lista de ordenes de instalación.
   getInstallationOrders(query: string): Observable<any> {
     let params = new HttpParams();
@@ -58,14 +63,19 @@ export class InstallationOrderService {
     return this.http.get(this.baseURL, {params});
   }
 
-  // Lista de planes de servicio.
-  getServicePlans(): Observable<ServicePlan[]> {
-    return this.servicePlanService.getServicePlans('');
+  // Obtener orden de instalación por id.
+  getInstallationOrderById(id): Observable<InstallationOrder> {
+    return this.http.get<InstallationOrder>(`${this.baseURL}/${id}`);
   }
 
   // registrar orden de instalación.
   addOrder(data: InstallationOrder): Observable<InstallationOrder> {
     return this.http.post<InstallationOrder>(this.baseURL, data);
+  }
+
+  // actualizar orden de instalación.
+  updateOrder(data: InstallationOrder): Observable<InstallationOrder> {
+    return this.http.patch<InstallationOrder>(`${this.baseURL}/${data._id}`, data);
   }
 
 }

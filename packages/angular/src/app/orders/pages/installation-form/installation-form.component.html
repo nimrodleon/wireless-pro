@@ -82,7 +82,7 @@
                     <div class="col-8">
                       <input type="number" formControlName="costInstallation" step="0.01" class="form-control"
                              [ngClass]="{'is-invalid': inputIsInvalid('costInstallation')}">
-                      <div class="invalid-feedback">El costo de instalación debe ser mayor que cero.</div>
+                      <div class="invalid-feedback">El costo de instalación debe ser mínimo cero.</div>
                     </div>
                   </div>
                   <div class="row">
@@ -90,7 +90,7 @@
                     <div class="col-8">
                       <input type="number" formControlName="amount" step="0.01" class="form-control"
                              [ngClass]="{'is-invalid': inputIsInvalid('amount')}">
-                      <div class="invalid-feedback">El monto de cuenta debe ser mayor que cero.</div>
+                      <div class="invalid-feedback">El monto de cuenta debe ser mínimo cero.</div>
                     </div>
                   </div>
                 </div>
