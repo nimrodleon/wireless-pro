@@ -9,7 +9,7 @@ import {environment} from '../../../../environments/environment';
 import {InstallationOrderService} from '../../services';
 import {ServicePlan} from '../../../system/interfaces';
 import {Client} from '../../../client/interfaces';
-import {Order} from '../../interfaces';
+import {InstallationOrder} from '../../interfaces';
 
 @Component({
   selector: 'app-installation-form',
@@ -18,7 +18,7 @@ import {Order} from '../../interfaces';
 })
 export class InstallationFormComponent implements OnInit {
   private baseURL: string = environment.baseUrl;
-  installationOrder: Order;
+  installationOrder: InstallationOrder;
   installationOrderForm: FormGroup = this.fb.group({
     _id: [null],
     clientId: [''],

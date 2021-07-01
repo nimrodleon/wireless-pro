@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {ServicePlanService} from '../../system/services';
-import {Order} from '../interfaces';
+import {InstallationOrder} from '../interfaces';
 import {Observable} from 'rxjs';
 import {ServicePlan} from '../../system/interfaces';
 import {Client} from '../../client/interfaces';
@@ -21,7 +21,7 @@ export class InstallationOrderService {
   }
 
   // Valores por defecto.
-  orderDefaultValues(): Order {
+  orderDefaultValues(): InstallationOrder {
     return {
       _id: undefined,
       clientId: '',
@@ -51,14 +51,21 @@ export class InstallationOrderService {
     return this.clientService.create(data);
   }
 
+  // Lista de ordenes de instalación.
+  getInstallationOrders(query: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('search', query);
+    return this.http.get(this.baseURL, {params});
+  }
+
   // Lista de planes de servicio.
   getServicePlans(): Observable<ServicePlan[]> {
     return this.servicePlanService.getServicePlans('');
   }
 
   // registrar orden de instalación.
-  addOrder(data: Order): Observable<Order> {
-    return this.http.post<Order>(this.baseURL, data);
+  addOrder(data: InstallationOrder): Observable<InstallationOrder> {
+    return this.http.post<InstallationOrder>(this.baseURL, data);
   }
 
 }

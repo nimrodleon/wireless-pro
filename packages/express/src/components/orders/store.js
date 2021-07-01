@@ -4,7 +4,7 @@ import {Client} from '../client/model'
 // CRUD - Ordenes de Instalación.
 export class OrderStore {
   // Lista de ordenes de instalación.
-  static async getOrderList(query = '') {
+  static async getOrderList(query) {
     return Client.aggregate([
       {
         $match: {
@@ -22,6 +22,7 @@ export class OrderStore {
       {
         $project: {
           fullName: true,
+          phone: true,
           InstallationOrder: {
             $filter: {
               input: '$InstallationOrder',
@@ -63,7 +64,7 @@ export class OrderStore {
           fullName: true,
           InstallationOrder: {
             $filter: {
-              input: '$Order',
+              input: '$InstallationOrder',
               as: 'order',
               cond: {
                 $and: [
@@ -76,7 +77,7 @@ export class OrderStore {
         }
       },
       {
-        $unwind: '$Order'
+        $unwind: '$InstallationOrder'
       }
     ])
   }

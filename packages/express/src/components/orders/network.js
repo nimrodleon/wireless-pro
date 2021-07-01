@@ -10,6 +10,7 @@ router.get('/', [verifyToken], getOrderList)
 // Lista de ordenes de instalación.
 function getOrderList(req, res = response) {
   let {search = ''} = req.query
+  console.info(search)
   OrderController.getOrderList(search).then(result => {
     console.info(result)
     res.json(result)

@@ -1,1 +1,1 @@
-export * from './order';
+export * from './installation-order';

@@ -24,13 +24,14 @@
               </ul>
             </div>
           </div><!-- //.d-flex -->
-          <form class="row row-cols-auto g-2">
+          <form (submit)="installationOrdersLoad($event)" class="row row-cols-auto g-2">
             <div class="col-auto">
-              <input type="text" name="search" class="form-control" placeholder="CLIENTE...">
+              <input type="text" [formControl]="query"
+                     class="form-control" placeholder="CLIENTE...">
             </div>
             <div class="col-auto">
               <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i> BUSCAR
+                <i class="fas fa-search"></i><span class="text-uppercase ms-1">Buscar</span>
               </button>
             </div>
           </form><!-- //.form-inline -->
@@ -42,46 +43,28 @@
             <thead>
             <tr class="text-uppercase">
               <th>Cliente</th>
-              <th>Responsable</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let item of installationOrders">
               <td>
-                <div class="text-uppercase">
-                  <span class="badge bg-info">Instalación</span>
-                </div>
                 <a [routerLink]="['/installation_orders/detail', 0]"
-                   class="text-uppercase">Cliente Apellido / 956-454-141</a>
-                <div class="text-uppercase">
-                  <span class="badge bg-primary">Pendiente</span>
+                   class="text-uppercase">{{item.fullName}}</a>
+                <div class="d-flex">
+                  <div class="text-uppercase me-1">
+                    <span class="badge bg-info">{{item.InstallationOrder.typeInstallation}}</span>
+                  </div>
+                  <div class="text-uppercase ms-1">
+                    <span class="badge bg-primary">{{item.InstallationOrder.statusOrder}}</span>
+                  </div>
                 </div>
-                <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                <span class="blockquote-footer">{{item.InstallationOrder.createdAt}}</span>
               </td>
-              <td>Usuario</td>
-              <td>
-                <div class="btn-opt ms-auto">
-                  <button class="btn btn-secondary btn-sm me-2">
-                    <i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger btn-sm">
-                    <i class="fas fa-trash-alt"></i></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="text-uppercase">
-                  <span class="badge bg-info">Instalación</span>
-                </div>
-                <a [routerLink]="['/installation_orders/detail', 0]"
-                   class="text-uppercase">Cliente Apellido / 956-454-141</a>
-                <div class="text-uppercase">
-                  <span class="badge bg-warning">En Proceso</span>
-                </div>
-                <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
-              </td>
-              <td>Usuario</td>
+              <td>{{item.InstallationOrder.address}}</td>
+              <td>{{item.phone}}</td>
               <td>
                 <div class="btn-opt ms-auto">
                   <button class="btn btn-secondary btn-sm me-2">
@@ -96,6 +79,8 @@
         </div>
       </div><!-- .col-12 -->
     </div><!-- //.row -->
+    <pre>{{query.value|json}}</pre>
+    <pre>{{installationOrders|json}}</pre>
     <!-- ##(End) Content -->
   </div>
 </div>

@@ -1,4 +1,4 @@
-export interface Order {
+export interface InstallationOrder {
   _id: string;
   clientId: string;
   address: string;

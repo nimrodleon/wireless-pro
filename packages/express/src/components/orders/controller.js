@@ -6,7 +6,7 @@ export class OrderController {
   static async getOrderList(query) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(OrderStore.getOrderList(query))
+        resolve(OrderStore.getOrderList(query.toUpperCase()))
       } catch (err) {
         reject(err)
       }
