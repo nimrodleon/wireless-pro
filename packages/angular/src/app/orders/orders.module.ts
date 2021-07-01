@@ -8,6 +8,7 @@ import {ClientModule} from '../client/client.module';
 import {InstallationOrderService, InstallationOrderDetailService} from './services';
 import {ServicePlanService} from '../system/services';
 import {ClientService} from '../client/services';
+import {UserService} from '../user/services/user.service';
 import {InstallationOrdersComponent} from './pages/installation-orders/installation-orders.component';
 import {InstallationFormComponent} from './pages/installation-form/installation-form.component';
 import {InstallationDetailComponent} from './pages/installation-detail/installation-detail.component';
@@ -39,7 +40,8 @@ import {InstallationTicketComponent} from './pages/installation-ticket/installat
     InstallationOrderService,
     InstallationOrderDetailService,
     ServicePlanService,
-    ClientService
+    ClientService,
+    UserService
   ]
 })
 export class OrdersModule {

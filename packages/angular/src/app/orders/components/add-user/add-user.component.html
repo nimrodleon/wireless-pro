@@ -1,4 +1,4 @@
-<div class="modal fade" id="add-user" tabindex="-1">
+<div class="modal fade" id="add-user-modal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -9,14 +9,17 @@
         <form>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-user"></i></span>
-            <select name="user" class="form-select">
+            <select [formControl]="userId" class="form-select">
+              <option *ngFor="let item of userList.results" [value]="item.id">{{item.text}}</option>
             </select>
           </div>
         </form>
+        <pre>{{userId.value|json}}</pre>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary text-uppercase">Guardar Cambios</button>
+        <button type="button" (click)="selectUserClick()" class="btn btn-primary text-uppercase">Guardar Cambios
+        </button>
       </div>
     </div>
   </div>

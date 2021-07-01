@@ -17,7 +17,7 @@ function getUsers(req, res = response) {
 }
 
 // http://<HOST>/api/users/:id
-router.get('/:id', [verifyToken, checkRolAdmin], getUser)
+router.get('/:id', [verifyToken], getUser)
 
 // retornar usuario para editar.
 function getUser(req, res = response) {

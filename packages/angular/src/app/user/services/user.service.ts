@@ -27,8 +27,8 @@ export class UserService {
     return this.http.get(this.baseURL + `/select2/q?term=${term}`);
   }
 
-  getUser(user_id: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${user_id}/edit`);
+  getUser(id: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${id}`);
   }
 
   create(user: User): Observable<User> {
