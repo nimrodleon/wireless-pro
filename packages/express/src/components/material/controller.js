@@ -56,4 +56,16 @@ export class MaterialController {
       }
     })
   }
+
+  // buscar material con select2.
+  static getMaterialWithSelect2(term) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(MaterialStore.getMaterialWithSelect2(term))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
 }

@@ -1,4 +1,5 @@
 import {Material} from './model'
+import _ from 'lodash'
 
 // CRUD - materiales.
 export class MaterialStore {
@@ -34,5 +35,17 @@ export class MaterialStore {
     let _material = await this.getMaterial(id)
     _material.isDeleted = true
     return this.updateMaterial(id, _material)
+  }
+
+  // buscar materiales con select2.
+  static async getMaterialWithSelect2(term) {
+    let _materials = await Material.find({
+      isDeleted: false, $or: [{description: {$regex: term}}]
+    }).limit(10)
+    let data = {results: []}
+    await _.forEach(_materials, value => {
+      data.results.push({id: value._id, text: value.description})
+    })
+    return data
   }
 }
