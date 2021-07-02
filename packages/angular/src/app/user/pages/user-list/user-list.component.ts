@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 
-declare var jQuery: any;
+declare var bootstrap: any;
 import Swal from 'sweetalert2';
-import {User} from '../../interfaces/user';
-import {UserService} from '../../services/user.service';
-import {AuthService} from '../../services/auth.service';
+import {User} from '../../interfaces';
+import {UserService} from '../../services';
 
 @Component({
   selector: 'app-user-list',
@@ -17,36 +15,33 @@ export class UserListComponent implements OnInit {
   currentUser: User;
   titleModal: string = '';
   editMode: boolean = false;
-  status: boolean = false;
+  chkStatus: boolean = false;
+  userModal: any;
+  passwordChangeModal: any;
 
-  constructor(private userService: UserService,
-              private authService: AuthService, private router: Router) {
-    this.users = new Array<User>();
-    this.currentUser = new User();
+  constructor(
+    private userService: UserService) {
+    this.currentUser = this.userService.userDefaultValues();
   }
 
   ngOnInit(): void {
-    jQuery(() => {
-      jQuery('[data-toggle="tooltip"]').tooltip();
-    });
     this.getUsers();
-    // TODO: borrar esta linea de código.
-    // this.authService.isAdmin().subscribe(res => {
-    //   if (res != true) {
-    //     this.router.navigate(['/']);
-    //   }
-    // });
+    // vincular modal del componente.
+    this.userModal = new bootstrap.Modal(
+      document.querySelector('#app-user-modal'));
+    this.passwordChangeModal = new bootstrap.Modal(
+      document.querySelector('#app-password-modal'));
   }
 
-  // Users List.
+  // Obtener lista de usuarios.
   private getUsers(): void {
-    this.userService.getUsers(this.status)
+    this.userService.getUsers(this.chkStatus)
       .subscribe(res => this.users = res);
   }
 
   // Change status value.
   onChangeStatus(checked: boolean): void {
-    this.status = checked;
+    this.chkStatus = checked;
     this.getUsers();
   }
 
@@ -54,8 +49,8 @@ export class UserListComponent implements OnInit {
   addUser(): void {
     this.editMode = false;
     this.titleModal = 'Agregar Usuario';
-    this.currentUser = new User();
-    jQuery('#app-user-modal').modal('show');
+    this.currentUser = this.userService.userDefaultValues();
+    this.userModal.show();
   }
 
   // User Edit.
@@ -64,18 +59,21 @@ export class UserListComponent implements OnInit {
     this.userService.getUser(id).subscribe(res => {
       this.editMode = true;
       this.currentUser = res;
-      jQuery('#app-user-modal').modal('show');
+      this.userModal.show();
     });
   }
 
   // Save User Values.
   saveChanges(user: User): void {
     if (user._id === undefined) {
-      this.userService.create(user).subscribe(res => this.getUsers());
+      this.userService.create(user)
+        .subscribe(() => this.getUsers());
     } else {
-      this.userService.update(user).subscribe(res => this.getUsers());
+      this.userService.update(user)
+        .subscribe(() => this.getUsers());
     }
     this.editMode = false;
+    this.userModal.hide();
   }
 
   // Open Modal Change Password.
@@ -83,14 +81,13 @@ export class UserListComponent implements OnInit {
     event.preventDefault();
     this.userService.getUser(id).subscribe(res => {
       this.currentUser = res;
-      jQuery('#app-password-modal').modal('show');
+      this.passwordChangeModal.show();
     });
   }
 
   // Save Password.
   savePassword(passwd: any): void {
     if (passwd.current) {
-      console.log(passwd.current.length);
       this.userService.changePassword(this.currentUser._id, passwd)
         .subscribe(res => {
           Swal.fire('La Contraseña ha sido cambiada!');
@@ -110,23 +107,13 @@ export class UserListComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.dependency(id).subscribe(res => {
-          if (res > 0) {
-            Swal.fire(
-              'No se pudo borrar?',
-              'Existe documentos asociado a este registro?',
-              'warning'
-            );
-          } else {
-            this.userService.delete(id).subscribe(res => {
-              this.getUsers();
-              Swal.fire(
-                'Borrado!',
-                'El registro ha sido borrado.',
-                'success'
-              );
-            });
-          }
+        this.userService.delete(id).subscribe(() => {
+          this.getUsers();
+          Swal.fire(
+            'Borrado!',
+            'El registro ha sido borrado.',
+            'success'
+          );
         });
       }
     });

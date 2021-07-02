@@ -12,7 +12,7 @@
               <span class="input-group-text">
                   <i class="fas fa-id-card-alt"></i>
               </span>
-              <input type="text" [(ngModel)]="user.name" name="name"
+              <input type="text" [(ngModel)]="user.fullName" name="name"
                      class="form-control" placeholder="Nombres y Apellidos">
             </div>
           </div>
@@ -41,7 +41,7 @@
               <span class="input-group-text">
                 <i class="fas fa-user-tag"></i>
               </span>
-              <select class="form-select">
+              <select name="roles" [(ngModel)]="user.roles" class="form-select">
                 <option value="ROLE_ADMIN">ROLE_ADMIN</option>
                 <option value="ROLE_NETWORK">ROLE_NETWORK</option>
                 <option value="ROLE_CASH">ROLE_CASH</option>
@@ -49,17 +49,20 @@
               </select>
             </div>
           </div>
-          <div class="pb-3">
-            <div class="input-group">
+          <ng-container *ngIf="!editMode">
+            <div class="pb-3">
+              <div class="input-group">
               <span class="input-group-text">
                 <i class="fas fa-envelope"></i>
               </span>
-              <input type="text" [(ngModel)]="user.name" name="name"
-                     class="form-control" placeholder="E-Mail">
+                <input type="text" [(ngModel)]="user.email" name="email"
+                       class="form-control" placeholder="E-Mail">
+              </div>
             </div>
-          </div>
+          </ng-container>
           <div class="form-check form-switch">
-            <input type="checkbox" #suspended [checked]="user.suspended" (change)="onSuspended(suspended.checked)"
+            <input type="checkbox" #suspended [checked]="user.suspended"
+                   (change)="onSuspended(suspended.checked)"
                    class="form-check-input" id="customSwitch3">
             <label class="form-check-label" for="customSwitch3">Suspender Cuenta</label>
           </div>

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 // Local imports.
 declare var jQuery: any;
+declare var bootstrap: any;
 import Swal from 'sweetalert2';
-import {User} from '../../interfaces/user';
-import {UserService} from '../../services/user.service';
+import {User} from '../../interfaces';
+import {UserService} from '../../services';
 
 @Component({
   selector: 'app-profile',
@@ -12,13 +13,17 @@ import {UserService} from '../../services/user.service';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  passwordChangeModal: any;
 
-  constructor(private userService: UserService) {
-    this.user = new User();
+  constructor(
+    private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.getUser();
+    // Vincular modal del componente.
+    this.passwordChangeModal = new bootstrap.Modal(
+      document.querySelector('#app-password-modal'));
   }
 
   private getUser(): void {
@@ -33,7 +38,7 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword(): void {
-    jQuery('#app-password-modal').modal('show');
+    this.passwordChangeModal.show();
   }
 
   savePassword(passwd: any): void {
@@ -41,7 +46,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(res => {
         Swal.fire('Has cambiado tu contraseña!');
       }, err => {
-        console.log(err);
         Swal.fire(`${err.error}!`);
       });
   }

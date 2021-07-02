@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from 'src/environments/environment';
-import {Roles} from '../interfaces/roles';
+import {Roles} from '../interfaces';
 
 @Injectable({
   providedIn: 'root'

@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService) {
-    this.user = new User();
+    this.user = this.userService.userDefaultValues();
   }
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
   getCurrentUser(): void {
     this.userService.getCurrentUser().subscribe(res => {
       this.user = res;
-      const arr = res.name.split(' ');
+      const arr = res.fullName.split(' ');
       if (arr.length > 1) {
         this.avatarContent = arr[0][0] + arr[1][0];
       } else if (arr.length === 1) {

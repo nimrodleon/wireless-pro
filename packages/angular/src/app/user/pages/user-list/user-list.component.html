@@ -10,9 +10,10 @@
           <button type="button" (click)="addUser()" class="btn btn-success me-2 text-uppercase">
             <i class="fas fa-plus"></i> Usuario
           </button>
-          <div class="form-check form-switch mt-1">
+          <div class="form-check form-switch pt-2">
             <input class="form-check-input" type="checkbox"
-                   id="flexSwitchCheckChecked" #chkSt [checked]="status" (change)="onChangeStatus(chkSt.checked)">
+                   id="flexSwitchCheckChecked" #chkSt [checked]="chkStatus"
+                   (change)="onChangeStatus(chkSt.checked)">
             <label class="form-check-label text-uppercase" for="flexSwitchCheckChecked">Suspendidos</label>
           </div>
         </div><!-- //.d-flex -->
@@ -32,7 +33,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let user of users">
-              <td>{{ user.name }}</td>
+              <td>{{ user.fullName }}</td>
               <td>
                 <div class="d-flex justify-content-between">
                   {{ user.userName }}
@@ -40,8 +41,8 @@
                     <i class="fas fa-key"></i></a>
                 </div>
               </td>
-              <td class="text-center">ROLE_USER</td>
-              <td class="text-center">user@mail.pe</td>
+              <td class="text-center">{{user.roles}}</td>
+              <td class="text-center">{{user.email}}</td>
               <td class="text-center">
               <span *ngIf="!user.suspended" class="text-success">
                 <i class="fas fa-check-circle"></i>
@@ -64,9 +65,17 @@
         </div><!-- //.table-responsive -->
       </div><!-- //.col-12 -->
     </div><!-- //.row -->
-    <app-user-modal [title]="titleModal" [user]="currentUser" [editMode]="editMode" (sendModel)="saveChanges($event)">
+    <app-user-modal
+      [title]="titleModal"
+      [user]="currentUser"
+      [editMode]="editMode"
+      (sendModel)="saveChanges($event)">
     </app-user-modal>
-    <app-password-modal [isProfile]="false" (sendPassword)="savePassword($event)"></app-password-modal>
+    <app-password-modal
+      [isProfile]="false"
+      (sendPassword)="savePassword($event)">
+    </app-password-modal>
+    <pre>{{users|json}}</pre>
     <!--##(End) Content -->
   </div>
 </div>

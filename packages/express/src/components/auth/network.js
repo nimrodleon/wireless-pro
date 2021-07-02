@@ -6,7 +6,7 @@ import {UserController} from './controller'
 const router = express.Router()
 
 // http://<HOST>/api/users
-router.get('/', [verifyToken, checkRolAdmin], getUsers)
+router.get('/', [verifyToken], getUsers)
 
 // Lista de usuarios.
 function getUsers(req, res = response) {

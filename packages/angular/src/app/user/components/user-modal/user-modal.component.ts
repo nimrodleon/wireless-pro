@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-declare var jQuery: any;
-import { User } from '../../interfaces/user';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+
+import {User} from '../../interfaces';
 
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
   styleUrls: ['./user-modal.component.scss']
 })
-export class UserModalComponent implements OnInit {
+export class UserModalComponent {
   @Input()
   title: string;
   @Input()
@@ -17,24 +17,7 @@ export class UserModalComponent implements OnInit {
   @Output()
   sendModel = new EventEmitter<User>();
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  // Permisos de Administrador.
-  onIsAdmin(checked: boolean): void {
-    this.user.isAdmin = checked;
-  }
-
-  // Permisos para el administrador de redes.
-  onIsRedes(checked: boolean): void {
-    this.user.redes = checked;
-  }
-
-  // Permisos para cobrar en caja.
-  onIsCaja(checked: boolean): void {
-    this.user.caja = checked;
+  constructor() {
   }
 
   // Suspender usuarios.
@@ -45,7 +28,7 @@ export class UserModalComponent implements OnInit {
   // Guardar datos.
   saveChanges(): void {
     this.sendModel.emit(this.user);
-    jQuery('#app-user-modal').modal('hide');
   }
+
 
 }

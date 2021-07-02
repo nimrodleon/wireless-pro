@@ -28,7 +28,7 @@ export class AveriaStore {
   static async createAveria(data) {
     const _averia = new Averia(data)
     _averia.archived = false
-    _averia.status = 'P'
+    _averia.chkStatus = 'P'
     await _averia.save()
     return _averia
   }
