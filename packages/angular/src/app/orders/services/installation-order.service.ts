@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {ServicePlanService} from '../../system/services';
+import {ClientService} from '../../client/services';
+import {UserService} from '../../user/services';
 import {InstallationOrder} from '../interfaces';
-import {Observable} from 'rxjs';
 import {ServicePlan} from '../../system/interfaces';
 import {Client} from '../../client/interfaces';
-import {ClientService} from '../../client/services';
+import {User} from '../../user/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class InstallationOrderService {
   constructor(
     private http: HttpClient,
     private servicePlanService: ServicePlanService,
+    private userService: UserService,
     private clientService: ClientService) {
   }
 
@@ -24,6 +27,7 @@ export class InstallationOrderService {
   orderDefaultValues(): InstallationOrder {
     return {
       _id: undefined,
+      userId: undefined,
       clientId: '',
       address: '',
       city: '',
@@ -45,6 +49,11 @@ export class InstallationOrderService {
   // Obtener datos del cliente por id.
   getClientById(id): Observable<Client> {
     return this.clientService.getClient(id);
+  }
+
+  // Obtener datos del usuario.
+  getUserById(id): Observable<User> {
+    return this.userService.getUser(id);
   }
 
   // Agregar cliente.

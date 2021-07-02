@@ -49,9 +49,33 @@ export class InstallationDetailComponent implements OnInit {
     return this.installationOrderDetailService.currentClient;
   }
 
+  // técnico actual.
+  get userTechnical() {
+    return this.installationOrderDetailService.userTechnical;
+  }
+
   // Editar item material.
   editItemMaterial(): void {
     this.itemMaterialModal.show();
+  }
+
+  // Cerrar modal agregar técnico.
+  closeUserModal(value: boolean): void {
+    if (value === true) {
+      this.userModal.hide();
+    }
+  }
+
+  // Comprobar si existe usuario.
+  userExist(): boolean {
+    return this.currentInstallationOrder.userId === undefined
+      || this.currentInstallationOrder.userId === '';
+  }
+
+  // Borrar el técnico actual.
+  deleteUserTechnical(e): void {
+    e.preventDefault();
+    delete this.currentInstallationOrder.userId;
   }
 
 }

@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../../user/services/user.service';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {UserService} from '../../../user/services';
 import {FormBuilder, FormControl} from '@angular/forms';
+import {InstallationOrderDetailService} from '../../services';
 
 @Component({
   selector: 'app-add-user',
@@ -10,10 +11,13 @@ import {FormBuilder, FormControl} from '@angular/forms';
 export class AddUserComponent implements OnInit {
   userList: any;
   userId: FormControl = this.fb.control('');
+  @Output()
+  closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService) {
+    private userService: UserService,
+    private installationOrderDetailService: InstallationOrderDetailService) {
   }
 
   ngOnInit(): void {
@@ -26,7 +30,9 @@ export class AddUserComponent implements OnInit {
   selectUserClick(): void {
     this.userService.getUser(this.userId.value)
       .subscribe(result => {
-        console.log(result);
+        this.installationOrderDetailService.setUserTechnical(result);
+        this.installationOrderDetailService.updateInstallationOrder();
+        this.closeModal.emit(true);
       });
   }
 

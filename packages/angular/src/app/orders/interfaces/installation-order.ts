@@ -1,5 +1,6 @@
 export interface InstallationOrder {
   _id: string;
+  userId: string;
   clientId: string;
   address: string;
   city: string;
