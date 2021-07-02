@@ -10,7 +10,22 @@ import {User} from '../interfaces/user';
 export class UserService {
   private baseURL: string = environment.baseUrl + 'users';
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient) {
+  }
+
+  // usuario valores por defecto.
+  userDefaultValues(): User {
+    return {
+      _id: undefined,
+      fullName: '',
+      userName: '',
+      password: '',
+      roles: '',
+      email: '',
+      avatar: '',
+      suspended: undefined,
+    };
   }
 
   getCurrentUser(): Observable<User> {

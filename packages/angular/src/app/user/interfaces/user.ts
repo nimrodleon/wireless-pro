@@ -1,11 +1,10 @@
-export class User {
+export interface User {
   _id: string;
-  name: string;
+  fullName: string;
   userName: string;
   password: string;
+  roles: string;
+  email: string;
   avatar: string;
-  isAdmin: boolean;
-  redes: boolean;
-  caja: boolean;
   suspended: boolean;
 }
