@@ -52,11 +52,54 @@ function updateOrder(req, res = response) {
 // Borrar orden de instalación.
 
 // ========================================
+// http://<HOST>/api/installation_orders/:id/material
+router.get('/:id/material', [verifyToken], getMaterials)
+
 // Lista de materiales.
+function getMaterials(req, res = response) {
+  OrderController.getMaterials(req.params.id).then(result => {
+    res.json(result)
+  })
+}
+
+// http://<HOST>/api/installation_orders/show/material/:id
+router.get('/show/material/:id', [verifyToken], getMaterial)
 
 // Obtener material por id.
+function getMaterial(req, res = response) {
+  OrderController.getMaterial(req.params.id).then(result => {
+    res.json(result)
+  })
+}
+
+// http://<HOST>/api/installation_orders/add/material
+router.post('/add/material', [verifyToken], addMaterial)
+
 // registrar material.
+function addMaterial(req, res = response) {
+  OrderController.addMaterial(req.body).then(result => {
+    res.json(result)
+  })
+}
+
+// http://<HOST>/api/installation_orders/update/material/:id
+router.patch('/update/material/:id', [verifyToken], updateMaterial)
+
 // actualizar material.
+function updateMaterial(req, res = response) {
+  OrderController.updateMaterial(req.params.id, req.body).then(result => {
+    res.json(result)
+  })
+}
+
+// http://<HOST>/api/installation_orders/delete/material/:id
+router.delete('/delete/material/:id', [verifyToken], deleteMaterial)
+
 // borrar material.
+function deleteMaterial(req, res = response) {
+  OrderController.deleteMaterial(req.params.id).then(result => {
+    res.json(result)
+  })
+}
 
 export const installationOrderRouter = router
