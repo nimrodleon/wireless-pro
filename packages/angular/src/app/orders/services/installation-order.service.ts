@@ -23,24 +23,6 @@ export class InstallationOrderService {
     private clientService: ClientService) {
   }
 
-  // Valores por defecto.
-  orderDefaultValues(): InstallationOrder {
-    return {
-      _id: undefined,
-      userId: undefined,
-      clientId: '',
-      address: '',
-      city: '',
-      region: '',
-      typeInstallation: '',
-      servicePlanId: '',
-      costInstallation: 0,
-      amount: 0,
-      statusOrder: 'PENDIENTE',
-      createdAt: undefined,
-    };
-  }
-
   // Valores por defecto cliente.
   clientDefaultValues(): Client {
     return this.clientService.clientDefaultValues();
@@ -92,6 +74,24 @@ export class InstallationOrderService {
   // actualizar orden de instalación.
   updateOrder(data: InstallationOrder): Observable<InstallationOrder> {
     return this.http.patch<InstallationOrder>(`${this.baseURL}/${data._id}`, data);
+  }
+
+  // Valores por defecto.
+  orderDefaultValues(): InstallationOrder {
+    return {
+      _id: undefined,
+      userId: undefined,
+      clientId: '',
+      address: '',
+      city: '',
+      region: '',
+      typeInstallation: '',
+      servicePlanId: '',
+      costInstallation: 0,
+      amount: 0,
+      statusOrder: 'PENDIENTE',
+      createdAt: undefined,
+    };
   }
 
 }

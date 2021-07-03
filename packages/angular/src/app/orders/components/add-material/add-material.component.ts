@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
 import {environment} from '../../../../environments/environment';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-add-material',
@@ -10,8 +11,12 @@ import {environment} from '../../../../environments/environment';
 })
 export class AddMaterialComponent implements OnInit {
   private baseURL = environment.baseUrl + 'material';
+  quantity1: FormControl = this.fb.control(0, [
+    Validators.required, Validators.min(0)
+  ]);
+  invalidMaterialId: boolean = false;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -28,6 +33,10 @@ export class AddMaterialComponent implements OnInit {
           }
         });
       });
+  }
+
+  // guardar cambios.
+  addMaterial(): void {
 
   }
 

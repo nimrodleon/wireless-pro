@@ -39,6 +39,11 @@ export class InstallationDetailComponent implements OnInit {
     return this.installationOrderDetailService.currentInstallationOrder;
   }
 
+  // lista de materiales.
+  get orderMaterials() {
+    return this.installationOrderDetailService.orderMaterials;
+  }
+
   // plan de servicio.
   get currentServicePlan() {
     return this.installationOrderDetailService.currentServicePlan;

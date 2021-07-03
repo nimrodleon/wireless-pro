@@ -6,6 +6,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="fas fa-info-circle"></i> Seleccione un material de la lista.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <form>
           <div class="pb-3">
             <div class="input-group">
@@ -13,11 +17,15 @@
               <select id="searchMaterial" class="form-select"></select>
             </div>
           </div>
-          <div class="input-group">
+          <div class="input-group has-validation">
             <span class="input-group-text"><i class="fas fa-balance-scale-right"></i></span>
-            <input type="number" name="quantity1" class="form-control" placeholder="CANTIDAD">
+            <input type="number" [formControl]="quantity1" class="form-control"
+                   [ngClass]="{'is-invalid': quantity1.errors}" placeholder="CANTIDAD">
+            <div class="invalid-feedback">La cantidad debe ser mínimo cero.</div>
           </div>
         </form>
+        <pre>{{quantity1.value}}</pre>
+        <pre>{{quantity1.valid}}</pre>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
