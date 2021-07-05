@@ -13,4 +13,6 @@ export const Info = model('Info',
     },
     phone: String,
     legendTicket: String,
+    paperWidth: Number,
+    googleMap: String
   }))
