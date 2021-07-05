@@ -1,4 +1,4 @@
-import {Info} from './model'
+import {Application, Info} from './model'
 
 // CRUD - info.
 export class InfoStore {
@@ -14,6 +14,26 @@ export class InfoStore {
   // actualizar info.
   static async updateInfo(id, info) {
     return Info.findByIdAndUpdate(id, info, {new: true})
+  }
+
+  // ============================================================
+  // Lista de aplicaciones.
+  static async getApplications() {
+    return Application.find({isDeleted: false})
+  }
+
+  // Agregar aplicación.
+  static async createApplication(data) {
+    let _application = new Application(data)
+    await _application.save()
+    return _application
+  }
+
+  // borrar aplicación.
+  static async deleteApplication(id) {
+    let _application = await Application.findById(id)
+    _application.isDeleted = true
+    return Application.findByIdAndUpdate(id, _application)
   }
 
 }

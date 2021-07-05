@@ -24,4 +24,38 @@ export class InfoController {
     })
   }
 
+  // ============================================================
+  // Lista de aplicaciones.
+  static getApplications() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(InfoStore.getApplications())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  // registrar aplicación.
+  static createApplication(data) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(InfoStore.createApplication(data))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  // borrar aplicación.
+  static deleteApplication(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(InfoStore.deleteApplication(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
 }
