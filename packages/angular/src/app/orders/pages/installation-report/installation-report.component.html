@@ -5,15 +5,18 @@
     <!-- ##(Begin) Content -->
     <div class="row">
       <div class="col-12">
-        <form class="row row-cols-auto g-2 my-2">
+        <form
+          [formGroup]="queryForm"
+          (ngSubmit)="searchSubmit()"
+          class="row row-cols-auto g-2 my-2">
           <div class="col-auto">
             <h4 class="text-uppercase pt-1 mb-0">Lista Ordenes de Instalación</h4>
           </div>
           <div class="col-auto">
-            <input type="number" name="year" class="form-control" style="width: 100px;">
+            <input type="number" formControlName="year" class="form-control" style="width: 100px;">
           </div>
           <div class="col-auto">
-            <select name="month" class="form-select">
+            <select formControlName="month" class="form-select">
               <option value="01">ENERO</option>
               <option value="02">FEBRERO</option>
               <option value="03">MARZO</option>
@@ -29,7 +32,7 @@
             </select>
           </div>
           <div class="col-auto">
-            <input type="search" name="search" class="form-control" placeholder="CLIENTE...">
+            <input type="search" formControlName="search" class="form-control" placeholder="CLIENTE...">
           </div>
           <div class="col-auto">
             <button type="submit" class="btn btn-primary">
@@ -45,43 +48,45 @@
             <thead>
             <tr class="text-uppercase">
               <th>Cliente</th>
-              <th>Responsable</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let item of installationOrders">
               <td>
-                <div class="text-uppercase">
-                  <span class="badge bg-info">Instalación</span>
+                <a [routerLink]="['/installation_orders/detail', item.InstallationOrder._id]"
+                   class="text-uppercase">{{item.fullName}}</a>
+                <div class="d-flex">
+                  <div class="text-uppercase me-1">
+                    <span class="badge bg-info">{{item.InstallationOrder.typeInstallation}}</span>
+                  </div>
+                  <div class="text-uppercase ms-1">
+                    <span class="badge bg-primary">{{item.InstallationOrder.statusOrder}}</span>
+                  </div>
                 </div>
-                <a [routerLink]="['/installation_orders/detail', 0]" class="text-uppercase">Cliente Apellido /
-                  956-454-141</a>
-                <div class="text-uppercase">
-                  <span class="badge bg-primary">Pendiente</span>
-                </div>
-                <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                <span class="blockquote-footer">{{item.InstallationOrder.createdAt}}</span>
               </td>
-              <td>Usuario</td>
-            </tr>
-            <tr>
+              <td>{{item.InstallationOrder.address}}</td>
+              <td>{{item.phone}}</td>
               <td>
-                <div class="text-uppercase">
-                  <span class="badge bg-info">Instalación</span>
+                <div class="btn-opt ms-auto">
+                  <button [routerLink]="['/installation_orders/edit', item.InstallationOrder._id]"
+                          class="btn btn-secondary btn-sm me-2"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i></button>
                 </div>
-                <a [routerLink]="['/installation_orders/detail', 0]"
-                   class="text-uppercase">Cliente Apellido / 956-454-141</a>
-                <div class="text-uppercase">
-                  <span class="badge bg-warning">En Proceso</span>
-                </div>
-                <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
               </td>
-              <td>Usuario</td>
             </tr>
             </tbody>
           </table>
         </div><!-- //.table-responsive -->
       </div><!-- //.col-12 -->
     </div>
+    <pre>{{queryForm.value|json}}</pre>
+    <pre>{{queryData|json}}</pre>
+    <pre>{{installationOrders|json}}</pre>
     <!-- ##(End) Content -->
   </div>
 </div>

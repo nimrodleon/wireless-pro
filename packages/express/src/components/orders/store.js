@@ -62,14 +62,15 @@ export class OrderStore {
       {
         $project: {
           fullName: true,
+          phone: true,
           InstallationOrder: {
             $filter: {
               input: '$InstallationOrder',
-              as: 'order',
+              as: 'ord',
               cond: {
                 $and: [
-                  {$eq: {'$$order.year': year}},
-                  {$eq: {'$$order.month': month}},
+                  {$eq: ['$$ord.year', year]},
+                  {$eq: ['$$ord.month', month]},
                 ]
               }
             }
