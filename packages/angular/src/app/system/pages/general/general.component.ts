@@ -10,17 +10,11 @@ import {Info} from '../../interfaces';
   styleUrls: ['./general.component.css']
 })
 export class GeneralComponent implements OnInit {
-  info: Info = {
-    _id: '',
-    ruc: '',
-    company: '',
-    fullAddress: '',
-    phone: '',
-    legendTicket: '',
-  };
+  info: Info;
   Editor = ClassicEditor;
 
   constructor(private infoService: InfoService) {
+    this.info = this.infoService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -33,17 +27,16 @@ export class GeneralComponent implements OnInit {
     });
   }
 
-  update(): void {
-    this.infoService.update(this.info).subscribe(res => {
-      this.info = res;
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Actualización correcta!',
-        showConfirmButton: false,
-        timer: 1500
+  updateInfo(): void {
+    this.infoService.update(this.info)
+      .subscribe(res => {
+        this.info = res;
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Actualización correcta!'
+        });
       });
-    });
   }
 
 }

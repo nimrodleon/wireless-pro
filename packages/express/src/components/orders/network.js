@@ -10,14 +10,22 @@ router.get('/', [verifyToken], getOrderList)
 // Lista de ordenes de instalación.
 function getOrderList(req, res = response) {
   let {search = ''} = req.query
-  console.info(search)
   OrderController.getOrderList(search).then(result => {
     res.json(result)
   })
 }
 
-// http://<HOST>/api/installation_orders
+// http://<HOST>/api/installation_orders/:year/:month
+router.get('/:year/:month', [verifyToken], getOrderListByYearMonth)
+
 // Lista de ordenes filtrado por mes y año.
+function getOrderListByYearMonth(req, res = response) {
+  let {search = ''} = req.query
+  let {year, month} = req.params
+  OrderController.getOrderListByYearMonth(year, month, search).then(result => {
+    res.json(result)
+  })
+}
 
 // http://<HOST>/api/installation_orders/:id
 router.get('/:id', [verifyToken], getOrderById)

@@ -65,6 +65,13 @@ export class InstallationOrderService {
     return this.http.get(this.baseURL, {params});
   }
 
+  // Lista de ordenes de instalación por mes y año.
+  getInstallationOrdersByYearMonth(query: any): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('search', query.search);
+    return this.http.get(`${this.baseURL}/${query.year}/${query.month}`, {params});
+  }
+
   // Obtener orden de instalación por id.
   getInstallationOrderById(id): Observable<InstallationOrder> {
     return this.http.get<InstallationOrder>(`${this.baseURL}/${id}`);

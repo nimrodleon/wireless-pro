@@ -5,4 +5,6 @@ export interface Info {
   fullAddress: string;
   phone: string;
   legendTicket: string;
+  paperWidth: number;
+  googleMap: string;
 }

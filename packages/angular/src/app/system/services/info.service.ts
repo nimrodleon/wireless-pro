@@ -20,4 +20,18 @@ export class InfoService {
   update(info: Info): Observable<Info> {
     return this.http.patch<Info>(`${this.baseURL}/${info._id}`, info);
   }
+
+  // Valores por defecto.
+  defaultValues(): Info {
+    return {
+      _id: undefined,
+      ruc: '',
+      company: '',
+      fullAddress: '',
+      phone: '',
+      legendTicket: '',
+      paperWidth: 0,
+      googleMap: ''
+    };
+  }
 }

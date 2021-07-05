@@ -17,7 +17,7 @@ export class OrderController {
   static async getOrderListByYearMonth(year, month, query) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(OrderStore.getOrderListByYearMonth(year, month, query))
+        resolve(OrderStore.getOrderListByYearMonth(year, month, query.toUpperCase()))
       } catch (err) {
         reject(err)
       }
