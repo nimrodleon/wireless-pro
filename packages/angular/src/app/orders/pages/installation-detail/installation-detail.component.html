@@ -8,7 +8,7 @@
         <h4 class="text-uppercase">Detalles Orden de Instalación</h4>
         <hr>
         <div>
-          <ng-container *ngIf="userExist() else elseIf">
+          <ng-container *ngIf="userNotExist() else elseIf">
             <button type="button" data-bs-toggle="modal"
                     data-bs-target="#add-user-modal" class="btn btn-primary me-2">
               <i class="fas fa-user"></i><span class="text-uppercase ms-1">Agregar Técnico</span>
@@ -39,26 +39,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>4</td>
-              <td>Antena Ubiquiti Rocket M5 Sectorial</td>
-              <td>2</td>
-              <td>350</td>
-              <td>2</td>
-              <td>700</td>
-              <td>
-                <button (click)="editItemMaterial()" class="btn btn-secondary btn-sm">
-                  <i class="fas fa-cog"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Antena Ubiquiti Rocket M5 Sectorial</td>
-              <td>2</td>
-              <td>350</td>
-              <td>2</td>
-              <td>700</td>
+            <tr *ngFor="let material of orderMaterials">
+              <td>{{material.quantity1}}</td>
+              <td>{{material.description}}</td>
+              <td>{{material.quantity2}}</td>
+              <td>{{material.price}}</td>
+              <td>{{material.difference}}</td>
+              <td>{{material.total}}</td>
               <td>
                 <button (click)="editItemMaterial()" class="btn btn-secondary btn-sm">
                   <i class="fas fa-cog"></i>
@@ -93,7 +80,7 @@
             </div>
             <div class="d-flex justify-content-between border-bottom">
               <span><i class="fas fa-user"></i> Técnico</span>
-              <span>
+              <span *ngIf="!userNotExist()">
                 <a href="#" (click)="deleteUserTechnical($event)" class="text-danger me-1">
                   <i class="fas fa-times"></i></a>{{userTechnical?.fullName}}
               </span>
@@ -121,8 +108,8 @@
       </div>
     </div>
     <!-- ##(Begin) Componentes modales -->
-    <app-add-user (closeModal)="closeUserModal($event)"></app-add-user>
-    <app-add-material></app-add-material>
+    <app-add-user (hideModal)="hideUserModal($event)"></app-add-user>
+    <app-add-material (hideModal)="hideMaterialModal($event)"></app-add-material>
     <app-item-material></app-item-material>
     <!-- ##(End) Componentes modales -->
     <pre>{{currentInstallationOrder|json}}</pre>

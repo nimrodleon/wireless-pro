@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {InstallationOrderService} from './installation-order.service';
+import {OrderMaterialService} from './order-material.service';
 import {InstallationOrder, OrderMaterial} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
 import {Client} from '../../client/interfaces';
 import {User} from '../../user/interfaces';
-import {OrderMaterialService} from './order-material.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,9 @@ export class InstallationOrderDetailService {
   constructor(
     private installationOrderService: InstallationOrderService,
     private orderMaterialService: OrderMaterialService) {
+    this._currentInstallationOrder = this.installationOrderService.orderDefaultValues();
+    this._currentServicePlan = this.installationOrderService.servicePlanDefaultValues();
+    this._currentClient = this.installationOrderService.clientDefaultValues();
   }
 
   // retornar cliente actual.
@@ -50,6 +53,11 @@ export class InstallationOrderDetailService {
   setUserTechnical(user: User): void {
     this._userTechnical = user;
     this._currentInstallationOrder.userId = user._id;
+  }
+
+  // Agregar material a la lista.
+  addOrderMaterial(data: OrderMaterial): void {
+    this._orderMaterials.push(data);
   }
 
   // cargar orden de instalación.

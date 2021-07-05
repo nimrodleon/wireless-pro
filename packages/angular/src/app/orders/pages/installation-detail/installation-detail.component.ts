@@ -65,14 +65,21 @@ export class InstallationDetailComponent implements OnInit {
   }
 
   // Cerrar modal agregar técnico.
-  closeUserModal(value: boolean): void {
+  hideUserModal(value: boolean): void {
     if (value === true) {
       this.userModal.hide();
     }
   }
 
-  // Comprobar si existe usuario.
-  userExist(): boolean {
+  // Cerrar modal agregar material.
+  hideMaterialModal(value: boolean): void {
+    if (value === true) {
+      this.materialModal.hide();
+    }
+  }
+
+  // Comprobar existencia de usuario.
+  userNotExist(): boolean {
     return this.currentInstallationOrder.userId === undefined
       || this.currentInstallationOrder.userId === '';
   }

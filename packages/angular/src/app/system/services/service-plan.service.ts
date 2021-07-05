@@ -47,4 +47,15 @@ export class ServicePlanService {
     return this.http.get(this.baseURL + '/report/total');
   }
 
+  // Valores por defecto.
+  defaultValues(): ServicePlan {
+    return {
+      _id: undefined,
+      name: '',
+      priceMonthly: 0,
+      downloadSpeed: '',
+      uploadSpeed: ''
+    };
+  }
+
 }

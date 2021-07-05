@@ -6,9 +6,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div *ngIf="invalidMaterialId" class="alert alert-info" role="alert">
           <i class="fas fa-info-circle"></i> Seleccione un material de la lista.
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <form>
           <div class="pb-3">
@@ -24,12 +23,10 @@
             <div class="invalid-feedback">La cantidad debe ser mínimo cero.</div>
           </div>
         </form>
-        <pre>{{quantity1.value}}</pre>
-        <pre>{{quantity1.valid}}</pre>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary text-uppercase">Guardar Cambios</button>
+        <button type="button" (click)="addMaterial()" class="btn btn-primary text-uppercase">Guardar Cambios</button>
       </div>
     </div>
   </div>

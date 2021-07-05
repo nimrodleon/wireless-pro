@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
+import {environment} from 'src/environments/environment';
 import {OrderMaterial} from '../interfaces';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class OrderMaterialService {
   }
 
   // Valores por defecto.
-  orderMaterialDefaultValues(): OrderMaterial {
+  defaultValues(): OrderMaterial {
     return {
       _id: undefined,
       orderId: '',

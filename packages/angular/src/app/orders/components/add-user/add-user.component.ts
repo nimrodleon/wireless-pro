@@ -1,7 +1,8 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {UserService} from '../../../user/services';
 import {FormBuilder, FormControl} from '@angular/forms';
+import {UserService} from 'src/app/user/services';
 import {InstallationOrderDetailService} from '../../services';
+import {Select2} from 'src/app/global/interfaces';
 
 @Component({
   selector: 'app-add-user',
@@ -9,10 +10,10 @@ import {InstallationOrderDetailService} from '../../services';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
-  userList: any;
+  userList: Select2 = {results: []};
   userId: FormControl = this.fb.control('');
   @Output()
-  closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
+  hideModal = new EventEmitter<boolean>();
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +33,7 @@ export class AddUserComponent implements OnInit {
       .subscribe(result => {
         this.installationOrderDetailService.setUserTechnical(result);
         this.installationOrderDetailService.updateInstallationOrder();
-        this.closeModal.emit(true);
+        this.hideModal.emit(true);
       });
   }
 

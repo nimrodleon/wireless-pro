@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
+import {environment} from 'src/environments/environment';
 import {ServicePlanService} from '../../system/services';
 import {ClientService} from '../../client/services';
 import {UserService} from '../../user/services';
@@ -26,6 +26,11 @@ export class InstallationOrderService {
   // Valores por defecto cliente.
   clientDefaultValues(): Client {
     return this.clientService.clientDefaultValues();
+  }
+
+  // Valores por defecto service-plan.
+  servicePlanDefaultValues():ServicePlan {
+    return this.servicePlanService.defaultValues();
   }
 
   // Obtener datos del cliente por id.
