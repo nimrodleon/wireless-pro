@@ -15,8 +15,8 @@ function getOrderList(req, res = response) {
   })
 }
 
-// http://<HOST>/api/installation_orders/:year/:month
-router.get('/:year/:month', [verifyToken], getOrderListByYearMonth)
+// http://<HOST>/api/installation_orders/:year/:month/report
+router.get('/:year/:month/report', [verifyToken], getOrderListByYearMonth)
 
 // Lista de ordenes filtrado por mes y año.
 function getOrderListByYearMonth(req, res = response) {

@@ -29,7 +29,7 @@ export class InstallationOrderService {
   }
 
   // Valores por defecto service-plan.
-  servicePlanDefaultValues():ServicePlan {
+  servicePlanDefaultValues(): ServicePlan {
     return this.servicePlanService.defaultValues();
   }
 
@@ -69,7 +69,7 @@ export class InstallationOrderService {
   getInstallationOrdersByYearMonth(query: any): Observable<any> {
     let params = new HttpParams();
     params = params.append('search', query.search);
-    return this.http.get(`${this.baseURL}/${query.year}/${query.month}`, {params});
+    return this.http.get(`${this.baseURL}/${query.year}/${query.month}/report`, {params});
   }
 
   // Obtener orden de instalación por id.
