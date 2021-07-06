@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
-import {InfoService} from '../../services';
-import {Info} from '../../interfaces';
+import {Application, Info} from '../../interfaces';
+import {ApplicationService, InfoService} from '../../services';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-general',
@@ -12,21 +14,32 @@ import {Info} from '../../interfaces';
 export class GeneralComponent implements OnInit {
   info: Info;
   Editor = ClassicEditor;
+  applicationForm: Application;
+  applicationList: Array<Application>;
+  applicationModal: any;
 
-  constructor(private infoService: InfoService) {
+  constructor(
+    private infoService: InfoService,
+    private applicationService: ApplicationService) {
     this.info = this.infoService.defaultValues();
+    this.applicationForm = this.applicationService.defaultValues();
   }
 
   ngOnInit(): void {
     this.getInfo();
+    this.getApplications();
+    this.applicationModal = new bootstrap.Modal(
+      document.querySelector('#add-application-modal'));
   }
 
+  // Obtener info.
   private getInfo(): void {
     this.infoService.getInfo().subscribe(res => {
       this.info = res;
     });
   }
 
+  // actualizar info.
   updateInfo(): void {
     this.infoService.update(this.info)
       .subscribe(res => {
@@ -37,6 +50,40 @@ export class GeneralComponent implements OnInit {
           title: 'Actualización correcta!'
         });
       });
+  }
+
+  // Lista de aplicaciones.
+  getApplications(): void {
+    this.applicationService.getApplications()
+      .subscribe(result => this.applicationList = result);
+  }
+
+  // registrar aplicación.
+  createApplication(): void {
+    this.applicationService.createApplication(this.applicationForm)
+      .subscribe(result => {
+        this.applicationList.push(result);
+        this.applicationModal.hide();
+      });
+  }
+
+  // borrar aplicación.
+  deleteApplication(id: string): void {
+    Swal.fire({
+      title: 'Seguro de borrar?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, bórralo!',
+      cancelButtonText: 'Cancelar',
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.applicationService.deleteApplication(id)
+          .subscribe(() => this.getApplications());
+      }
+    });
   }
 
 }

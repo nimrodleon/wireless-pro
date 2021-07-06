@@ -104,16 +104,18 @@
             <thead>
             <tr class="text-uppercase">
               <th>Nombre</th>
-              <th>Api-Key</th>
+              <th>URL</th>
+              <th>Token</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>MK BITWORKER</td>
-              <td>=*`HDRRj7xf+Pa2rL"N(s"2htaT$(J`Vk\*EAtP-PUR=L~b,!FV)[`:h>u,63(h4</td>
+            <tr *ngFor="let application of applicationList">
+              <td>{{application.name}}</td>
+              <td>{{application.urlBase}}</td>
+              <td>{{application.token}}</td>
               <td class="text-end">
-                <button class="btn btn-danger">
+                <button (click)="deleteApplication(application._id)" class="btn btn-danger">
                   <span class="text-uppercase">Borrar</span>
                 </button>
               </td>
@@ -121,6 +123,8 @@
             </tbody>
           </table>
         </div>
+        <pre>{{applicationForm|json}}</pre>
+        <pre>{{applicationList|json}}</pre>
         <!-- Modal Form -->
         <div class="modal fade" id="add-application-modal" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">
@@ -133,21 +137,26 @@
                 <form>
                   <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-rocket"></i></span>
-                    <input type="text" class="form-control" placeholder="Nombre">
+                    <input type="text" name="name" [(ngModel)]="applicationForm.name" class="form-control"
+                           placeholder="Nombre">
                   </div>
                   <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
-                    <input type="text" class="form-control" placeholder="URL-base">
+                    <input type="text" name="urlBase" [(ngModel)]="applicationForm.urlBase" class="form-control"
+                           placeholder="URL-base">
                   </div>
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
-                    <input type="text" class="form-control" placeholder="Token">
+                    <input type="text" name="token" [(ngModel)]="applicationForm.token" class="form-control"
+                           placeholder="Token">
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary text-uppercase">Guardar Cambios</button>
+                <button type="button" (click)="createApplication()" class="btn btn-primary text-uppercase">Guardar
+                  Cambios
+                </button>
               </div>
             </div>
           </div>

@@ -4,3 +4,4 @@ export * from './service-plan';
 export * from './tower';
 export * from './tramo';
 export * from './coverage';
+export * from './application';

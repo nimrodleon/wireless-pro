@@ -4,7 +4,8 @@ import {FormsModule} from '@angular/forms';
 import {GlobalModule} from '../global/global.module';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {SystemRoutingModule} from './system-routing.module';
-import {AuthService} from '../user/services/auth.service';
+import {AuthService} from '../user/services';
+import {ApplicationService} from './services';
 import {SystemListComponent} from './pages/system-list/system-list.component';
 import {SystemOptionComponent} from './components/system-option/system-option.component';
 import {GeneralComponent} from './pages/general/general.component';
@@ -47,7 +48,8 @@ import {MikrotikFormComponent} from './components/mikrotik-form/mikrotik-form.co
     CKEditorModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    ApplicationService
   ]
 })
 export class SystemModule {
