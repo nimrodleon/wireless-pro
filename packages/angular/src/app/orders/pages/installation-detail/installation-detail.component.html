@@ -5,8 +5,8 @@
     <!-- ##(Begin) Content -->
     <div class="row">
       <div class="col-7 mt-2">
-        <h4 class="text-uppercase">Detalles Orden de Instalación</h4>
-        <hr>
+        <h4 class="text-uppercase mb-0">Detalles Orden de Instalación</h4>
+        <hr class="mb-2 mt-0">
         <div>
           <ng-container *ngIf="userNotExist() else elseIf">
             <button type="button" data-bs-toggle="modal"
@@ -31,9 +31,9 @@
             <tr>
               <th>SALIDA</th>
               <th>DESCRIPCIÓN</th>
-              <th>USADA</th>
+              <th>RETORNO</th>
               <th>PRECIO</th>
-              <th>DIFERENCIA</th>
+              <th>USADO</th>
               <th>IMPORTE</th>
               <th></th>
             </tr>
@@ -47,7 +47,7 @@
               <td>{{material.difference}}</td>
               <td>{{material.total}}</td>
               <td>
-                <button (click)="editItemMaterial()" class="btn btn-secondary btn-sm">
+                <button (click)="editItemMaterial(material._id)" class="btn btn-secondary btn-sm">
                   <i class="fas fa-cog"></i>
                 </button>
               </td>
@@ -110,9 +110,16 @@
       </div>
     </div>
     <!-- ##(Begin) Componentes modales -->
-    <app-add-user (hideModal)="hideUserModal($event)"></app-add-user>
-    <app-add-material (hideModal)="hideMaterialModal($event)"></app-add-material>
-    <app-item-material></app-item-material>
+    <app-add-user
+      (hideModal)="hideUserModal($event)">
+    </app-add-user>
+    <app-add-material
+      (hideModal)="hideMaterialModal($event)">
+    </app-add-material>
+    <app-item-material
+      [orderMaterial]="orderMaterial"
+      (hideModal)="hideItemMaterialModal($event)">
+    </app-item-material>
     <!-- ##(End) Componentes modales -->
     <pre>{{currentInstallationOrder|json}}</pre>
     <pre>{{orderMaterials|json}}</pre>

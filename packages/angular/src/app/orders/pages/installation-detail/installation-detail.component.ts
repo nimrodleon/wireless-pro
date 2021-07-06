@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {InstallationOrderDetailService} from '../../services';
+import {InstallationOrderDetailService, OrderMaterialService} from '../../services';
 import {ActivatedRoute} from '@angular/router';
+import {OrderMaterial} from '../../interfaces';
 
 declare var jQuery: any;
 declare var bootstrap: any;
@@ -14,10 +15,12 @@ export class InstallationDetailComponent implements OnInit {
   userModal: any;
   materialModal: any;
   itemMaterialModal: any;
+  orderMaterial: OrderMaterial;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private installationOrderDetailService: InstallationOrderDetailService) {
+    private installationOrderDetailService: InstallationOrderDetailService,
+    private orderMaterialService: OrderMaterialService) {
   }
 
   ngOnInit(): void {
@@ -60,8 +63,11 @@ export class InstallationDetailComponent implements OnInit {
   }
 
   // Editar item material.
-  editItemMaterial(): void {
-    this.itemMaterialModal.show();
+  editItemMaterial(id: string): void {
+    this.orderMaterialService.getMaterial(id).subscribe(result => {
+      this.orderMaterial = result;
+      this.itemMaterialModal.show();
+    });
   }
 
   // Cerrar modal agregar técnico.
@@ -75,6 +81,14 @@ export class InstallationDetailComponent implements OnInit {
   hideMaterialModal(value: boolean): void {
     if (value === true) {
       this.materialModal.hide();
+    }
+  }
+
+  // Cerrar modal editar item tabla.
+  hideItemMaterialModal(value: boolean): void {
+    if (value === true) {
+      this.installationOrderDetailService.getOrderMaterials(this.currentInstallationOrder._id);
+      this.itemMaterialModal.hide();
     }
   }
 

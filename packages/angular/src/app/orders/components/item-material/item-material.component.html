@@ -6,24 +6,28 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="orderMaterialFg">
           <div class="pb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-box"></i></span>
-              <input type="text" class="form-control" placeholder="MATERIAL...">
+              <input type="text" formControlName="description" class="form-control" placeholder="MATERIAL...">
             </div>
           </div>
           <div class="pb-3">
-            <div class="input-group">
+            <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-balance-scale-right"></i></span>
-              <input type="number" name="quantity1" class="form-control">
+              <input type="number" formControlName="quantity2" class="form-control"
+                     [ngClass]="{'is-invalid': inputIsInvalid('quantity2')}">
+              <div class="invalid-feedback">La cantidad mínima debe ser cero.</div>
             </div>
           </div>
-          <div class="input-group">
+          <div class="input-group has-validation">
             <span class="input-group-text">
               <i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i>
             </span>
-            <input type="number" step="0.01" name="quantity1" class="form-control">
+            <input type="number" formControlName="price" step="0.01" class="form-control"
+                   [ngClass]="{'is-invalid': inputIsInvalid('price')}">
+            <div class="invalid-feedback">El precio mínimo debe ser cero.</div>
           </div>
         </form>
       </div>
@@ -31,7 +35,7 @@
         <button type="button" class="btn btn-danger text-uppercase">Borrar</button>
         <div>
           <button type="button" class="btn btn-secondary text-uppercase me-2" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary text-uppercase">Guardar Cambios</button>
+          <button type="button" (click)="saveChanges()" class="btn btn-primary text-uppercase">Guardar Cambios</button>
         </div>
       </div>
     </div>

@@ -73,6 +73,11 @@ export class InstallationOrderDetailService {
           .subscribe(result => this._userTechnical = result);
       });
     // cargar lista de materiales.
+    this.getOrderMaterials(id);
+  }
+
+  // cargar lista de materiales.
+  getOrderMaterials(id: string): void {
     this.orderMaterialService.getMaterials(id)
       .subscribe(result => this._orderMaterials = result);
   }
