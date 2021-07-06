@@ -28,9 +28,9 @@ export class OrderStore {
               input: '$InstallationOrder',
               as: 'ord',
               cond: {
-                $or: [
-                  {$eq: ['$$ord.statusOrder', 'PENDIENTE']},
-                  {$eq: ['$$ord.statusOrder', 'EN PROCESO']},
+                $and: [
+                  {$in: ['$$ord.statusOrder', ['PENDIENTE', 'EN PROCESO']]},
+                  {$eq: ['$$ord.isDeleted', false]},
                 ]
               }
             }
@@ -71,6 +71,7 @@ export class OrderStore {
                 $and: [
                   {$eq: ['$$ord.year', year]},
                   {$eq: ['$$ord.month', month]},
+                  {$eq: ['$$ord.isDeleted', false]}
                 ]
               }
             }

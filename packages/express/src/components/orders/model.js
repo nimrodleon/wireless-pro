@@ -26,10 +26,6 @@ const orderSchema = new Schema({
     default: 'PENDIENTE',
     enum: ['PENDIENTE', 'EN PROCESO', 'FINALIZADO']
   },
-  isDeleted: {
-    type: Boolean,
-    default: false
-  },
   year: {
     type: String,
     default: moment().format('YYYY')
@@ -41,6 +37,10 @@ const orderSchema = new Schema({
   createdAt: {
     type: Date,
     default: moment().utc().toDate()
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
   }
 })
 

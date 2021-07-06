@@ -88,6 +88,11 @@ export class InstallationOrderService {
     return this.http.patch<InstallationOrder>(`${this.baseURL}/${data._id}`, data);
   }
 
+  // borrar orden de instalación.
+  deleteOrder(id: string): Observable<InstallationOrder> {
+    return this.http.delete<InstallationOrder>(`${this.baseURL}/${id}`);
+  }
+
   // Valores por defecto.
   defaultValues(): InstallationOrder {
     return {

@@ -1,5 +1,5 @@
 import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
+import {checkRolAdmin, verifyToken} from '../middlewares'
 import {OrderController} from './controller'
 
 const router = express.Router()
@@ -57,7 +57,15 @@ function updateOrder(req, res = response) {
   })
 }
 
+// http://<HOST>/api/installation_orders/:id
+router.delete('/:id', [verifyToken, checkRolAdmin], deleteOrder)
+
 // Borrar orden de instalación.
+function deleteOrder(req, res = response) {
+  OrderController.deleteOrder(req.params.id).then(result => {
+    res.json(result)
+  })
+}
 
 // ========================================
 // http://<HOST>/api/installation_orders/:id/material

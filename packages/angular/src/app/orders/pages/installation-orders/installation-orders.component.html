@@ -69,7 +69,7 @@
                 <div class="btn-opt ms-auto">
                   <button [routerLink]="['/installation_orders/edit', item.InstallationOrder._id]"
                           class="btn btn-secondary btn-sm me-2"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger btn-sm">
+                  <button (click)="deleteOrderInstallation(item.InstallationOrder._id)" class="btn btn-danger btn-sm">
                     <i class="fas fa-trash-alt"></i></button>
                 </div>
               </td>
