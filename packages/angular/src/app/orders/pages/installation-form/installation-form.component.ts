@@ -155,8 +155,8 @@ export class InstallationFormComponent implements OnInit {
               .then(() => console.info('Imprimir Ticket!!'));
           });
       } else {
-        this.installationOrderService.updateOrder(this.installationOrder).subscribe(() => {
-          this.router.navigate(['/installation_orders'])
+        this.installationOrderService.updateOrder(this.installationOrder).subscribe(result => {
+          this.router.navigate(['/installation_orders/detail', result._id])
             .then(() => console.info('Orden de Instalación actualizada!'));
         });
       }

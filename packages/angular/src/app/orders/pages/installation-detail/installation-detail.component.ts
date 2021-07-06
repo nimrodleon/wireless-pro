@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {InstallationOrderDetailService, OrderMaterialService} from '../../services';
 import {ActivatedRoute} from '@angular/router';
-import {OrderMaterial} from '../../interfaces';
 
-declare var jQuery: any;
 declare var bootstrap: any;
+import {InstallationOrderDetailService, OrderMaterialService} from '../../services';
+import {OrderMaterial} from '../../interfaces';
 
 @Component({
   selector: 'app-installation-detail',
@@ -73,6 +72,7 @@ export class InstallationDetailComponent implements OnInit {
   // Cerrar modal agregar técnico.
   hideUserModal(value: boolean): void {
     if (value === true) {
+      this.changeStatusOrderInstallation('EN PROCESO');
       this.userModal.hide();
     }
   }
@@ -102,6 +102,25 @@ export class InstallationDetailComponent implements OnInit {
   deleteUserTechnical(e): void {
     e.preventDefault();
     delete this.currentInstallationOrder.userId;
+  }
+
+  // cambiar estado de la orden de instalación.
+  changeStatusOrderInstallation(status: string): void {
+    let _orderInstallation = this.currentInstallationOrder;
+    _orderInstallation.statusOrder = status;
+    this.installationOrderDetailService.currentInstallationOrder = _orderInstallation;
+    // actualizar orden de instalación.
+    this.installationOrderDetailService.updateInstallationOrder();
+  }
+
+  // Habilitar orden de instalación.
+  enableOrderInstallation(): void {
+    this.changeStatusOrderInstallation('EN PROCESO');
+  }
+
+  // Finalizar orden de Instalación.
+  finishOrderInstallation(): void {
+    this.changeStatusOrderInstallation('FINALIZADO');
   }
 
 }

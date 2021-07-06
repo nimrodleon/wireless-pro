@@ -34,6 +34,11 @@ export class InstallationOrderDetailService {
     return this._currentInstallationOrder;
   }
 
+  // Cambiar valor de la orden de instalación.
+  set currentInstallationOrder(data: InstallationOrder) {
+    this._currentInstallationOrder = data;
+  }
+
   // retornar materiales de ordenes de instalación.
   get orderMaterials(): Array<OrderMaterial> {
     return this._orderMaterials;
