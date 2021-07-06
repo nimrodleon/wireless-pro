@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OrderMaterial} from '../../interfaces';
 import {OrderMaterialService} from '../../services';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-item-material',
@@ -61,6 +62,25 @@ export class ItemMaterialComponent implements OnInit {
     }
     this.orderMaterialService.updateMaterial(this.orderMaterial)
       .subscribe(() => this.hideModal.emit(true));
+  }
+
+  // borrar material.
+  deleteOrderMaterial(): void {
+    Swal.fire({
+      title: '¿Estás seguro de borrar?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, bórralo!',
+      cancelButtonText: 'Cancelar',
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.orderMaterialService.deleteMaterial(this.orderMaterial._id)
+          .subscribe(() => this.hideModal.emit(true));
+      }
+    });
   }
 
 }
