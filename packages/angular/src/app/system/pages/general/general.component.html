@@ -113,7 +113,8 @@
             <tr *ngFor="let application of applicationList">
               <td>{{application.name}}</td>
               <td>{{application.urlBase}}</td>
-              <td>{{application.token}}</td>
+              <td>{{application.token.length > 32 ?
+                application.token.substr(0, 31) + '...' : application}}</td>
               <td class="text-end">
                 <button (click)="deleteApplication(application._id)" class="btn btn-danger">
                   <span class="text-uppercase">Borrar</span>
@@ -123,8 +124,6 @@
             </tbody>
           </table>
         </div>
-        <pre>{{applicationForm|json}}</pre>
-        <pre>{{applicationList|json}}</pre>
         <!-- Modal Form -->
         <div class="modal fade" id="add-application-modal" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">
