@@ -13,21 +13,6 @@ export class ClientService {
   constructor(private http: HttpClient) {
   }
 
-  // valor por defecto cliente.
-  clientDefaultValues(): Client {
-    return {
-      _id: undefined,
-      dni: '',
-      fullName: '',
-      fullAddress: '',
-      email: '',
-      phone: '',
-      type: '',
-      note: '',
-      is_active: true,
-    };
-  }
-
   getClients(query: any, status: any): Observable<any> {
     let params = new HttpParams();
     params = params.append('status', status);
@@ -50,5 +35,21 @@ export class ClientService {
   delete(id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
+
+  // valor por defecto cliente.
+  defaultValues(): Client {
+    return {
+      _id: undefined,
+      dni: '',
+      fullName: '',
+      fullAddress: '',
+      email: '',
+      phone: '',
+      type: '',
+      note: '',
+      is_active: true,
+    };
+  }
+
 
 }

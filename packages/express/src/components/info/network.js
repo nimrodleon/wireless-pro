@@ -7,7 +7,6 @@ const router = express.Router()
 // http://<HOST>/api/info
 router.get('/', [
   verifyToken,
-  checkRolAdmin,
 ], getInfoCompany)
 
 // obtener info empresa.

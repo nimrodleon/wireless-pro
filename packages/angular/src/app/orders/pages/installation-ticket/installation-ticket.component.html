@@ -3,46 +3,46 @@
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
     <!-- ##(Begin) Content -->
-    <div class="ticket">
+    <div class="ticket" [style]="{'width': info.paperWidth+'px'}">
       <div class="d-flex justify-content-center my-2 d-print-none">
-        <button type="button" class="text-uppercase">Imprimir</button>
+        <button type="button" (click)="print()" class="text-uppercase">Imprimir</button>
       </div>
       <p class="text-center m-0 text-uppercase">Recibo Orden de Instalación</p>
-      <p class="text-center m-0">DIRECOM S.R.L.</p>
-      <p class="text-center m-0">JR. JUAN FRANCISO RAMOS NRO. 689 (A 1 CDRA DE LA PLAZA DE ARMAS) ANDAHUAYLAS
-        -APURIMAC</p>
-      <p class="text-center m-0">Cel. 983-993363</p>
+      <p class="text-center m-0">{{info.company}}</p>
+      <p class="text-center m-0">{{info.fullAddress}}</p>
+      <p class="text-center m-0">Cel. {{info.phone}}</p>
       <hr class="d-print-block my-1">
       <table class="w-100">
         <tr>
           <th class="text-uppercase">Cliente:</th>
-          <td>NOMBRE CLIENTE APELLIDO</td>
+          <td>{{client.fullName}}</td>
         </tr>
       </table>
       <hr class="d-print-block my-1">
       <table class="w-100">
         <tr>
           <th class="text-uppercase">Dirección:</th>
-          <td class="text-uppercase">Jr. jose carlos maria tech 2414</td>
+          <td class="text-uppercase">{{installationOrder.address}}</td>
+        </tr>
+        <tr>
+          <th class="text-uppercase">Servicio:</th>
+          <td class="text-uppercase">{{installationOrder.typeInstallation}}</td>
         </tr>
         <tr>
           <th class="text-uppercase">Plan:</th>
-          <td class="text-uppercase">4MB Internet</td>
+          <td class="text-uppercase">{{servicePlan.name}}</td>
         </tr>
         <tr>
           <th class="text-uppercase">Costo:</th>
-          <td class="text-uppercase">450 Soles</td>
+          <td class="text-uppercase">{{installationOrder.costInstallation}}</td>
         </tr>
         <tr>
-          <th class="text-uppercase">$$ a Cuenta:</th>
-          <td class="text-uppercase">200 Soles</td>
+          <th class="text-uppercase">Pagado:</th>
+          <td class="text-uppercase">{{installationOrder.amount}}</td>
         </tr>
-
-
       </table>
       <hr class="d-print-block my-1">
-      <p class="text-center text-uppercase m-0">Horario de Atención</p>
-      <p class="text-center m-0">8:30 AM;12:50PM - 3:00PM;7:20PM</p>
+      <div [innerHTML]="info.legendTicket" class="text-center"></div>
     </div>
     <!-- ##(End) Content -->
   </div>

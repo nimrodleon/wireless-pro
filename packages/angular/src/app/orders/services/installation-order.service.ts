@@ -25,7 +25,7 @@ export class InstallationOrderService {
 
   // Valores por defecto cliente.
   clientDefaultValues(): Client {
-    return this.clientService.clientDefaultValues();
+    return this.clientService.defaultValues();
   }
 
   // Valores por defecto service-plan.
@@ -89,7 +89,7 @@ export class InstallationOrderService {
   }
 
   // Valores por defecto.
-  orderDefaultValues(): InstallationOrder {
+  defaultValues(): InstallationOrder {
     return {
       _id: undefined,
       userId: undefined,

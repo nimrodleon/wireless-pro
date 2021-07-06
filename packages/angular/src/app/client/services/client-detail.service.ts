@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Client} from '../interfaces';
 import {ClientService} from './client.service';
 import Swal from 'sweetalert2';
-import {AuthService} from '../../user/services/auth.service';
+import {AuthService} from '../../user/services';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ClientDetailService {
     private clientService: ClientService,
     private authService: AuthService) {
     // valores por defecto del cliente actual.
-    this._currentClient = this.clientService.clientDefaultValues();
+    this._currentClient = this.clientService.defaultValues();
   }
 
   // Lista de roles.

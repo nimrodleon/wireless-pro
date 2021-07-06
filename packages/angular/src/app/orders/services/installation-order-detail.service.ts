@@ -19,7 +19,7 @@ export class InstallationOrderDetailService {
   constructor(
     private installationOrderService: InstallationOrderService,
     private orderMaterialService: OrderMaterialService) {
-    this._currentInstallationOrder = this.installationOrderService.orderDefaultValues();
+    this._currentInstallationOrder = this.installationOrderService.defaultValues();
     this._currentServicePlan = this.installationOrderService.servicePlanDefaultValues();
     this._currentClient = this.installationOrderService.clientDefaultValues();
   }

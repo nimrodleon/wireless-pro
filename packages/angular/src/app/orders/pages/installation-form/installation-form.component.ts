@@ -42,7 +42,7 @@ export class InstallationFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private installationOrderService: InstallationOrderService) {
     // Cargar valores por defecto.
-    this.installationOrder = this.installationOrderService.orderDefaultValues();
+    this.installationOrder = this.installationOrderService.defaultValues();
     this.currentClientSelected = this.installationOrderService.clientDefaultValues();
   }
 

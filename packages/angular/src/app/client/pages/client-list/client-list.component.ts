@@ -48,7 +48,7 @@ export class ClientListComponent implements OnInit {
 
   // valor por defecto cliente.
   private currentClientDefaultValues(): void {
-    this.currentClient = this.clientService.clientDefaultValues();
+    this.currentClient = this.clientService.defaultValues();
   }
 
   showModal(): void {
