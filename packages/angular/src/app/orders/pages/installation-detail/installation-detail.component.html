@@ -87,7 +87,9 @@
             </div>
             <div class="d-flex justify-content-between border-bottom">
               <span><i class="fas fa-user"></i> Cliente</span>
-              <span>{{currentClient.fullName}}</span>
+              <ng-container *ngIf="currentClient.fullName.length > 0">
+                <a [routerLink]="['/client/detail', currentClient._id]">{{currentClient.fullName}}</a>
+              </ng-container>
             </div>
             <div class="d-flex justify-content-between border-bottom">
               <span><i class="fas fa-map-marker-alt"></i> Dirección</span>
