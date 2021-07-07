@@ -8,7 +8,7 @@ export class MikrotikStore {
   }
 
   // Obtener por id.
-  static async getMikrotik(id) {
+  static async getMikrotikById(id) {
     return Mikrotik.findById(id)
   }
 
@@ -26,7 +26,7 @@ export class MikrotikStore {
 
   // borrar.
   static async deleteMikrotik(id) {
-    let _mikrotik = await this.getMikrotik(id)
+    let _mikrotik = await this.getMikrotikById(id)
     _mikrotik.isDeleted = true
     return this.updateMikrotik(id, _mikrotik)
   }

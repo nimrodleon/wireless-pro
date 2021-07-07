@@ -17,7 +17,7 @@ export class MikrotikController {
   static getMikrotikById(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.getMikrotik())
+        resolve(MikrotikStore.getMikrotikById(id))
       } catch (err) {
         reject(err)
       }
