@@ -63,7 +63,12 @@
                     <span class="badge bg-info">{{item.InstallationOrder.typeInstallation}}</span>
                   </div>
                   <div class="text-uppercase ms-1">
-                    <span class="badge bg-primary">{{item.InstallationOrder.statusOrder}}</span>
+                    <span *ngIf="item.InstallationOrder.statusOrder === 'PENDIENTE'" class="badge bg-primary">
+                      {{item.InstallationOrder.statusOrder}}</span>
+                    <span *ngIf="item.InstallationOrder.statusOrder === 'EN PROCESO'" class="badge bg-warning">
+                      {{item.InstallationOrder.statusOrder}}</span>
+                    <span *ngIf="item.InstallationOrder.statusOrder === 'FINALIZADO'" class="badge bg-success">
+                      {{item.InstallationOrder.statusOrder}}</span>
                   </div>
                 </div>
                 <span class="blockquote-footer">{{item.InstallationOrder.createdAt}}</span>
@@ -84,9 +89,6 @@
         </div><!-- //.table-responsive -->
       </div><!-- //.col-12 -->
     </div>
-    <pre>{{queryForm.value|json}}</pre>
-    <pre>{{queryData|json}}</pre>
-    <pre>{{installationOrders|json}}</pre>
     <!-- ##(End) Content -->
   </div>
 </div>
