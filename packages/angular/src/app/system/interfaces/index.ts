@@ -5,3 +5,5 @@ export * from './tower';
 export * from './tramo';
 export * from './coverage';
 export * from './application';
+export * from './mikrotik';
+export * from './ethernet';
