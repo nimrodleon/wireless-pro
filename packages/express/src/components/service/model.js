@@ -1,42 +1,110 @@
 import {model, Schema} from 'mongoose'
+import moment from 'moment-timezone'
 
-export const Service = model('Service',
-  new Schema({
-    client: {
-      type: Schema.Types.ObjectId,
-      ref: 'Client'
-    },
-    ipAddress: String,
-    servicePlan: {
-      type: Schema.Types.ObjectId,
-      ref: 'ServicePlan'
-    },
-    dateFrom: String,
-    closeDate: String,
-    userName: String,
-    password: String,
-    note: String,
-    isActive: {
-      type: Boolean,
-      default: true
-    },
-    payment: {
-      type: Schema.Types.ObjectId,
-      ref: 'Payment'
-    },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    accessPoint: {
-      type: Schema.Types.ObjectId,
-      ref: 'Device'
-    },
-    macAddress: String,
-    lastOutage: String,
-    createdAt: String,
-    isDeleted: {
-      type: Boolean,
-      default: false
-    }
-  }))
+// Schema de servicio.
+const serviceSchema = new Schema({
+  // client: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Client'
+  // },
+  clientId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Client'
+  },
+  ipAddress: String,
+  // [
+  // H=>'Habilitado',
+  // D=>'Deshabilitado',
+  // N=>'Notificado',
+  // S=>'Suspendido'
+  // ]
+  status: {
+    type: String,
+    default: 'H',
+    enum: ['H', 'D', 'N', 'S']
+  },
+  // servicePlan: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'ServicePlan'
+  // },
+  servicePlanId: {
+    type: Schema.Types.ObjectId,
+    ref: 'ServicePlan'
+  },
+  // dateFrom: String,
+  // closeDate: String,
+  initialDate: String,
+  mikrotikId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Mikrotik'
+  },
+  ethernetId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Ethernet'
+  },
+  userName: String,
+  password: String,
+  // note: String,
+  basicNote: String,
+  // isActive: {
+  //   type: Boolean,
+  //   default: true
+  // },
+  // payment: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Payment'
+  // },
+  // user: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User'
+  // },
+  accessPoint: {
+    type: Schema.Types.ObjectId,
+    ref: 'Device'
+  },
+  macAddress: String,
+  // lastOutage: String,
+  // ============================================================
+  address: String,
+  city: String,
+  region: String,
+  coverageId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Coverage'
+  },
+  // ============================================================
+  paymentType: {
+    type: String,
+    default: 'PRE',
+    enum: ['PRE', 'POS']
+  },
+  defPrice: {
+    type: Boolean,
+    default: false
+  },
+  price: Number,
+  commonPayment: {
+    type: String,
+    default: 'M',
+    enum: ['M', 'B', 'T', 'S', 'A']
+  },
+  paymentNote: String,
+  // ============================================================
+  lastPayment: {
+    type: Schema.Types.ObjectId,
+    ref: 'Payment'
+  },
+  // ============================================================
+  createdAt: {
+    type: Date,
+    default: moment().utc().toDate()
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
+  }
+})
+
+// exportar modelo servicio.
+// almacena la información del servicio contratado.
+export const Service = model('Service', serviceSchema)
