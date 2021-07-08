@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+
+declare var bootstrap: any;
 import {MikrotikService} from '../../services';
 import {Mikrotik} from '../../interfaces';
-
-declare var jQuery: any;
-declare var bootstrap: any;
 
 @Component({
   selector: 'app-mikrotik-list',
@@ -13,13 +12,16 @@ declare var bootstrap: any;
 export class MikrotikListComponent implements OnInit {
   mikrotikModal: any;
   currentMikrotik: Mikrotik;
+  mikrotikFormData: Mikrotik;
   mikrotikList: Array<Mikrotik>;
   editMode: boolean = false;
+  title: string;
 
   constructor(
     private mikrotikService: MikrotikService) {
     // establecer valores por defecto.
     this.currentMikrotik = this.mikrotikService.defaultValues();
+    this.mikrotikFormData = this.mikrotikService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -51,7 +53,26 @@ export class MikrotikListComponent implements OnInit {
   // Agregar Mikrotik.
   addMikrotikClick(): void {
     this.editMode = false;
+    this.title = 'Agregar Mikrotik';
+    this.mikrotikFormData = this.mikrotikService.defaultValues();
     this.mikrotikModal.show();
+  }
+
+  // Editar mikrotik.
+  editMikrotik(e: any): void {
+    e.preventDefault();
+    this.editMode = true;
+    this.title = 'Editar Mikrotik';
+    this.mikrotikFormData = this.currentMikrotik;
+    this.mikrotikModal.show();
+  }
+
+  // Cerrar modal mikrotik form.
+  hideMikrotik(value: boolean): void {
+    if (value === true) {
+      this.getMikrotikList();
+      this.mikrotikModal.hide();
+    }
   }
 
 }

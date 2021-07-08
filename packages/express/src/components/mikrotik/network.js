@@ -61,7 +61,7 @@ router.get('/:id/ethernet', [verifyToken], getEthernetList)
 
 // Lista de interfaces.
 function getEthernetList(req, res = response) {
-  MikrotikController.getEthernetList().then(result => {
+  MikrotikController.getEthernetList(req.params.id).then(result => {
     res.json(result)
   })
 }

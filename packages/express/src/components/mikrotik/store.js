@@ -34,8 +34,8 @@ export class MikrotikStore {
   // ============================================================
 
   // lista de interfaces.
-  static async getEthernetList() {
-    return Ethernet.find({isDeleted: false})
+  static async getEthernetList(id) {
+    return Ethernet.find({mikrotikId: id, isDeleted: false})
   }
 
   // obtener interfaz por id.

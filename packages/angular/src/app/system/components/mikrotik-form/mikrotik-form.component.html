@@ -9,11 +9,11 @@
         <!-- ##(Begin) Content -->
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" data-bs-toggle="tab"
+            <button class="nav-link active" id="basic-tab" data-bs-toggle="tab"
                     data-bs-target="#nav-content" type="button" role="tab">
               <i class="fas fa-info-circle"></i><span class="text-uppercase ms-1">Básico</span>
             </button>
-            <button class="nav-link" data-bs-toggle="tab"
+            <button *ngIf="editMode" class="nav-link" data-bs-toggle="tab"
                     data-bs-target="#nav-interface" type="button" role="tab">
               <i class="fas fa-ethernet"></i><span class="text-uppercase ms-1">Interfaces</span>
             </button>
@@ -72,10 +72,15 @@
           <div class="tab-pane fade" id="nav-interface" role="tabpanel">
             <!-- ##(Begin) Interface -->
             <div class="mt-2 pb-3">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Nombre Interface">
-                <button class="btn btn-outline-primary" type="button">Agregar</button>
-              </div>
+              <form (submit)="saveEthernet()">
+                <div class="input-group">
+                  <input type="text" name="name" [(ngModel)]="currentEthernet.name" class="form-control"
+                         placeholder="Nombre Interface">
+                  <button class="btn btn-outline-primary" type="submit">
+                    {{etherEditMode ? 'Guardar' : 'Agregar'}}
+                  </button>
+                </div>
+              </form>
             </div>
             <div class="table-responsive">
               <table class="table table-striped mb-0">
@@ -86,11 +91,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>ether1</td>
+                <tr *ngFor="let item of ethernetList">
+                  <td>{{item.name}}</td>
                   <td>
                     <div class="btn-opt ms-auto">
-                      <button class="btn btn-secondary btn-sm me-2">
+                      <button (click)="editEthernetClick(item._id)" class="btn btn-secondary btn-sm me-2">
                         <i class="fas fa-edit"></i></button>
                       <button class="btn btn-danger btn-sm">
                         <i class="fas fa-trash-alt"></i></button>
@@ -103,13 +108,11 @@
             <!-- ##(End) Interface -->
           </div>
         </div>
-        <pre>{{currentMikrotik|json}}</pre>
-        <pre>{{applicationList|json}}</pre>
         <!-- ##(End) Content -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary text-uppercase">Guardar Cambios</button>
+        <button type="button" (click)="saveChanges()" class="btn btn-primary text-uppercase">Guardar Cambios</button>
       </div>
     </div>
   </div>

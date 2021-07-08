@@ -60,10 +60,10 @@ export class MikrotikController {
   // ============================================================
 
   // Lista de interfaces.
-  static getEthernetList() {
+  static getEthernetList(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.getEthernetList())
+        resolve(MikrotikStore.getEthernetList(id))
       } catch (err) {
         reject(err)
       }
