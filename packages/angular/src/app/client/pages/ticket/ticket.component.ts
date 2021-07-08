@@ -14,7 +14,7 @@ export class TicketComponent implements OnInit {
   info: Info;
   client: Client;
   payment: Payment = new Payment();
-  service: Service = new Service();
+  service: Service;
   servicePlan: ServicePlan;
   currentDate: Date = new Date();
 
@@ -22,6 +22,7 @@ export class TicketComponent implements OnInit {
               private router: Router, private activatedRoute: ActivatedRoute,
               private clientService: ClientService, private serviceService: ServiceService,
               private infoService: InfoService, private servicePlanService: ServicePlanService) {
+    this.service = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -49,9 +50,9 @@ export class TicketComponent implements OnInit {
 
   // Obtiene El Servicio Prestado.
   private getService(id: string): void {
-    this.serviceService.getService(id).subscribe(res => {
+    this.serviceService.getServiceById(id).subscribe(res => {
       this.service = res;
-      this.getServicePlan(res.servicePlan);
+      this.getServicePlan(res.servicePlanId);
     });
   }
 

@@ -1,18 +1,26 @@
-export class Service {
+export interface Service {
   _id: string;
-  client: string;
+  clientId: string;
   ipAddress: string;
-  servicePlan: string;
-  dateFrom: string;
-  closeDate: string;
+  status: string;
+  servicePlanId: string;
+  initialDate: string;
+  mikrotikId: string;
+  ethernetId: string;
   userName: string;
   password: string;
-  note: string;
-  isActive: boolean;
-  payment: string;
-  user: string;
+  basicNote: string;
   accessPoint: string;
   macAddress: string;
-  lastOutage: string;
-  createdAt: string;
+  address: string;
+  city: string;
+  region: string;
+  coverageId: string;
+  paymentType: string;
+  defPrice: boolean;
+  price: number;
+  commonPayment: string;
+  paymentNote: string;
+  lastPayment: string;
+  createdAt: any;
 }

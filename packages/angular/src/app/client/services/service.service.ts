@@ -17,24 +17,54 @@ export class ServiceService {
     return this.http.get(`${this.baseURL}/${id}/client`);
   }
 
-  getService(id: string): Observable<Service> {
+  getServiceById(id: string): Observable<Service> {
     return this.http.get<Service>(`${this.baseURL}/${id}`);
   }
 
-  create(service: Service): Observable<Service> {
+  createService(service: Service): Observable<Service> {
     return this.http.post<Service>(this.baseURL, service);
   }
 
-  update(service: Service): Observable<Service> {
+  updateService(service: Service): Observable<Service> {
     return this.http.patch<Service>(`${this.baseURL}/${service._id}`, service);
   }
 
-  delete(id: string): Observable<any> {
+  deleteService(id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
-  paymentsCount(id: string): Observable<number> {
-    return this.http.get<number>(`${this.baseURL}/${id}/payments/count`);
+  // paymentsCount(id: string): Observable<number> {
+  //   return this.http.get<number>(`${this.baseURL}/${id}/payments/count`);
+  // }
+
+  // valores por defecto.
+  defaultValues(): Service {
+    return {
+      _id: undefined,
+      clientId: '',
+      ipAddress: '',
+      status: 'H',
+      servicePlanId: '',
+      initialDate: '',
+      mikrotikId: '',
+      ethernetId: '',
+      userName: '',
+      password: '',
+      basicNote: '',
+      accessPoint: '',
+      macAddress: '',
+      address: '',
+      city: '',
+      region: '',
+      coverageId: '',
+      paymentType: 'PRE',
+      defPrice: false,
+      price: 0,
+      commonPayment: 'M',
+      paymentNote: '',
+      lastPayment: '',
+      createdAt: null
+    };
   }
 
 }

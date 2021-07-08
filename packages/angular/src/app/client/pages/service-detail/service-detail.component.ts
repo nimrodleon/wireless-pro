@@ -16,7 +16,7 @@ export class ServiceDetailComponent implements OnInit {
   serviceId: string;
   // Variables for Service use.
   client: Client;
-  service: Service = new Service();
+  service: Service;
   device: Device;
   servicePlan: ServicePlan;
 
@@ -24,6 +24,7 @@ export class ServiceDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private clientService: ClientService, private serviceService: ServiceService,
               private deviceService: DeviceService, private servicePlanService: ServicePlanService) {
+    this.service = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -37,11 +38,11 @@ export class ServiceDetailComponent implements OnInit {
 
   // get service data.
   private getService(id: string): void {
-    this.serviceService.getService(id).subscribe(res => {
+    this.serviceService.getServiceById(id).subscribe(res => {
       this.service = res;
       // Load client and device data.
-      this.getClient(this.service.client);
-      this.getServicePlan(this.service.servicePlan);
+      this.getClient(this.service.clientId);
+      this.getServicePlan(this.service.servicePlanId);
       if (this.service.accessPoint) {
         this.getDevice(this.service.accessPoint);
       }

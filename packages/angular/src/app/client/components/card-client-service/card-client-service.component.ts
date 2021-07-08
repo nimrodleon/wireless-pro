@@ -39,7 +39,7 @@ export class CardClientServiceComponent implements OnInit {
    * @param status
    */
   onChangeStatus(status: boolean): void {
-    this.serviceService.getService(this.service._id)
+    this.serviceService.getServiceById(this.service._id)
       .subscribe(async res => {
         let objTmp = res;
         const {value: text} = await Swal.fire({
@@ -52,11 +52,11 @@ export class CardClientServiceComponent implements OnInit {
         });
 
         if (text) {
-          objTmp.isActive = status;
+          // objTmp.isActive = status;
           if (status) {
-            objTmp.dateFrom = moment().format('YYYY-MM-DD');
+            // objTmp.dateFrom = moment().format('YYYY-MM-DD');
           } else {
-            objTmp.closeDate = moment().format('YYYY-MM-DD');
+            // objTmp.closeDate = moment().format('YYYY-MM-DD');
           }
           // create outage.
           let outage = new Outage();
@@ -66,10 +66,10 @@ export class CardClientServiceComponent implements OnInit {
           outage.createdAt = moment().format('YYYY-MM-DD');
           this.outageService.create(outage).subscribe(res => {
             // Update Service document.
-            objTmp.lastOutage = res._id;
-            this.serviceService.update(objTmp).subscribe(() => {
-              this.sendLoadServices.emit(objTmp.client);
-            });
+            // objTmp.lastOutage = res._id;
+            // this.serviceService.updateService(objTmp).subscribe(() => {
+            //   this.sendLoadServices.emit(objTmp.client);
+            // });
           });
         }
       });

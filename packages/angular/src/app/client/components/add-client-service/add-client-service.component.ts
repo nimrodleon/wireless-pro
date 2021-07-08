@@ -71,7 +71,7 @@ export class AddClientServiceComponent implements OnInit {
 
   // Envia un Evento para guardar el servicio.
   saveChanges(): void {
-    this.service.client = this.clientId;
+    this.service.clientId = this.clientId;
     if (this.service._id === undefined) {
       this.service.createdAt = moment().format('YYYY-MM-DD');
     }
@@ -94,21 +94,10 @@ export class AddClientServiceComponent implements OnInit {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.serviceService.paymentsCount(this.service._id)
+          this.serviceService.deleteService(this.service._id)
             .subscribe(res => {
-              if (res > 0) {
-                Swal.fire(
-                  'No se pudo borrar?',
-                  'Existe mas de un pago asociado a este registro?',
-                  'warning'
-                );
-              } else {
-                this.serviceService.delete(this.service._id)
-                  .subscribe(res => {
-                    this.sendDeleteService.emit(true);
-                    jQuery('#app-add-client-service').modal('hide');
-                  });
-              }
+              this.sendDeleteService.emit(true);
+              jQuery('#app-add-client-service').modal('hide');
             });
         }
       });

@@ -51,7 +51,7 @@
                 <div class="col-6 pb-3">
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                    <select [(ngModel)]="service.servicePlan" name="servicePlan" class="form-select">
+                    <select [(ngModel)]="service.servicePlanId" name="servicePlan" class="form-select">
                       <option *ngFor="let item of servicePlanList" [value]="item._id">{{ item.name }}</option>
                     </select>
                   </div>
@@ -59,8 +59,8 @@
                 <div class="col-6 pb-3">
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
-                    <input type="date" name="dateFrom" [ngModel]="service.dateFrom"
-                           (ngModelChange)="service.dateFrom = $event" class="form-control">
+                    <input type="date" name="dateFrom" [ngModel]="service.initialDate"
+                           (ngModelChange)="service.initialDate = $event" class="form-control">
                   </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@
                 </div>
               </div>
               <div class="pb-3">
-                <textarea name="note" [(ngModel)]="service.note" class="form-control"></textarea>
+                <textarea name="note" [(ngModel)]="service.basicNote" class="form-control"></textarea>
               </div>
               <div class="row">
                 <div class="col-6">

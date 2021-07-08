@@ -25,10 +25,10 @@ export class ServiceController {
   }
 
   // registrar servicio.
-  static createService(data, userId) {
+  static createService(data) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(ServiceStore.createService(data, userId))
+        resolve(ServiceStore.createService(data))
       } catch (err) {
         reject(err)
       }
@@ -58,58 +58,58 @@ export class ServiceController {
   }
 
   // reporte instalaciones diarias.
-  static reportDailyInstallations(date) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(ServiceStore.reportDailyInstallations(date))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
+  // static reportDailyInstallations(date) {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       resolve(ServiceStore.reportDailyInstallations(date))
+  //     } catch (err) {
+  //       reject(err)
+  //     }
+  //   })
+  // }
 
   // reporte servicios sin registro de pago.
-  static reportServicesWithoutPayment() {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(ServiceStore.reportServicesWithoutPayment())
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
+  // static reportServicesWithoutPayment() {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       resolve(ServiceStore.reportServicesWithoutPayment())
+  //     } catch (err) {
+  //       reject(err)
+  //     }
+  //   })
+  // }
 
   // Lista de servicios suspendidos.
-  static reportDisconnectedServices() {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(ServiceStore.reportDisconnectedServices())
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
+  // static reportDisconnectedServices() {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       resolve(ServiceStore.reportDisconnectedServices())
+  //     } catch (err) {
+  //       reject(err)
+  //     }
+  //   })
+  // }
 
   // Lista de servicios según tarifa de pago.
-  static reportServicesByServicePlan(id) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(ServiceStore.reportServicesByServicePlan(id))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
+  // static reportServicesByServicePlan(id) {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       resolve(ServiceStore.reportServicesByServicePlan(id))
+  //     } catch (err) {
+  //       reject(err)
+  //     }
+  //   })
+  // }
 
   // Lista de clientes por cobrar.
-  static reportServicesPayable(date) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(ServiceStore.reportServicesPayable(date))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
+  // static reportServicesPayable(date) {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       resolve(ServiceStore.reportServicesPayable(date))
+  //     } catch (err) {
+  //       reject(err)
+  //     }
+  //   })
+  // }
 
 }

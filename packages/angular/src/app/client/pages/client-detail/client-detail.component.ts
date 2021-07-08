@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
-import {ClientDetailService} from '../../services';
+import {ClientDetailService, ServiceService} from '../../services';
 import {Service, Client, Payment} from '../../interfaces';
 
 @Component({
@@ -15,7 +15,9 @@ export class ClientDetailComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private clientDetailService: ClientDetailService) {
+    private clientDetailService: ClientDetailService,
+    private serviceService: ServiceService) {
+    this.service = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -98,14 +100,14 @@ export class ClientDetailComponent implements OnInit {
    */
     //# SERVICE COMPONENT SECTION
   titleServiceModal: string = '';
-  service: Service = new Service();
+  service: Service;
   serviceList: any[];
   expectedPayment: number = 0.00;
 
   // Open modal Service.
   addServices(): void {
     this.titleServiceModal = 'Agregar Servicio';
-    this.service = new Service();
+    this.service = this.serviceService.defaultValues();
     jQuery('#app-add-client-service').modal('show');
   }
 
