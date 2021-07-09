@@ -31,7 +31,7 @@ export class DeviceModalComponent implements OnInit {
       this.deviceListService.loadValuesDeviceModal();
       // Configuraciones Select2.
       jQuery('select[name="accessPoint"]').select2({
-        theme: 'bootstrap4',
+        theme: 'bootstrap-5',
         dropdownParent: jQuery('#app-device-modal'),
         ajax: {
           url: this.baseURL + '/v1/select2/s',

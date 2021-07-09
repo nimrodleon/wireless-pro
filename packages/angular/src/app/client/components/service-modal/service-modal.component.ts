@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 
 declare var jQuery: any;
 import {ServiceService} from '../../services';
 import {Service} from '../../interfaces';
 import {environment} from 'src/environments/environment';
-import {EthernetService, MikrotikService, ServicePlanService} from 'src/app/system/services';
-import {Ethernet, Mikrotik, ServicePlan} from 'src/app/system/interfaces';
+import {CoverageService, EthernetService, MikrotikService, ServicePlanService} from 'src/app/system/services';
+import {Coverage, Ethernet, Mikrotik, ServicePlan} from 'src/app/system/interfaces';
 
 @Component({
   selector: 'app-service-modal',
@@ -24,21 +24,23 @@ export class ServiceModalComponent implements OnInit {
   serviceForm: FormGroup = this.fb.group({
     _id: [null],
     clientId: [''],
-    ipAddress: [''],
-    status: ['H'],
-    servicePlanId: '',
-    initialDate: [moment().format('YYYY-MM-DD')],
-    mikrotikId: [''],
-    ethernetId: [''],
+    ipAddress: ['', [Validators.required,
+      Validators.pattern('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]
+    ],
+    status: ['H', [Validators.required]],
+    servicePlanId: ['', [Validators.required]],
+    initialDate: [moment().format('YYYY-MM-DD'), [Validators.required]],
+    mikrotikId: ['', [Validators.required]],
+    ethernetId: ['', [Validators.required]],
     userName: [''],
     password: [''],
     basicNote: [''],
     accessPoint: [''],
     macAddress: [''],
-    address: [''],
-    city: [''],
-    region: [''],
-    coverageId: [''],
+    address: ['', [Validators.required]],
+    city: ['', [Validators.required]],
+    region: ['', [Validators.required]],
+    coverageId: ['', [Validators.required]],
     paymentType: ['PRE'],
     defPrice: [false],
     price: [0],
@@ -48,13 +50,15 @@ export class ServiceModalComponent implements OnInit {
   servicePlanList: Array<ServicePlan>;
   mikrotikList: Array<Mikrotik>;
   ethernetList: Array<Ethernet>;
+  coverageList: Array<Coverage>;
 
   constructor(
     private fb: FormBuilder,
     private serviceService: ServiceService,
     private servicePlanService: ServicePlanService,
     private mikrotikService: MikrotikService,
-    private ethernetService: EthernetService) {
+    private ethernetService: EthernetService,
+    private coverageService: CoverageService) {
   }
 
   ngOnInit(): void {
@@ -64,11 +68,17 @@ export class ServiceModalComponent implements OnInit {
     // cargar lista de mikrotik.
     this.mikrotikService.getMikrotikList()
       .subscribe(result => this.mikrotikList = result);
+    // cargar lista de coberturas.
+    this.coverageService.getCoverages('')
+      .subscribe(result => this.coverageList = result);
+    // suscribir modelo al formulario.
+    this.serviceForm.valueChanges.subscribe(value => this.currentService = value);
     // escuchar eventos del modal.
+    let accessPoint = jQuery('select[name="accessPoint');
     let myModal = document.querySelector('#service-modal');
     myModal.addEventListener('shown.bs.modal', () => {
-      jQuery('select[name="accessPoint').select2({
-        theme: 'bootstrap4',
+      accessPoint.select2({
+        theme: 'bootstrap-5',
         dropdownParent: jQuery('#service-modal'),
         ajax: {
           url: this.baseURL + '/v1/select2/s',
@@ -76,11 +86,24 @@ export class ServiceModalComponent implements OnInit {
             Authorization: 'Bearer ' + localStorage.getItem('token')
           }
         }
+      }).on('select2:select', (e) => {
+        let {data} = e.params;
+        this.currentService.accessPoint = data.id;
+        this.serviceForm.reset({...this.currentService});
       });
+      // Preselecting options in an remotely-sourced.
+      // si existe access point cargar datos al accessPoint.
     });
     myModal.addEventListener('hide.bs.modal', () => {
-      this.serviceForm.reset();
+      this.serviceForm.reset({...this.serviceService.defaultValues()});
+      accessPoint.val(null).trigger('change');
     });
+  }
+
+  // Verificar campo invalido.
+  inputIsInvalid(field: string) {
+    return this.serviceForm.controls[field].errors
+      && this.serviceForm.controls[field].touched;
   }
 
   // cargar lista de interfaces.
@@ -91,8 +114,10 @@ export class ServiceModalComponent implements OnInit {
 
   // seleccionar item mikrotik select.
   changeMikrotikValue(target: any): void {
-    console.log(target.value);
+    this.currentService.ethernetId = '';
+    this.serviceForm.setValue({...this.currentService});
     this.getEthernetList(target.value);
   }
+
 
 }

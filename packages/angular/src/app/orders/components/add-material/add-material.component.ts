@@ -34,7 +34,7 @@ export class AddMaterialComponent implements OnInit {
     let myModal = document.querySelector('#add-material-modal');
     myModal.addEventListener('show.bs.modal', () => {
       jQuery('#searchMaterial').select2({
-        theme: 'bootstrap4',
+        theme: 'bootstrap-5',
         dropdownParent: jQuery('#add-material-modal'),
         ajax: {
           url: this.baseURL + '/select2/s',

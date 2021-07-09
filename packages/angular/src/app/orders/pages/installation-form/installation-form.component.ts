@@ -58,7 +58,7 @@ export class InstallationFormComponent implements OnInit {
     });
     // Select2 buscador de clientes.
     jQuery('#searchClient').select2({
-      theme: 'bootstrap4',
+      theme: 'bootstrap-5',
       placeholder: 'BUSCAR CLIENTE',
       dropdownParent: jQuery('#selectClientModal'),
       ajax: {

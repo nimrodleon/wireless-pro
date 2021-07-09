@@ -30,7 +30,7 @@ export class AveriaModalComponent implements OnInit {
   ngOnInit(): void {
     jQuery('#app-averia-modal').on('shown.bs.modal', () => {
       jQuery('select[name="clientId"]').select2({
-        theme: 'bootstrap4',
+        theme: 'bootstrap-5',
         dropdownParent: jQuery('#app-averia-modal'),
         ajax: {
           url: this.baseURL + '/select2/s',
