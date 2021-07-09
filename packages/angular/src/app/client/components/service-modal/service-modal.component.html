@@ -1,0 +1,229 @@
+<div class="modal fade" id="service-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-uppercase">{{ title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="serviceForm">
+          <!-- ##(Begin) Tab -->
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" data-bs-toggle="tab"
+                      data-bs-target="#nav-basic" type="button" role="tab">
+                <i class="fas fa-cog"></i><span class="text-uppercase ms-1">Básico</span>
+              </button>
+              <button class="nav-link" data-bs-toggle="tab"
+                      data-bs-target="#nav-address" type="button" role="tab">
+                <i class="fas fa-map-marker-alt"></i><span class="text-uppercase ms-1">Dirección</span>
+              </button>
+              <button class="nav-link" data-bs-toggle="tab"
+                      data-bs-target="#nav-pay" type="button" role="tab">
+                <i class="far fa-credit-card"></i><span class="text-uppercase ms-1">Pagos</span>
+              </button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-basic" role="tabpanel">
+              <!-- ##(Begin) Básico -->
+              <div class="row mt-2">
+                <div class="col-6 pb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
+                    <input type="text" formControlName="ipAddress" class="form-control" placeholder="IP Address">
+                  </div>
+                </div>
+                <div class="col-6 pb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-heartbeat"></i></span>
+                    <select formControlName="status" class="form-select">
+                      <option value="H">Habilitado</option>
+                      <option value="D">Deshabilitado</option>
+                      <option value="N">Notificado</option>
+                      <option value="S">Suspendido</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                    <select formControlName="servicePlanId" class="form-select">
+                      <option *ngFor="let item of servicePlanList" [value]="item._id">{{item.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6 pb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                    <input type="date" formControlName="initialDate" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-server"></i></span>
+                    <select formControlName="mikrotikId"
+                            (change)="changeMikrotikValue($event.target)"
+                            class="form-select">
+                      <option *ngFor="let item of mikrotikList" [value]="item._id">{{item.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6 pb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-sim-card"></i></span>
+                    <select formControlName="ethernetId" class="form-select">
+                      <option *ngFor="let item of ethernetList" [value]="item._id">{{item.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 pb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <input type="text" formControlName="userName" placeholder="Username" class="form-control">
+                  </div>
+                </div>
+                <div class="col-6 pb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="text" formControlName="password" placeholder="Password" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="pb-3">
+                <textarea formControlName="basicNote" class="form-control"></textarea>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-signal"></i></span>
+                    <select name="accessPoint" class="form-select"></select>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
+                    <input type="text" formControlName="macAddress" placeholder="MAC Address" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <!-- ##(End) Básico -->
+            </div>
+            <div class="tab-pane fade" id="nav-address" role="tabpanel">
+              <!-- ##(Begin) Dirección -->
+              <div class="row mt-2">
+                <div class="col-12">
+                  <div class="pb-3">
+                    <input type="text" class="form-control" id="searchAddress" disabled
+                           placeholder="Ingrese una dirección para buscar en google...">
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="pb-3">
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                      <input type="text" formControlName="address" placeholder="Dirección" class="form-control">
+                    </div>
+                  </div>
+                  <div class="pb-3">
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-city"></i></span>
+                      <input type="text" formControlName="city" placeholder="Ciudad" class="form-control">
+                    </div>
+                  </div>
+                  <div class="pb-3">
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
+                      <input type="text" formControlName="region" placeholder="Región" class="form-control">
+                    </div>
+                  </div>
+                  <div class="pb-3">
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-wifi"></i></span>
+                      <select formControlName="coverageId" class="form-select"></select>
+                    </div>
+                  </div>
+                  <div class="pb-3">
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
+                      <input type="text" placeholder="Lat" class="form-control" disabled>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
+                    <input type="text" placeholder="Long" class="form-control" disabled>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <!-- ##(Begin) map -->
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31015.952962683597!2d-73.39309230839163!3d-13.658121286107715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916d2bc7ff979013%3A0x7622e6cfe777add5!2sAndahuaylas!5e0!3m2!1ses!2spe!4v1624243954924!5m2!1ses!2spe"
+                    width="100%" height="310" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                  <!-- ##(End) map -->
+                </div>
+              </div>
+              <!-- ##(End) Dirección -->
+            </div>
+            <div class="tab-pane fade" id="nav-pay" role="tabpanel">
+              <!-- ##(Begin) Pagos -->
+              <div class="row pb-3 mt-2">
+                <label class="col-2 col-form-label text-end">Tipo</label>
+                <div class="col-4">
+                  <select formControlName="paymentType" class="form-select">
+                    <option value="PRE">PRE-PAGO</option>
+                    <option value="POS">POS-PAGO</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <div class="form-check form-switch pt-2">
+                    <input type="checkbox" formControlName="defPrice" class="form-check-input" id="customSwitch1">
+                    <label class="form-check-label" for="customSwitch1">Definir un precio en particular</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row pb-3">
+                <label class="col-2 col-form-label text-end">Precio</label>
+                <div class="col-6">
+                  <input type="number" formControlName="price" step="0.01" class="form-control">
+                </div>
+              </div>
+              <div class="row pb-3">
+                <label class="col-2 col-form-label text-end">Frecuencia</label>
+                <div class="col-6">
+                  <select formControlName="commonPayment" class="form-select">
+                    <option value="M">Mensual</option>
+                    <option value="B">Bimestral</option>
+                    <option value="T">Trimestral</option>
+                    <option value="S">Semestral</option>
+                    <option value="A">Anual</option>
+                  </select>
+                </div>
+              </div>
+              <label class="form-label">Información adicional</label>
+              <textarea formControlName="paymentNote" class="form-control"></textarea>
+              <!-- ##(End) Pagos -->
+            </div>
+          </div>
+          <!-- ##(End) Tab -->
+        </form>
+        <pre>{{serviceForm.value|json}}</pre>
+        <pre>{{currentService|json}}</pre>
+      </div><!-- //.modal-body -->
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-danger">
+          <span class="text-uppercase">Borrar</span>
+        </button>
+        <div>
+          <button type="button" class="btn btn-secondary text-uppercase me-2" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary text-uppercase">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

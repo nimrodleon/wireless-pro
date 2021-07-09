@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ClientRoutingModule} from './client-routing.module';
 import {GlobalModule} from '../global/global.module';
 import {ClientService, PaymentService, OutagesService, ServiceService, ClientDetailService} from './services';
@@ -18,6 +18,7 @@ import {CardOutagesComponent} from './components/card-outages/card-outages.compo
 import {TicketComponent} from './pages/ticket/ticket.component';
 import {ReceivableComponent} from './pages/receivable/receivable.component';
 import {PaymentDailyComponent} from './pages/payment-daily/payment-daily.component';
+import {ServiceModalComponent} from './components/service-modal/service-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,11 +33,13 @@ import {PaymentDailyComponent} from './pages/payment-daily/payment-daily.compone
     CardOutagesComponent,
     TicketComponent,
     ReceivableComponent,
-    PaymentDailyComponent
+    PaymentDailyComponent,
+    ServiceModalComponent
   ],
   imports: [
     CommonModule,
     ClientRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     GlobalModule
   ],

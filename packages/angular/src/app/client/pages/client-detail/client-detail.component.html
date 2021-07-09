@@ -8,7 +8,7 @@
       <a [routerLink]="['/client/detail', currentClient._id]" class="me-2">{{ currentClient.fullName }}</a>
     </span>
       <ng-container *ngIf="currentClient.is_active">
-        <button (click)="addServices()" class="btn btn-success text-uppercase">
+        <button (click)="addServiceModalClick()" class="btn btn-success text-uppercase">
           <i class="fas fa-plus"></i> Servicio
         </button>
       </ng-container>
@@ -122,14 +122,19 @@
       [client]="currentClient"
       (updateClientEvent)="updateClient($event)">
     </app-client-form-modal>
+    <app-service-modal
+      [title]="titleService"
+      [currentService]="currentService">
+    </app-service-modal>
 
-    <app-add-client-service
+    <!-- deprecado -->
+    <!--<app-add-client-service
       [title]="titleServiceModal"
       [clientId]="currentClient._id"
       [service]="service"
       (sendService)="setService($event)"
       (sendDeleteService)="deleteService($event)">
-    </app-add-client-service>
+    </app-add-client-service>-->
 
     <!--<app-payment-modal
       [title]="titlePaymentModal"

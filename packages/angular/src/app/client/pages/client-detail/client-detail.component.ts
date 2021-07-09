@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import Swal from 'sweetalert2';
 
 declare var jQuery: any;
+declare var bootstrap: any;
 import {ClientDetailService, ServiceService} from '../../services';
 import {Service, Client, Payment} from '../../interfaces';
 
@@ -12,12 +13,18 @@ import {Service, Client, Payment} from '../../interfaces';
   styleUrls: ['./client-detail.component.scss']
 })
 export class ClientDetailComponent implements OnInit {
+  serviceModal: any;
+  currentService: Service;
+  titleService: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private clientDetailService: ClientDetailService,
     private serviceService: ServiceService) {
+    // Deprecado ---
     this.service = this.serviceService.defaultValues();
+    // ============================================================
+    this.currentService = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -27,9 +34,23 @@ export class ClientDetailComponent implements OnInit {
     });
     // Obtener el rol del usuario autentificado.
     this.clientDetailService.getRoles();
-
     // this.getServices(this.clientId);
+
+    // ============================================================
+    // vincular modal servicio.
+    this.serviceModal = new bootstrap.Modal(
+      document.querySelector('#service-modal'));
   }
+
+  // Agregar Servicio Modal.
+  addServiceModalClick(): void {
+    this.titleService = 'Agregar Servicio';
+    this.currentService = this.serviceService.defaultValues();
+    this.serviceModal.show();
+  }
+
+
+  // ============================================================
 
   // Rol del usuario autentificado.
   get currentRole() {
@@ -239,7 +260,8 @@ export class ClientDetailComponent implements OnInit {
   titlePaymentModal: string;
   payment: Payment = new Payment();
   printReceipt: boolean = false;
-  currentService: any = {};
+
+  // currentService: any = {};
 
   addPayment(): void {
     // ensure that there is at least one service.
