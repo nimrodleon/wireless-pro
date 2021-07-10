@@ -62,7 +62,6 @@ export class ServiceService {
       price: 0,
       commonPayment: 'M',
       paymentNote: '',
-      lastPayment: '',
       createdAt: null
     };
   }

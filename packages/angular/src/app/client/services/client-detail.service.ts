@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {Client} from '../interfaces';
+import {Client, Service} from '../interfaces';
 import {ClientService} from './client.service';
 import Swal from 'sweetalert2';
 import {AuthService} from '../../user/services';
+import {ServiceService} from './service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,12 @@ import {AuthService} from '../../user/services';
 export class ClientDetailService {
   private _currentClient: Client;
   private _currentRole: string;
+  private _serviceList: Array<Service>;
 
   constructor(
     private router: Router,
     private clientService: ClientService,
+    private serviceService: ServiceService,
     private authService: AuthService) {
     // valores por defecto del cliente actual.
     this._currentClient = this.clientService.defaultValues();
@@ -33,6 +36,11 @@ export class ClientDetailService {
   // devuelve el cliente actual.
   get currentClient(): Client {
     return this._currentClient;
+  }
+
+  // Lista de servicios.
+  get serviceList(): Array<Service> {
+    return this._serviceList;
   }
 
   // Obtener el rol del usuario autentificado.
@@ -63,6 +71,17 @@ export class ClientDetailService {
       );
       this.router.navigate(['/client']);
     });
+  }
+
+  // valor por defecto del servicio.
+  serviceDefaultValues(): Service {
+    return this.serviceService.defaultValues();
+  }
+
+  // cargar lista de servicios.
+  getServiceList(clientId: string): void {
+    this.serviceService.getServices(clientId)
+      .subscribe(result => this._serviceList = result);
   }
 
 }

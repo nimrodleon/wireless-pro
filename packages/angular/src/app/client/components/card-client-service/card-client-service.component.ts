@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import * as ClipboardJS from 'clipboard';
 import {ServiceService, OutagesService} from '../../services';
-import {Outage} from '../../interfaces';
+import {Outage, Service} from '../../interfaces';
 
 @Component({
   selector: 'app-card-client-service',
@@ -12,18 +12,9 @@ import {Outage} from '../../interfaces';
 })
 export class CardClientServiceComponent implements OnInit {
   @Input()
-  service: any;
+  currentService: Service;
 
-  // send service list.
-  @Output()
-  sendServiceList = new EventEmitter<any>();
-
-  // send service.
-  @Output()
-  sendLoadServices = new EventEmitter<string>();
-
-  constructor(private serviceService: ServiceService,
-              private outageService: OutagesService) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -31,48 +22,62 @@ export class CardClientServiceComponent implements OnInit {
   }
 
   onEdit(): void {
-    this.sendServiceList.emit(this.service);
+    // this.sendServiceList.emit(this.service);
   }
 
-  /**
-   * Enable or Suspended Service.
-   * @param status
-   */
-  onChangeStatus(status: boolean): void {
-    this.serviceService.getServiceById(this.service._id)
-      .subscribe(async res => {
-        let objTmp = res;
-        const {value: text} = await Swal.fire({
-          input: 'textarea',
-          inputPlaceholder: 'Escribe una descripción aquí...',
-          inputAttributes: {
-            'aria-label': 'Type your message here'
-          },
-          showCancelButton: true
-        });
-
-        if (text) {
-          // objTmp.isActive = status;
-          if (status) {
-            // objTmp.dateFrom = moment().format('YYYY-MM-DD');
-          } else {
-            // objTmp.closeDate = moment().format('YYYY-MM-DD');
-          }
-          // create outage.
-          let outage = new Outage();
-          outage.service = objTmp._id;
-          outage.description = text.toString();
-          outage.status = status ? 'A' : 'S';
-          outage.createdAt = moment().format('YYYY-MM-DD');
-          this.outageService.create(outage).subscribe(res => {
-            // Update Service document.
-            // objTmp.lastOutage = res._id;
-            // this.serviceService.updateService(objTmp).subscribe(() => {
-            //   this.sendLoadServices.emit(objTmp.client);
-            // });
-          });
-        }
-      });
+  // retornar estado del servicio.
+  getStatusText(value: string): string {
+    switch (value) {
+      case 'H':
+        return 'HABILITADO';
+      case 'D':
+        return 'DESHABILITADO';
+      case 'N':
+        return 'NOTIFICADO';
+      case 'S':
+        return 'SUSPENDIDO';
+    }
   }
+
+  // /**
+  //  * Enable or Suspended Service.
+  //  * @param status
+  //  */
+  // onChangeStatus(status: boolean): void {
+  //   this.serviceService.getServiceById(this.service._id)
+  //     .subscribe(async res => {
+  //       let objTmp = res;
+  //       const {value: text} = await Swal.fire({
+  //         input: 'textarea',
+  //         inputPlaceholder: 'Escribe una descripción aquí...',
+  //         inputAttributes: {
+  //           'aria-label': 'Type your message here'
+  //         },
+  //         showCancelButton: true
+  //       });
+  //
+  //       if (text) {
+  //         // objTmp.isActive = status;
+  //         if (status) {
+  //           // objTmp.dateFrom = moment().format('YYYY-MM-DD');
+  //         } else {
+  //           // objTmp.closeDate = moment().format('YYYY-MM-DD');
+  //         }
+  //         // create outage.
+  //         let outage = new Outage();
+  //         outage.service = objTmp._id;
+  //         outage.description = text.toString();
+  //         outage.status = status ? 'A' : 'S';
+  //         outage.createdAt = moment().format('YYYY-MM-DD');
+  //         this.outageService.create(outage).subscribe(res => {
+  //           // Update Service document.
+  //           // objTmp.lastOutage = res._id;
+  //           // this.serviceService.updateService(objTmp).subscribe(() => {
+  //           //   this.sendLoadServices.emit(objTmp.client);
+  //           // });
+  //         });
+  //       }
+  //     });
+  // }
 
 }

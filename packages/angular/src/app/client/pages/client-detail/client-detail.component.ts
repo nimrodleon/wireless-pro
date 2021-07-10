@@ -4,8 +4,8 @@ import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 declare var bootstrap: any;
-import {ClientDetailService, ServiceService} from '../../services';
-import {Service, Client, Payment} from '../../interfaces';
+import {ClientDetailService} from '../../services';
+import {Client, Service} from '../../interfaces';
 
 @Component({
   selector: 'app-client-detail',
@@ -14,52 +14,29 @@ import {Service, Client, Payment} from '../../interfaces';
 })
 export class ClientDetailComponent implements OnInit {
   serviceModal: any;
+  clientModal: any;
   currentService: Service;
   titleService: string;
+  titleClient: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private clientDetailService: ClientDetailService,
-    private serviceService: ServiceService) {
-    // Deprecado ---
-    this.service = this.serviceService.defaultValues();
-    // ============================================================
-    this.currentService = this.serviceService.defaultValues();
+    private clientDetailService: ClientDetailService) {
+    this.currentService = this.clientDetailService.serviceDefaultValues();
   }
 
   ngOnInit(): void {
     // Cargar cliente actual.
     this.activatedRoute.paramMap.subscribe(params => {
       this.clientDetailService.getClient(params.get('id'));
+      this.clientDetailService.getServiceList(params.get('id'));
     });
-    // Obtener el rol del usuario autentificado.
-    this.clientDetailService.getRoles();
-    // this.getServices(this.clientId);
-
-    // ============================================================
     // vincular modal servicio.
     this.serviceModal = new bootstrap.Modal(
       document.querySelector('#service-modal'));
-  }
-
-  // Agregar Servicio Modal.
-  addServiceModalClick(): void {
-    this.titleService = 'Agregar Servicio';
-    this.currentService = this.serviceService.defaultValues();
-    this.serviceModal.show();
-  }
-
-
-  // ============================================================
-
-  // Rol del usuario autentificado.
-  get currentRole() {
-    return this.clientDetailService.currentRole;
-  }
-
-  // Lista de roles.
-  get roles() {
-    return this.clientDetailService.roles;
+    // vincular modal cliente.
+    this.clientModal = new bootstrap.Modal(
+      document.querySelector('#app-client-form-modal'));
   }
 
   // Cliente actual.
@@ -67,107 +44,124 @@ export class ClientDetailComponent implements OnInit {
     return this.clientDetailService.currentClient;
   }
 
+  // Lista de servicios.
+  get serviceList() {
+    return this.clientDetailService.serviceList;
+  }
+
+  // Agregar Servicio Modal.
+  addServiceModalClick(): void {
+    this.titleService = 'Agregar Servicio';
+    this.currentService = this.clientDetailService.serviceDefaultValues();
+    this.serviceModal.show();
+  }
+
+  // abrir modal editar cliente.
+  editClientModalClick(e: any): void {
+    e.preventDefault();
+    this.clientModal.show();
+  }
+
   // actualizar datos del cliente.
   updateClient(client: Client): void {
     this.clientDetailService.updateClient(client);
   }
 
-  // borrar cliente.
-  deleteClient(id: string): void {
-    if (this.currentRole !== this.roles.ROLE_ADMIN) {
-      Swal.fire(
-        'Información',
-        'No es admin, no puede hacer esto!',
-        'error'
-      );
-    } else {
-      Swal.fire({
-        title: `¿Estás seguro de borrar?`,
-        text: '¡No podrás revertir esto!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.clientDetailService.deleteClient(id);
-        }
-      });
-    }
-  }
 
-  // abrir modal cliente.
-  showClientModal(e): void {
-    e.preventDefault();
-    jQuery('#app-client-form-modal').modal('show');
-  }
+  // // Rol del usuario autentificado.
+  // get currentRole() {
+  //   return this.clientDetailService.currentRole;
+  // }
+  //
+  // // Lista de roles.
+  // get roles() {
+  //   return this.clientDetailService.roles;
+  // }
+  //
 
 
-  /**
-   *  Refactoring.
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   */
-    //# SERVICE COMPONENT SECTION
-  titleServiceModal: string = '';
-  service: Service;
-  serviceList: any[];
-  expectedPayment: number = 0.00;
+  // // borrar cliente.
+  // deleteClient(id: string): void {
+  //   if (this.currentRole !== this.roles.ROLE_ADMIN) {
+  //     Swal.fire(
+  //       'Información',
+  //       'No es admin, no puede hacer esto!',
+  //       'error'
+  //     );
+  //   } else {
+  //     Swal.fire({
+  //       title: `¿Estás seguro de borrar?`,
+  //       text: '¡No podrás revertir esto!',
+  //       icon: 'warning',
+  //       showCancelButton: true,
+  //       confirmButtonColor: '#3085d6',
+  //       cancelButtonColor: '#d33',
+  //       confirmButtonText: 'Sí, bórralo!',
+  //       cancelButtonText: 'Cancelar'
+  //     }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         this.clientDetailService.deleteClient(id);
+  //       }
+  //     });
+  //   }
+  // }
 
-  // Open modal Service.
-  addServices(): void {
-    this.titleServiceModal = 'Agregar Servicio';
-    this.service = this.serviceService.defaultValues();
-    jQuery('#app-add-client-service').modal('show');
-  }
+  // // abrir modal cliente.
+  // showClientModal(e): void {
+  //   e.preventDefault();
+  //   jQuery('#app-client-form-modal').modal('show');
+  // }
 
-  // Open modal Service edit.
-  onEditService(service: any): void {
-    // this.titleServiceModal = 'Editar Servicio';
-    // this.serviceService.getService(service._id).subscribe(res => {
-    //   this.service = res;
-    //   jQuery('#app-add-client-service').modal('show');
-    // });
-  }
 
-  // Update Service.
-  setService(service: Service): void {
-    // if (!service.servicePlan) {
-    //   Swal.fire('Seleccione un Servicio de la Lista!');
-    // } else {
-    //   if (service._id === undefined) {
-    //     this.serviceService.create(service).subscribe(res => {
-    //       this.getServices(this.clientId);
-    //     });
-    //   } else {
-    //     this.serviceService.update(service).subscribe(res => {
-    //       this.getServices(this.clientId);
-    //     });
-    //   }
-    // }
-  }
+  //# SERVICE COMPONENT SECTION
+  // titleServiceModal: string = '';
+  // service: Service;
+  // serviceList: any[];
+  // expectedPayment: number = 0.00;
+  //
+  // // Open modal Service.
+  // addServices(): void {
+  //   this.titleServiceModal = 'Agregar Servicio';
+  //   this.service = this.serviceService.defaultValues();
+  //   jQuery('#app-add-client-service').modal('show');
+  // }
+
+  // // Open modal Service edit.
+  // onEditService(service: any): void {
+  //   // this.titleServiceModal = 'Editar Servicio';
+  //   // this.serviceService.getService(service._id).subscribe(res => {
+  //   //   this.service = res;
+  //   //   jQuery('#app-add-client-service').modal('show');
+  //   // });
+  // }
+
+  // // Update Service.
+  // setService(service: Service): void {
+  //   // if (!service.servicePlan) {
+  //   //   Swal.fire('Seleccione un Servicio de la Lista!');
+  //   // } else {
+  //   //   if (service._id === undefined) {
+  //   //     this.serviceService.create(service).subscribe(res => {
+  //   //       this.getServices(this.clientId);
+  //   //     });
+  //   //   } else {
+  //   //     this.serviceService.update(service).subscribe(res => {
+  //   //       this.getServices(this.clientId);
+  //   //     });
+  //   //   }
+  //   // }
+  // }
 
   /**
    * Carga los Servicios
    * si el registro fue eliminado.
    * @param status Estado
    */
-  deleteService(status: boolean): void {
-    // if (status) {
-    //   this.getServices(this.clientId);
-    // }
-  }
+  // deleteService(status: boolean): void {
+  //   // if (status) {
+  //   //   this.getServices(this.clientId);
+  //   // }
+  // }
 
   /**
    * Load Services.
@@ -193,20 +187,20 @@ export class ClientDetailComponent implements OnInit {
    * Calcula el pago esperado.
    * @param serviceList Array de servicios
    */
-  private calcExpectedPayment(serviceList: any[]): void {
-    this.expectedPayment = 0.00;
-    serviceList.forEach(service => {
-      this.expectedPayment += service.servicePlan.priceMonthly;
-    });
-  }
+  // private calcExpectedPayment(serviceList: any[]): void {
+  //   this.expectedPayment = 0.00;
+  //   serviceList.forEach(service => {
+  //     this.expectedPayment += service.servicePlan.priceMonthly;
+  //   });
+  // }
 
   //# END SERVICE COMPONENT
 
   //# CLIENT COMPONENT SECTION
   // client: Client;
-  private clientId: string = '';
-  titleModal: string = 'Editar Cliente';
-  editMode: boolean = true;
+  // private clientId: string = '';
+  // titleModal: string = 'Editar Cliente';
+  // editMode: boolean = true;
 
   /**
    * Actualiza el registro del cliente.
@@ -218,94 +212,94 @@ export class ClientDetailComponent implements OnInit {
   //   });
   // }
 
-  onDeleteClient(): void {
-    // if (this.client) {
-    //   Swal.fire({
-    //     title: `¿Estás seguro de borrar?`,
-    //     text: '¡No podrás revertir esto!',
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Sí, bórralo!',
-    //     cancelButtonText: 'Cancelar'
-    //   }).then((result) => {
-    //     if (result.value) {
-    //       this.clientService.delete(this.client._id).subscribe(res => {
-    //         Swal.fire(
-    //           'Eliminado!',
-    //           'El Cliente a sido eliminado.',
-    //           'success'
-    //         );
-    //         this.router.navigate(['/client/list']);
-    //       });
-    //     }
-    //   });
-    // }
-  }
+  // onDeleteClient(): void {
+  //   // if (this.client) {
+  //   //   Swal.fire({
+  //   //     title: `¿Estás seguro de borrar?`,
+  //   //     text: '¡No podrás revertir esto!',
+  //   //     icon: 'warning',
+  //   //     showCancelButton: true,
+  //   //     confirmButtonColor: '#3085d6',
+  //   //     cancelButtonColor: '#d33',
+  //   //     confirmButtonText: 'Sí, bórralo!',
+  //   //     cancelButtonText: 'Cancelar'
+  //   //   }).then((result) => {
+  //   //     if (result.value) {
+  //   //       this.clientService.delete(this.client._id).subscribe(res => {
+  //   //         Swal.fire(
+  //   //           'Eliminado!',
+  //   //           'El Cliente a sido eliminado.',
+  //   //           'success'
+  //   //         );
+  //   //         this.router.navigate(['/client/list']);
+  //   //       });
+  //   //     }
+  //   //   });
+  //   // }
+  // }
 
   /**
    * Optiene el registro del cliente.
    * @param id clave
    */
-    // private getClient(id: string): void {
-    //   this.clientService.getClient(id).subscribe(client => {
-    //     this.client = client;
-    //   });
-    // }
+  // private getClient(id: string): void {
+  //   this.clientService.getClient(id).subscribe(client => {
+  //     this.client = client;
+  //   });
+  // }
 
-    //# END CLIENT COMPONENT
+  //# END CLIENT COMPONENT
 
-    //# PAYMENT MODAL SECTION
-  titlePaymentModal: string;
-  payment: Payment = new Payment();
-  printReceipt: boolean = false;
+  //# PAYMENT MODAL SECTION
+  // titlePaymentModal: string;
+  // payment: Payment = new Payment();
+  // printReceipt: boolean = false;
 
   // currentService: any = {};
 
-  addPayment(): void {
-    // ensure that there is at least one service.
-    // if (this.serviceList.length <= 0) {
-    //   Swal.fire(
-    //     'Oops...',
-    //     'Agrega al menos un Servicio!',
-    //     'error'
-    //   );
-    // } else {
-    //   this.currentService = this.serviceList[0];
-    //   this.titlePaymentModal = 'Agregar Pago';
-    //   this.payment = new Payment();
-    //   this.payment.year = new Date().getFullYear().toString();
-    //   jQuery('#app-payment-modal').modal('show');
-    // }
-  }
+  // addPayment(): void {
+  //   ensure that there is at least one service.
+  //   if (this.serviceList.length <= 0) {
+  //     Swal.fire(
+  //       'Oops...',
+  //       'Agrega al menos un Servicio!',
+  //       'error'
+  //     );
+  //   } else {
+  //     this.currentService = this.serviceList[0];
+  //     this.titlePaymentModal = 'Agregar Pago';
+  //     this.payment = new Payment();
+  //     this.payment.year = new Date().getFullYear().toString();
+  //     jQuery('#app-payment-modal').modal('show');
+  //   }
+  // }
 
-  // register payment.
-  setPayment(payment: Payment): void {
-    // if (payment._id === undefined) {
-    //   this.paymentService.create(payment).subscribe(res => {
-    //     this.payment = res;
-    //     if (this.payment) {
-    //       if (this.printReceipt === true) {
-    //         this.router.navigate(['/ticket', this.payment._id]);
-    //       } else {
-    //         Swal.fire({
-    //           position: 'center',
-    //           icon: 'success',
-    //           title: 'Comprobante de pago registrado!',
-    //           showConfirmButton: false,
-    //           timer: 1500
-    //         });
-    //       }
-    //     }
-    //   });
-    // }
-  }
+  // // register payment.
+  // setPayment(payment: Payment): void {
+  //   if (payment._id === undefined) {
+  //     this.paymentService.create(payment).subscribe(res => {
+  //       this.payment = res;
+  //       if (this.payment) {
+  //         if (this.printReceipt === true) {
+  //           this.router.navigate(['/ticket', this.payment._id]);
+  //         } else {
+  //           Swal.fire({
+  //             position: 'center',
+  //             icon: 'success',
+  //             title: 'Comprobante de pago registrado!',
+  //             showConfirmButton: false,
+  //             timer: 1500
+  //           });
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
 
-  // print receipt.
-  setPrintReceipt(print: boolean): void {
-    this.printReceipt = print;
-  }
+  // // print receipt.
+  // setPrintReceipt(print: boolean): void {
+  //   this.printReceipt = print;
+  // }
 
   /**
    * Enable Service.

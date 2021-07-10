@@ -119,5 +119,15 @@ export class ServiceModalComponent implements OnInit {
     this.getEthernetList(target.value);
   }
 
+  // guardar cambios.
+  saveChanges(): void {
+    // validar campos del formulario.
+    if(this.serviceForm.invalid) {
+      this.serviceForm.markAllAsTouched();
+      return;
+    }
+    // Guardar datos, sólo si es válido el formulario.
+
+  }
 
 }

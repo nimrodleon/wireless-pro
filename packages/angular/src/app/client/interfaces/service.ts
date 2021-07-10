@@ -21,6 +21,5 @@ export interface Service {
   price: number;
   commonPayment: string;
   paymentNote: string;
-  lastPayment: string;
   createdAt: any;
 }

@@ -27,4 +27,11 @@ db.tasks.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
 db.taskmaterials.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
 db.towers.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
 db.tramos.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+
+// actualización de servicios.
+db.services.update({"client": {$exists: true}}, {$rename: {"client":"clientId"}}, false, true);
+db.services.update({"servicePlan": {$exists: true}}, {$rename: {"servicePlan":"servicePlanId"}}, false, true);
+db.services.update({"dateFrom": {$exists: true}}, {$rename: {"dateFrom":"initialDate"}}, false, true);
+db.services.update({"note": {$exists: true}}, {$rename: {"note":"basicNote"}}, false, true);
+db.services.update({"payment": {$exists: true}}, {$rename: {"payment":"lastPayment"}}, false, true);
 ```
