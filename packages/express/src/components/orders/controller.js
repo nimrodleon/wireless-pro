@@ -35,6 +35,17 @@ export class OrderController {
     })
   }
 
+  // Obtener orden de instalación por id cliente.
+  static async getOrderByClientId(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(OrderStore.getOrderByClientId(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // Registrar orden de instalación.
   static async addOrder(data) {
     return new Promise((resolve, reject) => {

@@ -89,6 +89,11 @@ export class OrderStore {
     return Order.findById(id)
   }
 
+  // Obtener orden de instalación por id cliente.
+  static async getOrderByClientId(id) {
+    return Order.find({clientId: id, isDeleted: false})
+  }
+
   // Registrar orden de instalación.
   static async addOrder(data) {
     let _order = new Order(data)

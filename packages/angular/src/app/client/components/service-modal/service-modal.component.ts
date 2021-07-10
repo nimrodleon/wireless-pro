@@ -43,7 +43,7 @@ export class ServiceModalComponent implements OnInit {
     coverageId: ['', [Validators.required]],
     paymentType: ['PRE'],
     defPrice: [false],
-    price: [0],
+    price: [0, [Validators.required, Validators.min(0)]],
     commonPayment: ['M'],
     paymentNote: [''],
   });
@@ -77,6 +77,9 @@ export class ServiceModalComponent implements OnInit {
     let accessPoint = jQuery('select[name="accessPoint');
     let myModal = document.querySelector('#service-modal');
     myModal.addEventListener('shown.bs.modal', () => {
+      // cargar valores al formulario.
+      this.serviceForm.reset({...this.currentService});
+      // accessPoint select2 component.
       accessPoint.select2({
         theme: 'bootstrap-5',
         dropdownParent: jQuery('#service-modal'),
@@ -122,7 +125,7 @@ export class ServiceModalComponent implements OnInit {
   // guardar cambios.
   saveChanges(): void {
     // validar campos del formulario.
-    if(this.serviceForm.invalid) {
+    if (this.serviceForm.invalid) {
       this.serviceForm.markAllAsTouched();
       return;
     }

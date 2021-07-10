@@ -13,16 +13,14 @@ import {Outage, Service} from '../../interfaces';
 export class CardClientServiceComponent implements OnInit {
   @Input()
   currentService: Service;
+  @Output()
+  sendIdService = new EventEmitter<string>();
 
   constructor() {
   }
 
   ngOnInit(): void {
     new ClipboardJS('[data-clipboard-text]');
-  }
-
-  onEdit(): void {
-    // this.sendServiceList.emit(this.service);
   }
 
   // retornar estado del servicio.
@@ -37,6 +35,11 @@ export class CardClientServiceComponent implements OnInit {
       case 'S':
         return 'SUSPENDIDO';
     }
+  }
+
+  // editar servicio.
+  editServiceClick(): void {
+    this.sendIdService.emit(this.currentService._id);
   }
 
   // /**

@@ -77,6 +77,11 @@ export class InstallationOrderService {
     return this.http.get<InstallationOrder>(`${this.baseURL}/${id}`);
   }
 
+  // Obtener orden de instalación por id del cliente.
+  getInstallationOrderByClientId(id: string): Observable<InstallationOrder[]> {
+    return this.http.get<InstallationOrder[]>(`${this.baseURL}/${id}/client`);
+  }
+
   // registrar orden de instalación.
   addOrder(data: InstallationOrder): Observable<InstallationOrder> {
     delete data.createdAt;

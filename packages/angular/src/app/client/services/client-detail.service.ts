@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import Swal from 'sweetalert2';
 import {Client, Service} from '../interfaces';
 import {ClientService} from './client.service';
-import Swal from 'sweetalert2';
 import {AuthService} from '../../user/services';
 import {ServiceService} from './service.service';
 
@@ -76,6 +77,11 @@ export class ClientDetailService {
   // valor por defecto del servicio.
   serviceDefaultValues(): Service {
     return this.serviceService.defaultValues();
+  }
+
+  // obtener servicio por id.
+  getServiceById(id): Observable<Service> {
+    return this.serviceService.getServiceById(id);
   }
 
   // cargar lista de servicios.

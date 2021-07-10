@@ -213,7 +213,9 @@
               <div class="row pb-3">
                 <label class="col-2 col-form-label text-end">Precio</label>
                 <div class="col-6">
-                  <input type="number" formControlName="price" step="0.01" class="form-control">
+                  <input type="number" formControlName="price" step="0.01" class="form-control"
+                         [ngClass]="{'is-invalid': inputIsInvalid('price')}">
+                  <div class="invalid-feedback">El valor mínimo del precio debe ser cero.</div>
                 </div>
               </div>
               <div class="row pb-3">

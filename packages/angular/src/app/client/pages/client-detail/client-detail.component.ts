@@ -6,6 +6,8 @@ declare var jQuery: any;
 declare var bootstrap: any;
 import {ClientDetailService} from '../../services';
 import {Client, Service} from '../../interfaces';
+import {InstallationOrderService} from 'src/app/orders/services';
+import {InstallationOrder} from 'src/app/orders/interfaces';
 
 @Component({
   selector: 'app-client-detail',
@@ -18,10 +20,12 @@ export class ClientDetailComponent implements OnInit {
   currentService: Service;
   titleService: string;
   titleClient: string;
+  installationOrderList: Array<InstallationOrder>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private clientDetailService: ClientDetailService) {
+    private clientDetailService: ClientDetailService,
+    private installationOrderService: InstallationOrderService) {
     this.currentService = this.clientDetailService.serviceDefaultValues();
   }
 
@@ -30,6 +34,8 @@ export class ClientDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.clientDetailService.getClient(params.get('id'));
       this.clientDetailService.getServiceList(params.get('id'));
+      this.installationOrderService.getInstallationOrderByClientId(params.get('id'))
+        .subscribe(result => this.installationOrderList = result);
     });
     // vincular modal servicio.
     this.serviceModal = new bootstrap.Modal(
@@ -53,12 +59,24 @@ export class ClientDetailComponent implements OnInit {
   addServiceModalClick(): void {
     this.titleService = 'Agregar Servicio';
     this.currentService = this.clientDetailService.serviceDefaultValues();
+    this.currentService.clientId = this.currentClient._id;
     this.serviceModal.show();
+  }
+
+  // editar servicio modal.
+  editServiceModalClick(id: string): void {
+    this.titleService = 'Editar Servicio';
+    this.clientDetailService.getServiceById(id)
+      .subscribe(result => {
+        this.currentService = result;
+        this.serviceModal.show();
+      });
   }
 
   // abrir modal editar cliente.
   editClientModalClick(e: any): void {
     e.preventDefault();
+    this.titleClient = 'Editar Cliente';
     this.clientModal.show();
   }
 

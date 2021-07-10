@@ -37,6 +37,16 @@ function getOrderById(req, res = response) {
   })
 }
 
+// http://<HOST>/api/installation_orders/:id/client
+router.get('/:id/client', [verifyToken], getOrderByClientId)
+
+// Obtener orden de instalación por id del cliente.
+function getOrderByClientId(req, res = response) {
+  OrderController.getOrderByClientId(req.params.id).then(result => {
+    res.json(result)
+  })
+}
+
 // http://<HOST>/api/installation_orders
 router.post('/', [verifyToken], addOrderInstallation)
 

@@ -3,8 +3,7 @@
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
     <div class="d-flex align-items-center mt-2">
-    <span class="text-uppercase h4">
-      <a routerLink="/client/list">Clientes</a><span class="mx-1">/</span>
+    <span class="text-uppercase h4 mb-0">
       <a [routerLink]="['/client/detail', currentClient._id]" class="me-2">{{ currentClient.fullName }}</a>
     </span>
       <ng-container *ngIf="currentClient.is_active">
@@ -27,7 +26,8 @@
         </app-card-client-service>-->
         <app-card-client-service
           *ngFor="let service of serviceList"
-          [currentService]="service">
+          [currentService]="service"
+          (sendIdService)="editServiceModalClick($event)">
         </app-card-client-service>
         <!-- ##(End) Lista de servicios contratados. -->
       </div>
@@ -75,30 +75,24 @@
             <div class="table-responsive">
               <table class="table table-striped mb-0">
                 <tbody>
-                <tr>
+                <tr *ngFor="let order of installationOrderList">
                   <td>
-                    <div class="text-uppercase">
-                      <span class="badge bg-info">Instalación</span>
+                    <a [routerLink]="['/installation_orders/detail', order._id]"
+                       class="text-uppercase">{{order.address}}</a>
+                    <div class="d-flex">
+                      <div class="text-uppercase me-2">
+                        <span class="badge bg-info">{{order.typeInstallation}}</span>
+                      </div>
+                      <div class="text-uppercase">
+                        <span *ngIf="order.statusOrder === 'PENDIENTE'"
+                              class="badge bg-primary">{{order.statusOrder}}</span>
+                        <span *ngIf="order.statusOrder === 'EN PROCESO'"
+                              class="badge bg-warning">{{order.statusOrder}}</span>
+                        <span *ngIf="order.statusOrder === 'FINALIZADO'"
+                              class="badge bg-success">{{order.statusOrder}}</span>
+                      </div>
                     </div>
-                    <a [routerLink]="['/installation_orders/detail', 0]"
-                       class="text-uppercase">Cliente Apellido / 956-454-141</a>
-                    <div class="text-uppercase">
-                      <span class="badge bg-primary">Pendiente</span>
-                    </div>
-                    <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="text-uppercase">
-                      <span class="badge bg-info">Instalación</span>
-                    </div>
-                    <a [routerLink]="['/installation_orders/detail', 0]"
-                       class="text-uppercase">Cliente Apellido / 956-454-141</a>
-                    <div class="text-uppercase">
-                      <span class="badge bg-warning">En Proceso</span>
-                    </div>
-                    <span class="blockquote-footer">2021-02-02, 09:32:57 AM</span>
+                    <span class="blockquote-footer">{{order.createdAt}}</span>
                   </td>
                 </tr>
                 </tbody>
