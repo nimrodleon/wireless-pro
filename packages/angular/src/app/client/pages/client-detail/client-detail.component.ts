@@ -73,6 +73,14 @@ export class ClientDetailComponent implements OnInit {
       });
   }
 
+  // cerrar venta modal servicios.
+  hideServiceModal(value: boolean): void {
+    if (value === true) {
+      this.clientDetailService.getServiceList(this.currentClient._id);
+      this.serviceModal.hide();
+    }
+  }
+
   // abrir modal editar cliente.
   editClientModalClick(e: any): void {
     e.preventDefault();

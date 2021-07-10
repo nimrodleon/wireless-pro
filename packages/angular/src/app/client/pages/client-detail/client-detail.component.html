@@ -6,24 +6,16 @@
     <span class="text-uppercase h4 mb-0">
       <a [routerLink]="['/client/detail', currentClient._id]" class="me-2">{{ currentClient.fullName }}</a>
     </span>
-      <ng-container *ngIf="currentClient.is_active">
-        <button (click)="addServiceModalClick()" class="btn btn-success text-uppercase">
-          <i class="fas fa-plus"></i> Servicio
-        </button>
-      </ng-container>
-      <button
-        type="button" *ngIf="!currentClient.is_active"
-        class="btn btn-danger text-uppercase">
+      <button (click)="addServiceModalClick()" class="btn btn-success text-uppercase me-2">
+        <i class="fas fa-plus"></i> Servicio
+      </button>
+      <button type="button" class="btn btn-danger text-uppercase">
         <i class="fas fa-trash-alt"></i> Borrar
       </button>
     </div>
     <div class="row mt-2">
       <div class="col-md-6">
         <!-- ##(Begin) Lista de servicios contratados. -->
-        <!--<app-card-client-service *ngFor="let service of serviceList" [service]="service"
-                                 (sendServiceList)="onEditService($event)"
-                                 (sendLoadServices)="loadServices($event)">
-        </app-card-client-service>-->
         <app-card-client-service
           *ngFor="let service of serviceList"
           [currentService]="service"
@@ -57,17 +49,6 @@
           </div>
         </div>
         <!-- ##(End) Información Cliente. -->
-        <!--<div class="card my-2">
-          <div class="card-body">
-            <button type="button" class="btn btn-success text-uppercase me-2">
-              <i class="fas fa-file-invoice-dollar"></i> Registrar Pago
-            </button>
-            <button [routerLink]="['/client/payments', currentClient._id]"
-                    class="btn btn-info text-uppercase mt-2 mt-sm-0">
-              <i class="far fa-list-alt"></i> Lista de Pago
-            </button>
-          </div>
-        </div>-->
         <!-- ##(Begin) Últimas Instalaciones -->
         <div class="card">
           <div class="card-body">
@@ -111,7 +92,8 @@
     </app-client-form-modal>
     <app-service-modal
       [title]="titleService"
-      [currentService]="currentService">
+      [currentService]="currentService"
+      (hideModal)="hideServiceModal($event)">
     </app-service-modal>
 
     <!-- deprecado -->
@@ -132,7 +114,6 @@
       (sendPrintReceipt)="setPrintReceipt($event)"
       (sendPayment)="setPayment($event)">
     </app-payment-modal>-->
-    <pre>{{serviceList|json}}</pre>
 
   </div>
 </div>

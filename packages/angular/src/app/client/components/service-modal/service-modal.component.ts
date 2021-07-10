@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 
@@ -8,6 +8,7 @@ import {Service} from '../../interfaces';
 import {environment} from 'src/environments/environment';
 import {CoverageService, EthernetService, MikrotikService, ServicePlanService} from 'src/app/system/services';
 import {Coverage, Ethernet, Mikrotik, ServicePlan} from 'src/app/system/interfaces';
+import {DeviceService} from 'src/app/devices/services';
 
 @Component({
   selector: 'app-service-modal',
@@ -19,6 +20,8 @@ export class ServiceModalComponent implements OnInit {
   title: string;
   @Input()
   currentService: Service;
+  @Output()
+  hideModal = new EventEmitter<boolean>();
   // ============================================================
   baseURL: string = environment.baseUrl + 'devices';
   serviceForm: FormGroup = this.fb.group({
@@ -58,7 +61,8 @@ export class ServiceModalComponent implements OnInit {
     private servicePlanService: ServicePlanService,
     private mikrotikService: MikrotikService,
     private ethernetService: EthernetService,
-    private coverageService: CoverageService) {
+    private coverageService: CoverageService,
+    private deviceService: DeviceService) {
   }
 
   ngOnInit(): void {
@@ -77,6 +81,8 @@ export class ServiceModalComponent implements OnInit {
     let accessPoint = jQuery('select[name="accessPoint');
     let myModal = document.querySelector('#service-modal');
     myModal.addEventListener('shown.bs.modal', () => {
+      // cargar lista de interfaces.
+      this.getEthernetList(this.currentService.mikrotikId);
       // cargar valores al formulario.
       this.serviceForm.reset({...this.currentService});
       // accessPoint select2 component.
@@ -96,6 +102,15 @@ export class ServiceModalComponent implements OnInit {
       });
       // Preselecting options in an remotely-sourced.
       // si existe access point cargar datos al accessPoint.
+      if (this.currentService._id
+        && this.currentService.accessPoint) {
+        this.deviceService.getDevice(this.currentService.accessPoint)
+          .subscribe(result => {
+            const option = new Option(result.name + ' - '
+              + result.ipAddress, result._id, true, true);
+            accessPoint.append(option).trigger('change');
+          });
+      }
     });
     myModal.addEventListener('hide.bs.modal', () => {
       this.serviceForm.reset({...this.serviceService.defaultValues()});
@@ -130,7 +145,15 @@ export class ServiceModalComponent implements OnInit {
       return;
     }
     // Guardar datos, sólo si es válido el formulario.
-
+    if (this.currentService._id === null) {
+      // registrar servicio.
+      this.serviceService.createService(this.currentService)
+        .subscribe(() => this.hideModal.emit(true));
+    } else {
+      // actualizar servicio.
+      this.serviceService.updateService(this.currentService)
+        .subscribe(() => this.hideModal.emit(true));
+    }
   }
 
 }
