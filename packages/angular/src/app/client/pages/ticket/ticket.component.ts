@@ -34,7 +34,7 @@ export class TicketComponent implements OnInit {
 
   // Carga el Cliente del Comprobante.
   private getClient(id: string): void {
-    this.clientService.getClient(id).subscribe(res => {
+    this.clientService.getClientById(id).subscribe(res => {
       this.client = res;
     });
   }

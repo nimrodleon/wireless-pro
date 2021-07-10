@@ -13,26 +13,25 @@ export class ClientService {
   constructor(private http: HttpClient) {
   }
 
-  getClients(query: any, status: any): Observable<any> {
+  getClientList(query: string): Observable<Client[]> {
     let params = new HttpParams();
-    params = params.append('status', status);
     params = params.append('search', query);
-    return this.http.get(this.baseURL, {params: params});
+    return this.http.get<Client[]>(this.baseURL, {params});
   }
 
-  getClient(id: string): Observable<Client> {
+  getClientById(id: string): Observable<Client> {
     return this.http.get<Client>(`${this.baseURL}/${id}`);
   }
 
-  create(client: Client): Observable<Client> {
+  createClient(client: Client): Observable<Client> {
     return this.http.post<Client>(this.baseURL, client);
   }
 
-  update(client: Client): Observable<Client> {
+  updateClient(client: Client): Observable<Client> {
     return this.http.patch<Client>(`${this.baseURL}/${client._id}`, client);
   }
 
-  delete(id: string): Observable<any> {
+  deleteClient(id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
@@ -41,15 +40,13 @@ export class ClientService {
     return {
       _id: undefined,
       dni: '',
+      type: 'PERSONA',
       fullName: '',
       fullAddress: '',
-      email: '',
       phone: '',
-      type: '',
+      email: '',
       note: '',
-      is_active: true,
     };
   }
-
 
 }

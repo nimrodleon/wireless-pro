@@ -51,7 +51,7 @@ export class ServiceDetailComponent implements OnInit {
 
   // get client data.
   private getClient(id: string): void {
-    this.clientService.getClient(id).subscribe(res => this.client = res);
+    this.clientService.getClientById(id).subscribe(res => this.client = res);
   }
 
   // get service-plan data.

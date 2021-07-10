@@ -38,7 +38,7 @@ export class InstallationTicketComponent implements OnInit {
           this.installationOrder = result;
           this.servicePlanService.getServicePlan(result.servicePlanId)
             .subscribe(result => this.servicePlan = result);
-          this.clientService.getClient(result.clientId)
+          this.clientService.getClientById(result.clientId)
             .subscribe(result => this.client = result);
         });
     });

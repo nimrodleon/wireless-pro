@@ -35,7 +35,7 @@ export class InstallationOrderService {
 
   // Obtener datos del cliente por id.
   getClientById(id): Observable<Client> {
-    return this.clientService.getClient(id);
+    return this.clientService.getClientById(id);
   }
 
   // Obtener datos del usuario.
@@ -45,7 +45,7 @@ export class InstallationOrderService {
 
   // Agregar cliente.
   addClient(data: Client): Observable<Client> {
-    return this.clientService.create(data);
+    return this.clientService.createClient(data);
   }
 
   // Lista de planes de servicio.

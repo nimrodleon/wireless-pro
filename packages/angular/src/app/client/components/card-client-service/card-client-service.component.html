@@ -1,83 +1,3 @@
-<!--
-<div class="card mb-2">
-  <div class="card-body">
-    <h5 class="card-title">
-      <a [routerLink]="['/client/service-detail', service._id]">{{ service.servicePlan.name }}</a>
-    </h5>
-    <p class="my-1">
-      <span><i class="fas fa-network-wired"></i> Ip Address: </span>
-      <a href="http://{{ service.ipAddress }}" target="_blank">{{ service.ipAddress }}</a>
-    </p>
-    <div class="table-responsive">
-      <table class="table m-0">
-        <tr class="bg-warning">
-          <th><i class="fas fa-user"></i> User</th>
-          <td>
-            <div class="d-flex justify-content-between">
-              {{ service.userName }}
-              <a href="#" (click)="$event.preventDefault()" class="text-secondary"
-                 [attr.data-clipboard-text]="service.userName"><i class="fas fa-clipboard"></i>
-              </a>
-            </div>
-          </td>
-          <th><i class="fas fa-unlock-alt"></i> Password</th>
-          <td>
-            <div class="d-flex justify-content-between">
-              {{ service.password }}
-              <a href="#" (click)="$event.preventDefault()" class="text-secondary"
-                 [attr.data-clipboard-text]="service.password"><i class="fas fa-clipboard"></i>
-              </a>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <p class="my-1">
-      <span><i class="fas fa-desktop"></i> Estado: </span>
-      <ng-container *ngIf="service.isActive else elseIf">
-        <span class="text-success">Activo desde {{ service.dateFrom }}</span>
-      </ng-container>
-      <ng-template #elseIf>
-        <span class="text-danger">Suspendido desde {{ service.closeDate }}</span>
-      </ng-template>
-    </p>
-    <ng-container *ngIf="service.createdAt">
-      <p class="my-1">
-        <span><i class="fas fa-calendar-alt"></i> Registro: </span>
-        <span class="text-success">{{ service.createdAt }}</span>
-      </p>
-    </ng-container>
-    <p class="my-1">
-      <span><i class="far fa-credit-card"></i> Precio: </span> {{ service.servicePlan.priceMonthly }}
-    </p>
-    <p *ngIf="service.note" class="card-text">{{ service.note }}</p>
-  </div>
-  <div class="card-footer d-flex justify-content-between">
-    <div>
-      <button (click)="onEdit()" class="btn btn-primary">
-        <i class="fas fa-edit"></i>
-        <span class="text-uppercase ml-1">Editar</span>
-      </button>
-      <button (click)="onChangeStatus(true)"
-              *ngIf="!service.isActive" class="btn btn-success ml-2">
-        <i class="fas fa-check"></i>
-        <span class="text-uppercase ml-1">Habilitar</span>
-      </button>
-      <button (click)="onChangeStatus(false)"
-              *ngIf="service.isActive" class="btn btn-danger ml-2">
-        <i class="fas fa-times"></i>
-        <span class="text-uppercase ml-1">Suspender</span>
-      </button>
-    </div>
-    <button class="btn btn-info">
-      <i class="fas fa-money-check"></i>
-      <span class="text-uppercase ml-1">Pagar</span>
-    </button>
-  </div>
-</div>
--->
-
-<!-- ## TEMPLATE -->
 <div class="card mb-2">
   <div class="card-body">
     <div class="d-flex justify-content-between">
@@ -86,12 +6,13 @@
           {{currentService.address ? currentService.address : currentService.ipAddress}}
         </a>
       </h5>
-      <img src="/assets/mikrotik.svg" height="20" alt="mikrotik">
+      <img src="/assets/mikrotik.svg" *ngIf="currentService.mikrotikId" height="20" alt="mikrotik">
     </div>
     <p class="my-1">
       <span><i class="fas fa-network-wired"></i> Ip Address: </span>
       <a href="https://{{currentService.ipAddress}}" class="me-1" target="_blank">{{currentService.ipAddress}}</a>
-      <a href="#" (click)="$event.preventDefault()" class="text-secondary">
+      <a href="#" [attr.data-clipboard-text]="currentService.ipAddress" (click)="$event.preventDefault()"
+         class="text-secondary">
         <i class="fas fa-clipboard"></i>
       </a>
     </p>
@@ -102,7 +23,8 @@
           <td>
             <div class="d-flex justify-content-between">
               {{currentService.userName}}
-              <a href="#" (click)="$event.preventDefault()" class="text-secondary">
+              <a href="#" [attr.data-clipboard-text]="currentService.userName"
+                 (click)="$event.preventDefault()" class="text-secondary">
                 <i class="fas fa-clipboard"></i>
               </a>
             </div>
@@ -111,7 +33,8 @@
           <td>
             <div class="d-flex justify-content-between">
               {{currentService.password}}
-              <a href="#" (click)="$event.preventDefault()" class="text-secondary">
+              <a href="#" [attr.data-clipboard-text]="currentService.password"
+                 (click)="$event.preventDefault()" class="text-secondary">
                 <i class="fas fa-clipboard"></i>
               </a>
             </div>

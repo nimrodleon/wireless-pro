@@ -10,7 +10,6 @@ import {ClientListComponent} from './pages/client-list/client-list.component';
 import {ClientDetailComponent} from './pages/client-detail/client-detail.component';
 import {ClientFormModalComponent} from './components/client-form-modal/client-form-modal.component';
 import {CardClientServiceComponent} from './components/card-client-service/card-client-service.component';
-import {AddClientServiceComponent} from './components/add-client-service/add-client-service.component';
 import {PaymentListComponent} from './pages/payment-list/payment-list.component';
 import {PaymentModalComponent} from './components/payment-modal/payment-modal.component';
 import {ServiceDetailComponent} from './pages/service-detail/service-detail.component';
@@ -26,7 +25,6 @@ import {ServiceModalComponent} from './components/service-modal/service-modal.co
     ClientDetailComponent,
     ClientFormModalComponent,
     CardClientServiceComponent,
-    AddClientServiceComponent,
     PaymentListComponent,
     PaymentModalComponent,
     ServiceDetailComponent,

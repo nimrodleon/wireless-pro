@@ -4,10 +4,9 @@ import {Client} from './model'
 // CRUD - clientes.
 export class ClientStore {
   // Listar clientes.
-  static async getClients(query, status) {
+  static async getClients(query) {
     return Client.find({
       isDeleted: false,
-      is_active: status,
       $or: [
         {dni: {$regex: query}},
         {fullName: {$regex: query}},

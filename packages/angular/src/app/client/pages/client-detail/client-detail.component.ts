@@ -42,7 +42,7 @@ export class ClientDetailComponent implements OnInit {
       document.querySelector('#service-modal'));
     // vincular modal cliente.
     this.clientModal = new bootstrap.Modal(
-      document.querySelector('#app-client-form-modal'));
+      document.querySelector('#client-form-modal'));
   }
 
   // Cliente actual.
@@ -90,9 +90,9 @@ export class ClientDetailComponent implements OnInit {
 
   // actualizar datos del cliente.
   updateClient(client: Client): void {
+    this.clientModal.hide();
     this.clientDetailService.updateClient(client);
   }
-
 
   // // Rol del usuario autentificado.
   // get currentRole() {

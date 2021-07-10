@@ -4,11 +4,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex my-2 justify-content-between">
+        <div class="d-flex mt-2 justify-content-between">
           <div class="d-flex align-items-center">
             <h4 class="text-uppercase m-0 me-2">Lista de Clientes</h4>
             <div class="btn-group">
-              <button type="button" (click)="showModal()" class="btn btn-success">
+              <button type="button" (click)="addClientModal()" class="btn btn-success">
                 <i class="fas fa-plus"></i><span class="text-uppercase ms-1">Cliente</span>
               </button>
               <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
@@ -21,16 +21,10 @@
               </ul>
             </div>
           </div><!-- //.d-flex -->
-          <form (submit)="onSearch()" class="row row-cols-auto g-2">
+          <form (submit)="searchClient()"
+                class="row row-cols-auto g-2">
             <div class="col-auto">
-              <div class="form-check form-switch pt-2">
-                <input type="checkbox" #chkStatus [checked]="status" (change)="onChangeStatus(chkStatus.checked)"
-                       class="form-check-input" id="customSwitch0">
-                <label class="form-check-label text-uppercase fw-bold" for="customSwitch0">Activo</label>
-              </div>
-            </div>
-            <div class="col-auto">
-              <input type="text" [(ngModel)]="search" name="search"
+              <input type="text" [formControl]="queryInput"
                      class="form-control" placeholder="D.N.I/Nombre/Dirección/Teléfono">
             </div>
             <div class="col-auto">
@@ -53,15 +47,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let client of clients">
+            <tr *ngFor="let client of clientList" [id]="client._id">
               <td>{{client.dni}}</td>
               <td>
-                <a [routerLink]="['/client/detail', client._id]">
-                  {{ client.fullName }}
-                </a>
+                <a [routerLink]="['/client/detail', client._id]">{{client.fullName}}</a>
               </td>
-              <td>{{ client.fullAddress }}</td>
-              <td>{{ client.phone }}</td>
+              <td>{{client.fullAddress}}</td>
+              <td>{{client.phone}}</td>
             </tr>
             </tbody>
           </table>
@@ -70,8 +62,8 @@
     </div><!-- //.row -->
     <app-client-form-modal
       [title]="titleModal"
-      [client]="currentClient"
-      (updateClientEvent)="saveChanges($event)">
+      [currentClient]="currentClient"
+      (hideModal)="saveChanges($event)">
     </app-client-form-modal>
   </div>
 </div>

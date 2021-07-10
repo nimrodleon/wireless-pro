@@ -9,8 +9,8 @@ router.get('/', [verifyToken], getClients)
 
 // Lista de clientes.
 function getClients(req, res = response) {
-  const {status, search = ''} = req.query
-  ClientController.getClients(search, status).then(result => {
+  const {search = ''} = req.query
+  ClientController.getClients(search).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)

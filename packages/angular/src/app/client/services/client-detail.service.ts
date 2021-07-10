@@ -52,19 +52,19 @@ export class ClientDetailService {
 
   // establecer cliente actual.
   getClient(id: string): void {
-    this.clientService.getClient(id)
+    this.clientService.getClientById(id)
       .subscribe(res => this._currentClient = res);
   }
 
   // actualizar datos del cliente.
   updateClient(client: Client): void {
-    this.clientService.update(client)
+    this.clientService.updateClient(client)
       .subscribe(res => this._currentClient = res);
   }
 
   // borrar cliente.
   deleteClient(id: string): void {
-    this.clientService.delete(id).subscribe(res => {
+    this.clientService.deleteClient(id).subscribe(res => {
       Swal.fire(
         'Eliminado!',
         'El Cliente a sido eliminado.',

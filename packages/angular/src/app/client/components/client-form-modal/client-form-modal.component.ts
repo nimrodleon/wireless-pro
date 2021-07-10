@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-
-declare var jQuery: any;
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ClientService} from '../../services';
 import {Client} from '../../interfaces';
 
 @Component({
@@ -12,46 +12,53 @@ export class ClientFormModalComponent implements OnInit {
   @Input()
   title: string;
   @Input()
-  client: Client;
+  currentClient: Client;
   @Output()
-  updateClientEvent = new EventEmitter<Client>();
-  infoAlert: boolean = false;
+  hideModal = new EventEmitter<Client>();
 
-  constructor() {
+  clientForm: FormGroup = this.fb.group({
+    _id: [null],
+    dni: ['', [Validators.required]],
+    type: ['PERSONA', [Validators.required]],
+    fullName: ['', [Validators.required]],
+    fullAddress: ['', [Validators.required]],
+    phone: ['', [Validators.required]],
+    email: ['', [Validators.email]],
+    note: ['']
+  });
+
+  constructor(
+    private fb: FormBuilder,
+    private clientService: ClientService) {
   }
 
   ngOnInit(): void {
-    // jQuery('#app-client-form-modal').on('show.bs.modal', e => {
+    let myModal = document.querySelector('#client-form-modal');
+    myModal.addEventListener('shown.bs.modal', () => {
+      this.clientForm.reset({...this.currentClient});
+    });
+    // myModal.addEventListener('hide.bs.modal', () => {
+    //   this.clientForm.reset({...this.clientService.defaultValues()});
     // });
+    this.clientForm.valueChanges
+      .subscribe(value => this.currentClient = value);
   }
 
-  // Envía los datos de cliente para guardar en la base de datos.
+  // Verificar campo invalido.
+  inputIsInvalid(field: string) {
+    return this.clientForm.controls[field].errors
+      && this.clientForm.controls[field].touched;
+  }
+
+  // Envía los datos de cliente,
+  // para guardar en la base de datos.
   saveChanges(): void {
-    this.updateClientEvent.emit(this.client);
-    jQuery('#app-client-form-modal').modal('hide');
-  }
-
-  // Archivar Cliente.
-  onArchiveClient(): void {
-    if (this.client._id === undefined) {
-      this.changeInfoAlert();
-    } else {
-      this.client.is_active = false;
-      this.updateClientEvent.emit(this.client);
-      jQuery('#app-client-form-modal').modal('hide');
+    if (this.clientForm.invalid) {
+      this.clientForm.markAllAsTouched();
+      return;
     }
-  }
-
-  // Habilitar Cliente.
-  onEnableClient(): void {
-    this.client.is_active = true;
-    this.updateClientEvent.emit(this.client);
-    jQuery('#app-client-form-modal').modal('hide');
-  }
-
-  //  Cambiar valor del infoAlert.
-  changeInfoAlert(): void {
-    this.infoAlert = !this.infoAlert;
+    // Guardar datos, sólo si es válido el formulario.
+    this.hideModal.emit(this.currentClient);
   }
 
 }

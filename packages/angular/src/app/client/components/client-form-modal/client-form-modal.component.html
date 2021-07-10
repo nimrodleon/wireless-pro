@@ -1,4 +1,4 @@
-<div class="modal fade" id="app-client-form-modal" tabindex="-1" role="dialog">
+<div class="modal fade" id="client-form-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -6,68 +6,67 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <ng-container *ngIf="infoAlert">
-          <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <i class="fas fa-info-circle"></i> El cliente, no se ha registrado en la base de datos.
-            <button
-              type="button" (click)="changeInfoAlert()"
-              class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        </ng-container>
-        <form #clientForm="ngForm">
-          <div class="form-row">
-            <div class="col-8 pb-3">
-              <div class="input-group">
+        <form [formGroup]="clientForm">
+          <div class="row">
+            <div class="col-6 pb-3">
+              <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                <input type="text" placeholder="D.N.I" name="dni" [(ngModel)]="client.dni" class="form-control">
+                <input type="text" placeholder="D.N.I/R.U.C" formControlName="dni"
+                       class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('dni')}">
+                <div class="invalid-feedback">El D.N.I. es requerido.</div>
+              </div>
+            </div>
+            <div class="col-6 mb-3">
+              <div class="input-group has-validation">
+                <span class="input-group-text"><i class="fas fa-user-cog"></i></span>
+                <select formControlName="type" class="form-select"
+                        [ngClass]="{'is-invalid': inputIsInvalid('type')}">
+                  <option value="PERSONA">PERSONA</option>
+                  <option value="EMPRESA">EMPRESA</option>
+                </select>
+                <div class="invalid-feedback">El tipo de cliente es requerido.</div>
               </div>
             </div>
           </div>
           <div class="pb-3">
-            <div class="input-group">
+            <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
-              <input type="text" name="fullName" [(ngModel)]="client.fullName" placeholder="Nombres y Apellidos"
-                     class="form-control">
+              <input type="text" formControlName="fullName"
+                     placeholder="Razón Social/Nombres y Apellidos"
+                     class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('fullName')}">
+              <div class="invalid-feedback">La razón social es requerido.</div>
             </div>
           </div>
           <div class="pb-3">
-            <div class="input-group">
+            <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-              <input type="text" name="fullAddress" [(ngModel)]="client.fullAddress" placeholder="Dirección"
-                     class="form-control">
+              <input type="text" formControlName="fullAddress" placeholder="Dirección"
+                     class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('fullAddress')}">
+              <div class="invalid-feedback">La dirección es requerido.</div>
             </div>
           </div>
           <div class="pb-3">
-            <div class="input-group">
+            <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-              <input type="text" name="phone" [(ngModel)]="client.phone" placeholder="Telefono" class="form-control">
+              <input type="text" formControlName="phone" placeholder="Teléfono"
+                     class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('phone')}">
+              <div class="invalid-feedback">El Teléfono es requerido.</div>
             </div>
           </div>
           <div class="pb-3">
-            <div class="input-group">
+            <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-envelope-open-text"></i></span>
-              <input type="text" name="email" [(ngModel)]="client.email" placeholder="E-Mail" class="form-control">
+              <input type="text" formControlName="email" placeholder="E-Mail"
+                     class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('email')}">
+              <div class="invalid-feedback">Ingrese un correo electrónico valido.</div>
             </div>
           </div>
-          <textarea class="form-control" name="note" [(ngModel)]="client.note"></textarea>
+          <textarea class="form-control" formControlName="note"></textarea>
         </form>
       </div>
-      <div class="modal-footer d-flex justify-content-between">
-        <ng-container *ngIf="client.is_active else elseIf">
-          <button type="button" (click)="onArchiveClient()" class="btn btn-danger text-white">
-            <i class="fas fa-archive"></i><span class="text-uppercase ms-1">Archivar</span></button>
-        </ng-container>
-        <ng-template #elseIf>
-          <button type="button" (click)="onEnableClient()" class="btn btn-success text-white">
-            <i class="fas fa-check-circle"></i><span
-            class="text-uppercase ms-1">Habilitar</span></button>
-        </ng-template>
-        <div>
-          <button type="button" class="btn btn-secondary text-uppercase me-2" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" (click)="saveChanges()" class="btn btn-primary text-uppercase">Guardar Cambios</button>
-        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary text-uppercase me-2" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" (click)="saveChanges()" class="btn btn-primary text-uppercase">Guardar Cambios</button>
       </div>
     </div>
   </div>

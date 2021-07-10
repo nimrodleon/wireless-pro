@@ -1,34 +1,30 @@
 import {model, Schema} from 'mongoose'
 
-export const Client = model('Client',
-  new Schema({
-    dni: String,
-    fullName: {
-      type: String,
-      uppercase: true
-    },
-    fullAddress: {
-      type: String,
-      uppercase: true
-    },
-    coverage: {
-      type: Schema.Types.ObjectId,
-      ref: 'Coverage'
-    },
-    email: String,
-    phone: String,
-    type: {
-      type: String,
-      uppercase: true,
-      default: 'U'
-    },
-    note: String,
-    is_active: {
-      type: Boolean,
-      default: true,
-    },
-    isDeleted: {
-      type: Boolean,
-      default: false
-    }
-  }))
+// Schema modelo cliente.
+const clientSchema = new Schema({
+  dni: String,
+  type: {
+    type: String,
+    uppercase: true,
+    default: 'PERSONA',
+    enum: ['PERSONA', 'EMPRESA']
+  },
+  fullName: {
+    type: String,
+    uppercase: true
+  },
+  fullAddress: {
+    type: String,
+    uppercase: true
+  },
+  phone: String,
+  email: String,
+  note: String,
+  isDeleted: {
+    type: Boolean,
+    default: false
+  }
+})
+
+// modelo cliente.
+export const Client = model('Client', clientSchema)

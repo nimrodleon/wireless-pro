@@ -146,8 +146,8 @@
     <!-- ##(End) Search client Modal -->
     <app-client-form-modal
       [title]="'Agregar Cliente'"
-      [client]="currentClientSelected"
-      (updateClientEvent)="createClient($event)">
+      [currentClient]="currentClientSelected"
+      (hideModal)="createClient($event)">
     </app-client-form-modal>
     <!-- ##(End) Content -->
   </div>

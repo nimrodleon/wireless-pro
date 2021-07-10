@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-
-declare var jQuery: any;
+import {FormBuilder, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+
+declare var bootstrap: any;
 import {Client} from '../../interfaces';
 import {ClientService} from '../../services';
 
@@ -11,58 +12,56 @@ import {ClientService} from '../../services';
   styleUrls: ['./client-list.component.scss']
 })
 export class ClientListComponent implements OnInit {
-  clients: any[];
+  clientList: Array<Client>;
   currentClient: Client;
   titleModal: string = '';
-  // Campos del Buscador.
-  status: boolean = true;
-  search: string = '';
+  queryInput: FormControl = this.fb.control('');
+  clientModal: any;
 
   constructor(
+    private fb: FormBuilder,
     private clientService: ClientService,
     private router: Router) {
-    this.currentClientDefaultValues();
-  }
-
-  ngOnInit(): void {
-    this.getClients(this.search);
-  }
-
-  // Se Ejecuta desde el Buscador.
-  onSearch(): void {
-    this.getClients(this.search);
-  }
-
-  // Actualiza el Valor de Status.
-  onChangeStatus(checked: boolean) {
-    this.status = checked;
-  }
-
-  // Obtiene la Lista de Clientes.
-  private getClients(query: any): void {
-    this.clientService.getClients(query, this.status)
-      .subscribe(res => {
-        this.clients = res;
-      });
-  }
-
-  // valor por defecto cliente.
-  private currentClientDefaultValues(): void {
     this.currentClient = this.clientService.defaultValues();
   }
 
-  showModal(): void {
+  ngOnInit(): void {
+    this.getClientList(this.queryInput.value);
+    // vincular modal cliente.
+    this.clientModal = new bootstrap.Modal(
+      document.querySelector('#client-form-modal'));
+  }
+
+  // Se Ejecuta desde el Buscador.
+  searchClient(): void {
+    this.getClientList(this.queryInput.value);
+  }
+
+  // Obtiene la Lista de Clientes.
+  private getClientList(query: string): void {
+    this.clientService.getClientList(query)
+      .subscribe(res => {
+        this.clientList = res;
+      });
+  }
+
+  // Agregar cliente.
+  addClientModal(): void {
     this.titleModal = 'Agregar Cliente';
-    this.currentClientDefaultValues();
-    jQuery('#app-client-form-modal').modal('show');
+    this.currentClient = this.clientService.defaultValues();
+    this.clientModal.show();
   }
 
   // Guarda los datos del Cliente.
   saveChanges(client: Client): void {
-    if (client._id === undefined) {
-      this.clientService.create(client).subscribe(client => {
-        this.router.navigate(['/client/detail', client._id]);
-      });
+    if (client._id === null) {
+      delete client._id;
+      this.clientService.createClient(client)
+        .subscribe(result => {
+          this.clientModal.hide();
+          this.router.navigate(['/client/detail', result._id])
+            .then(() => console.info('Cliente Guardado!'));
+        });
     }
   }
 

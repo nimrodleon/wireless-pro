@@ -3,10 +3,10 @@ import {ClientStore} from './store'
 // Lógica - clientes.
 export class ClientController {
   // Lista de clientes.
-  static getClients(query, status) {
+  static getClients(query) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(ClientStore.getClients(query, status))
+        resolve(ClientStore.getClients(query))
       } catch (err) {
         reject(err)
       }

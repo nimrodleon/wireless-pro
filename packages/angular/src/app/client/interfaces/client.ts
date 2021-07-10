@@ -1,11 +1,10 @@
 export interface Client {
   _id: string;
   dni: string;
+  type: string;
   fullName: string;
   fullAddress: string;
-  email: string;
   phone: string;
-  type: string;
+  email: string;
   note: string;
-  is_active: boolean;
 }

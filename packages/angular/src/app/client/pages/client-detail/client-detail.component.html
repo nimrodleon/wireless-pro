@@ -87,8 +87,8 @@
     <!-- // Components -->
     <app-client-form-modal
       [title]="titleClient"
-      [client]="currentClient"
-      (updateClientEvent)="updateClient($event)">
+      [currentClient]="currentClient"
+      (hideModal)="updateClient($event)">
     </app-client-form-modal>
     <app-service-modal
       [title]="titleService"
