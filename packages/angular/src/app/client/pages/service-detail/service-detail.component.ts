@@ -1,11 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ServiceService, ClientService} from '../../services';
-import {DeviceService} from '../../../devices/services';
-import {Client, Service} from '../../interfaces';
-import {Device} from '../../../devices/interfaces';
 import {ActivatedRoute} from '@angular/router';
-import {ServicePlanService} from '../../../system/services';
-import {ServicePlan} from '../../../system/interfaces';
+
+declare var bootstrap: any;
+import {ServiceDetailService} from '../../services';
 
 @Component({
   selector: 'app-service-detail',
@@ -13,55 +10,50 @@ import {ServicePlan} from '../../../system/interfaces';
   styleUrls: ['./service-detail.component.scss']
 })
 export class ServiceDetailComponent implements OnInit {
-  serviceId: string;
-  // Variables for Service use.
-  client: Client;
-  service: Service;
-  device: Device;
-  servicePlan: ServicePlan;
+  titleService: string;
+  serviceModal: any;
 
-  // Class constructor.
-  constructor(private activatedRoute: ActivatedRoute,
-              private clientService: ClientService, private serviceService: ServiceService,
-              private deviceService: DeviceService, private servicePlanService: ServicePlanService) {
-    this.service = this.serviceService.defaultValues();
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private serviceDetailService: ServiceDetailService) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      this.serviceId = params.get('id');
-      if (this.serviceId) {
-        this.getService(this.serviceId);
-      }
+      this.serviceDetailService.getCurrentService(params.get('id'));
     });
+    // vincular modal servicios.
+    this.serviceModal = new bootstrap.Modal(
+      document.querySelector('#service-modal'));
   }
 
-  // get service data.
-  private getService(id: string): void {
-    this.serviceService.getServiceById(id).subscribe(res => {
-      this.service = res;
-      // Load client and device data.
-      this.getClient(this.service.clientId);
-      this.getServicePlan(this.service.servicePlanId);
-      if (this.service.accessPoint) {
-        this.getDevice(this.service.accessPoint);
-      }
-    });
+  // servicio actual.
+  get currentService() {
+    return this.serviceDetailService.currentService;
   }
 
-  // get client data.
-  private getClient(id: string): void {
-    this.clientService.getClientById(id).subscribe(res => this.client = res);
+  // cliente actual.
+  get currentClient() {
+    return this.serviceDetailService.currentClient;
   }
 
-  // get service-plan data.
-  private getServicePlan(id: string): void {
-    this.servicePlanService.getServicePlan(id).subscribe(res => this.servicePlan = res);
+  // plan de servicio actual.
+  get currentServicePlan() {
+    return this.serviceDetailService.currentServicePlan;
   }
 
-  // get device data.
-  private getDevice(id: string): void {
-    this.deviceService.getDevice(id).subscribe(res => this.device = res);
+  // editar servicio modal.
+  editServiceModal(): void {
+    this.titleService = 'Editar Servicio';
+    this.serviceModal.show();
+  }
+
+  // cerrar modal servicios.
+  hideServiceModal(value: boolean): void {
+    if (value === true) {
+      this.serviceDetailService.getCurrentService(this.currentService._id);
+      this.serviceModal.hide();
+    }
   }
 
 }

@@ -6,12 +6,14 @@
     <div class="rounded-3 px-3 py-2 my-2" style="background: #e9ecef;">
       <div class="d-flex align-items-center justify-content-between">
         <div>
-          <h4 class="text-uppercase">CLIENTE APELLIDO</h4>
+          <h4 class="text-uppercase">{{currentClient.fullName}}</h4>
           <p class="lead m-0">
-            <a [routerLink]="['/client/detail', 0]" class="font-weight-bold">PLAN 4MB - INTERNET - 127.0.0.1</a>
+            <a [routerLink]="['/client/detail', currentService.clientId]" class="font-weight-bold">
+              {{ currentServicePlan.name }} - {{currentService.ipAddress}}
+            </a>
           </p>
         </div>
-        <button type="button" class="btn btn-primary">
+        <button type="button" (click)="editServiceModal()" class="btn btn-primary">
           <i class="fas fa-edit"></i><span class="text-uppercase ms-1">Editar</span>
         </button>
       </div>
@@ -209,13 +211,21 @@
       </div>
       <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
         <!-- ##(Begin) Estado de cambios -->
-        <app-card-outages
+        <!--<app-card-outages
           [serviceId]="serviceId">
-        </app-card-outages>
+        </app-card-outages>-->
         <!-- ##(End) Estado de cambios -->
       </div>
     </div>
     <!-- ##(End) Tabs -->
+    <app-service-modal
+      [title]="titleService"
+      [currentService]="currentService"
+      (hideModal)="hideServiceModal($event)">
+    </app-service-modal>
+    <pre>{{currentService|json}}</pre>
+    <pre>{{currentClient|json}}</pre>
+    <pre>{{currentServicePlan|json}}</pre>
     <!-- ##(End) Content -->
   </div>
 </div>
