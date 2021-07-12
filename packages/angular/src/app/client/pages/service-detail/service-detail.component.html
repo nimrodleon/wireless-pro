@@ -42,7 +42,7 @@
         <!-- ##(Begin) Información de pagos -->
         <div class="row">
           <div class="col-12">
-            <form class="row row-cols-auto g-2 my-2">
+            <form class="row row-cols-auto g-2 mt-2">
               <div class="col-auto">
                 <input type="number" class="form-control" placeholder="Year">
               </div>
@@ -103,10 +103,22 @@
       </div>
       <div class="tab-pane fade" id="nav-averias" role="tabpanel">
         <!-- ##(Begin) Averias -->
-        <button class="btn btn-success my-2">
-          <i class="fas fa-plus"></i>
-          <span class="text-uppercase ms-1">Registrar Averia</span>
-        </button>
+        <form class="row row-cols-auto g-2 mt-2">
+          <div class="col-auto">
+            <input type="number" class="form-control" placeholder="Year">
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary">
+              <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
+            </button>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-success">
+              <i class="fas fa-plus"></i>
+              <span class="text-uppercase ms-1">Registrar Averia</span>
+            </button>
+          </div>
+        </form>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>

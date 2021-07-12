@@ -3,7 +3,14 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ClientRoutingModule} from './client-routing.module';
 import {GlobalModule} from '../global/global.module';
-import {ClientService, PaymentService, OutagesService, ServiceService, ClientDetailService} from './services';
+import {
+  ClientService,
+  PaymentService,
+  OutagesService,
+  ServiceService,
+  ClientDetailService,
+  ServiceDetailService
+} from './services';
 import {CoverageService, ServicePlanService} from '../system/services';
 import {DeviceService} from '../devices/services';
 import {ClientListComponent} from './pages/client-list/client-list.component';
@@ -47,6 +54,7 @@ import {ServiceModalComponent} from './components/service-modal/service-modal.co
   providers: [
     ClientService,
     ClientDetailService,
+    ServiceDetailService,
     CoverageService,
     PaymentService,
     ServicePlanService,
