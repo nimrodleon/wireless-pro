@@ -1,8 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import * as moment from 'moment';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Averia} from '../interfaces/averia';
+import {ClientService} from '../../client/services';
+import {Client} from '../../client/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +14,10 @@ import {Averia} from '../interfaces/averia';
 export class AveriaService {
   private baseURL: string = environment.baseUrl + 'averias';
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private clientService: ClientService) {
   }
 
   getAverias(archived: any, search: string): Observable<any> {
@@ -34,6 +41,49 @@ export class AveriaService {
 
   delete(id: string): Observable<any> {
     return this.http.delete(this.baseURL + '/' + id);
+  }
+
+  // obtener cliente por id.
+  getClientById(clientId: string): Observable<Client> {
+    return this.clientService.getClientById(clientId);
+  }
+
+  // averia form group.
+  formGroup(): FormGroup {
+    return this.fb.group({
+      _id: [null],
+      averia: [''],
+      client: [''],
+      user: [''],
+      status: [''],
+      priority: [''],
+      archived: [false],
+      createdAt: [moment().format('YYYY-MM-DD, hh:mm:ss A')],
+      year: [moment().format('YYYY')],
+      month: [moment().format('MM')],
+      day: [moment().format('DD')],
+      origin: [''],
+      solution: [''],
+    });
+  }
+
+  // Valor por defecto.
+  defaultValues(): Averia {
+    return {
+      _id: undefined,
+      averia: '',
+      client: '',
+      user: '',
+      status: '',
+      priority: '',
+      archived: false,
+      createdAt: '',
+      year: '',
+      month: '',
+      day: '',
+      origin: '',
+      solution: ''
+    };
   }
 
 }

@@ -1,14 +1,13 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {GlobalModule} from '../global/global.module';
-import {AveriaListComponent} from './pages/averia-list/averia-list.component';
-import {FormsModule} from '@angular/forms';
-import {AveriaModalComponent} from './components/averia-modal/averia-modal.component';
-import {AveriaService} from './services/averia.service';
-import {AveriaAttendComponent} from './components/averia-attend/averia-attend.component';
-import {UserService} from '../user/services/user.service';
-import {AuthService} from '../user/services/auth.service';
+import {ReactiveFormsModule} from '@angular/forms';
 import {AveriaRoutingModule} from './averia-routing.module';
+import {GlobalModule} from '../global/global.module';
+import {UserService, AuthService} from '../user/services';
+import {AveriaService} from './services/averia.service';
+import {AveriaListComponent} from './pages/averia-list/averia-list.component';
+import {AveriaModalComponent} from './components/averia-modal/averia-modal.component';
+import {AveriaAttendComponent} from './components/averia-attend/averia-attend.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import {AveriaRoutingModule} from './averia-routing.module';
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     AveriaRoutingModule,
     GlobalModule
   ],

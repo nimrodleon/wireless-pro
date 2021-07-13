@@ -6,31 +6,31 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="averiaForm">
           <div class="pb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-exclamation-triangle"></i></span>
-              <select class="form-select" [(ngModel)]="averia.origin" name="origin">
+              <select class="form-select" formGroupName="origin">
                 <option value="O">Organización</option>
                 <option value="C">Cliente</option>
               </select>
             </div>
           </div>
           <div class="pb-3">
-            <textarea class="form-control" [(ngModel)]="averia.solution" name="solution"
+            <textarea class="form-control" formControlName="solution"
                       placeholder="Que Trabajo se realizó?"></textarea>
           </div>
           <div class="pb-3">
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
-              <select class="form-select text-uppercase" [(ngModel)]="averia.user" name="user">
+              <select class="form-select text-uppercase" formControlName="user">
                 <option *ngFor="let user of users" [value]="user.id">{{ user.text }}</option>
               </select>
             </div>
           </div>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-satellite"></i></span>
-            <select class="form-select" [(ngModel)]="averia.status" name="status">
+            <select class="form-select" formControlName="status">
               <option value="P">PENDIENTE</option>
               <option value="E">EN PROCESO</option>
               <option value="F">FINALIZADO</option>

@@ -1,4 +1,4 @@
-export class Averia {
+export interface Averia {
   _id: string;
   averia: string;
   client: string;

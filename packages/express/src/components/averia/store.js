@@ -21,14 +21,15 @@ export class AveriaStore {
 
   // Devolver averia por id.
   static async getAveria(id) {
-    return Averia.findById(id).populate({path: 'client', select: 'fullName'})
+    // return Averia.findById(id).populate({path: 'client', select: 'fullName'})
+    return Averia.findById(id)
   }
 
   // Crear averia.
   static async createAveria(data) {
     const _averia = new Averia(data)
     _averia.archived = false
-    _averia.chkStatus = 'P'
+    _averia.status = 'P'
     await _averia.save()
     return _averia
   }

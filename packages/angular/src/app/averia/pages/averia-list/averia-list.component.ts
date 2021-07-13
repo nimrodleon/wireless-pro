@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import Swal from 'sweetalert2';
 
 declare var jQuery: any;
-import Swal from 'sweetalert2';
+import {AuthService} from 'src/app/user/services';
 import {AveriaService} from '../../services/averia.service';
 import {Averia} from '../../interfaces/averia';
-import {AuthService} from '../../../user/services/auth.service';
+import {FormBuilder, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-averia-list',
@@ -12,21 +13,25 @@ import {AuthService} from '../../../user/services/auth.service';
   styleUrls: ['./averia-list.component.scss']
 })
 export class AveriaListComponent implements OnInit {
-  query: string = '';
-  archived: boolean = false;
+  // query: string = '';
+  // archived: boolean = false;
   averias: Array<any> = new Array<any>();
   titleModal: string;
   currentAveria: Averia;
   currentRole: string;
+  // ============================================================
+  queryInput: FormControl = this.fb.control('');
+  archivedSwitch: FormControl = this.fb.control(false);
 
   constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
     private averiaService: AveriaService) {
-    this.currentAveria = new Averia();
+    this.currentAveria = this.averiaService.defaultValues();
   }
 
   ngOnInit(): void {
-    this.getAverias();
+    this.getAveriaList();
     // Obtener rol del usuario autentificado.
     this.authService.getRoles().subscribe(res => this.currentRole = res);
   }
@@ -36,35 +41,32 @@ export class AveriaListComponent implements OnInit {
   }
 
   // carga las averias.
-  private getAverias(): void {
-    this.averiaService.getAverias(this.archived, this.query)
+  private getAveriaList(): void {
+    this.averiaService.getAverias(this.archivedSwitch.value, this.queryInput.value)
       .subscribe(res => this.averias = res);
-  }
-
-  // Checkbox cambiar estado.
-  onChange(checked: boolean): void {
-    this.archived = checked;
   }
 
   // abre el modal averia.
   addAveria(): void {
     this.titleModal = 'Agregar Averia';
-    this.currentAveria = new Averia();
+    this.currentAveria = this.averiaService.defaultValues();
     jQuery('#app-averia-modal').modal('show');
   }
 
   // Guarda las averias.
   saveChange(averia: Averia): void {
     if (averia._id === undefined) {
-      this.averiaService.create(averia).subscribe(res => this.getAverias());
+      console.log(averia);
+      this.averiaService.create(averia).subscribe(res => this.getAveriaList());
     } else {
-      this.averiaService.update(averia).subscribe(res => this.getAverias());
+      this.averiaService.update(averia).subscribe(res => this.getAveriaList());
     }
   }
 
   // buscar averias.
-  onSearch(): void {
-    this.getAverias();
+  searchAverias(e: any): void {
+    e.preventDefault();
+    this.getAveriaList();
   }
 
   // abrir modal para editar.
@@ -97,7 +99,7 @@ export class AveriaListComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
           this.averiaService.delete(id).subscribe(res => {
-            this.getAverias();
+            this.getAveriaList();
             Swal.fire(
               'Borrado!',
               'La Averia ha sido borrado.',
@@ -141,7 +143,7 @@ export class AveriaListComponent implements OnInit {
           if (result.value) {
             this.currentAveria.archived = true;
             this.averiaService.update(this.currentAveria).subscribe(res => {
-              this.getAverias();
+              this.getAveriaList();
               Swal.fire(
                 'Archivado!',
                 'La averia ha sido archivado.',
