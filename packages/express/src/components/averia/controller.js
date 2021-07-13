@@ -13,6 +13,17 @@ export class AveriaController {
     })
   }
 
+  // Lista de averias por servicio.
+  static getAveriasByServiceId(serviceId) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(AveriaStore.getAveriasByServiceId(serviceId))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // devolver averia por id.
   static getAveria(id) {
     return new Promise((resolve, reject) => {

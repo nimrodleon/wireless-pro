@@ -19,9 +19,13 @@ export class AveriaStore {
     return _.filter(_averias, obj => obj.client != null)
   }
 
+  // Lista de averias por servicio.
+  static async getAveriasByServiceId(serviceId) {
+    return Averia.find({serviceId: serviceId, isDeleted: false})
+  }
+
   // Devolver averia por id.
   static async getAveria(id) {
-    // return Averia.findById(id).populate({path: 'client', select: 'fullName'})
     return Averia.findById(id)
   }
 

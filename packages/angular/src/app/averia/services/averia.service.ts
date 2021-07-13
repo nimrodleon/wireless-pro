@@ -27,18 +27,27 @@ export class AveriaService {
     return this.http.get(this.baseURL, {params: params});
   }
 
+  // Lista de averias.
   getAveria(id: string): Observable<any> {
     return this.http.get(this.baseURL + '/' + id);
   }
 
+  // Lista de averias por servicio.
+  getAveriasByServiceId(serviceId: string): Observable<Averia[]> {
+    return this.http.get<Averia[]>(`${this.baseURL}/${serviceId}/service`);
+  }
+
+  // registrar averia.
   create(averia: Averia): Observable<Averia> {
     return this.http.post<Averia>(this.baseURL, averia);
   }
 
+  // actualizar averia.
   update(averia: Averia): Observable<Averia> {
     return this.http.patch<Averia>(this.baseURL + '/' + averia._id, averia);
   }
 
+  // borrar averia.
   delete(id: string): Observable<any> {
     return this.http.delete(this.baseURL + '/' + id);
   }

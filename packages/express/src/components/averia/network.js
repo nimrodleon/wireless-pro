@@ -22,6 +22,16 @@ function getAverias(req, res = response) {
   })
 }
 
+// http://<HOST>/api/averias/:id/service
+router.get('/:id/service', [verifyToken], getAveriasByServiceId)
+
+// Lista de averias por servicios.
+function getAveriasByServiceId(req, res = response) {
+  AveriaController.getAveriasByServiceId(req.params.id).then(result => {
+    res.json(result)
+  })
+}
+
 // http://<HOST>/api/averias/:id
 router.get('/:id', [
   verifyToken,
