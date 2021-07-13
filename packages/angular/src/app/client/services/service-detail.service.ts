@@ -4,6 +4,7 @@ import {ServicePlan} from '../../system/interfaces';
 import {ServiceService} from './service.service';
 import {ClientService} from './client.service';
 import {ServicePlanService} from '../../system/services';
+import {Averia} from '../../averia/interfaces/averia';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ServiceDetailService {
   private _currentClient: Client;
   private _currentServicePlan: ServicePlan;
   // ============================================================
-  // pass...
+  private _averiaList: Array<Averia>;
 
   constructor(
     private serviceService: ServiceService,
@@ -38,6 +39,11 @@ export class ServiceDetailService {
   // plan de servicio actual.
   get currentServicePlan(): ServicePlan {
     return {...this._currentServicePlan};
+  }
+
+  // Lista de averias.
+  get averiaList(): Array<Averia> {
+    return
   }
 
   // cargar valores por defecto.
