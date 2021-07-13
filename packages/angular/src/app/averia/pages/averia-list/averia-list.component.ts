@@ -13,15 +13,12 @@ import {FormBuilder, FormControl} from '@angular/forms';
   styleUrls: ['./averia-list.component.scss']
 })
 export class AveriaListComponent implements OnInit {
-  // query: string = '';
-  // archived: boolean = false;
   averias: Array<any> = new Array<any>();
   titleModal: string;
   currentAveria: Averia;
   currentRole: string;
   // ============================================================
   queryInput: FormControl = this.fb.control('');
-  archivedSwitch: FormControl = this.fb.control(false);
 
   constructor(
     private fb: FormBuilder,
@@ -42,21 +39,13 @@ export class AveriaListComponent implements OnInit {
 
   // carga las averias.
   private getAveriaList(): void {
-    this.averiaService.getAverias(this.archivedSwitch.value, this.queryInput.value)
+    this.averiaService.getAverias(false, this.queryInput.value)
       .subscribe(res => this.averias = res);
-  }
-
-  // abre el modal averia.
-  addAveria(): void {
-    this.titleModal = 'Agregar Averia';
-    this.currentAveria = this.averiaService.defaultValues();
-    jQuery('#app-averia-modal').modal('show');
   }
 
   // Guarda las averias.
   saveChange(averia: Averia): void {
     if (averia._id === undefined) {
-      console.log(averia);
       this.averiaService.create(averia).subscribe(res => this.getAveriaList());
     } else {
       this.averiaService.update(averia).subscribe(res => this.getAveriaList());

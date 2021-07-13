@@ -8,19 +8,6 @@
           <h4 class="text-uppercase mb-0">Registro de Averias</h4>
           <form (submit)="searchAverias($event)" class="row row-cols-auto g-2">
             <div class="col-auto">
-              <div class="form-check form-switch pt-2">
-                <input type="checkbox" [formControl]="archivedSwitch"
-                       class="form-check-input" id="customSwitch0">
-                <label class="form-check-label text-uppercase fw-bold" for="customSwitch0">Archivado</label>
-              </div>
-            </div>
-            <div class="col-auto">
-              <button type="button" (click)="addAveria()" class="btn btn-primary mr-2">
-                <i class="fas fa-plus"></i>
-                <span class="text-uppercase ms-1">Averia</span>
-              </button>
-            </div>
-            <div class="col-auto">
               <input type="search" [formControl]="queryInput" placeholder="CLIENTE..."
                      class="form-control">
             </div>
