@@ -14,10 +14,10 @@ export class AveriaController {
   }
 
   // Lista de averias por servicio.
-  static getAveriasByServiceId(serviceId) {
+  static getAveriasByServiceId(serviceId, year) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(AveriaStore.getAveriasByServiceId(serviceId))
+        resolve(AveriaStore.getAveriasByServiceId(serviceId, year))
       } catch (err) {
         reject(err)
       }

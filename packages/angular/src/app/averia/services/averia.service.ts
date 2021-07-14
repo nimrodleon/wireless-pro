@@ -33,8 +33,8 @@ export class AveriaService {
   }
 
   // Lista de averias por servicio.
-  getAveriasByServiceId(serviceId: string): Observable<Averia[]> {
-    return this.http.get<Averia[]>(`${this.baseURL}/${serviceId}/service`);
+  getAveriasByServiceId(serviceId: string, year: string): Observable<Averia[]> {
+    return this.http.get<Averia[]>(`${this.baseURL}/${serviceId}/${year}/service`);
   }
 
   // registrar averia.

@@ -20,8 +20,8 @@ export class AveriaStore {
   }
 
   // Lista de averias por servicio.
-  static async getAveriasByServiceId(serviceId) {
-    return Averia.find({serviceId: serviceId, isDeleted: false})
+  static async getAveriasByServiceId(serviceId, year) {
+    return Averia.find({serviceId: serviceId, year: year, isDeleted: false})
   }
 
   // Devolver averia por id.
