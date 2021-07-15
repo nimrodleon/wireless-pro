@@ -3,6 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 
 declare var bootstrap: any;
 import {ServiceDetailService} from '../../services';
+import {FormBuilder, FormControl} from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-service-detail',
@@ -12,8 +14,12 @@ import {ServiceDetailService} from '../../services';
 export class ServiceDetailComponent implements OnInit {
   titleService: string;
   serviceModal: any;
+  averiaYearInput: FormControl = this.fb.control(moment().format('YYYY'));
+  titleAveria: string;
+  averiaModal: any;
 
   constructor(
+    private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private serviceDetailService: ServiceDetailService) {
   }
@@ -21,10 +27,14 @@ export class ServiceDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       this.serviceDetailService.getCurrentService(params.get('id'));
+      this.serviceDetailService.getAveriaList(params.get('id'), this.averiaYearInput.value);
     });
     // vincular modal servicios.
     this.serviceModal = new bootstrap.Modal(
       document.querySelector('#service-modal'));
+    // vincular modal averia.
+    this.averiaModal = new bootstrap.Modal(
+      document.querySelector('#app-averia-modal'));
   }
 
   // servicio actual.
@@ -42,6 +52,16 @@ export class ServiceDetailComponent implements OnInit {
     return this.serviceDetailService.currentServicePlan;
   }
 
+  // Lista de averias.
+  get averiaList() {
+    return this.serviceDetailService.averiaList;
+  }
+
+  // averia actual.
+  get currentAveria() {
+    return this.serviceDetailService.currentAveria;
+  }
+
   // editar servicio modal.
   editServiceModal(): void {
     this.titleService = 'Editar Servicio';
@@ -54,6 +74,30 @@ export class ServiceDetailComponent implements OnInit {
       this.serviceDetailService.getCurrentService(this.currentService._id);
       this.serviceModal.hide();
     }
+  }
+
+  // cargar lista de averias.
+  averiaListLoad(): void {
+    this.serviceDetailService.getAveriaList(this.currentService._id, this.averiaYearInput.value);
+  }
+
+  // agregar averia.
+  addAveriaClick(): void {
+    this.titleAveria = 'Agregar Averia';
+    this.serviceDetailService.setDefaultValueAveria();
+    this.averiaModal.show();
+  }
+
+  // editar averia.
+  editAveriaClick(id: string): void {
+    this.titleAveria = 'Editar Averia';
+    this.serviceDetailService.getAveriaById(id);
+    this.averiaModal.show();
+  }
+
+  // guardar cambios averia.
+  saveChangeAveria(data: any): void {
+    console.log(data);
   }
 
 }

@@ -107,15 +107,15 @@
         <!-- ##(Begin) Averias -->
         <form class="row row-cols-auto g-2 mt-2">
           <div class="col-auto">
-            <input type="number" class="form-control" placeholder="Year">
+            <input type="number" [formControl]="averiaYearInput" class="form-control" placeholder="Year">
           </div>
           <div class="col-auto">
-            <button type="button" class="btn btn-primary">
+            <button type="button" (click)="averiaListLoad()" class="btn btn-primary">
               <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
             </button>
           </div>
           <div class="col-auto">
-            <button class="btn btn-success">
+            <button (click)="addAveriaClick()" class="btn btn-success">
               <i class="fas fa-plus"></i>
               <span class="text-uppercase ms-1">Registrar Averia</span>
             </button>
@@ -132,23 +132,41 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let averia of averiaList">
               <td>
-                <span class="d-block">NO TIENE INTERNET</span>
-                <a [routerLink]="['/client/detail', 0]">CLIENTE APELLIDO - 956-954-441</a>
+                <span class="d-block">{{averia.averia}}</span>
+                <a [routerLink]="['/client/detail', currentClient._id]">
+                  {{currentClient.fullName}} - {{currentClient.phone}}
+                </a>
                 <!-- COMENTARIO -->
-                <div class="card px-2" *ngIf="true">Se ha reiniciado su antena</div>
+                <div class="card px-2" *ngIf="averia.solution">{{averia.solution}}</div>
                 <div class="d-flex">
                   <!-- ESTADO -->
                   <span class="me-1">
+                  <ng-container *ngIf="averia.status === 'P'">
                     <span class="badge bg-primary">PENDIENTE</span>
+                  </ng-container>
+                  <ng-container *ngIf="averia.status === 'E'">
+                    <span class="badge bg-warning text-white">EN PROCESO</span>
+                  </ng-container>
+                  <ng-container *ngIf="averia.status === 'F'">
+                    <span class="badge bg-success">FINALIZADO</span>
+                  </ng-container>
                   </span>
                   <!-- PRIORIDAD -->
                   <span class="ms-1">
+                  <ng-container *ngIf="averia.priority === 'A'">
+                    <span class="badge bg-danger">ALTA</span>
+                  </ng-container>
+                  <ng-container *ngIf="averia.priority === 'B'">
                     <span class="badge bg-info">BAJA</span>
+                  </ng-container>
+                  <ng-container *ngIf="averia.priority === 'M'">
+                    <span class="badge bg-warning text-white">MEDIA</span>
+                  </ng-container>
                   </span>
                 </div>
-                <span class="blockquote-footer">2021-12-14</span>
+                <span class="blockquote-footer">{{averia.createdAt}}</span>
               </td>
               <td class="text-center">
                 <button class="btn btn-info btn-sm">
@@ -156,13 +174,12 @@
                 </button>
               </td>
               <td>
-                <ng-container *ngIf="true">
-                  <span class="text-uppercase">User1</span>
-                </ng-container>
+                <span class="text-uppercase">{{averia.user.fullName}}</span>
               </td>
               <td>
                 <div class="btn-opt ms-auto">
-                  <button class="btn btn-secondary btn-sm me-2"><i class="fas fa-edit"></i></button>
+                  <button (click)="editAveriaClick(averia._id)" class="btn btn-secondary btn-sm me-2">
+                    <i class="fas fa-edit"></i></button>
                   <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                 </div>
               </td>
@@ -223,6 +240,15 @@
       [currentService]="currentService"
       (hideModal)="hideServiceModal($event)">
     </app-service-modal>
+    <app-averia-modal
+      [title]="titleAveria"
+      [averia]="currentAveria"
+      (sendModel)="saveChangeAveria($event)">
+    </app-averia-modal>
+
+    <pre>{{averiaYearInput.value|json}}</pre>
+    <pre>{{averiaList|json}}</pre>
+    <hr>
     <pre>{{currentService|json}}</pre>
     <pre>{{currentClient|json}}</pre>
     <pre>{{currentServicePlan|json}}</pre>

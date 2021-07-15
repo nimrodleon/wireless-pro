@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ClientRoutingModule} from './client-routing.module';
 import {GlobalModule} from '../global/global.module';
+import {AveriaModule} from '../averia/averia.module';
 import {
   ClientService,
   PaymentService,
@@ -26,6 +27,7 @@ import {ReceivableComponent} from './pages/receivable/receivable.component';
 import {PaymentDailyComponent} from './pages/payment-daily/payment-daily.component';
 import {ServiceModalComponent} from './components/service-modal/service-modal.component';
 
+
 @NgModule({
   declarations: [
     ClientListComponent,
@@ -46,7 +48,8 @@ import {ServiceModalComponent} from './components/service-modal/service-modal.co
     ClientRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    GlobalModule
+    GlobalModule,
+    AveriaModule
   ],
   exports: [
     ClientFormModalComponent

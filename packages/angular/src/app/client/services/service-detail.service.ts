@@ -16,6 +16,7 @@ export class ServiceDetailService {
   private _currentServicePlan: ServicePlan;
   // ============================================================
   private _averiaList: Array<Averia>;
+  private _currentAveria: Averia;
 
   constructor(
     private serviceService: ServiceService,
@@ -45,7 +46,12 @@ export class ServiceDetailService {
 
   // Lista de averias.
   get averiaList(): Array<Averia> {
-    return;
+    return this._averiaList;
+  }
+
+  // averia actual.
+  get currentAveria(): Averia {
+    return this._currentAveria;
   }
 
   // cargar valores por defecto.
@@ -57,6 +63,23 @@ export class ServiceDetailService {
       this.servicePlanService.getServicePlan(result.servicePlanId)
         .subscribe(result => this._currentServicePlan = result);
     });
+  }
+
+  // cargar lista de averias.
+  getAveriaList(serviceId: string, year: string): void {
+    this.averiaService.getAveriasByServiceId(serviceId, year)
+      .subscribe(result => this._averiaList = result);
+  }
+
+  // cargar averia por id.
+  getAveriaById(id: string): void {
+    this.averiaService.getAveria(id)
+      .subscribe(result => this._currentAveria = result);
+  }
+
+  // establecer valor por defecto averia actual.
+  setDefaultValueAveria(): void {
+    this._currentAveria = this.averiaService.defaultValues();
   }
 
 

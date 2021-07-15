@@ -14,7 +14,7 @@ import {AveriaService} from '../../services/averia.service';
   styleUrls: ['./averia-modal.component.scss']
 })
 export class AveriaModalComponent implements OnInit {
-  private baseURL: string = environment.baseUrl + 'clients';
+  // private baseURL: string = environment.baseUrl + 'clients';
   @Input()
   title: string;
   @Input()
@@ -37,31 +37,34 @@ export class AveriaModalComponent implements OnInit {
       // cargar valores al formulario.
       this.averiaForm.reset({...this.averia});
       // configurar select2 para buscar clientes.
-      jQuery('select[name="clientId"]').select2({
-        theme: 'bootstrap-5',
-        dropdownParent: jQuery('#app-averia-modal'),
-        ajax: {
-          url: this.baseURL + '/select2/s',
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-          }
-        }
-      }).on('select2:select', (e) => {
-        let {data} = e.params;
-        this.averia.client = data.id;
-        this.averiaForm.setValue(this.averia);
-      });
+      // jQuery('select[name="clientId"]').select2({
+      //   theme: 'bootstrap-5',
+      //   dropdownParent: jQuery('#app-averia-modal'),
+      //   ajax: {
+      //     url: this.baseURL + '/select2/s',
+      //     headers: {
+      //       Authorization: 'Bearer ' + localStorage.getItem('token')
+      //     }
+      //   }
+      // }).on('select2:select', (e) => {
+      //   let {data} = e.params;
+      //   this.averia.client = data.id;
+      //   this.averiaForm.setValue(this.averia);
+      // });
       // Preselecting options in an remotely-sourced.
-      if (!this.averia._id) {
-        jQuery('select[name="clientId').val(null).trigger('change');
-      } else {
-        this.averiaService.getClientById(this.averia.client)
-          .subscribe(result => {
-            const option = new Option(result.fullName, result._id, true, true);
-            jQuery('select[name="clientId').append(option).trigger('change');
-          });
-      }
+      // if (!this.averia._id) {
+      //   jQuery('select[name="clientId').val(null).trigger('change');
+      // } else {
+      //   this.averiaService.getClientById(this.averia.client)
+      //     .subscribe(result => {
+      //       const option = new Option(result.fullName, result._id, true, true);
+      //       jQuery('select[name="clientId').append(option).trigger('change');
+      //     });
+      // }
     });
+    // myModal.addEventListener('hidden.bs.modal', () => {
+    //   this.averiaForm.reset({...this.averiaService.defaultValues()});
+    // });
   }
 
   // guardar cambios.
@@ -80,7 +83,7 @@ export class AveriaModalComponent implements OnInit {
         .then(() => console.info('Seleccionar cliente!'));
     } else {
       this.sendModel.emit(this.averia);
-      jQuery('#app-averia-modal').modal('hide');
+      // jQuery('#app-averia-modal').modal('hide');
     }
   }
 

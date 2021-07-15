@@ -2,7 +2,7 @@ export interface Averia {
   _id: string;
   averia: string;
   client: string;
-  user: string;
+  user: string | any;
   status: string;
   priority: string;
   archived: boolean;
