@@ -37,13 +37,14 @@
             <tbody>
             <tr *ngFor="let averia of averias">
               <td>
-                <a href="#" (click)="onArchivedAveria($event, averia._id)">
+                <a href="#" (click)="archivedAveriaClick($event, averia._id)">
                   <i class="fas fa-archive"></i></a>
               </td>
               <td>
                 <span class="d-block">{{ averia.averia }}</span>
-                <a [routerLink]="['/client/detail', averia.client._id]">{{ averia.client.fullName }}
-                  - {{averia.client.phone}}</a>
+                <a [routerLink]="['/client/service-detail', averia.serviceId]">
+                  {{ averia.client.fullName }} - {{averia.client.phone}}
+                </a>
                 <!-- COMENTARIO -->
                 <div class="card px-2" *ngIf="averia.solution">{{averia.solution}}</div>
                 <div class="d-flex">
@@ -75,7 +76,7 @@
                 <span class="blockquote-footer">{{ averia.createdAt }}</span>
               </td>
               <td>
-                <button (click)="onAttendAveria(averia._id)" class="btn btn-info btn-sm">
+                <button (click)="attendAveriaClick(averia._id)" class="btn btn-info btn-sm">
                   <span class="text-uppercase">Atender</span>
                 </button>
               </td>
@@ -86,9 +87,9 @@
               </td>
               <td>
                 <div class="btn-opt ms-auto">
-                  <button class="btn btn-secondary btn-sm me-2" (click)="onEditAveria(averia._id)"><i
+                  <button class="btn btn-secondary btn-sm me-2" (click)="editAveriaClick(averia._id)"><i
                     class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger btn-sm" (click)="onDeleteAveria(averia._id)"><i
+                  <button class="btn btn-danger btn-sm" (click)="deleteAveriaClick(averia._id)"><i
                     class="fas fa-trash-alt"></i></button>
                 </div>
               </td>

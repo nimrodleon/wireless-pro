@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import Swal from 'sweetalert2';
 
-declare var jQuery: any;
+declare var bootstrap: any;
 import {AuthService} from 'src/app/user/services';
 import {AveriaService} from '../../services/averia.service';
 import {Averia} from '../../interfaces/averia';
-import {FormBuilder, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-averia-list',
@@ -13,12 +13,14 @@ import {FormBuilder, FormControl} from '@angular/forms';
   styleUrls: ['./averia-list.component.scss']
 })
 export class AveriaListComponent implements OnInit {
-  averias: Array<any> = new Array<any>();
+  averias: Array<Averia>;
   titleModal: string;
   currentAveria: Averia;
   currentRole: string;
   // ============================================================
   queryInput: FormControl = this.fb.control('');
+  averiaModal: any;
+  attendAveriaModal: any;
 
   constructor(
     private fb: FormBuilder,
@@ -31,6 +33,12 @@ export class AveriaListComponent implements OnInit {
     this.getAveriaList();
     // Obtener rol del usuario autentificado.
     this.authService.getRoles().subscribe(res => this.currentRole = res);
+    // vincular averia modal.
+    this.averiaModal = new bootstrap.Modal(
+      document.querySelector('#app-averia-modal'));
+    // vincular modal atender averia.
+    this.attendAveriaModal = new bootstrap.Modal(
+      document.querySelector('#app-averia-attend'));
   }
 
   get roles() {
@@ -39,16 +47,19 @@ export class AveriaListComponent implements OnInit {
 
   // carga las averias.
   private getAveriaList(): void {
-    this.averiaService.getAverias(false, this.queryInput.value)
+    this.averiaService.getAverias(this.queryInput.value)
       .subscribe(res => this.averias = res);
   }
 
   // Guarda las averias.
   saveChange(averia: Averia): void {
-    if (averia._id === undefined) {
-      this.averiaService.create(averia).subscribe(res => this.getAveriaList());
-    } else {
-      this.averiaService.update(averia).subscribe(res => this.getAveriaList());
+    if (averia._id !== undefined) {
+      this.averiaService.update(averia)
+        .subscribe(() => {
+          this.getAveriaList();
+          this.averiaModal.hide();
+          this.attendAveriaModal.hide();
+        });
     }
   }
 
@@ -59,16 +70,16 @@ export class AveriaListComponent implements OnInit {
   }
 
   // abrir modal para editar.
-  onEditAveria(id: string): void {
+  editAveriaClick(id: string): void {
     this.averiaService.getAveria(id).subscribe(res => {
       this.currentAveria = res;
       this.titleModal = 'Editar Averia';
-      jQuery('#app-averia-modal').modal('show');
+      this.averiaModal.show();
     });
   }
 
   // delete averia.
-  onDeleteAveria(id: string): void {
+  deleteAveriaClick(id: string): void {
     if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
         'Información',
@@ -77,7 +88,7 @@ export class AveriaListComponent implements OnInit {
       );
     } else {
       Swal.fire({
-        title: 'Seguro de borrar esta Averia?',
+        title: 'Seguro de borrar?',
         text: '¡No podrás revertir esto!',
         icon: 'warning',
         showCancelButton: true,
@@ -101,19 +112,16 @@ export class AveriaListComponent implements OnInit {
   }
 
   // attend averia.
-  onAttendAveria(id: string): void {
+  attendAveriaClick(id: string): void {
     this.averiaService.getAveria(id).subscribe(res => {
       this.currentAveria = res;
-      // if (this.currentAveria.status === 'P') {
-      //   this.currentAveria.status = 'E';
-      // }
-      jQuery('#app-averia-attend').modal('show');
+      this.attendAveriaModal.show();
     });
   }
 
   // archivar averia.
-  onArchivedAveria(event, id: string): void {
-    event.preventDefault();
+  archivedAveriaClick(e: any, id: string): void {
+    e.preventDefault();
     this.averiaService.getAveria(id).subscribe(res => {
       this.currentAveria = res;
       if (this.currentAveria.status !== 'F') {

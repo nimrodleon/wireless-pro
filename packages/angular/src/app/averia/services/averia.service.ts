@@ -19,9 +19,8 @@ export class AveriaService {
     private clientService: ClientService) {
   }
 
-  getAverias(archived: any, search: string): Observable<any> {
+  getAverias(search: string): Observable<any> {
     let params = new HttpParams();
-    params = params.append('archived', archived);
     params = params.append('search', search);
     return this.http.get(this.baseURL, {params: params});
   }

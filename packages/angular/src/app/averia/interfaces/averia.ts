@@ -1,7 +1,7 @@
 export interface Averia {
   _id: string;
   averia: string;
-  client: string;
+  client: string | any;
   serviceId: string;
   user: string | any;
   status: string;
