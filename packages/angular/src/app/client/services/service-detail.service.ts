@@ -82,5 +82,16 @@ export class ServiceDetailService {
     this._currentAveria = this.averiaService.defaultValues();
   }
 
+  // registrar averia.
+  async createAveria(data: Averia) {
+    this.averiaService.create(data)
+      .subscribe(result => this._currentAveria = result);
+  }
+
+  // actualizar averia.
+  async updateAveria(data: Averia) {
+    this.averiaService.update(data)
+      .subscribe(result => this._currentAveria = result);
+  }
 
 }

@@ -2,14 +2,13 @@ export interface Averia {
   _id: string;
   averia: string;
   client: string;
+  serviceId: string;
   user: string | any;
   status: string;
   priority: string;
   archived: boolean;
-  createdAt: string;
-  year: string;
-  month: string;
-  day: string;
   origin: string;
   solution: string;
+  year: string;
+  createdAt: any;
 }

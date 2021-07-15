@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import * as moment from 'moment';
 
 declare var bootstrap: any;
 import {ServiceDetailService} from '../../services';
-import {FormBuilder, FormControl} from '@angular/forms';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-service-detail',
@@ -96,8 +96,20 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // guardar cambios averia.
-  saveChangeAveria(data: any): void {
-    console.log(data);
+  async saveChangeAveria(data: any) {
+    if (data._id === undefined) {
+      // registrar averia.
+      data.client = this.currentClient._id;
+      data.serviceId = this.currentService._id;
+      await this.serviceDetailService.createAveria(data);
+      this.averiaModal.hide();
+      this.averiaListLoad();
+    } else {
+      // actualizar averia.
+      await this.serviceDetailService.updateAveria(data);
+      this.averiaModal.hide();
+      this.averiaListLoad();
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 import {model, Schema} from 'mongoose'
+import moment from 'moment-timezone'
 
 // Schema averias.
 const averiaSchema = new Schema({
@@ -18,12 +19,16 @@ const averiaSchema = new Schema({
   status: String,
   priority: String,
   archived: Boolean,
-  createdAt: String,
-  year: String,
-  month: String,
-  day: String,
   origin: String,
   solution: String,
+  year: {
+    type: String,
+    default: moment().format('YYYY')
+  },
+  createdAt: {
+    type: Date,
+    default: moment().utc().toDate()
+  },
   isDeleted: {
     type: Boolean,
     default: false

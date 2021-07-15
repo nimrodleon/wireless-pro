@@ -174,7 +174,9 @@
                 </button>
               </td>
               <td>
-                <span class="text-uppercase">{{averia.user.fullName}}</span>
+                <ng-container *ngIf="averia.user">
+                  <span class="text-uppercase">{{averia.user.fullName}}</span>
+                </ng-container>
               </td>
               <td>
                 <div class="btn-opt ms-auto">
