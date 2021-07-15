@@ -4,7 +4,7 @@ import {PaymentController} from './controller'
 
 const router = express.Router()
 
-// http://<HOST>/api/payments/:id/:year/client
+// http://<HOST>/api/payments/:id/:year
 router.get('/:id/:year', [verifyToken], getPayments)
 
 // Listar pagos.

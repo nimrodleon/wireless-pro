@@ -9,6 +9,6 @@ export interface Payment {
   payFrom: string;
   payUp: string;
   note: string;
-  user: string;
+  user: string | any;
   createdAt: any;
 }

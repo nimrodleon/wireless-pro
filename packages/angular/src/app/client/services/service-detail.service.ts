@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Client, Service} from '../interfaces';
+import {Client, Payment, Service} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
 import {ServiceService} from './service.service';
 import {ClientService} from './client.service';
 import {ServicePlanService} from '../../system/services';
 import {Averia} from '../../averia/interfaces/averia';
 import {AveriaService} from '../../averia/services/averia.service';
+import {PaymentService} from './payment.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,15 @@ export class ServiceDetailService {
   // ============================================================
   private _averiaList: Array<Averia>;
   private _currentAveria: Averia;
+  // ============================================================
+  private _paymentList: Array<Payment>;
 
   constructor(
     private serviceService: ServiceService,
     private clientService: ClientService,
     private servicePlanService: ServicePlanService,
-    private averiaService: AveriaService) {
+    private averiaService: AveriaService,
+    private paymentService: PaymentService) {
     // establecer valores por defecto.
     this._currentService = this.serviceService.defaultValues();
     this._currentClient = this.clientService.defaultValues();
@@ -54,6 +58,13 @@ export class ServiceDetailService {
     return this._currentAveria;
   }
 
+  // lista de pagos.
+  get paymentList(): Array<Payment> {
+    return this._paymentList;
+  }
+
+  // ============================================================
+
   // cargar valores por defecto.
   getCurrentService(serviceId: string): void {
     this.serviceService.getServiceById(serviceId).subscribe(result => {
@@ -64,6 +75,8 @@ export class ServiceDetailService {
         .subscribe(result => this._currentServicePlan = result);
     });
   }
+
+  // ============================================================
 
   // cargar lista de averias.
   getAveriaList(serviceId: string, year: string): void {
@@ -92,6 +105,14 @@ export class ServiceDetailService {
   async updateAveria(data: Averia) {
     this.averiaService.update(data)
       .subscribe(result => this._currentAveria = result);
+  }
+
+  // ============================================================
+
+  // Lista de pagos.
+  getPaymentList(serviceId: string, year: string): void {
+    this.paymentService.getPaymentList(serviceId, year)
+      .subscribe(result => this._paymentList = result);
   }
 
 }

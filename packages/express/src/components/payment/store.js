@@ -4,9 +4,9 @@ import {ServiceStore} from '../service/store'
 // CRUD - payment.
 export class PaymentStore {
   // Listar pagos.
-  static async getPayments(clientId, year) {
-    return Payment.find({clientId: clientId, year: year, isDeleted: false})
-      .populate({path: 'user', select: 'userName'})
+  static async getPayments(serviceId, year) {
+    return Payment.find({serviceId: serviceId, year: year, isDeleted: false})
+      .populate({path: 'user', select: 'fullName'})
   }
 
   // devolver pago por id.

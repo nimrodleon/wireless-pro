@@ -46,10 +46,10 @@
           <div class="col-12">
             <form class="row row-cols-auto g-2 mt-2">
               <div class="col-auto">
-                <input type="number" class="form-control" placeholder="Year">
+                <input type="number" [formControl]="paymentYearInput" class="form-control" placeholder="Year">
               </div>
               <div class="col-auto">
-                <button type="button" class="btn btn-primary">
+                <button type="button" (click)="getPaymentList()" class="btn btn-primary">
                   <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
                 </button>
               </div>
@@ -76,7 +76,6 @@
                 <thead>
                 <tr class="text-uppercase">
                   <th><input type="checkbox" disabled></th>
-                  <th>Equipo</th>
                   <th>Mes de Servicio</th>
                   <th>Monto</th>
                   <th>M.Pago</th>
@@ -86,15 +85,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td><input type="checkbox" [value]="0"></td>
-                  <td>127.0.0.1</td>
-                  <td>2020-10-10 al 2021-12-01</td>
-                  <td>100.00</td>
-                  <td>Caja</td>
-                  <td>2021-06-25</td>
-                  <td>User1</td>
-                  <td>Tiene saldo a favor de 10 soles</td>
+                <tr *ngFor="let payment of paymentList">
+                  <td><input type="checkbox" [value]="payment._id"></td>
+                  <td>{{payment.payFrom}} a {{payment.payUp}}</td>
+                  <td>{{payment.amount}}</td>
+                  <td>{{payment.paymentMethod}}</td>
+                  <td>{{payment.createdAt|date}}</td>
+                  <td>{{payment.user.fullName}}</td>
+                  <td>{{payment.note}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -252,12 +250,11 @@
       (sendModel)="saveChangeAveria($event)">
     </app-averia-attend>
 
-    <pre>{{averiaYearInput.value|json}}</pre>
-    <pre>{{averiaList|json}}</pre>
-    <hr>
-    <pre>{{currentService|json}}</pre>
+    <pre>{{paymentYearInput.value|json}}</pre>
+    <pre>{{paymentList|json}}</pre>
+    <!--<pre>{{currentService|json}}</pre>
     <pre>{{currentClient|json}}</pre>
-    <pre>{{currentServicePlan|json}}</pre>
+    <pre>{{currentServicePlan|json}}</pre>-->
     <!-- ##(End) Content -->
   </div>
 </div>

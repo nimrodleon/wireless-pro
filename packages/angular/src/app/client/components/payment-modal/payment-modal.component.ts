@@ -76,26 +76,26 @@ export class PaymentModalComponent implements OnInit {
         'error'
       );
     } else {
-      this.payment.client = this.client._id;
-      this.payment.service = jQuery('#payment-service').val();
-      this.payment.month = jQuery('#payment-month').val();
-      this.payment.payment_method = jQuery('#payment-payment_method').val();
-      this.payment.created_date = moment().format('YYYY-MM-DD');
-      if (!this.editPayDate) {
-        const service = _.find(this.serviceList, (o) => {
-          return o._id == this.payment.service;
-        });
-        const day = moment(service.dateFrom).date();
-        const month = parseInt(this.payment.month, 10) - 1;
-        this.payment.payFrom = moment([this.payment.year, month, day]).format('YYYY-MM-DD');
-        this.payment.payUp = moment([this.payment.year, month, day]).add(1, 'M').format('YYYY-MM-DD');
-      }
-      this.sendPayment.emit(this.payment);
-      // if (this.enableService) {
-      //   this.sendServiceId.emit(this.payment.service);
+      // this.payment.client = this.client._id;
+      // this.payment.service = jQuery('#payment-service').val();
+      // this.payment.month = jQuery('#payment-month').val();
+      // this.payment.payment_method = jQuery('#payment-payment_method').val();
+      // this.payment.created_date = moment().format('YYYY-MM-DD');
+      // if (!this.editPayDate) {
+      //   const service = _.find(this.serviceList, (o) => {
+      //     return o._id == this.payment.service;
+      //   });
+      //   const day = moment(service.dateFrom).date();
+      //   const month = parseInt(this.payment.month, 10) - 1;
+      //   this.payment.payFrom = moment([this.payment.year, month, day]).format('YYYY-MM-DD');
+      //   this.payment.payUp = moment([this.payment.year, month, day]).add(1, 'M').format('YYYY-MM-DD');
       // }
-      this.sendPrintReceipt.emit(this.printReceipt);
-      jQuery('#app-payment-modal').modal('hide');
+      // this.sendPayment.emit(this.payment);
+      // // if (this.enableService) {
+      // //   this.sendServiceId.emit(this.payment.service);
+      // // }
+      // this.sendPrintReceipt.emit(this.printReceipt);
+      // jQuery('#app-payment-modal').modal('hide');
     }
   }
 

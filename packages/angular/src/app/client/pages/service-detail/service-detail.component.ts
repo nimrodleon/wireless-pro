@@ -14,10 +14,13 @@ import {ServiceDetailService} from '../../services';
 export class ServiceDetailComponent implements OnInit {
   titleService: string;
   serviceModal: any;
+  // ============================================================
   averiaYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   titleAveria: string;
   averiaModal: any;
   attendAveriaModal: any;
+  // ============================================================
+  paymentYearInput: FormControl = this.fb.control(moment().format('YYYY'));
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +32,7 @@ export class ServiceDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.serviceDetailService.getCurrentService(params.get('id'));
       this.serviceDetailService.getAveriaList(params.get('id'), this.averiaYearInput.value);
+      this.serviceDetailService.getPaymentList(params.get('id'), this.paymentYearInput.value);
     });
     // vincular modal servicios.
     this.serviceModal = new bootstrap.Modal(
@@ -64,6 +68,11 @@ export class ServiceDetailComponent implements OnInit {
   // averia actual.
   get currentAveria() {
     return this.serviceDetailService.currentAveria;
+  }
+
+  // lista de averias.
+  get paymentList() {
+    return this.serviceDetailService.paymentList;
   }
 
   // editar servicio modal.
@@ -121,6 +130,11 @@ export class ServiceDetailComponent implements OnInit {
       this.attendAveriaModal.hide();
       this.averiaListLoad();
     }
+  }
+
+  // cargar lista de pagos.
+  getPaymentList(): void {
+    this.serviceDetailService.getPaymentList(this.currentService._id, this.paymentYearInput.value);
   }
 
 }

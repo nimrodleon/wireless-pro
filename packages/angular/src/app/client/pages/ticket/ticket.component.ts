@@ -13,7 +13,7 @@ import {ServicePlanService, InfoService} from '../../../system/services';
 export class TicketComponent implements OnInit {
   info: Info;
   client: Client;
-  payment: Payment = new Payment();
+  payment: Payment;
   service: Service;
   servicePlan: ServicePlan;
   currentDate: Date = new Date();
@@ -22,6 +22,7 @@ export class TicketComponent implements OnInit {
               private router: Router, private activatedRoute: ActivatedRoute,
               private clientService: ClientService, private serviceService: ServiceService,
               private infoService: InfoService, private servicePlanService: ServicePlanService) {
+    this.payment = this.paymentService.defaultValues();
     this.service = this.serviceService.defaultValues();
   }
 
@@ -43,8 +44,8 @@ export class TicketComponent implements OnInit {
   private getPayment(id: string): void {
     this.paymentService.getPaymentById(id).subscribe(res => {
       this.payment = res;
-      this.getClient(res.client);
-      this.getService(res.service);
+      this.getClient(res.clientId);
+      this.getService(res.serviceId);
     });
   }
 

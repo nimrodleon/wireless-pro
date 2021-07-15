@@ -17,8 +17,8 @@ export class PaymentService {
   }
 
   // Lista de pagos.
-  getPaymentList(clientId: string, year: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${clientId}/${year}`);
+  getPaymentList(serviceId: string, year: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/${year}`);
   }
 
   // Obtener pago por id.

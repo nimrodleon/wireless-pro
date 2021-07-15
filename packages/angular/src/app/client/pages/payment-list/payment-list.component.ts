@@ -31,7 +31,7 @@ export class PaymentListComponent implements OnInit {
 
   // Obtiene la Lista de Pagos.
   private getPaymentList(id: string): void {
-    this.paymentService.getPaymentList(id).subscribe(res => this.paymentList = res);
+    this.paymentService.getPaymentList(id, '2020').subscribe(res => this.paymentList = res);
   }
 
   // Imprime el pago Seleccionado.
