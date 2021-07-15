@@ -1,13 +1,14 @@
-export class Payment {
+export interface Payment {
   _id: string;
+  clientId: string;
+  serviceId: string;
+  year: string;
   month: string;
   amount: number;
-  payment_method: string;
-  note: string;
-  created_date: string;
-  year: string;
+  paymentMethod: string;
   payFrom: string;
   payUp: string;
-  client: string;
-  service: string;
+  note: string;
+  user: string;
+  createdAt: any;
 }

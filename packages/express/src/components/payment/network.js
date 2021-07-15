@@ -4,15 +4,16 @@ import {PaymentController} from './controller'
 
 const router = express.Router()
 
-// http://<HOST>/api/payments/:client/client
-router.get('/:client/client', [verifyToken], getPayments)
+// http://<HOST>/api/payments/:id/:year/client
+router.get('/:id/:year', [verifyToken], getPayments)
 
 // Listar pagos.
 function getPayments(req, res = response) {
-  PaymentController.getPayments(req.params.client).then(result => {
+  let {id, year} = req.params
+  PaymentController.getPayments(id, year).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 

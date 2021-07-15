@@ -74,7 +74,7 @@ export class PaymentListComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
           _.forEach(chks, (val) => {
-            this.paymentService.delete(val.value).subscribe(res => {
+            this.paymentService.deletePayment(val.value).subscribe(res => {
             });
           });
           this.getPaymentList(this.clientId);

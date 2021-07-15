@@ -3,10 +3,10 @@ import {PaymentStore} from './store'
 // Lógica - payment.
 export class PaymentController {
   // Listar pagos.
-  static getPayments(clientId) {
+  static getPayments(clientId, year) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(PaymentStore.getPayments(clientId))
+        resolve(PaymentStore.getPayments(clientId, year))
       } catch (err) {
         reject(err)
       }

@@ -41,7 +41,7 @@ export class TicketComponent implements OnInit {
 
   // Obtiene el Comprobante de Pago.
   private getPayment(id: string): void {
-    this.paymentService.getPayment(id).subscribe(res => {
+    this.paymentService.getPaymentById(id).subscribe(res => {
       this.payment = res;
       this.getClient(res.client);
       this.getService(res.service);
