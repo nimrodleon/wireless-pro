@@ -169,7 +169,7 @@
                 <span class="blockquote-footer">{{averia.createdAt}}</span>
               </td>
               <td class="text-center">
-                <button class="btn btn-info btn-sm">
+                <button (click)="attendAveriaClick(averia._id)" class="btn btn-info btn-sm">
                   <span class="text-uppercase">Atender</span>
                 </button>
               </td>
@@ -247,6 +247,10 @@
       [averia]="currentAveria"
       (sendModel)="saveChangeAveria($event)">
     </app-averia-modal>
+    <app-averia-attend
+      [averia]="currentAveria"
+      (sendModel)="saveChangeAveria($event)">
+    </app-averia-attend>
 
     <pre>{{averiaYearInput.value|json}}</pre>
     <pre>{{averiaList|json}}</pre>

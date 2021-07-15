@@ -17,6 +17,7 @@ export class ServiceDetailComponent implements OnInit {
   averiaYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   titleAveria: string;
   averiaModal: any;
+  attendAveriaModal: any;
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +36,9 @@ export class ServiceDetailComponent implements OnInit {
     // vincular modal averia.
     this.averiaModal = new bootstrap.Modal(
       document.querySelector('#app-averia-modal'));
+    // vincular modal atender averia.
+    this.attendAveriaModal = new bootstrap.Modal(
+      document.querySelector('#app-averia-attend'));
   }
 
   // servicio actual.
@@ -95,6 +99,12 @@ export class ServiceDetailComponent implements OnInit {
     this.averiaModal.show();
   }
 
+  // atender averia.
+  attendAveriaClick(id: string): void {
+    this.serviceDetailService.getAveriaById(id);
+    this.attendAveriaModal.show();
+  }
+
   // guardar cambios averia.
   async saveChangeAveria(data: any) {
     if (data._id === undefined) {
@@ -108,6 +118,7 @@ export class ServiceDetailComponent implements OnInit {
       // actualizar averia.
       await this.serviceDetailService.updateAveria(data);
       this.averiaModal.hide();
+      this.attendAveriaModal.hide();
       this.averiaListLoad();
     }
   }

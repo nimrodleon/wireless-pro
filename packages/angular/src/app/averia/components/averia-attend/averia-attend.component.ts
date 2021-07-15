@@ -1,10 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-
-declare var jQuery: any;
+import {FormGroup} from '@angular/forms';
 import {Averia} from '../../interfaces/averia';
 import {UserService} from 'src/app/user/services/user.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import * as moment from 'moment';
 import {AveriaService} from '../../services/averia.service';
 
 @Component({
@@ -42,7 +39,6 @@ export class AveriaAttendComponent implements OnInit {
 
   saveChanges(): void {
     this.sendModel.emit(this.averia);
-    jQuery('#app-averia-attend').modal('hide');
   }
 
 }
