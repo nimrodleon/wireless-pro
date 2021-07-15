@@ -3,10 +3,10 @@ import {AveriaStore} from './store'
 // Lógica - averias.
 export class AveriaController {
   // Lista de averias.
-  static getAverias(query, status) {
+  static getAverias(query) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(AveriaStore.getAverias(query, status))
+        resolve(AveriaStore.getAverias(query))
       } catch (err) {
         reject(err)
       }

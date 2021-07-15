@@ -4,10 +4,10 @@ import {Averia} from './model'
 // CRUD - averia.
 export class AveriaStore {
   // Lista de averias.
-  static async getAverias(query, status) {
+  static async getAverias(query) {
     let _averias = await Averia.find({
       isDeleted: false,
-      archived: status,
+      archived: false,
     }).populate({
       path: 'client',
       select: 'fullName phone',
@@ -15,7 +15,7 @@ export class AveriaStore {
     }).populate({
       path: 'user',
       select: 'fullName'
-    }).hint({$natural: -1}).limit(50)
+    }).hint({$natural: -1})
     return _.filter(_averias, obj => obj.client != null)
   }
 

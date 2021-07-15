@@ -10,15 +10,11 @@ router.get('/', [verifyToken], getAverias)
 
 // Lista de averias.
 function getAverias(req, res = response) {
-  let {archived, search} = req.query
-  if (!search) {
-    search = ''
-  }
-  archived = archived === 'true'
-  AveriaController.getAverias(search, archived).then(result => {
+  let {search = ''} = req.query
+  AveriaController.getAverias(search).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
