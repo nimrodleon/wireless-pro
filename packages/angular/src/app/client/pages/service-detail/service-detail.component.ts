@@ -75,6 +75,9 @@ export class ServiceDetailComponent implements OnInit {
     return this.serviceDetailService.paymentList;
   }
 
+  // retornar nombre del mes.
+
+
   // editar servicio modal.
   editServiceModal(): void {
     this.titleService = 'Editar Servicio';

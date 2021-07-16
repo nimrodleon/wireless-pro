@@ -76,6 +76,7 @@
                 <thead>
                 <tr class="text-uppercase">
                   <th><input type="checkbox" disabled></th>
+                  <th>Correspondiente</th>
                   <th>Mes de Servicio</th>
                   <th>Monto</th>
                   <th>M.Pago</th>
@@ -87,6 +88,7 @@
                 <tbody>
                 <tr *ngFor="let payment of paymentList">
                   <td><input type="checkbox" [value]="payment._id"></td>
+                  <td>Febrero</td>
                   <td>{{payment.payFrom}} a {{payment.payUp}}</td>
                   <td>{{payment.amount}}</td>
                   <td>{{payment.paymentMethod}}</td>
