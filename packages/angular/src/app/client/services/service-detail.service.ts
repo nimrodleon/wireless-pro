@@ -7,6 +7,7 @@ import {ServicePlanService} from '../../system/services';
 import {Averia} from '../../averia/interfaces/averia';
 import {AveriaService} from '../../averia/services/averia.service';
 import {PaymentService} from './payment.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -113,6 +114,11 @@ export class ServiceDetailService {
   getPaymentList(serviceId: string, year: string): void {
     this.paymentService.getPaymentList(serviceId, year)
       .subscribe(result => this._paymentList = result);
+  }
+
+  // borrar pago.
+  deletePayment(id: string): Observable<Payment> {
+    return this.paymentService.deletePayment(id);
   }
 
 }

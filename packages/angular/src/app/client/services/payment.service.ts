@@ -17,8 +17,8 @@ export class PaymentService {
   }
 
   // Lista de pagos.
-  getPaymentList(serviceId: string, year: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${serviceId}/${year}`);
+  getPaymentList(serviceId: string, year: string): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${this.baseURL}/${serviceId}/${year}`);
   }
 
   // Obtener pago por id.
@@ -31,14 +31,9 @@ export class PaymentService {
     return this.http.post<Payment>(this.baseURL, payment);
   }
 
-  // actualizar pago.
-  updatePayment(payment: Payment): Observable<Payment> {
-    return this.http.patch<Payment>(`${this.baseURL}/${payment._id}`, payment);
-  }
-
   // borrar pago.
-  deletePayment(id: string): Observable<any> {
-    return this.http.delete(`${this.baseURL}/${id}`);
+  deletePayment(id: string): Observable<Payment> {
+    return this.http.delete<Payment>(`${this.baseURL}/${id}`);
   }
 
   // pago formGroup.

@@ -6,6 +6,7 @@ import * as moment from 'moment';
 declare var bootstrap: any;
 import {ServiceDetailService} from '../../services';
 import {PrintPayment} from '../../interfaces';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-service-detail',
@@ -192,4 +193,49 @@ export class ServiceDetailComponent implements OnInit {
         .then(() => console.info('Imprimir Ticket'));
     }
   }
+
+  // borrar pago de servicio.
+  async deletePayment() {
+    let chkDel = document.querySelectorAll('#chkDel:checked');
+    if (chkDel.length <= 0) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Seleccione un Pago!',
+        showConfirmButton: true,
+      });
+      return;
+    }
+    if (chkDel.length > 1) {
+      await Swal.fire({
+        icon: 'info',
+        title: 'Seleccione solo un Pago!',
+        showConfirmButton: true,
+      });
+      return;
+    }
+    Swal.fire({
+      title: `¿Estás seguro de borrar?`,
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, bórralo!',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.isConfirmed) {
+        let paymentId = chkDel[0].getAttribute('value');
+        this.serviceDetailService.deletePayment(paymentId)
+          .subscribe(() => {
+            this.getPaymentList();
+            Swal.fire(
+              'Borrado!',
+              'El registro ha sido borrado.',
+              'success'
+            );
+          });
+      }
+    });
+  }
+
 }
