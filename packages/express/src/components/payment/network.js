@@ -25,7 +25,7 @@ function getPayment(req, res = response) {
   PaymentController.getPayment(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -34,10 +34,10 @@ router.post('/', [verifyToken], addPayment)
 
 // crear nuevo pago.
 function addPayment(req, res = response) {
-  PaymentController.createPayment(req.body, req.userId).then(result => {
+  PaymentController.createPayment(req.body, req.currentUser._id).then(result => {
     res.json(result)
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 
@@ -49,7 +49,7 @@ function deletePayment(req, res = response) {
   PaymentController.deletePayment(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
-    res.status(500).json(err)
+    res.status(400).json(err)
   })
 }
 

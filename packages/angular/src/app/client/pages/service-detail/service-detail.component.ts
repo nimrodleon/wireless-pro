@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 
 declare var bootstrap: any;
 import {ServiceDetailService} from '../../services';
+import {PrintPayment} from '../../interfaces';
 
 @Component({
   selector: 'app-service-detail',
@@ -21,8 +22,11 @@ export class ServiceDetailComponent implements OnInit {
   attendAveriaModal: any;
   // ============================================================
   paymentYearInput: FormControl = this.fb.control(moment().format('YYYY'));
+  paymentModal: any;
+  titlePayment: string;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private serviceDetailService: ServiceDetailService) {
@@ -43,6 +47,9 @@ export class ServiceDetailComponent implements OnInit {
     // vincular modal atender averia.
     this.attendAveriaModal = new bootstrap.Modal(
       document.querySelector('#app-averia-attend'));
+    // vincular modal pagos.
+    this.paymentModal = new bootstrap.Modal(
+      document.querySelector('#payment-modal'));
   }
 
   // servicio actual.
@@ -74,9 +81,6 @@ export class ServiceDetailComponent implements OnInit {
   get paymentList() {
     return this.serviceDetailService.paymentList;
   }
-
-  // retornar nombre del mes.
-
 
   // editar servicio modal.
   editServiceModal(): void {
@@ -140,4 +144,52 @@ export class ServiceDetailComponent implements OnInit {
     this.serviceDetailService.getPaymentList(this.currentService._id, this.paymentYearInput.value);
   }
 
+  // obtener nombre del mes.
+  getMonthName(value: string) {
+    switch (value) {
+      case '01':
+        return 'ENERO';
+      case '02':
+        return 'FEBRERO';
+      case '03':
+        return 'MARZO';
+      case '04':
+        return 'ABRIL';
+      case '05':
+        return 'MAYO';
+      case '06':
+        return 'JUNIO';
+      case '07':
+        return 'JULIO';
+      case '08':
+        return 'AGOSTO';
+      case '09':
+        return 'SEPTIEMBRE';
+      case '10':
+        return 'OCTUBRE';
+      case '11':
+        return 'NOVIEMBRE';
+      case '12':
+        return 'DICIEMBRE';
+    }
+  }
+
+  // agregar pago.
+  addPaymentClick(): void {
+    this.titlePayment = 'Agregar Pago de Servicio';
+    this.paymentModal.show();
+  }
+
+  // cerrar modal de pagos.
+  hidePaymentModal(print: PrintPayment): void {
+    if (print.hideModal) {
+      this.paymentModal.hide();
+    }
+    if (!print.printReceipt) {
+      this.getPaymentList();
+    } else {
+      this.router.navigate(['/client/ticket', print.paymentId])
+        .then(() => console.info('Imprimir Ticket'));
+    }
+  }
 }

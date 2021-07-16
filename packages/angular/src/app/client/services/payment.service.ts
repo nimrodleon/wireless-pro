@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
@@ -45,14 +45,14 @@ export class PaymentService {
   formGroup(): FormGroup {
     return this.fb.group({
       _id: [null],
-      clientId: [''],
-      serviceId: [''],
-      year: [''],
-      month: [''],
-      amount: [0],
-      paymentMethod: [''],
-      payFrom: [''],
-      payUp: [''],
+      clientId: ['', [Validators.required]],
+      serviceId: ['', [Validators.required]],
+      year: ['', [Validators.required]],
+      month: ['', [Validators.required]],
+      amount: [0, [Validators.required, Validators.min(0)]],
+      paymentMethod: ['', [Validators.required]],
+      payFrom: ['', [Validators.required]],
+      payUp: ['', [Validators.required]],
       note: [''],
       user: [''],
       createdAt: [null]

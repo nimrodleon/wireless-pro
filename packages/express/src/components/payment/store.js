@@ -16,20 +16,13 @@ export class PaymentStore {
 
   // registrar pago.
   static async createPayment(data, userId) {
-    return new Promise(async (resolve, reject) => {
-      let _payment = new Payment(data)
-      _payment.user = userId
-      if (!_payment.service) {
-        reject(new Error('No Existe Servicio!'))
-      } else {
-        await _payment.save()
-        let _service = await ServiceStore.getService(_payment.service)
-        // registrar el último pago.
-        _service.payment = _payment._id
-        await ServiceStore.updateService(_service._id, _service)
-        resolve(_payment)
-      }
-    })
+    let _payment = new Payment(data)
+    _payment.user = userId
+    await _payment.save()
+    let _service = await ServiceStore.getService(_payment.serviceId)
+    _service.lastPayment = _payment._id
+    await ServiceStore.updateService(_service._id, _service)
+    return _payment
   }
 
   // borrar pago.

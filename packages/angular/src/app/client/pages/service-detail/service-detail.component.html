@@ -19,7 +19,7 @@
       </div>
     </div>
     <!-- ##(Begin) Tabs -->
-    <nav>
+    <nav class="d-print-none">
       <div class="nav nav-tabs" role="tablist">
         <button class="nav-link active" data-bs-toggle="tab"
                 data-bs-target="#nav-payment" type="button" role="tab">
@@ -43,7 +43,7 @@
       <div class="tab-pane fade show active" id="nav-payment" role="tabpanel">
         <!-- ##(Begin) Información de pagos -->
         <div class="row">
-          <div class="col-12">
+          <div class="col-12 d-print-none">
             <form class="row row-cols-auto g-2 mt-2">
               <div class="col-auto">
                 <input type="number" [formControl]="paymentYearInput" class="form-control" placeholder="Year">
@@ -54,13 +54,8 @@
                 </button>
               </div>
               <div class="col-auto">
-                <button type="button" class="btn btn-info">
+                <button type="button" (click)="addPaymentClick()" class="btn btn-success">
                   <i class="fas fa-money-check"></i><span class="text-uppercase ms-1">Pagar</span>
-                </button>
-              </div>
-              <div class="col-auto">
-                <button type="button" class="btn btn-success">
-                  <i class="fas fa-print"></i><span class="text-uppercase ms-1">Imprimir</span>
                 </button>
               </div>
               <div class="col-auto">
@@ -75,8 +70,11 @@
               <table class="table table-striped">
                 <thead>
                 <tr class="text-uppercase">
-                  <th><input type="checkbox" disabled></th>
-                  <th>Correspondiente</th>
+                  <th>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" disabled>
+                    </div>
+                  </th>
                   <th>Mes de Servicio</th>
                   <th>Monto</th>
                   <th>M.Pago</th>
@@ -87,9 +85,16 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let payment of paymentList">
-                  <td><input type="checkbox" [value]="payment._id"></td>
-                  <td>Febrero</td>
-                  <td>{{payment.payFrom}} a {{payment.payUp}}</td>
+                  <td>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" [id]="payment._id">
+                    </div>
+                  </td>
+                  <td>
+                    <a [routerLink]="['/client/ticket', payment._id]">
+                      {{getMonthName(payment.month)}} | {{payment.payFrom}} a {{payment.payUp}}
+                    </a>
+                  </td>
                   <td>{{payment.amount}}</td>
                   <td>{{payment.paymentMethod}}</td>
                   <td>{{payment.createdAt|date}}</td>
@@ -105,7 +110,7 @@
       </div>
       <div class="tab-pane fade" id="nav-averias" role="tabpanel">
         <!-- ##(Begin) Averias -->
-        <form class="row row-cols-auto g-2 mt-2">
+        <form class="row row-cols-auto g-2 mt-2 d-print-none">
           <div class="col-auto">
             <input type="number" [formControl]="averiaYearInput" class="form-control" placeholder="Year">
           </div>
@@ -251,12 +256,12 @@
       [averia]="currentAveria"
       (sendModel)="saveChangeAveria($event)">
     </app-averia-attend>
-
-    <pre>{{paymentYearInput.value|json}}</pre>
-    <pre>{{paymentList|json}}</pre>
-    <!--<pre>{{currentService|json}}</pre>
-    <pre>{{currentClient|json}}</pre>
-    <pre>{{currentServicePlan|json}}</pre>-->
+    <app-payment-modal
+      [title]="titlePayment"
+      [currentService]="currentService"
+      [currentServicePlan]="currentServicePlan"
+      (hideModal)="hidePaymentModal($event)">
+    </app-payment-modal>
     <!-- ##(End) Content -->
   </div>
 </div>
