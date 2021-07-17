@@ -188,6 +188,7 @@ export class ServiceDetailComponent implements OnInit {
     }
     if (!print.printReceipt) {
       this.getPaymentList();
+      this.serviceDetailService.getCurrentService(this.currentService._id);
     } else {
       this.router.navigate(['/client/ticket', print.paymentId])
         .then(() => console.info('Imprimir Ticket'));

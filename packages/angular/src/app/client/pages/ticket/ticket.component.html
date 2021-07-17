@@ -2,7 +2,7 @@
 <div class="wrap-body">
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
-    <div class="root">
+    <div class="root" [style]="{'width': info.paperWidth+'px'}">
       <div class="d-flex justify-content-center my-2 d-print-none">
         <button type="button" (click)="print()" class="text-uppercase">Imprimir</button>
       </div>
@@ -25,7 +25,7 @@
         </tr>
         <tr>
           <th class="text-uppercase">Servicio:</th>
-          <td>ACCESO A RED DIRECOM</td>
+          <td>ACCESO A RED</td>
         </tr>
         <tr>
           <th class="text-uppercase">Período:</th>
@@ -37,15 +37,11 @@
         </tr>
         <tr>
           <th class="text-uppercase">Monto:</th>
-          <td>{{ payment.amount}} Soles </td>
+          <td>{{ payment.amount}} Soles</td>
         </tr>
       </table>
       <hr class="d-print-block my-1">
-      <p class="text-center text-uppercase m-0">Horario de Atención</p>
-      <p class="text-center m-0">8:30 AM;12:50PM - 3:00PM;7:20PM</p>
-      <hr class="d-print-block my-1">
-      <p class="tag text-center m-0">{{payment._id}}</p>
-      <p class="tag text-center m-0">{{info.legendTicket}}</p>
+      <div [innerHTML]="info.legendTicket" class="text-center"></div>
     </div>
   </div>
 </div>

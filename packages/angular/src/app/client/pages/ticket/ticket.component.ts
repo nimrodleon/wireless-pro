@@ -12,54 +12,36 @@ import {ServicePlanService, InfoService} from '../../../system/services';
 })
 export class TicketComponent implements OnInit {
   info: Info;
-  client: Client;
   payment: Payment;
-  service: Service;
+  client: Client;
   servicePlan: ServicePlan;
   currentDate: Date = new Date();
 
-  constructor(private paymentService: PaymentService,
-              private router: Router, private activatedRoute: ActivatedRoute,
-              private clientService: ClientService, private serviceService: ServiceService,
-              private infoService: InfoService, private servicePlanService: ServicePlanService) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private infoService: InfoService,
+    private paymentService: PaymentService,
+    private clientService: ClientService,
+    private serviceService: ServiceService,
+    private servicePlanService: ServicePlanService) {
+    this.info = this.infoService.defaultValues();
     this.payment = this.paymentService.defaultValues();
-    this.service = this.serviceService.defaultValues();
+    this.client = this.clientService.defaultValues();
+    this.servicePlan = this.servicePlanService.defaultValues();
   }
 
   ngOnInit(): void {
     this.infoService.getInfo().subscribe(res => this.info = res);
     this.activatedRoute.paramMap.subscribe(params => {
-      this.getPayment(params.get('id'));
+      this.paymentService.getPaymentById(params.get('id')).subscribe(result => {
+        this.payment = result;
+        this.clientService.getClientById(result.clientId).subscribe(result => this.client = result);
+        this.serviceService.getServiceById(result.serviceId).subscribe(result => {
+          this.servicePlanService.getServicePlan(result.servicePlanId).subscribe(result => this.servicePlan = result);
+        });
+      });
     });
-  }
-
-  // Carga el Cliente del Comprobante.
-  private getClient(id: string): void {
-    this.clientService.getClientById(id).subscribe(res => {
-      this.client = res;
-    });
-  }
-
-  // Obtiene el Comprobante de Pago.
-  private getPayment(id: string): void {
-    this.paymentService.getPaymentById(id).subscribe(res => {
-      this.payment = res;
-      this.getClient(res.clientId);
-      this.getService(res.serviceId);
-    });
-  }
-
-  // Obtiene El Servicio Prestado.
-  private getService(id: string): void {
-    this.serviceService.getServiceById(id).subscribe(res => {
-      this.service = res;
-      this.getServicePlan(res.servicePlanId);
-    });
-  }
-
-  // Obtiene el Plan de Servicio.
-  private getServicePlan(id: string): void {
-    this.servicePlanService.getServicePlan(id).subscribe(res => this.servicePlan = res);
   }
 
   print() {
