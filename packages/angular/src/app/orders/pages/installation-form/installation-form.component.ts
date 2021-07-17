@@ -5,10 +5,10 @@ import Swal from 'sweetalert2';
 
 declare var jQuery: any;
 declare var bootstrap: any;
-import {environment} from '../../../../environments/environment';
+import {environment} from 'src/environments/environment';
 import {InstallationOrderService} from '../../services';
-import {ServicePlan} from '../../../system/interfaces';
-import {Client} from '../../../client/interfaces';
+import {ServicePlan} from 'src/app/system/interfaces';
+import {Client} from 'src/app/client/interfaces';
 import {InstallationOrder} from '../../interfaces';
 
 @Component({
@@ -49,12 +49,14 @@ export class InstallationFormComponent implements OnInit {
   ngOnInit(): void {
     // cargar datos orden de instalación modo edición.
     this.activatedRoute.paramMap.subscribe(params => {
-      this.installationOrderService.getInstallationOrderById(params.get('id'))
-        .subscribe(result => {
-          this.installationOrderForm.reset({...result});
-          this.installationOrderService.getClientById(result.clientId)
-            .subscribe(result => this.currentClientSelected = result);
-        });
+      if (params.get('id')) {
+        this.installationOrderService.getInstallationOrderById(params.get('id'))
+          .subscribe(result => {
+            this.installationOrderForm.reset({...result});
+            this.installationOrderService.getClientById(result.clientId)
+              .subscribe(result => this.currentClientSelected = result);
+          });
+      }
     });
     // Select2 buscador de clientes.
     jQuery('#searchClient').select2({
@@ -81,7 +83,7 @@ export class InstallationFormComponent implements OnInit {
       document.querySelector('#selectClientModal'));
     // Modal agregar cliente.
     this.addClientModal = new bootstrap.Modal(
-      document.querySelector('#app-client-form-modal'));
+      document.querySelector('#client-form-modal'));
   }
 
   // Verificar campo invalido.
