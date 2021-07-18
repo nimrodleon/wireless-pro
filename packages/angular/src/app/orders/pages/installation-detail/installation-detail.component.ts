@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 declare var bootstrap: any;
 import {InstallationOrderDetailService, OrderMaterialService} from '../../services';
 import {OrderMaterial} from '../../interfaces';
+import {Service} from 'src/app/client/interfaces';
+import {ServiceService} from 'src/app/client/services';
 
 @Component({
   selector: 'app-installation-detail',
@@ -15,11 +17,17 @@ export class InstallationDetailComponent implements OnInit {
   materialModal: any;
   itemMaterialModal: any;
   orderMaterial: OrderMaterial;
+  // ============================================================
+  titleService: string;
+  currentService: Service;
+  serviceModal: any;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private installationOrderDetailService: InstallationOrderDetailService,
-    private orderMaterialService: OrderMaterialService) {
+    private orderMaterialService: OrderMaterialService,
+    private serviceService: ServiceService) {
   }
 
   ngOnInit(): void {
@@ -34,6 +42,8 @@ export class InstallationDetailComponent implements OnInit {
       document.querySelector('#add-material-modal'));
     this.itemMaterialModal = new bootstrap.Modal(
       document.querySelector('#item-material-modal'));
+    this.serviceModal = new bootstrap.Modal(
+      document.querySelector('#service-modal'));
   }
 
   // orden de instalación.
@@ -121,6 +131,29 @@ export class InstallationDetailComponent implements OnInit {
   // Finalizar orden de Instalación.
   finishOrderInstallation(): void {
     this.changeStatusOrderInstallation('FINALIZADO');
+  }
+
+  // agregar servicio.
+  addServiceClick(event: any): void {
+    event.preventDefault();
+    this.titleService = 'Agregar Servicio';
+    this.currentService = this.serviceService.defaultValues();
+    this.currentService.clientId = this.currentClient._id;
+    this.currentService.address = this.currentInstallationOrder.address;
+    this.currentService.city = this.currentInstallationOrder.city;
+    this.currentService.region = this.currentInstallationOrder.region;
+    this.serviceModal.show();
+  }
+
+  // cerrar modal servicio.
+  hideServiceModal(value: boolean): void {
+    if (value === true) {
+      this.serviceModal.hide();
+      this.router.navigate(['/client/detail',
+        this.currentClient._id]).then(() => {
+        console.info('Service added!');
+      });
+    }
   }
 
 }

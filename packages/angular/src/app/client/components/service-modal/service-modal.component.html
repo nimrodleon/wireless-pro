@@ -116,7 +116,9 @@
                 <div class="col-6">
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-signal"></i></span>
-                    <select name="accessPoint" class="form-select"></select>
+                    <select name="accessPoint" class="form-select"
+                            [ngClass]="{'is-invalid': inputIsInvalid('accessPoint')}"></select>
+                    <div class="invalid-feedback">El punto de acceso es requerido.</div>
                   </div>
                 </div>
                 <div class="col-6">

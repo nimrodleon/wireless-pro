@@ -49,7 +49,8 @@ import {ServiceModalComponent} from './components/service-modal/service-modal.co
     AveriaModule
   ],
   exports: [
-    ClientFormModalComponent
+    ClientFormModalComponent,
+    ServiceModalComponent
   ],
   providers: [
     ClientService,

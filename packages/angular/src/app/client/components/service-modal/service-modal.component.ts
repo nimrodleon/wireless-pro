@@ -38,7 +38,7 @@ export class ServiceModalComponent implements OnInit {
     userName: [''],
     password: [''],
     basicNote: [''],
-    accessPoint: [''],
+    accessPoint: ['', [Validators.required]],
     macAddress: [''],
     address: ['', [Validators.required]],
     city: ['', [Validators.required]],
@@ -147,6 +147,7 @@ export class ServiceModalComponent implements OnInit {
     // Guardar datos, sólo si es válido el formulario.
     if (this.currentService._id === null) {
       // registrar servicio.
+      delete this.currentService._id;
       this.serviceService.createService(this.currentService)
         .subscribe(() => this.hideModal.emit(true));
     } else {
