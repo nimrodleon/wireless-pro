@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 
 declare var bootstrap: any;
+import {Sweetalert2} from 'src/app/global/interfaces';
 import {ServiceDetailService} from '../../services';
 import {PrintPayment} from '../../interfaces';
 import Swal from 'sweetalert2';
@@ -214,26 +215,13 @@ export class ServiceDetailComponent implements OnInit {
       });
       return;
     }
-    Swal.fire({
-      title: `¿Estás seguro de borrar?`,
-      text: '¡No podrás revertir esto!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, bórralo!',
-      cancelButtonText: 'Cancelar'
-    }).then(result => {
+    Sweetalert2.deleteConfirm().then(result => {
       if (result.isConfirmed) {
         let paymentId = chkDel[0].getAttribute('value');
         this.serviceDetailService.deletePayment(paymentId)
           .subscribe(() => {
             this.getPaymentList();
-            Swal.fire(
-              'Borrado!',
-              'El registro ha sido borrado.',
-              'success'
-            );
+            Sweetalert2.deleteSuccess();
           });
       }
     });
