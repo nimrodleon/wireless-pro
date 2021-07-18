@@ -108,6 +108,11 @@ export class ServiceDetailService {
       .subscribe(result => this._currentAveria = result);
   }
 
+  // borra averia.
+  deleteAveria(id: string): Observable<Averia> {
+    return this.averiaService.delete(id);
+  }
+
   // ============================================================
 
   // Lista de pagos.

@@ -141,6 +141,18 @@ export class ServiceDetailComponent implements OnInit {
     }
   }
 
+  // borrar averia.
+  async deleteAveriaClick(id: string) {
+    Sweetalert2.deleteConfirm().then(result => {
+      if (result.isConfirmed) {
+        this.serviceDetailService.deleteAveria(id).subscribe(() => {
+          this.averiaListLoad();
+          Sweetalert2.deleteSuccess();
+        });
+      }
+    });
+  }
+
   // cargar lista de pagos.
   getPaymentList(): void {
     this.serviceDetailService.getPaymentList(this.currentService._id, this.paymentYearInput.value);
