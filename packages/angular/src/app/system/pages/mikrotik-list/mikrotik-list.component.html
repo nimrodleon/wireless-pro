@@ -5,23 +5,11 @@
     <!-- ##(Begin) Content -->
     <div class="row">
       <div class="col-12">
-        <div class="d-flex my-2 justify-content-between">
-          <div class="d-flex align-items-center">
-            <h4 class="text-uppercase m-0 me-2">Lista de Equipos Mikrotik</h4>
-            <button type="button" (click)="addMikrotikClick()" class="btn btn-success">
-              <i class="fas fa-plus"></i><span class="text-uppercase ms-1">Mikrotik</span>
-            </button>
-          </div><!-- //.d-flex -->
-          <!--<form class="row row-cols-auto g-2">
-            <div class="col-auto">
-              <input type="text" name="search" class="form-control" placeholder="MIKROTIK...">
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i> BUSCAR
-              </button>
-            </div>
-          </form>&lt;!&ndash; //.form-inline &ndash;&gt;-->
+        <div class="d-flex align-items-center my-2">
+          <h4 class="text-uppercase m-0 me-2">Lista de Equipos Mikrotik</h4>
+          <button type="button" (click)="addMikrotikClick()" class="btn btn-success">
+            <i class="fas fa-plus"></i><span class="text-uppercase ms-1">Mikrotik</span>
+          </button>
         </div><!-- //.d-flex -->
       </div><!-- //.col-12 -->
       <div class="col-7">
@@ -110,8 +98,6 @@
       [currentMikrotik]="mikrotikFormData"
       (hideModal)="hideMikrotik($event)">
     </app-mikrotik-form>
-    <pre>{{currentMikrotik|json}}</pre>
-    <pre>{{mikrotikList|json}}</pre>
     <!-- ##(End) Content -->
   </div>
 </div>
