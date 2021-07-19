@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService) {
-    this.user = this.userService.userDefaultValues();
+    this.user = this.userService.defaultValues();
   }
 
   ngOnInit(): void {

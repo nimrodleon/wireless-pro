@@ -1,6 +1,14 @@
 import express, {response} from 'express'
 import {check} from 'express-validator'
-import {verifyToken, validate, userNameExist, userEmailExist, isValidRole, checkRolAdmin} from '../middlewares'
+import {
+  verifyToken,
+  validate,
+  userNameExist,
+  userEmailExist,
+  isValidRole,
+  checkRolAdmin,
+  editUserNameExist, editUserEmailExist
+} from '../middlewares'
 import {UserController} from './controller'
 
 const router = express.Router()
@@ -72,7 +80,14 @@ function addUser(req, res = response) {
 router.patch('/:id', [
   verifyToken, checkRolAdmin,
   check('id', 'No es un ID válido').isMongoId(),
+  check('userName', 'El userName es obligatorio').not().isEmpty(),
+  check('userName').custom((value, {req}) =>
+    editUserNameExist(value, req.params.id)),
   check('roles').custom(isValidRole),
+  check('email', 'El email es obligatorio').not().isEmpty(),
+  check('email', 'El E-Mail no es válido').isEmail(),
+  check('email').custom((value, {req}) =>
+    editUserEmailExist(value, req.params.id)),
   validate
 ], updateUser)
 

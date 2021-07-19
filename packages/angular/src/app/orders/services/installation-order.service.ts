@@ -40,7 +40,7 @@ export class InstallationOrderService {
 
   // Obtener datos del usuario.
   getUserById(id): Observable<User> {
-    return this.userService.getUser(id);
+    return this.userService.getUserById(id);
   }
 
   // Agregar cliente.

@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService) {
-    this.currentUser = this.userService.userDefaultValues();
+    this.currentUser = this.userService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -49,14 +49,14 @@ export class UserListComponent implements OnInit {
   addUser(): void {
     this.editMode = false;
     this.titleModal = 'Agregar Usuario';
-    this.currentUser = this.userService.userDefaultValues();
+    this.currentUser = this.userService.defaultValues();
     this.userModal.show();
   }
 
   // User Edit.
   editUser(id: string): void {
     this.titleModal = 'Editar Usuario';
-    this.userService.getUser(id).subscribe(res => {
+    this.userService.getUserById(id).subscribe(res => {
       this.editMode = true;
       this.currentUser = res;
       this.userModal.show();
@@ -64,22 +64,18 @@ export class UserListComponent implements OnInit {
   }
 
   // Save User Values.
-  saveChanges(user: User): void {
-    if (user._id === undefined) {
-      this.userService.create(user)
-        .subscribe(() => this.getUsers());
-    } else {
-      this.userService.update(user)
-        .subscribe(() => this.getUsers());
+  hideUserModal(value: boolean): void {
+    if (value === true) {
+      this.userModal.hide();
     }
+    this.getUsers();
     this.editMode = false;
-    this.userModal.hide();
   }
 
   // Open Modal Change Password.
   onChangePassword(event, id: string): void {
     event.preventDefault();
-    this.userService.getUser(id).subscribe(res => {
+    this.userService.getUserById(id).subscribe(res => {
       this.currentUser = res;
       this.passwordChangeModal.show();
     });
@@ -88,7 +84,7 @@ export class UserListComponent implements OnInit {
   // Save Password.
   savePassword(passwd: any): void {
     if (passwd.current) {
-      this.userService.changePassword(this.currentUser._id, passwd)
+      this.userService.changePasswordUser(this.currentUser._id, passwd)
         .subscribe(res => {
           Swal.fire('La Contraseña ha sido cambiada!');
         });
@@ -107,7 +103,7 @@ export class UserListComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.delete(id).subscribe(() => {
+        this.userService.deleteUser(id).subscribe(() => {
           this.getUsers();
           Swal.fire(
             'Borrado!',

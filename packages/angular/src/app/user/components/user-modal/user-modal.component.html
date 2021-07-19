@@ -6,64 +6,71 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <div *ngIf="this.errors?.length > 0" class="alert alert-danger" role="alert">
+          <ul class="mb-0">
+            <li *ngFor="let error of errors">{{error.msg}}</li>
+          </ul>
+        </div>
+        <form [formGroup]="userForm">
           <div class="pb-3">
-            <div class="input-group">
+            <div class="input-group has-validation">
               <span class="input-group-text">
                   <i class="fas fa-id-card-alt"></i>
               </span>
-              <input type="text" [(ngModel)]="user.fullName" name="name"
-                     class="form-control" placeholder="Nombres y Apellidos">
+              <input type="text" formControlName="fullName" class="form-control"
+                     [ngClass]="{'is-invalid': inputIsInvalid('fullName')}" placeholder="Nombres y Apellidos">
+              <div class="invalid-feedback">El campo nombre es obligatorio.</div>
             </div>
           </div>
           <div class="pb-3">
-            <div class="input-group">
+            <div class="input-group has-validation">
               <span class="input-group-text">
                 <i class="fas fa-user"></i>
               </span>
-              <input type="text" [(ngModel)]="user.userName" name="userName"
-                     class="form-control" placeholder="Username">
+              <input type="text" formControlName="userName" class="form-control"
+                     [ngClass]="{'is-invalid': inputIsInvalid('userName')}" placeholder="Username">
+              <div class="invalid-feedback">El campo userName es obligatorio.</div>
             </div>
           </div>
           <ng-container *ngIf="!editMode">
             <div class="pb-3">
-              <div class="input-group">
+              <div class="input-group has-validation">
                 <span class="input-group-text">
                   <i class="fas fa-key"></i>
                 </span>
-                <input type="text" [(ngModel)]="user.password" name="password"
-                       class="form-control" placeholder="Password">
+                <input type="text" formControlName="password" class="form-control"
+                       [ngClass]="{'is-invalid': inputIsInvalid('password')}" placeholder="Password">
+                <div class="invalid-feedback">Ingrese una contraseña válida [min-6 caracteres].</div>
               </div>
             </div>
           </ng-container>
           <div class="pb-3">
-            <div class="input-group">
+            <div class="input-group has-validation">
               <span class="input-group-text">
                 <i class="fas fa-user-tag"></i>
               </span>
-              <select name="roles" [(ngModel)]="user.roles" class="form-select">
+              <select name="roles" formControlName="roles" class="form-select"
+                      [ngClass]="{'is-invalid': inputIsInvalid('roles')}">
                 <option value="ROLE_ADMIN">ROLE_ADMIN</option>
                 <option value="ROLE_NETWORK">ROLE_NETWORK</option>
                 <option value="ROLE_CASH">ROLE_CASH</option>
                 <option value="ROLE_USER">ROLE_USER</option>
               </select>
+              <div class="invalid-feedback">El campo rol es obligatorio.</div>
             </div>
           </div>
-          <ng-container *ngIf="!editMode">
-            <div class="pb-3">
-              <div class="input-group">
+          <div class="pb-3">
+            <div class="input-group has-validation">
               <span class="input-group-text">
                 <i class="fas fa-envelope"></i>
               </span>
-                <input type="text" [(ngModel)]="user.email" name="email"
-                       class="form-control" placeholder="E-Mail">
-              </div>
+              <input type="text" formControlName="email" class="form-control"
+                     [ngClass]="{'is-invalid': inputIsInvalid('email')}" placeholder="E-Mail">
+              <div class="invalid-feedback">Ingrese un email válido.</div>
             </div>
-          </ng-container>
+          </div>
           <div class="form-check form-switch">
-            <input type="checkbox" #suspended [checked]="user.suspended"
-                   (change)="onSuspended(suspended.checked)"
-                   class="form-check-input" id="customSwitch3">
+            <input type="checkbox" formControlName="suspended" class="form-check-input" id="customSwitch3">
             <label class="form-check-label" for="customSwitch3">Suspender Cuenta</label>
           </div>
         </form>

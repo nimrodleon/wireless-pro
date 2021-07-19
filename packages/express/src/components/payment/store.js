@@ -17,7 +17,7 @@ export class PaymentStore {
   // registrar pago.
   static async createPayment(data, userId) {
     let _payment = new Payment(data)
-    _payment.user = userId
+    _payment.currentUser = userId
     await _payment.save()
     let _service = await ServiceStore.getService(_payment.serviceId)
     _service.lastPayment = _payment._id

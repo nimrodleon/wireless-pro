@@ -67,15 +67,14 @@
     </div><!-- //.row -->
     <app-user-modal
       [title]="titleModal"
-      [user]="currentUser"
+      [currentUser]="currentUser"
       [editMode]="editMode"
-      (sendModel)="saveChanges($event)">
+      (hideModal)="hideUserModal($event)">
     </app-user-modal>
     <app-password-modal
       [isProfile]="false"
       (sendPassword)="savePassword($event)">
     </app-password-modal>
-    <pre>{{users|json}}</pre>
     <!--##(End) Content -->
   </div>
 </div>

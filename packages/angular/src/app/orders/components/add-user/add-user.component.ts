@@ -29,7 +29,7 @@ export class AddUserComponent implements OnInit {
 
   // seleccionar usuario.
   selectUserClick(): void {
-    this.userService.getUser(this.userId.value)
+    this.userService.getUserById(this.userId.value)
       .subscribe(result => {
         this.installationOrderDetailService.setUserTechnical(result);
         this.installationOrderDetailService.updateInstallationOrder();

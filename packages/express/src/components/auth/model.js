@@ -3,22 +3,14 @@ import {model, Schema} from 'mongoose'
 // Schema Usuario.
 const userSchema = new Schema({
   fullName: String,
-  userName: {
-    type: String,
-    required: true,
-    unique: true
-  },
+  userName: String,
   password: String,
   roles: {
     type: String,
     default: 'ROLE_USER',
     enum: ['ROLE_ADMIN', 'ROLE_NETWORK', 'ROLE_CASH', 'ROLE_USER']
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
+  email: String,
   avatar: String,
   suspended: {
     type: Boolean,

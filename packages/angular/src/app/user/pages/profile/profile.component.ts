@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   }
 
   update(): void {
-    this.userService.update(this.user).subscribe(res => {
+    this.userService.updateUser(this.user).subscribe(res => {
       this.user = res;
       Swal.fire('Su Información ha sido guardado!');
     });
@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   }
 
   savePassword(passwd: any): void {
-    this.userService.changePassword(this.user._id, passwd)
+    this.userService.changePasswordUser(this.user._id, passwd)
       .subscribe(res => {
         Swal.fire('Has cambiado tu contraseña!');
       }, err => {

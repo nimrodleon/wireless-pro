@@ -27,7 +27,7 @@ export class UserStore {
   // actualizar usuario.
   static async updateUser(id, data) {
     // Excluir userName, password y email de la actualización en la base de datos.
-    const {userName, password, email, ...user} = data
+    const {password, ...user} = data
     return User.findByIdAndUpdate(id, user, {new: true})
   }
 

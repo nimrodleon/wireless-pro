@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserRoutingModule} from './user-routing.module';
 import {GlobalModule} from '../global/global.module';
 import {AuthService, TokenInterceptorService, UserService} from './services';
@@ -18,6 +18,7 @@ import {UserListComponent} from './pages/user-list/user-list.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     UserRoutingModule,
     GlobalModule

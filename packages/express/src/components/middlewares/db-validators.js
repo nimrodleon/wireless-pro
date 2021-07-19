@@ -1,5 +1,6 @@
 import {User} from '../auth/model'
 
+// validar rol del usuario.
 export function isValidRole(rol = '') {
   const roles = ['ROLE_ADMIN', 'ROLE_NETWORK', 'ROLE_CASH', 'ROLE_USER']
   if (!roles.includes(rol)) {
@@ -8,17 +9,38 @@ export function isValidRole(rol = '') {
   return true
 }
 
+// comprobar existencia de usuario.
 export async function userNameExist(userName) {
   // verificar si userName existe.
-  const userExist = await User.findOne({userName})
+  const userExist = await User.findOne({userName, isDeleted: false})
   if (userExist) {
     throw new Error(`El nombre de usuario: ${userName}, ya está registrado`)
   }
 }
 
+// comprobar existencia usuario al editar.
+export async function editUserNameExist(userName, id) {
+  // verificar si userName existe.
+  const userExist = await User.findOne({_id: {$ne: id}, userName, isDeleted: false})
+  console.log(userExist, id)
+  if (userExist) {
+    throw new Error(`El nombre de usuario: ${userName}, ya está registrado`)
+  }
+}
+
+// comprobar existencia email.
 export async function userEmailExist(email) {
   // verificar si correo usuario existe.
-  const emailExist = await User.findOne({email})
+  const emailExist = await User.findOne({email, isDeleted: false})
+  if (emailExist) {
+    throw new Error(`El email: ${email}, ya está registrado`)
+  }
+}
+
+// comprobar existencia email al editar.
+export async function editUserEmailExist(email, id) {
+  // verificar si correo usuario existe.
+  const emailExist = await User.findOne({_id: {$ne: id}, email, isDeleted: false})
   if (emailExist) {
     throw new Error(`El email: ${email}, ya está registrado`)
   }
