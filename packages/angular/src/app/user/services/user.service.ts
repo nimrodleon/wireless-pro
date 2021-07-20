@@ -16,36 +16,49 @@ export class UserService {
     private http: HttpClient) {
   }
 
+  // Obtener usuario autentificado.
   getCurrentUser(): Observable<User> {
     return this.http.get<User>(this.baseURL + '/profile/currentUser');
   }
 
+  // Lista de usuarios.
   getUsers(status: any = false): Observable<User[]> {
     let params = new HttpParams();
     params = params.append('status', status);
     return this.http.get<User[]>(this.baseURL, {params: params});
   }
 
+  // buscar usuario formato select2.
   getUsersWithSelect2(term): Observable<any> {
     return this.http.get(this.baseURL + `/select2/q?term=${term}`);
   }
 
+  // obtener usuario por id.
   getUserById(id: string): Observable<any> {
     return this.http.get(`${this.baseURL}/${id}`);
   }
 
+  // registrar usuario.
   createUser(user: User): Observable<User> {
     return this.http.post<User>(this.baseURL, user);
   }
 
+  // actualizar datos del usuario.
   updateUser(user: User): Observable<User> {
     return this.http.patch<User>(`${this.baseURL}/${user._id}`, user);
   }
 
+  // actualizar datos del usuario desde la sección profile.
+  updateUserProfile(user: User): Observable<User> {
+    return this.http.put<User>(`${this.baseURL}/${user._id}`, user);
+  }
+
+  // cambiar contraseña.
   changePasswordUser(user_id: string, passwd: any): Observable<any> {
     return this.http.post(`${this.baseURL}/${user_id}/change-password`, passwd);
   }
 
+  // borrar usuario por id.
   deleteUser(user_id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/${user_id}`);
   }

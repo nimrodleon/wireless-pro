@@ -67,17 +67,15 @@ export class ProfileComponent implements OnInit {
     // Guardar datos, sólo si es válido el formulario.
     this.currentUser.fullName = this.userModel.fullName;
     this.currentUser.userName = this.userModel.userName;
-    this.userService.updateUser(this.currentUser).subscribe(res => {
+    this.userService.updateUserProfile(this.currentUser).subscribe(res => {
       this.currentUser = res;
       Swal.fire('Su Información ha sido guardado!').then(() => {
         console.info('Datos guardados!');
       });
     }, ({error}) => {
-      console.log(error.errors)
-
-      // Swal.fire(error.errors[0].msg).then(() => {
-      //   console.info('No se pudo actualizar el registro!');
-      // });
+      Swal.fire(error.errors[0].msg).then(() => {
+        console.info('No se pudo actualizar el registro!');
+      });
     });
   }
 
@@ -87,10 +85,12 @@ export class ProfileComponent implements OnInit {
 
   // cerrar modal cambiar contraseña.
   hidePasswordModal(value: boolean): void {
-    this.passwordChangeModal.hide();
-    Swal.fire('Has cambiado tu contraseña!').then(() => {
-      console.info('Has cambiado tu contraseña!');
-    });
+    if (value === true) {
+      this.passwordChangeModal.hide();
+      Swal.fire('Has cambiado tu contraseña!').then(() => {
+        console.info('Has cambiado tu contraseña!');
+      });
+    }
   }
 
 }

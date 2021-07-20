@@ -67,6 +67,17 @@ export class UserController {
     })
   }
 
+  // actualizar usuario.
+  static updateUserProfile(id, data) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(UserStore.updateUserProfile(id, data))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // borrar usuario.
   static deleteUser(id) {
     return new Promise((resolve, reject) => {

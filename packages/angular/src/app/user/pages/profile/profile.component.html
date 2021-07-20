@@ -40,8 +40,6 @@
         </form>
       </div><!-- //.col-md-8 -->
     </div><!-- //.row -->
-    <pre>{{userModel|json}}</pre>
-    <pre>{{userForm.value|json}}</pre>
     <app-password-modal
       [currentUserId]="currentUser._id"
       (hideModal)="hidePasswordModal($event)">

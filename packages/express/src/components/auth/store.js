@@ -31,6 +31,16 @@ export class UserStore {
     return User.findByIdAndUpdate(id, user, {new: true})
   }
 
+  // actualizar usuario profile.
+  static async updateUserProfile(id, data) {
+    delete data.password
+    delete data.roles
+    delete data.email
+    delete data.suspended
+    delete data.isDeleted
+    return User.findByIdAndUpdate(id, data, {new: true})
+  }
+
   // borrar usuario.
   static async deleteUser(id) {
     let _user = await this.getUser(id)

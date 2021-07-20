@@ -174,13 +174,14 @@ router.put('/:id', [
   check('userName').custom((value, {req}) =>
     editUserNameExist(value, req.params.id)),
   validate
-], updateUser)
+], updateUserProfile)
 
 // actualizar datos del usuario.
-function updateUser(req, res = response) {
-  UserController.updateUser(req.params.id, req.body).then(result => {
-    res.json(result)
-  }).catch(err => {
+function updateUserProfile(req, res = response) {
+  UserController.updateUserProfile(req.params.id, req.body)
+    .then(result => {
+      res.json(result)
+    }).catch(err => {
     console.error('[updateUser]', err)
     res.status(400).json({
       ok: false,
