@@ -37,7 +37,7 @@
               <td>
                 <div class="d-flex justify-content-between">
                   {{ user.userName }}
-                  <a href="#" (click)="onChangePassword($event, user._id)" class="text-info">
+                  <a href="#" (click)="changePasswordClick($event, user._id)" class="text-info">
                     <i class="fas fa-key"></i></a>
                 </div>
               </td>
@@ -72,8 +72,8 @@
       (hideModal)="hideUserModal($event)">
     </app-user-modal>
     <app-password-modal
-      [isProfile]="false"
-      (sendPassword)="savePassword($event)">
+      [currentUserId]="currentUserId"
+      (hideModal)="hidePasswordModal($event)">
     </app-password-modal>
     <!--##(End) Content -->
   </div>

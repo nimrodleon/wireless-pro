@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
-import Swal from 'sweetalert2';
 import {User} from '../../interfaces';
 import {UserService} from '../../services';
+import {Sweetalert2} from 'src/app/global/interfaces';
 
 @Component({
   selector: 'app-user-list',
@@ -13,6 +14,7 @@ import {UserService} from '../../services';
 export class UserListComponent implements OnInit {
   users: Array<User>;
   currentUser: User;
+  currentUserId: string;
   titleModal: string = '';
   editMode: boolean = false;
   chkStatus: boolean = false;
@@ -39,7 +41,7 @@ export class UserListComponent implements OnInit {
       .subscribe(res => this.users = res);
   }
 
-  // Change status value.
+  // Cambiar estado actual.
   onChangeStatus(checked: boolean): void {
     this.chkStatus = checked;
     this.getUsers();
@@ -72,44 +74,30 @@ export class UserListComponent implements OnInit {
     this.editMode = false;
   }
 
-  // Open Modal Change Password.
-  onChangePassword(event, id: string): void {
+  // abrir modal cambiar contraseña.
+  changePasswordClick(event: any, id: string): void {
     event.preventDefault();
-    this.userService.getUserById(id).subscribe(res => {
-      this.currentUser = res;
-      this.passwordChangeModal.show();
-    });
+    this.currentUserId = id;
+    this.passwordChangeModal.show();
   }
 
-  // Save Password.
-  savePassword(passwd: any): void {
-    if (passwd.current) {
-      this.userService.changePasswordUser(this.currentUser._id, passwd)
-        .subscribe(res => {
-          Swal.fire('La Contraseña ha sido cambiada!');
-        });
+  // cerrar modal cambiar contraseña.
+  hidePasswordModal(value: boolean): void {
+    if (value === true) {
+      this.passwordChangeModal.hide();
+      Swal.fire('La Contraseña ha sido cambiada!').then(() => {
+        console.info('La Contraseña ha sido cambiada!');
+      });
     }
   }
 
-  deleteUser(id: string): void {
-    Swal.fire({
-      title: '¿Estás seguro de borrar?',
-      text: '¡No podrás revertir esto!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, bórralo!',
-      cancelButtonText: 'Cancelar',
-    }).then((result) => {
+  // borrar usuario.
+  async deleteUser(id: string) {
+    Sweetalert2.deleteConfirm().then(result => {
       if (result.isConfirmed) {
         this.userService.deleteUser(id).subscribe(() => {
           this.getUsers();
-          Swal.fire(
-            'Borrado!',
-            'El registro ha sido borrado.',
-            'success'
-          );
+          Sweetalert2.deleteSuccess();
         });
       }
     });

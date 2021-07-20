@@ -148,19 +148,43 @@ function loginUser(req, res = response) {
 router.post('/:id/change-password', [
   verifyToken,
   check('id', 'No es un ID válido').isMongoId(),
+  check('password', 'La contraseña debe ser más de 6 letras').isLength({min: 6}),
   validate
 ], passwordChange)
 
 // Cambiar contraseña.
 function passwordChange(req, res = response) {
-  const {currentPassword} = req.body
-  UserController.passwordChange(req.params.id, currentPassword).then(() => {
+  const {password} = req.body
+  UserController.passwordChange(req.params.id, password).then(() => {
     res.json({ok: true, _id: req.params.id})
   }).catch(err => {
     console.log('[passwordChange]', err)
     res.status(400).json({
       ok: false,
       msg: 'No se pudo cambiar la contraseña'
+    })
+  })
+}
+
+// http://<HOST>/api/users/:id
+router.put('/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  check('userName', 'El userName es obligatorio').not().isEmpty(),
+  check('userName').custom((value, {req}) =>
+    editUserNameExist(value, req.params.id)),
+  validate
+], updateUser)
+
+// actualizar datos del usuario.
+function updateUser(req, res = response) {
+  UserController.updateUser(req.params.id, req.body).then(result => {
+    res.json(result)
+  }).catch(err => {
+    console.error('[updateUser]', err)
+    res.status(400).json({
+      ok: false,
+      msg: 'No se pudo actualizar la información del usuario'
     })
   })
 }

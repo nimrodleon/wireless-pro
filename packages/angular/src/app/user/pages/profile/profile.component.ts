@@ -1,10 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-// Local imports.
-declare var jQuery: any;
-declare var bootstrap: any;
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
+
+declare var bootstrap: any;
 import {User} from '../../interfaces';
 import {UserService} from '../../services';
+
+interface UserModel {
+  fullName: string;
+  userName: string;
+}
 
 @Component({
   selector: 'app-profile',
@@ -12,11 +17,22 @@ import {UserService} from '../../services';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: User;
+  currentUser: User;
+  userModel: UserModel;
   passwordChangeModal: any;
+  userForm: FormGroup = this.fb.group({
+    fullName: ['', [Validators.required]],
+    userName: ['', [Validators.required]],
+  });
 
   constructor(
+    private fb: FormBuilder,
     private userService: UserService) {
+    this.currentUser = this.userService.defaultValues();
+    this.userModel = {
+      fullName: '',
+      userName: ''
+    };
   }
 
   ngOnInit(): void {
@@ -24,30 +40,57 @@ export class ProfileComponent implements OnInit {
     // Vincular modal del componente.
     this.passwordChangeModal = new bootstrap.Modal(
       document.querySelector('#app-password-modal'));
+    // vincular cambios del formulario.
+    this.userForm.valueChanges.subscribe(value => this.userModel = value);
+  }
+
+  // Verificar campo invalido.
+  inputIsInvalid(field: string) {
+    return this.userForm.controls[field].errors
+      && this.userForm.controls[field].touched;
   }
 
   private getUser(): void {
-    this.userService.getCurrentUser().subscribe(res => this.user = res);
-  }
-
-  update(): void {
-    this.userService.updateUser(this.user).subscribe(res => {
-      this.user = res;
-      Swal.fire('Su Información ha sido guardado!');
+    this.userService.getCurrentUser().subscribe(res => {
+      this.currentUser = res;
+      this.userModel.fullName = res.fullName;
+      this.userModel.userName = res.userName;
+      this.userForm.reset(this.userModel);
     });
   }
 
-  changePassword(): void {
+  updateUser(): void {
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
+      return;
+    }
+    // Guardar datos, sólo si es válido el formulario.
+    this.currentUser.fullName = this.userModel.fullName;
+    this.currentUser.userName = this.userModel.userName;
+    this.userService.updateUser(this.currentUser).subscribe(res => {
+      this.currentUser = res;
+      Swal.fire('Su Información ha sido guardado!').then(() => {
+        console.info('Datos guardados!');
+      });
+    }, ({error}) => {
+      console.log(error.errors)
+
+      // Swal.fire(error.errors[0].msg).then(() => {
+      //   console.info('No se pudo actualizar el registro!');
+      // });
+    });
+  }
+
+  changePasswordClick(): void {
     this.passwordChangeModal.show();
   }
 
-  savePassword(passwd: any): void {
-    this.userService.changePasswordUser(this.user._id, passwd)
-      .subscribe(res => {
-        Swal.fire('Has cambiado tu contraseña!');
-      }, err => {
-        Swal.fire(`${err.error}!`);
-      });
+  // cerrar modal cambiar contraseña.
+  hidePasswordModal(value: boolean): void {
+    this.passwordChangeModal.hide();
+    Swal.fire('Has cambiado tu contraseña!').then(() => {
+      console.info('Has cambiado tu contraseña!');
+    });
   }
 
 }

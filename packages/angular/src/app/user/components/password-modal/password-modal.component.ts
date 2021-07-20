@@ -1,7 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-declare var jQuery: any;
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {UserService} from '../../services';
 import Swal from 'sweetalert2';
+
+interface PasswordModel {
+  password: string;
+  confirmPassword: string;
+}
 
 @Component({
   selector: 'app-password-modal',
@@ -10,38 +15,69 @@ import Swal from 'sweetalert2';
 })
 export class PasswordModalComponent implements OnInit {
   @Input()
-  isProfile: boolean = true;
-  password: any = {};
+  currentUserId: string;
   @Output()
-  sendPassword = new EventEmitter<any>();
+  hideModal = new EventEmitter<boolean>();
+  // ============================================================
+  passwordModel: PasswordModel;
+  checkPasswords: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    let pass = group.get('password').value;
+    let confirmPass = group.get('confirmPassword').value;
+    return pass === confirmPass ? null : {notSame: true};
+  };
+  passwordForm: FormGroup = this.fb.group({
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+  }, {validators: this.checkPasswords});
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService) {
+    this.passwordModel = {
+      password: '',
+      confirmPassword: ''
+    };
+  }
 
   ngOnInit(): void {
-    jQuery('#app-password-modal').on('shown.bs.modal', () => {
-      this.password = {};
+    this.passwordForm.valueChanges
+      .subscribe(value => this.passwordModel = value);
+    let myModal = document.querySelector('#app-password-modal');
+    myModal.addEventListener('shown.bs.modal', () => {
+
+    });
+    myModal.addEventListener('hide.bs.modal', () => {
+      this.passwordModel = {
+        password: '',
+        confirmPassword: ''
+      };
+      this.passwordForm.reset(this.passwordModel);
     });
   }
 
+  // Verificar campo invalido.
+  inputIsInvalid(field: string) {
+    return this.passwordForm.controls[field].errors
+      && this.passwordForm.controls[field].touched;
+  }
+
+  // cambiar contraseña.
   saveChanges(): void {
-    this.password.isProfile = this.isProfile;
-    const { current, old } = this.password;
-    // FILTRAR CONTRASEÑA.
-    if (!this.isProfile) {
-      if (!current) {
-        Swal.fire('Ingrese datos requeridos!');
-      } else {
-        this.sendPassword.emit(this.password);
-        jQuery('#app-password-modal').modal('hide');
+    if (this.passwordForm.invalid) {
+      if (this.passwordForm.hasError('notSame')) {
+        Swal.fire('Las contraseñas no coinciden.').then(() => {
+          console.log('Las contraseñas no coinciden.');
+        });
       }
-    } else {
-      if (current && old) {
-        this.sendPassword.emit(this.password);
-        jQuery('#app-password-modal').modal('hide');
-      } else {
-        Swal.fire('Ingrese datos requeridos!');
-      }
+      this.passwordForm.markAllAsTouched();
+      return;
     }
+    // Guardar datos, sólo si es válido el formulario.
+    delete this.passwordModel.confirmPassword;
+    this.userService.changePasswordUser(this.currentUserId, this.passwordModel)
+      .subscribe(() => {
+        this.hideModal.emit(true);
+      });
   }
 
 }
