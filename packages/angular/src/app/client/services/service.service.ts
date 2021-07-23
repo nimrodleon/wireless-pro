@@ -47,7 +47,7 @@ export class ServiceService {
       servicePlanId: '',
       initialDate: '',
       mikrotikId: '',
-      ethernetId: '',
+      interfaceId: '',
       userName: '',
       password: '',
       basicNote: '',

@@ -1,4 +1,4 @@
-import {Ethernet, Mikrotik} from './model'
+import {Interface, Mikrotik} from './model'
 
 // CRUD - Mikrotik.
 export class MikrotikStore {
@@ -34,32 +34,32 @@ export class MikrotikStore {
   // ============================================================
 
   // lista de interfaces.
-  static async getEthernetList(id) {
-    return Ethernet.find({mikrotikId: id, isDeleted: false})
+  static async getInterfaceList(id) {
+    return Interface.find({mikrotikId: id, isDeleted: false})
   }
 
   // obtener interfaz por id.
-  static async getEthernet(id) {
-    return Ethernet.findById(id)
+  static async getInterfaceById(id) {
+    return Interface.findById(id)
   }
 
   // registrar interfaz.
-  static async createEthernet(data) {
-    let _ethernet = new Ethernet(data)
-    await _ethernet.save()
-    return _ethernet
+  static async createInterface(data) {
+    let _interface = new Interface(data)
+    await _interface.save()
+    return _interface
   }
 
   // actualizar interfaz.
-  static async updateEthernet(id, data) {
-    return Ethernet.findByIdAndUpdate(id, data, {new: true})
+  static async updateInterface(id, data) {
+    return Interface.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar interfaz.
-  static async deleteEthernet(id) {
-    let _ethernet = await this.getEthernet(id)
-    _ethernet.isDeleted = true
-    return this.updateEthernet(id, _ethernet)
+  static async deleteInterface(id) {
+    let _interface = await this.getInterfaceById(id)
+    _interface.isDeleted = true
+    return this.updateInterface(id, _interface)
   }
 
 }

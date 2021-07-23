@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 declare var bootstrap: any;
-import {ApplicationService, EthernetService, MikrotikService} from '../../services';
-import {Application, Ethernet} from '../../interfaces';
+import {ApplicationService, InterfaceService, MikrotikService} from '../../services';
+import {Application, Interface} from '../../interfaces';
 
 @Component({
   selector: 'app-mikrotik-form',
@@ -20,15 +20,15 @@ export class MikrotikFormComponent implements OnInit {
   @Output()
   hideModal = new EventEmitter<boolean>();
   // ============================================================
-  currentEthernet: Ethernet;
-  ethernetList: Array<Ethernet>;
+  currentInterface: Interface;
+  interfaceList: Array<Interface>;
   etherEditMode: boolean = false;
 
   constructor(
     private mikrotikService: MikrotikService,
-    private ethernetService: EthernetService,
+    private interfaceService: InterfaceService,
     private applicationService: ApplicationService) {
-    this.currentEthernet = this.ethernetService.defaultValues();
+    this.currentInterface = this.interfaceService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -36,14 +36,14 @@ export class MikrotikFormComponent implements OnInit {
     let myModal = document.querySelector('#mikrotik-form');
     myModal.addEventListener('shown.bs.modal', () => {
       if (this.editMode) {
-        this.getEthernetList(this.currentMikrotik._id);
+        this.getInterfaceList(this.currentMikrotik._id);
       }
     });
     let basicTab = new bootstrap.Tab(
       document.querySelector('#basic-tab'));
     myModal.addEventListener('hide.bs.modal', () => {
       this.etherEditMode = false;
-      this.currentEthernet = this.ethernetService.defaultValues();
+      this.currentInterface = this.interfaceService.defaultValues();
       basicTab.show();
     });
   }
@@ -75,35 +75,35 @@ export class MikrotikFormComponent implements OnInit {
   // ============================================================
 
   // Lista de interfaces.
-  getEthernetList(id: string): void {
-    this.ethernetService.getEthernetList(id)
-      .subscribe(result => this.ethernetList = result);
+  getInterfaceList(id: string): void {
+    this.interfaceService.getInterfaceList(id)
+      .subscribe(result => this.interfaceList = result);
   }
 
   // editar interfaz.
-  editEthernetClick(id: string): void {
-    this.ethernetService.getEthernetById(id)
+  editInterfaceClick(id: string): void {
+    this.interfaceService.getInterfaceById(id)
       .subscribe(result => {
-        this.currentEthernet = result;
+        this.currentInterface = result;
         this.etherEditMode = true;
       });
   }
 
   // guardar cambios de la interfaz.
   saveEthernet(): void {
-    this.currentEthernet.mikrotikId = this.currentMikrotik._id;
+    this.currentInterface.mikrotikId = this.currentMikrotik._id;
     if (this.etherEditMode) {
       // actualizar interfaz.
-      this.ethernetService.updateEthernet(this.currentEthernet)
-        .subscribe(() => this.getEthernetList(this.currentMikrotik._id));
+      this.interfaceService.updateInterface(this.currentInterface)
+        .subscribe(() => this.getInterfaceList(this.currentMikrotik._id));
     } else {
       // registrar interfaz.
       this.etherEditMode = false;
-      delete this.currentEthernet._id;
-      this.ethernetService.createEthernet(this.currentEthernet)
+      delete this.currentInterface._id;
+      this.interfaceService.createInterface(this.currentInterface)
         .subscribe(() => {
-          this.getEthernetList(this.currentMikrotik._id);
-          this.currentEthernet = this.ethernetService.defaultValues();
+          this.getInterfaceList(this.currentMikrotik._id);
+          this.currentInterface = this.interfaceService.defaultValues();
         });
     }
   }

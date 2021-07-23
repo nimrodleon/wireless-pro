@@ -3,10 +3,6 @@ import moment from 'moment-timezone'
 
 // Schema de servicio.
 const serviceSchema = new Schema({
-  // client: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Client'
-  // },
   clientId: {
     type: Schema.Types.ObjectId,
     ref: 'Client'
@@ -23,41 +19,22 @@ const serviceSchema = new Schema({
     default: 'H',
     enum: ['H', 'D', 'N', 'S']
   },
-  // servicePlan: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'ServicePlan'
-  // },
   servicePlanId: {
     type: Schema.Types.ObjectId,
     ref: 'ServicePlan'
   },
-  // dateFrom: String,
-  // closeDate: String,
   initialDate: String,
   mikrotikId: {
     type: Schema.Types.ObjectId,
     ref: 'Mikrotik'
   },
-  ethernetId: {
+  interfaceId: {
     type: Schema.Types.ObjectId,
-    ref: 'Ethernet'
+    ref: 'Interface'
   },
   userName: String,
   password: String,
-  // note: String,
   basicNote: String,
-  // isActive: {
-  //   type: Boolean,
-  //   default: true
-  // },
-  // payment: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Payment'
-  // },
-  // user: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User'
-  // },
   accessPoint: {
     type: Schema.Types.ObjectId,
     ref: 'Device'

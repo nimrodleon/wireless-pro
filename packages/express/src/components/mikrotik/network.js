@@ -56,52 +56,52 @@ function deleteMikrotik(req, res = response) {
 
 // ============================================================
 
-// http://<HOST>/api/mikrotik/:id/ethernet
-router.get('/:id/ethernet', [verifyToken], getEthernetList)
+// http://<HOST>/api/mikrotik/:id/interface
+router.get('/:id/interface', [verifyToken], getInterfaceList)
 
 // Lista de interfaces.
-function getEthernetList(req, res = response) {
-  MikrotikController.getEthernetList(req.params.id).then(result => {
+function getInterfaceList(req, res = response) {
+  MikrotikController.getInterfaceList(req.params.id).then(result => {
     res.json(result)
   })
 }
 
-// http://<HOST>/api/mikrotik/show/ethernet/:id
-router.get('/show/ethernet/:id', [verifyToken], getEthernetById)
+// http://<HOST>/api/mikrotik/show/interface/:id
+router.get('/show/interface/:id', [verifyToken], getInterfaceById)
 
 // obtener interfaz por id.
-function getEthernetById(req, res = response) {
-  MikrotikController.getEthernetById(req.params.id).then(result => {
+function getInterfaceById(req, res = response) {
+  MikrotikController.getInterfaceById(req.params.id).then(result => {
     res.json(result)
   })
 }
 
-// http://<HOST>/api/mikrotik/add/ethernet
-router.post('/add/ethernet', [verifyToken], createEthernet)
+// http://<HOST>/api/mikrotik/add/interface
+router.post('/add/interface', [verifyToken], createInterface)
 
 // registrar interfaz.
-function createEthernet(req, res = response) {
-  MikrotikController.createEthernet(req.body).then(result => {
+function createInterface(req, res = response) {
+  MikrotikController.createInterface(req.body).then(result => {
     res.json(result)
   })
 }
 
-// http://<HOST>/api/mikrotik/update/ethernet/:id
-router.patch('/update/ethernet/:id', [verifyToken], updateEthernet)
+// http://<HOST>/api/mikrotik/update/interface/:id
+router.patch('/update/interface/:id', [verifyToken], updateInterface)
 
 // actualizar interfaz.
-function updateEthernet(req, res = response) {
-  MikrotikController.updateEthernet(req.params.id, req.body).then(result => {
+function updateInterface(req, res = response) {
+  MikrotikController.updateInterface(req.params.id, req.body).then(result => {
     res.json(result)
   })
 }
 
-// http://<HOST>/api/mikrotik/delete/ethernet/:id
-router.delete('/delete/ethernet/:id', [verifyToken], deleteEthernet)
+// http://<HOST>/api/mikrotik/delete/interface/:id
+router.delete('/delete/interface/:id', [verifyToken], deleteInterface)
 
 // borrar interfaz.
-function deleteEthernet(req, res = response) {
-  MikrotikController.deleteEthernet(req.params.id).then(result => {
+function deleteInterface(req, res = response) {
+  MikrotikController.deleteInterface(req.params.id).then(result => {
     res.json(result)
   })
 }

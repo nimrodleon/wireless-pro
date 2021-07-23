@@ -6,8 +6,8 @@ declare var jQuery: any;
 import {ServiceService} from '../../services';
 import {Service} from '../../interfaces';
 import {environment} from 'src/environments/environment';
-import {CoverageService, EthernetService, MikrotikService, ServicePlanService} from 'src/app/system/services';
-import {Coverage, Ethernet, Mikrotik, ServicePlan} from 'src/app/system/interfaces';
+import {CoverageService, InterfaceService, MikrotikService, ServicePlanService} from 'src/app/system/services';
+import {Coverage, Interface, Mikrotik, ServicePlan} from 'src/app/system/interfaces';
 import {DeviceService} from 'src/app/devices/services';
 
 @Component({
@@ -34,7 +34,7 @@ export class ServiceModalComponent implements OnInit {
     servicePlanId: ['', [Validators.required]],
     initialDate: [moment().format('YYYY-MM-DD'), [Validators.required]],
     mikrotikId: ['', [Validators.required]],
-    ethernetId: ['', [Validators.required]],
+    interfaceId: ['', [Validators.required]],
     userName: [''],
     password: [''],
     basicNote: [''],
@@ -52,7 +52,7 @@ export class ServiceModalComponent implements OnInit {
   });
   servicePlanList: Array<ServicePlan>;
   mikrotikList: Array<Mikrotik>;
-  ethernetList: Array<Ethernet>;
+  interfaceList: Array<Interface>;
   coverageList: Array<Coverage>;
 
   constructor(
@@ -60,7 +60,7 @@ export class ServiceModalComponent implements OnInit {
     private serviceService: ServiceService,
     private servicePlanService: ServicePlanService,
     private mikrotikService: MikrotikService,
-    private ethernetService: EthernetService,
+    private ethernetService: InterfaceService,
     private coverageService: CoverageService,
     private deviceService: DeviceService) {
   }
@@ -82,7 +82,7 @@ export class ServiceModalComponent implements OnInit {
     let myModal = document.querySelector('#service-modal');
     myModal.addEventListener('shown.bs.modal', () => {
       // cargar lista de interfaces.
-      this.getEthernetList(this.currentService.mikrotikId);
+      this.getInterfaceList(this.currentService.mikrotikId);
       // cargar valores al formulario.
       this.serviceForm.reset({...this.currentService});
       // accessPoint select2 component.
@@ -125,16 +125,16 @@ export class ServiceModalComponent implements OnInit {
   }
 
   // cargar lista de interfaces.
-  getEthernetList(mikrotikId: string): void {
-    this.ethernetService.getEthernetList(mikrotikId)
-      .subscribe(result => this.ethernetList = result);
+  getInterfaceList(mikrotikId: string): void {
+    this.ethernetService.getInterfaceList(mikrotikId)
+      .subscribe(result => this.interfaceList = result);
   }
 
   // seleccionar item mikrotik select.
   changeMikrotikValue(target: any): void {
-    this.currentService.ethernetId = '';
+    this.currentService.interfaceId = '';
     this.serviceForm.setValue({...this.currentService});
-    this.getEthernetList(target.value);
+    this.getInterfaceList(target.value);
   }
 
   // guardar cambios.

@@ -20,8 +20,8 @@ const mikrotikSchema = new Schema({
 // exportar modelo mikrotik.
 export const Mikrotik = model('Mikrotik', mikrotikSchema)
 
-// Schema ethernet mikrotik.
-const ethernetSchema = new Schema({
+// Schema interface mikrotik.
+const interfaceSchema = new Schema({
   name: String,
   mikrotikId: {
     type: Schema.Types.ObjectId,
@@ -33,5 +33,5 @@ const ethernetSchema = new Schema({
   }
 })
 
-// exportar modelo ethernet.
-export const Ethernet = model('Ethernet', ethernetSchema)
+// exportar modelo interface.
+export const Interface = model('Interface', interfaceSchema)

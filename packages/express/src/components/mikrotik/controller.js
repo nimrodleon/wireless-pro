@@ -60,10 +60,10 @@ export class MikrotikController {
   // ============================================================
 
   // Lista de interfaces.
-  static getEthernetList(id) {
+  static getInterfaceList(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.getEthernetList(id))
+        resolve(MikrotikStore.getInterfaceList(id))
       } catch (err) {
         reject(err)
       }
@@ -71,10 +71,10 @@ export class MikrotikController {
   }
 
   // obtener interfaz por id.
-  static getEthernetById(id) {
+  static getInterfaceById(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.getEthernet(id))
+        resolve(MikrotikStore.getInterfaceById(id))
       } catch (err) {
         reject(err)
       }
@@ -82,10 +82,10 @@ export class MikrotikController {
   }
 
   // registrar interface.
-  static createEthernet(data) {
+  static createInterface(data) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.createEthernet(data))
+        resolve(MikrotikStore.createInterface(data))
       } catch (err) {
         reject(err)
       }
@@ -93,10 +93,10 @@ export class MikrotikController {
   }
 
   // actualizar interface.
-  static updateEthernet(id, data) {
+  static updateInterface(id, data) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.updateEthernet(id, data))
+        resolve(MikrotikStore.updateInterface(id, data))
       } catch (err) {
         reject(err)
       }
@@ -104,10 +104,10 @@ export class MikrotikController {
   }
 
   // borrar interface.
-  static deleteEthernet(id) {
+  static deleteInterface(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.deleteEthernet(id))
+        resolve(MikrotikStore.deleteInterface(id))
       } catch (err) {
         reject(err)
       }

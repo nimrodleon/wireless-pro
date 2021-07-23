@@ -87,9 +87,9 @@
                 <div class="col-6 pb-3">
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-sim-card"></i></span>
-                    <select formControlName="ethernetId" class="form-select"
-                            [ngClass]="{'is-invalid': inputIsInvalid('ethernetId')}">
-                      <option *ngFor="let item of ethernetList" [value]="item._id">{{item.name}}</option>
+                    <select formControlName="interfaceId" class="form-select"
+                            [ngClass]="{'is-invalid': inputIsInvalid('interfaceId')}">
+                      <option *ngFor="let item of interfaceList" [value]="item._id">{{item.name}}</option>
                     </select>
                     <div class="invalid-feedback">La interfaz del mikrotik es requerido.</div>
                   </div>

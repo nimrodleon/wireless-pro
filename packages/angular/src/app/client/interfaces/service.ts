@@ -6,7 +6,7 @@ export interface Service {
   servicePlanId: string;
   initialDate: string;
   mikrotikId: string;
-  ethernetId: string;
+  interfaceId: string;
   userName: string;
   password: string;
   basicNote: string;
