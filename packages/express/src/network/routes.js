@@ -16,6 +16,7 @@ const routes = (server) => {
   server.use('/api/devices', network.deviceRouter)
   server.use('/api/installation_orders', network.installationOrderRouter)
   server.use('/api/mikrotik', network.mikrotikRouter)
+  server.use('/api/bitWorker', network.bitWorkerRouter)
 }
 
 export default routes

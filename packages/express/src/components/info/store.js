@@ -22,6 +22,11 @@ export class InfoStore {
     return Application.find({isDeleted: false})
   }
 
+  // Obtener aplicación por id.
+  static async getApplicationId(appId) {
+    return Application.findById(appId)
+  }
+
   // Agregar aplicación.
   static async createApplication(data) {
     let _application = new Application(data)

@@ -36,6 +36,17 @@ export class InfoController {
     })
   }
 
+  // Obtener aplicación por id.
+  static getApplicationId(appId) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(InfoStore.getApplicationId(appId))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // registrar aplicación.
   static createApplication(data) {
     return new Promise((resolve, reject) => {
