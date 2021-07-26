@@ -19,15 +19,38 @@ export class WorkerController {
   }
 
   // cache arp.
-  static migrationArpCache(mikrotikId) {
-
+  static async migrationArpCache(mikrotikId) {
+    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
+    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
+    return axios.post(`${application.urlBase}/Migration/Arp/Cache`, {mikrotikId: mikrotik._id})
   }
 
   // cache cola simple.
-  // obtener lista arp.
-  // obtener lista de cola simple.
+  static async migrationSimpleQueueCache(mikrotikId) {
+    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
+    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
+    return axios.post(`${application.urlBase}/Migration/SimpleQueue/Cache`, {mikrotikId: mikrotik._id})
+  }
 
-  // CONTROLADOR LISTA ARP.
+  // obtener lista arp por <ip-address>.
+  static async getArpListByIpAddress(mikrotikId, ipAddress) {
+    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
+    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
+    return axios.get(`${application.urlBase}/Migration/Arp/${ipAddress}`, {data: {mikrotikId: mikrotik._id}})
+  }
+
+  // obtener lista de cola simple por <ip-address>.
+  static async getSimpleQueueByIpAddress(mikrotikId, ipAddress) {
+    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
+    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
+    return axios.get(`${application.urlBase}/Migration/SimpleQueue/${ipAddress}`, {data: {mikrotikId: mikrotik._id}})
+  }
+
+  // ====================================================================================================
 
   // Lista arp.
   // registrar arp.
