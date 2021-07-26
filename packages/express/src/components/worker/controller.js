@@ -1,34 +1,26 @@
 import axios from 'axios'
-import {InfoController} from '../info/controller'
-import {MikrotikController} from '../mikrotik/controller'
+import {MikrotikStore} from '../mikrotik/store'
+import {InfoStore} from '../info/store'
 
 // Lógica bitWorker.
 export class WorkerController {
+  // registrar mikrotik.
+  static async addMikrotik(mikrotikId) {
+    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
+    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
+    return axios.post(`${application.urlBase}/Migration/Mikrotik/Add`, {
+      'ipAddress': mikrotik.host,
+      'port': mikrotik.port,
+      'userName': mikrotik.userName,
+      'password': mikrotik.password,
+      'remoteId': mikrotik._id
+    })
+  }
+
   // cache arp.
   static migrationArpCache(mikrotikId) {
-    console.log('id mikrotik', mikrotikId)
-    return new Promise((resolve, reject) => {
-      MikrotikController.getMikrotikById(mikrotikId)
-        .then(result => {
-          console.log('mikrotik', result)
-          let mikrotik = result
-          InfoController.getApplicationId(result.applicationId)
-            .then(result => {
-              console.log('application', result)
-              axios.defaults.headers.common['Authorization'] = `Bearer ${result.token}`
-              resolve(
-                axios.get(`${result.urlBase}/Migration/Arp/Cache`, {
-                  data: {
-                    'ipAddress': mikrotik.host,
-                    'port': mikrotik.port,
-                    'userName': mikrotik.userName,
-                    'password': mikrotik.password
-                  }
-                })
-              )
-            }).catch(err => reject(err))
-        }).catch(err => reject(err))
-    })
+
   }
 
   // cache cola simple.
