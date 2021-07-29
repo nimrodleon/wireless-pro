@@ -121,4 +121,69 @@ function deleteArpList(req, res = response) {
   })
 }
 
+// ====================================================================================================
+
+// http://<HOST>/api/bitWorker/:id/getSimpleQueueList
+router.get('/:id/getSimpleQueueList', [verifyToken], getSimpleQueueList)
+
+// Lista de Colas Simple.
+function getSimpleQueueList(req, res = response) {
+  WorkerController.getSimpleQueueList(req.params.id).then(({data}) => {
+    res.json(data)
+  })
+}
+
+// http://<HOST>/api/bitWorker/createSimpleQueue
+router.post('/createSimpleQueue', [verifyToken], createSimpleQueue)
+
+// registrar cola simple.
+function createSimpleQueue(req, res = response) {
+  WorkerController.createSimpleQueue(req.body).then(({data}) => {
+    res.json(data)
+  })
+}
+
+// http://<HOST>/api/bitWorker/:id/getSimpleQueueById/:simpleQueueId
+router.get('/:id/getSimpleQueueById/:simpleQueueId', [verifyToken], getSimpleQueueById)
+
+// Obtener cola simple por id.
+function getSimpleQueueById(req, res = response) {
+  let {id, simpleQueueId} = req.params
+  WorkerController.getSimpleQueueById(simpleQueueId, id).then(({data}) => {
+    res.json(data)
+  })
+}
+
+// http://<HOST>/api/bitWorker/updateSimpleQueue
+router.post('/updateSimpleQueue/:id', [verifyToken], updateSimpleQueue)
+
+// actualizar cola simple.
+function updateSimpleQueue(req, res = response) {
+  WorkerController.updateSimpleQueue(req.params.id, req.body).then(({data}) => {
+    res.json(data)
+  })
+}
+
+// http://<HOST>/api/bitWorker/:id/deleteSimpleQueue/:simpleQueueId
+router.delete('/:id/deleteSimpleQueue/:simpleQueueId', [verifyToken], deleteSimpleQueue)
+
+// borrar cola simple.
+function deleteSimpleQueue(req, res = response) {
+  let {id, simpleQueueId} = req.params
+  WorkerController.deleteSimpleQueue(simpleQueueId, id).then(({data}) => {
+    res.json(data)
+  })
+}
+
+// http://<HOST>/api/bitWorker/:id/getSimpleQueueByDisabled/:value
+router.get('/:id/getSimpleQueueByDisabled/:value', [verifyToken], getSimpleQueueByDisabled)
+
+// cargar lista cola simple por campo disabled.
+function getSimpleQueueByDisabled(req, res = response) {
+  let {id, value} = req.params
+  WorkerController.getSimpleQueueByDisabled(value, id).then(({data}) => {
+    res.json(data)
+  })
+}
+
 export const bitWorkerRouter = router
