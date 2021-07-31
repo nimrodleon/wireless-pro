@@ -5,7 +5,7 @@ import {GlobalModule} from '../global/global.module';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {SystemRoutingModule} from './system-routing.module';
 import {AuthService} from '../user/services';
-import {ApplicationService, InterfaceService, MikrotikService} from './services';
+import {ApplicationService, BitWorkerService, InterfaceService, MikrotikService} from './services';
 import {SystemListComponent} from './pages/system-list/system-list.component';
 import {SystemOptionComponent} from './components/system-option/system-option.component';
 import {GeneralComponent} from './pages/general/general.component';
@@ -51,7 +51,8 @@ import {MikrotikFormComponent} from './components/mikrotik-form/mikrotik-form.co
     AuthService,
     ApplicationService,
     MikrotikService,
-    InterfaceService
+    InterfaceService,
+    BitWorkerService
   ]
 })
 export class SystemModule {
