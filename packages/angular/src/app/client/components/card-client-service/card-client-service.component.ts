@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import * as ClipboardJS from 'clipboard';
+import Swal from 'sweetalert2';
+import {DeviceService} from 'src/app/devices/services';
 import {Service} from '../../interfaces';
 
 @Component({
@@ -13,7 +15,8 @@ export class CardClientServiceComponent implements OnInit {
   @Output()
   sendIdService = new EventEmitter<string>();
 
-  constructor() {
+  constructor(
+    private deviceService: DeviceService) {
   }
 
   ngOnInit(): void {
@@ -39,45 +42,37 @@ export class CardClientServiceComponent implements OnInit {
     this.sendIdService.emit(this.currentService._id);
   }
 
-  // /**
-  //  * Enable or Suspended Service.
-  //  * @param status
-  //  */
-  // onChangeStatus(status: boolean): void {
-  //   this.serviceService.getServiceById(this.service._id)
-  //     .subscribe(async res => {
-  //       let objTmp = res;
-  //       const {value: text} = await Swal.fire({
-  //         input: 'textarea',
-  //         inputPlaceholder: 'Escribe una descripción aquí...',
-  //         inputAttributes: {
-  //           'aria-label': 'Type your message here'
-  //         },
-  //         showCancelButton: true
-  //       });
-  //
-  //       if (text) {
-  //         // objTmp.isActive = status;
-  //         if (status) {
-  //           // objTmp.dateFrom = moment().format('YYYY-MM-DD');
-  //         } else {
-  //           // objTmp.closeDate = moment().format('YYYY-MM-DD');
-  //         }
-  //         // create outage.
-  //         let outage = new Outage();
-  //         outage.service = objTmp._id;
-  //         outage.description = text.toString();
-  //         outage.status = status ? 'A' : 'S';
-  //         outage.createdAt = moment().format('YYYY-MM-DD');
-  //         this.outageService.create(outage).subscribe(res => {
-  //           // Update Service document.
-  //           // objTmp.lastOutage = res._id;
-  //           // this.serviceService.updateService(objTmp).subscribe(() => {
-  //           //   this.sendLoadServices.emit(objTmp.client);
-  //           // });
-  //         });
-  //       }
-  //     });
-  // }
+  // cargar información del punto de acceso.
+  async cargarApInfo(event: any) {
+    event.preventDefault();
+    this.deviceService.getDevice(this.currentService.accessPoint)
+      .subscribe(result => {
+        Swal.fire({
+          title: '<strong>PUNTO DE ACCESO</strong>',
+          html: `
+          <p class="pb-2">
+            <span><i class="fas fa-network-wired"></i> Ip Address: </span>
+            <a href="https://${result.ipAddress}" target="_blank">${result.ipAddress}</a>
+          </p>
+          <table class="table mb-0">
+            <tr class="bg-warning">
+              <th><i class="fas fa-user"></i> User</th>
+              <td>
+                <div class="d-flex justify-content-between">
+                    ${result.userName}
+                </div>
+              </td>
+              <th><i class="fas fa-unlock-alt"></i> Password</th>
+              <td>
+                <div class="d-flex justify-content-between">
+                    ${result.password}
+                </div>
+              </td>
+            </tr>
+          </table>
+          `
+        });
+      });
+  }
 
 }

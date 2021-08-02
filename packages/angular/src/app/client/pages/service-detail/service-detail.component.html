@@ -9,7 +9,7 @@
           <h4 class="text-uppercase">{{currentClient.fullName}}</h4>
           <p class="lead m-0">
             <a [routerLink]="['/client/detail', currentService.clientId]" class="font-weight-bold">
-              {{ currentServicePlan.name }} - {{currentService.ipAddress}}
+              {{ currentServicePlan.name }} "[{{ currentServicePlan.priceMonthly}}]" - {{currentService.ipAddress}}
             </a>
           </p>
         </div>
@@ -28,10 +28,6 @@
         <button class="nav-link" data-bs-toggle="tab"
                 data-bs-target="#nav-averias" type="button" role="tab">
           <i class="fas fa-phone-square-alt"></i><span class="text-uppercase ms-1">Registro de Averias</span>
-        </button>
-        <button class="nav-link" data-bs-toggle="tab"
-                data-bs-target="#nav-access-point" type="button" role="tab">
-          <i class="fas fa-wifi"></i><span class="text-uppercase ms-1">Punto de Acceso</span>
         </button>
         <button class="nav-link" data-bs-toggle="tab"
                 data-bs-target="#nav-status-change" type="button" role="tab">
@@ -98,7 +94,7 @@
                   <td>{{payment.amount}}</td>
                   <td>{{payment.paymentMethod}}</td>
                   <td>{{payment.createdAt|date}}</td>
-                  <td>{{payment.user.fullName}}</td>
+                  <td>{{payment.user?.fullName}}</td>
                   <td>{{payment.note}}</td>
                 </tr>
                 </tbody>
@@ -196,43 +192,6 @@
           </table>
         </div>
         <!-- ##(End) Averias -->
-      </div>
-      <div class="tab-pane fade" id="nav-access-point" role="tabpanel">
-        <!-- ##(Begin) AccessPoint -->
-        <div class="row">
-          <div class="col-6 mt-2">
-            <h5 class="card-title text-uppercase">Información del Punto de Acceso</h5>
-            <p class="my-1">
-              <span><i class="fas fa-network-wired"></i> Ip Address: </span>
-              <a href="http://127.0.0.1" target="_blank">127.0.0.1</a>
-            </p>
-            <div class="table-responsive">
-              <table class="table m-0">
-                <tr class="bg-warning">
-                  <th><i class="fas fa-user"></i> User</th>
-                  <td>
-                    <div class="d-flex justify-content-between">
-                      ubnt
-                      <a href="#" (click)="$event.preventDefault()" class="text-secondary">
-                        <i class="fas fa-clipboard"></i>
-                      </a>
-                    </div>
-                  </td>
-                  <th><i class="fas fa-unlock-alt"></i> Password</th>
-                  <td>
-                    <div class="d-flex justify-content-between">
-                      ubnt123
-                      <a href="#" (click)="$event.preventDefault()" class="text-secondary">
-                        <i class="fas fa-clipboard"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div><!-- //.col-6 -->
-        </div><!-- //.row -->
-        <!-- ##(End) AccessPoint -->
       </div>
       <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
         <!-- ##(Begin) Estado de cambios -->

@@ -15,6 +15,7 @@
          class="text-secondary">
         <i class="fas fa-clipboard"></i>
       </a>
+      <a href="#" (click)="cargarApInfo($event)" class="text-success fw-bold ms-1">[AP]</a>
     </p>
     <div class="table-responsive">
       <table class="table m-0">
@@ -43,12 +44,12 @@
       </table>
     </div>
     <p class="my-1">
-      <span><i class="fas fa-desktop"></i> Estado: </span>
+      <span class="text-uppercase"><i class="fas fa-desktop"></i> Estado: </span>
       <span class="fw-bold">{{getStatusText(currentService.status)}}</span>
     </p>
     <ng-container *ngIf="true">
       <p class="my-1">
-        <span><i class="fas fa-calendar-alt"></i> Registro: </span>
+        <span class="text-uppercase"><i class="fas fa-calendar-alt"></i> Registro: </span>
         <span class="text-success">{{currentService.initialDate}}</span>
       </p>
     </ng-container>
