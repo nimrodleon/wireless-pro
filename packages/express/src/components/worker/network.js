@@ -155,7 +155,7 @@ function getSimpleQueueById(req, res = response) {
 }
 
 // http://<HOST>/api/bitWorker/updateSimpleQueue
-router.post('/updateSimpleQueue/:id', [verifyToken], updateSimpleQueue)
+router.put('/updateSimpleQueue/:id', [verifyToken], updateSimpleQueue)
 
 // actualizar cola simple.
 function updateSimpleQueue(req, res = response) {
