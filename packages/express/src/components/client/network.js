@@ -1,5 +1,6 @@
 import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
+import {check} from 'express-validator'
+import {validate, verifyToken} from '../middlewares'
 import {ClientController} from './controller'
 
 const router = express.Router()
@@ -31,7 +32,11 @@ function getClientsS2(req, res = response) {
 }
 
 // http://<HOST>/api/clients/:id
-router.get('/:id', [verifyToken], getClient)
+router.get('/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], getClient)
 
 // Obtener un cliente por id.
 function getClient(req, res = response) {
@@ -43,7 +48,14 @@ function getClient(req, res = response) {
 }
 
 // http://<HOST>/api/clients
-router.post('/', [verifyToken], addClient)
+router.post('/', [
+  verifyToken,
+  check('dni', 'El D.N.I. es obligatorio').not().isEmpty(),
+  check('fullName', 'El nombre es obligatorio').not().isEmpty(),
+  check('fullAddress', 'La dirección es obligatorio').not().isEmpty(),
+  check('phone', 'El teléfono es obligatorio').not().isEmpty(),
+  validate
+], addClient)
 
 // registrar nuevo cliente.
 function addClient(req, res = response) {
@@ -55,7 +67,15 @@ function addClient(req, res = response) {
 }
 
 // http://<HOST>/api/clients/:id
-router.patch('/:id', [verifyToken], updateClient)
+router.patch('/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  check('dni', 'El D.N.I. es obligatorio').not().isEmpty(),
+  check('fullName', 'El nombre es obligatorio').not().isEmpty(),
+  check('fullAddress', 'La dirección es obligatorio').not().isEmpty(),
+  check('phone', 'El teléfono es obligatorio').not().isEmpty(),
+  validate
+], updateClient)
 
 // actualizar cliente.
 function updateClient(req, res = response) {
@@ -67,7 +87,11 @@ function updateClient(req, res = response) {
 }
 
 // http://<HOST>/api/clients
-router.delete('/:id', [verifyToken], deleteClient)
+router.delete('/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], deleteClient)
 
 // borrar cliente.
 function deleteClient(req, res = response) {
