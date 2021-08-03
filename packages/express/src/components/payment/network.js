@@ -1,5 +1,6 @@
 import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
+import {check} from 'express-validator'
+import {validate, verifyToken} from '../middlewares'
 import {PaymentController} from './controller'
 
 const router = express.Router()
@@ -18,7 +19,11 @@ function getPayments(req, res = response) {
 }
 
 // http://<HOST>/api/payments/:id
-router.get('/:id', [verifyToken], getPayment)
+router.get('/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], getPayment)
 
 // obtener pago por id.
 function getPayment(req, res = response) {
@@ -30,7 +35,19 @@ function getPayment(req, res = response) {
 }
 
 // http://<HOST>/api/payments
-router.post('/', [verifyToken], addPayment)
+router.post('/', [
+  verifyToken,
+  check('clientId', 'El cliente es obligatorio').not().isEmpty(),
+  check('serviceId', 'El servicio es obligatorio').not().isEmpty(),
+  check('year', 'El año es obligatorio').not().isEmpty(),
+  check('month', 'El mes es obligatorio').not().isEmpty(),
+  check('amount', 'El monto es obligatorio').not().isEmpty(),
+  check('amount', 'El formato del monto no es válido').isNumeric(),
+  check('paymentMethod', 'El método de pago es obligatorio').not().isEmpty(),
+  check('payFrom', 'La fecha de inicio es obligatorio').not().isEmpty(),
+  check('payUp', 'La fecha hasta es obligatorio').not().isEmpty(),
+  validate
+], addPayment)
 
 // crear nuevo pago.
 function addPayment(req, res = response) {
@@ -42,7 +59,11 @@ function addPayment(req, res = response) {
 }
 
 // http://<HOST>/api/payments/:id
-router.delete('/:id', [verifyToken], deletePayment)
+router.delete('/:id', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], deletePayment)
 
 // borrar pago existente.
 function deletePayment(req, res = response) {
