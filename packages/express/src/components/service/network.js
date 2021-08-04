@@ -1,6 +1,6 @@
 import express, {response} from 'express'
 import {check} from 'express-validator'
-import {validate, verifyToken} from '../middlewares'
+import {checkRolAdmin, checkRolNetwork, validate, verifyToken} from '../middlewares'
 import {ServiceController} from './controller'
 
 const router = express.Router()
@@ -36,6 +36,7 @@ function getService(req, res = response) {
 // http://<HOST>/api/services
 router.post('/', [
   verifyToken,
+  checkRolNetwork,
   check('ipAddress', 'La dirección es obligatorio').not().isEmpty(),
   check('status', 'El estado es obligatorio').not().isEmpty(),
   check('servicePlanId', 'El plan de servicio es obligatorio').not().isEmpty(),
@@ -66,6 +67,7 @@ function addService(req, res = response) {
 // http://<HOST>/api/services/:id
 router.patch('/:id', [
   verifyToken,
+  checkRolNetwork,
   check('id', 'No es un ID válido').isMongoId(),
   check('ipAddress', 'La dirección es obligatorio').not().isEmpty(),
   check('status', 'El estado es obligatorio').not().isEmpty(),
@@ -97,6 +99,7 @@ function updateService(req, res = response) {
 // http://<HOST>/api/services/:id
 router.delete('/:id', [
   verifyToken,
+  checkRolAdmin,
   check('id', 'No es un ID válido').isMongoId(),
   validate
 ], deleteService)

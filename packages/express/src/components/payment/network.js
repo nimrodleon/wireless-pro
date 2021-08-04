@@ -1,6 +1,6 @@
 import express, {response} from 'express'
 import {check} from 'express-validator'
-import {validate, verifyToken} from '../middlewares'
+import {checkRolAdmin, checkRolCash, validate, verifyToken} from '../middlewares'
 import {PaymentController} from './controller'
 
 const router = express.Router()
@@ -41,6 +41,7 @@ function getPayment(req, res = response) {
 // http://<HOST>/api/payments
 router.post('/', [
   verifyToken,
+  checkRolCash,
   check('clientId', 'El cliente es obligatorio').not().isEmpty(),
   check('serviceId', 'El servicio es obligatorio').not().isEmpty(),
   check('year', 'El año es obligatorio').not().isEmpty(),
@@ -65,6 +66,7 @@ function addPayment(req, res = response) {
 // http://<HOST>/api/payments/:id
 router.delete('/:id', [
   verifyToken,
+  checkRolAdmin,
   check('id', 'No es un ID válido').isMongoId(),
   validate
 ], deletePayment)

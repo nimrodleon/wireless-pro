@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import Swal from 'sweetalert2';
+import {Sweetalert2} from 'src/app/global/interfaces';
 import {Client, Service} from '../interfaces';
 import {ClientService} from './client.service';
 import {AuthService} from '../../user/services';
@@ -64,13 +64,9 @@ export class ClientDetailService {
 
   // borrar cliente.
   deleteClient(id: string): void {
-    this.clientService.deleteClient(id).subscribe(res => {
-      Swal.fire(
-        'Eliminado!',
-        'El Cliente a sido eliminado.',
-        'success'
-      );
-      this.router.navigate(['/client']);
+    this.clientService.deleteClient(id).subscribe(async () => {
+      await Sweetalert2.deleteSuccess();
+      await this.router.navigate(['/client']);
     });
   }
 

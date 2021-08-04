@@ -96,9 +96,27 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // editar servicio modal.
-  editServiceModal(): void {
-    this.titleService = 'Editar Servicio';
-    this.serviceModal.show();
+  async editServiceModal() {
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      await Sweetalert2.accessDeniedGeneric();
+    } else {
+      this.titleService = 'Editar Servicio';
+      this.serviceModal.show();
+    }
+  }
+
+  // borrar servicio actual.
+  async deleteServiceClick(event: any) {
+    event.preventDefault();
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
+      await Sweetalert2.accessDenied();
+    } else {
+      Sweetalert2.deleteConfirm().then(result => {
+        if (result.isConfirmed) {
+          this.serviceDetailService.deleteService(this.currentService._id);
+        }
+      });
+    }
   }
 
   // cerrar modal servicios.
@@ -204,9 +222,13 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // agregar pago.
-  addPaymentClick(): void {
-    this.titlePayment = 'Agregar Pago de Servicio';
-    this.paymentModal.show();
+  async addPaymentClick() {
+    if (this.currentRole !== this.roles.ROLE_CASH) {
+      await Sweetalert2.accessDeniedGeneric();
+    } else {
+      this.titlePayment = 'Agregar Pago de Servicio';
+      this.paymentModal.show();
+    }
   }
 
   // cerrar modal de pagos.
@@ -227,31 +249,33 @@ export class ServiceDetailComponent implements OnInit {
   async deletePayment() {
     let chkDel = document.querySelectorAll('#chkDel:checked');
     if (chkDel.length <= 0) {
-      await Swal.fire({
+      return Swal.fire({
         icon: 'error',
         title: 'Seleccione un Pago!',
         showConfirmButton: true,
       });
-      return;
     }
     if (chkDel.length > 1) {
-      await Swal.fire({
+      return Swal.fire({
         icon: 'info',
         title: 'Seleccione solo un Pago!',
         showConfirmButton: true,
       });
-      return;
     }
-    Sweetalert2.deleteConfirm().then(result => {
-      if (result.isConfirmed) {
-        let paymentId = chkDel[0].getAttribute('value');
-        this.serviceDetailService.deletePayment(paymentId)
-          .subscribe(() => {
-            this.getPaymentList();
-            Sweetalert2.deleteSuccess();
-          });
-      }
-    });
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
+      await Sweetalert2.accessDenied();
+    } else {
+      Sweetalert2.deleteConfirm().then(result => {
+        if (result.isConfirmed) {
+          let paymentId = chkDel[0].getAttribute('value');
+          this.serviceDetailService.deletePayment(paymentId)
+            .subscribe(() => {
+              this.getPaymentList();
+              Sweetalert2.deleteSuccess();
+            });
+        }
+      });
+    }
   }
 
 }

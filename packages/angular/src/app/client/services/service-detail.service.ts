@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Sweetalert2} from 'src/app/global/interfaces';
 import {Client, Payment, Service} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
 import {ServiceService} from './service.service';
@@ -7,7 +9,6 @@ import {ServicePlanService} from '../../system/services';
 import {Averia} from '../../averia/interfaces/averia';
 import {AveriaService} from '../../averia/services/averia.service';
 import {PaymentService} from './payment.service';
-import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,13 @@ export class ServiceDetailService {
         .subscribe(result => this._currentClient = result);
       this.servicePlanService.getServicePlan(result.servicePlanId)
         .subscribe(result => this._currentServicePlan = result);
+    });
+  }
+
+  // borrar servicio actual.
+  async deleteService(serviceId: string) {
+    this.serviceService.deleteService(serviceId).subscribe(() => {
+      Sweetalert2.deleteSuccess();
     });
   }
 

@@ -13,9 +13,17 @@
             </a>
           </p>
         </div>
-        <button type="button" (click)="editServiceModal()" class="btn btn-primary">
-          <i class="fas fa-edit"></i><span class="text-uppercase ms-1">Editar</span>
-        </button>
+        <div class="btn-group">
+          <button type="button" (click)="editServiceModal()" class="btn btn-primary">
+            <i class="fas fa-edit"></i><span class="text-uppercase ms-1">Editar</span>
+          </button>
+          <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item text-uppercase" (click)="deleteServiceClick($event)" href="#">Borrar</a></li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- ##(Begin) Tabs -->

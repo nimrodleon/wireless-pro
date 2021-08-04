@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import Swal from 'sweetalert2';
 
-declare var jQuery: any;
 declare var bootstrap: any;
 import {ClientDetailService} from '../../services';
 import {Client, Service} from '../../interfaces';
 import {InstallationOrderService} from 'src/app/orders/services';
 import {InstallationOrder} from 'src/app/orders/interfaces';
+import {AuthService} from 'src/app/user/services';
+import {Sweetalert2} from 'src/app/global/interfaces';
 
 @Component({
   selector: 'app-client-detail',
@@ -21,11 +21,14 @@ export class ClientDetailComponent implements OnInit {
   titleService: string;
   titleClient: string;
   installationOrderList: Array<InstallationOrder>;
+  // ============================================================
+  currentRole: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private clientDetailService: ClientDetailService,
-    private installationOrderService: InstallationOrderService) {
+    private installationOrderService: InstallationOrderService,
+    private authService: AuthService) {
     this.currentService = this.clientDetailService.serviceDefaultValues();
   }
 
@@ -37,12 +40,19 @@ export class ClientDetailComponent implements OnInit {
       this.installationOrderService.getInstallationOrderByClientId(params.get('id'))
         .subscribe(result => this.installationOrderList = result);
     });
+    // Obtener rol del usuario autentificado.
+    this.authService.getRoles().subscribe(result => this.currentRole = result);
     // vincular modal servicio.
     this.serviceModal = new bootstrap.Modal(
       document.querySelector('#service-modal'));
     // vincular modal cliente.
     this.clientModal = new bootstrap.Modal(
       document.querySelector('#client-form-modal'));
+  }
+
+  // Lista de permisos.
+  get roles() {
+    return this.authService.roles;
   }
 
   // Cliente actual.
@@ -56,21 +66,42 @@ export class ClientDetailComponent implements OnInit {
   }
 
   // Agregar Servicio Modal.
-  addServiceModalClick(): void {
-    this.titleService = 'Agregar Servicio';
-    this.currentService = this.clientDetailService.serviceDefaultValues();
-    this.currentService.clientId = this.currentClient._id;
-    this.serviceModal.show();
+  async addServiceModalClick() {
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      await Sweetalert2.accessDeniedGeneric();
+    } else {
+      this.titleService = 'Agregar Servicio';
+      this.currentService = this.clientDetailService.serviceDefaultValues();
+      this.currentService.clientId = this.currentClient._id;
+      this.serviceModal.show();
+    }
+  }
+
+  // borrar cliente actual.
+  async deleteClientClick() {
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
+      await Sweetalert2.accessDenied();
+    } else {
+      Sweetalert2.deleteConfirm().then(result => {
+        if (result.isConfirmed) {
+          this.clientDetailService.deleteClient(this.currentClient._id);
+        }
+      });
+    }
   }
 
   // editar servicio modal.
-  editServiceModalClick(id: string): void {
-    this.titleService = 'Editar Servicio';
-    this.clientDetailService.getServiceById(id)
-      .subscribe(result => {
-        this.currentService = result;
-        this.serviceModal.show();
-      });
+  async editServiceModalClick(id: string) {
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      await Sweetalert2.accessDeniedGeneric();
+    } else {
+      this.titleService = 'Editar Servicio';
+      this.clientDetailService.getServiceById(id)
+        .subscribe(result => {
+          this.currentService = result;
+          this.serviceModal.show();
+        });
+    }
   }
 
   // cerrar venta modal servicios.

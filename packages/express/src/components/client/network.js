@@ -1,6 +1,6 @@
 import express, {response} from 'express'
 import {check} from 'express-validator'
-import {validate, verifyToken} from '../middlewares'
+import {checkRolAdmin, validate, verifyToken} from '../middlewares'
 import {ClientController} from './controller'
 
 const router = express.Router()
@@ -89,6 +89,7 @@ function updateClient(req, res = response) {
 // http://<HOST>/api/clients
 router.delete('/:id', [
   verifyToken,
+  checkRolAdmin,
   check('id', 'No es un ID válido').isMongoId(),
   validate
 ], deleteClient)

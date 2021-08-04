@@ -32,4 +32,14 @@ export class Sweetalert2 {
       'error'
     );
   }
+
+  // acceso denegado.
+  static async accessDeniedGeneric() {
+    return Swal.fire(
+      'Información',
+      'No tiene permisos para esta operación!',
+      'error'
+    );
+  }
+
 }
