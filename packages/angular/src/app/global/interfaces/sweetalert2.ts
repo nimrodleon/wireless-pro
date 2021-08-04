@@ -23,4 +23,13 @@ export class Sweetalert2 {
       'success'
     );
   }
+
+  // acceso denegado.
+  static async accessDenied() {
+    return Swal.fire(
+      'Información',
+      'No es admin, no puede hacer esto!',
+      'error'
+    );
+  }
 }

@@ -6,7 +6,11 @@ import {PaymentController} from './controller'
 const router = express.Router()
 
 // http://<HOST>/api/payments/:id/:year
-router.get('/:id/:year', [verifyToken], getPayments)
+router.get('/:id/:year', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], getPayments)
 
 // Listar pagos.
 function getPayments(req, res = response) {
@@ -67,7 +71,7 @@ router.delete('/:id', [
 
 // borrar pago existente.
 function deletePayment(req, res = response) {
-  PaymentController.deletePayment(req.params.id).then(result => {
+  PaymentController.deletePayment(req.params.id).then(() => {
     res.status(200).send()
   }).catch(err => {
     res.status(400).json(err)

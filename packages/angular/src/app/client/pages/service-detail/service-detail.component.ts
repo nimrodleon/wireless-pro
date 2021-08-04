@@ -2,12 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
+import {AuthService} from 'src/app/user/services';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {ServiceDetailService} from '../../services';
 import {PrintPayment} from '../../interfaces';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-service-detail',
@@ -26,12 +27,15 @@ export class ServiceDetailComponent implements OnInit {
   paymentYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   paymentModal: any;
   titlePayment: string;
+  // ============================================================
+  currentRole: string;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private serviceDetailService: ServiceDetailService) {
+    private serviceDetailService: ServiceDetailService,
+    private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -52,6 +56,13 @@ export class ServiceDetailComponent implements OnInit {
     // vincular modal pagos.
     this.paymentModal = new bootstrap.Modal(
       document.querySelector('#payment-modal'));
+    // Obtener rol del usuario autentificado.
+    this.authService.getRoles().subscribe(result => this.currentRole = result);
+  }
+
+  // Lista de permisos.
+  get roles() {
+    return this.authService.roles;
   }
 
   // servicio actual.
@@ -143,14 +154,18 @@ export class ServiceDetailComponent implements OnInit {
 
   // borrar averia.
   async deleteAveriaClick(id: string) {
-    Sweetalert2.deleteConfirm().then(result => {
-      if (result.isConfirmed) {
-        this.serviceDetailService.deleteAveria(id).subscribe(() => {
-          this.averiaListLoad();
-          Sweetalert2.deleteSuccess();
-        });
-      }
-    });
+    if (this.currentRole !== this.roles.ROLE_ADMIN) {
+      await Sweetalert2.accessDenied();
+    } else {
+      Sweetalert2.deleteConfirm().then(result => {
+        if (result.isConfirmed) {
+          this.serviceDetailService.deleteAveria(id).subscribe(() => {
+            this.averiaListLoad();
+            Sweetalert2.deleteSuccess();
+          });
+        }
+      });
+    }
   }
 
   // cargar lista de pagos.
