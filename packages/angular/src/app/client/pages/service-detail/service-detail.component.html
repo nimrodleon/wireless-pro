@@ -203,9 +203,88 @@
       </div>
       <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
         <!-- ##(Begin) Estado de cambios -->
-        <!--<app-card-outages
-          [serviceId]="serviceId">
-        </app-card-outages>-->
+        <form class="row row-cols-auto g-2 mt-2 d-print-none">
+          <div class="col-auto">
+            <input type="number" class="form-control" placeholder="Year">
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary">
+              <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
+            </button>
+          </div>
+          <div class="col-auto">
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-cog"></i>
+                <span class="text-uppercase ms-1">Opciones</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <span class="text-uppercase">Habilitar</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <span class="text-uppercase">Suspender</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <span class="text-uppercase">Cambiar Plan</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <span class="text-uppercase">Registrar</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <span class="text-uppercase">Borrar</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-auto">
+            <label class="col-form-label">
+              <a href="#" class="fw-bold text-danger">[Cortes Antiguos]</a>
+            </label>
+          </div>
+        </form>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr class="text-uppercase">
+              <th>Tarea Realizada</th>
+              <th>Fecha</th>
+              <th>Responsable</th>
+              <th>Nota</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Registro del Servicio</td>
+              <td>2021-05-21</td>
+              <td>User1</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Servicio Suspendido</td>
+              <td>2021-07-12</td>
+              <td>User1</td>
+              <td>el servicio se suspende por 15 dias.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
         <!-- ##(End) Estado de cambios -->
       </div>
     </div>
