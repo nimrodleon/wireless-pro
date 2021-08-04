@@ -42,4 +42,36 @@ export class Sweetalert2 {
     );
   }
 
+  // confirmar Mensaje.
+  static async messageConfirm() {
+    return Swal.fire({
+      title: `Mensaje!`,
+      text: '¿Estás seguro de realizar esta acción?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, aceptar',
+      cancelButtonText: 'Cancelar'
+    });
+  }
+
+  // mensaje exitoso.
+  static async messageSuccess() {
+    return Swal.fire(
+      'Información!',
+      'La Tarea se ha completado correctamente.',
+      'success'
+    );
+  }
+
+  // mensaje de error.
+  static async errorMessage() {
+    return Swal.fire(
+      'Oops!',
+      'Parece que tenemos un problema!',
+      'error'
+    );
+  }
+
 }
