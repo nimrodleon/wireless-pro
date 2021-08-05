@@ -7,5 +7,3 @@ export * from './coverage';
 export * from './application';
 export * from './mikrotik';
 export * from './interface';
-export * from './arp-list';
-export * from './simple-queue';

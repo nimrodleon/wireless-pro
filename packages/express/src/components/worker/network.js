@@ -186,4 +186,28 @@ function getSimpleQueueByDisabled(req, res = response) {
   })
 }
 
+// ====================================================================================================
+
+// http://<HOST>/api/bitWorker/:id/getWorkerActivities/:year
+router.get('/:id/getWorkerActivities/:year', [verifyToken], getWorkerActivities)
+
+// cargar lista de estado de cambios.
+function getWorkerActivities(req, res = response) {
+  let {id, year} = req.params
+  WorkerController.getWorkerActivities(id, year).then(result => {
+    res.json(result)
+  })
+}
+
+// http://<HOST>/api/bitWorker/createWorkerActivity
+router.post('/createWorkerActivity', [verifyToken], createWorkerActivity)
+
+// registrar estado de cambio.
+function createWorkerActivity(req, res = response) {
+  let user = req.currentUser.fullName
+  WorkerController.createWorkerActivity(req.body, user).then(result => {
+    res.json(result)
+  })
+}
+
 export const bitWorkerRouter = router

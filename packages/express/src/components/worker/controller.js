@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {MikrotikStore} from '../mikrotik/store'
 import {InfoStore} from '../info/store'
+import {WorkerStore} from './store'
 
 // Lógica bitWorker.
 export class WorkerController {
@@ -148,6 +149,30 @@ export class WorkerController {
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
     return axios.get(`${application.urlBase}/SimpleQueue/${value}`, {data: {mikrotikId: mikrotik._id}})
+  }
+
+  // ====================================================================================================
+
+  // Lista de estado de cambios.
+  static getWorkerActivities(serviceId, year) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(WorkerStore.getWorkerActivities(serviceId, year))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  // registra el cambio de estado.
+  static createWorkerActivity(data, user) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(WorkerStore.createWorkerActivity(data, user))
+      } catch (err) {
+        reject(err)
+      }
+    })
   }
 
 }

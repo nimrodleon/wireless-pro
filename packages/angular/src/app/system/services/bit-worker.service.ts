@@ -102,4 +102,16 @@ export class BitWorkerService {
     return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueByDisabled/${value}`);
   }
 
+  // ====================================================================================================
+
+  // Lista de estado de cambios.
+  getWorkerActivities(serviceId: string, year: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/getWorkerActivities/${year}`);
+  }
+
+  // registrar cambios de estado.
+  createWorkerActivity(data: any): Observable<any> {
+    return this.http.post(`${this.baseURL}/createWorkerActivity`, data);
+  }
+
 }
