@@ -38,6 +38,16 @@ export class BitWorkerService {
     return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueByIpAddress/${ipAddress}`);
   }
 
+  // borrar arp por id.
+  deleteArpMigration(mikrotikId: string, arpId: string): Observable<any> {
+    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteArpMigration/${arpId}`);
+  }
+
+  // borrar cola-simple por id.
+  deleteSimpleQueueMigration(mikrotikId: string, simpleQueueId: string): Observable<any> {
+    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteSimpleQueueMigration/${simpleQueueId}`);
+  }
+
   // ====================================================================================================
 
   // lista arp.
@@ -51,18 +61,18 @@ export class BitWorkerService {
   }
 
   // obtener arp item por id.
-  getArpListById(mikrotikId: string, arpId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getArpListById/${arpId}`);
+  getArpListById(mikrotikId: string, serviceId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${mikrotikId}/getArpListById/${serviceId}`);
   }
 
   // actualizar arp Item.
-  updateArpList(arpId: string, data: any): Observable<any> {
-    return this.http.put(`${this.baseURL}/updateArpList/${arpId}`, data);
+  updateArpList(serviceId: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseURL}/updateArpList/${serviceId}`, data);
   }
 
   // borrar arp item.
-  deleteArpList(mikrotikId: string, arpId: string): Observable<any> {
-    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteArpList/${arpId}`);
+  deleteArpList(mikrotikId: string, serviceId: string): Observable<any> {
+    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteArpList/${serviceId}`);
   }
 
   // cargar lista arp por campo disabled.
@@ -83,18 +93,18 @@ export class BitWorkerService {
   }
 
   // obtener cola simple item por id.
-  getSimpleQueueById(mikrotikId: string, simpleQueueId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueById/${simpleQueueId}`);
+  getSimpleQueueById(mikrotikId: string, serviceId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueById/${serviceId}`);
   }
 
   // actualizar cola simple.
-  updateSimpleQueue(simpleQueueId: string, data: any): Observable<any> {
-    return this.http.put(`${this.baseURL}/updateSimpleQueue/${simpleQueueId}`, data);
+  updateSimpleQueue(serviceId: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseURL}/updateSimpleQueue/${serviceId}`, data);
   }
 
   // borrar cola simple.
-  deleteSimpleQueue(mikrotikId: string, simpleQueueId: string): Observable<any> {
-    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteSimpleQueue/${simpleQueueId}`);
+  deleteSimpleQueue(mikrotikId: string, serviceId: string): Observable<any> {
+    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteSimpleQueue/${serviceId}`);
   }
 
   // cargar lista cola simples por campo disabled.

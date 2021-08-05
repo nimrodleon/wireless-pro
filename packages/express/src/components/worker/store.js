@@ -3,7 +3,7 @@ import {WorkerActivity} from './model'
 export class WorkerStore {
   // lista de actividades.
   static async getWorkerActivities(serviceId, year) {
-    return WorkerActivity.find({serviceId: serviceId, year: year})
+    return WorkerActivity.find({serviceId: serviceId, year: year}).hint({$natural: -1})
   }
 
   // registrar actividad.

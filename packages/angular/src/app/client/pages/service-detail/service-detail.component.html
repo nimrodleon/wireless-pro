@@ -205,10 +205,10 @@
         <!-- ##(Begin) Estado de cambios -->
         <form class="row row-cols-auto g-2 mt-2 d-print-none">
           <div class="col-auto">
-            <input type="number" class="form-control" placeholder="Year">
+            <input type="number" [formControl]="workerActivityYear" class="form-control" placeholder="Year">
           </div>
           <div class="col-auto">
-            <button type="button" class="btn btn-primary">
+            <button type="button" (click)="getWorkerActivityListClick()" class="btn btn-primary">
               <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
             </button>
           </div>
@@ -220,12 +220,14 @@
               </button>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="#"
+                     (click)="enableServiceInBitWorker($event)">
                     <span class="text-uppercase">Habilitar</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="#"
+                     (click)="suspendServiceInBitWorker($event)">
                     <span class="text-uppercase">Suspender</span>
                   </a>
                 </li>
@@ -233,7 +235,8 @@
                   <hr class="dropdown-divider">
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="#"
+                     (click)="changeServicePlanInBitWorker($event)">
                     <span class="text-uppercase">Cambiar Plan</span>
                   </a>
                 </li>
@@ -241,12 +244,14 @@
                   <hr class="dropdown-divider">
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="#"
+                     (click)="registerServiceInBitWorker($event)">
                     <span class="text-uppercase">Registrar</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="#"
+                     (click)="deleteServiceInBitWorker($event)">
                     <span class="text-uppercase">Borrar</span>
                   </a>
                 </li>
@@ -270,21 +275,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Registro del Servicio</td>
-              <td>2021-05-21</td>
-              <td>User1</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Servicio Suspendido</td>
-              <td>2021-07-12</td>
-              <td>User1</td>
-              <td>el servicio se suspende por 15 dias.</td>
+            <tr *ngFor="let item of workerActivityList">
+              <td>{{item.task}}</td>
+              <td>{{item.createdAt}}</td>
+              <td>{{item.user}}</td>
+              <td>{{item.remark}}</td>
             </tr>
             </tbody>
           </table>
         </div>
+        <pre>{{workerActivityList|json}}</pre>
         <!-- ##(End) Estado de cambios -->
       </div>
     </div>
@@ -309,6 +309,8 @@
       [currentServicePlan]="currentServicePlan"
       (hideModal)="hidePaymentModal($event)">
     </app-payment-modal>
+    <!-- ## Modales BitWorker -->
+
     <!-- ##(End) Content -->
   </div>
 </div>

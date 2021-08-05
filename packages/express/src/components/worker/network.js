@@ -56,6 +56,28 @@ function getSimpleQueueByIpAddress(req, res = response) {
   })
 }
 
+// http://<HOST>/api/bitWorker/:id/deleteArpMigration/:arpId
+router.delete('/:id/deleteArpMigration/:arpId', [verifyToken], deleteArpMigration)
+
+// borrar arp por id.
+function deleteArpMigration(req, res = response) {
+  let {id, arpId} = req.params
+  WorkerController.deleteArpMigration(id, arpId).then(({data}) => {
+    res.json(data)
+  })
+}
+
+// http://<HOST>/api/bitWorker/:id/deleteArpMigration/:arpId
+router.delete('/:id/deleteSimpleQueueMigration/:simpleQueueId', [verifyToken], deleteSimpleQueueMigration)
+
+// borrar simple-queue por id.
+function deleteSimpleQueueMigration(req, res = response) {
+  let {id, simpleQueueId} = req.params
+  WorkerController.deleteSimpleQueueMigration(id, simpleQueueId).then(({data}) => {
+    res.json(data)
+  })
+}
+
 // ====================================================================================================
 
 // http://<HOST>/api/bitWorker/:id/getArpList
@@ -68,13 +90,13 @@ function getArpList(req, res = response) {
   })
 }
 
-// http://<HOST>/api/bitWorker/:id/getArpListById/:arpId
-router.get('/:id/getArpListById/:arpId', [verifyToken], getArpListById)
+// http://<HOST>/api/bitWorker/:id/getArpListById/:serviceId
+router.get('/:id/getArpListById/:serviceId', [verifyToken], getArpListById)
 
 // Obtener arp por Id.
 function getArpListById(req, res = response) {
-  let {id, arpId} = req.params
-  WorkerController.getArpListById(arpId, id).then(({data}) => {
+  let {id, serviceId} = req.params
+  WorkerController.getArpListById(serviceId, id).then(({data}) => {
     res.json(data)
   })
 }
@@ -110,13 +132,13 @@ function updateArpList(req, res = response) {
   })
 }
 
-// http://<HOST>/api/bitWorker/:id/deleteArpList/:arpId
-router.delete('/:id/deleteArpList/:arpId', [verifyToken], deleteArpList)
+// http://<HOST>/api/bitWorker/:id/deleteArpList/:serviceId
+router.delete('/:id/deleteArpList/:serviceId', [verifyToken], deleteArpList)
 
 // borrar arp item.
 function deleteArpList(req, res = response) {
-  let {id, arpId} = req.params
-  WorkerController.deleteArpList(arpId, id).then(({data}) => {
+  let {id, serviceId} = req.params
+  WorkerController.deleteArpList(serviceId, id).then(({data}) => {
     res.json(data)
   })
 }
@@ -143,13 +165,13 @@ function createSimpleQueue(req, res = response) {
   })
 }
 
-// http://<HOST>/api/bitWorker/:id/getSimpleQueueById/:simpleQueueId
-router.get('/:id/getSimpleQueueById/:simpleQueueId', [verifyToken], getSimpleQueueById)
+// http://<HOST>/api/bitWorker/:id/getSimpleQueueById/:serviceId
+router.get('/:id/getSimpleQueueById/:serviceId', [verifyToken], getSimpleQueueById)
 
 // Obtener cola simple por id.
 function getSimpleQueueById(req, res = response) {
-  let {id, simpleQueueId} = req.params
-  WorkerController.getSimpleQueueById(simpleQueueId, id).then(({data}) => {
+  let {id, serviceId} = req.params
+  WorkerController.getSimpleQueueById(serviceId, id).then(({data}) => {
     res.json(data)
   })
 }
@@ -164,13 +186,13 @@ function updateSimpleQueue(req, res = response) {
   })
 }
 
-// http://<HOST>/api/bitWorker/:id/deleteSimpleQueue/:simpleQueueId
-router.delete('/:id/deleteSimpleQueue/:simpleQueueId', [verifyToken], deleteSimpleQueue)
+// http://<HOST>/api/bitWorker/:id/deleteSimpleQueue/:serviceId
+router.delete('/:id/deleteSimpleQueue/:serviceId', [verifyToken], deleteSimpleQueue)
 
 // borrar cola simple.
 function deleteSimpleQueue(req, res = response) {
-  let {id, simpleQueueId} = req.params
-  WorkerController.deleteSimpleQueue(simpleQueueId, id).then(({data}) => {
+  let {id, serviceId} = req.params
+  WorkerController.deleteSimpleQueue(serviceId, id).then(({data}) => {
     res.json(data)
   })
 }

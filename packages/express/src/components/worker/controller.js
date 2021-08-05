@@ -51,6 +51,22 @@ export class WorkerController {
     return axios.get(`${application.urlBase}/Migration/SimpleQueue/${ipAddress}`, {data: {mikrotikId: mikrotik._id}})
   }
 
+  // borrar arp por id.
+  static async deleteArpMigration(mikrotikId, arpId) {
+    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
+    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
+    return axios.delete(`${application.urlBase}/Migration/Arp/${arpId}`, {data: {mikrotikId: mikrotik._id}})
+  }
+
+  // borrar simple-queue por id.
+  static async deleteSimpleQueueMigration(mikrotikId, simpleQueueId) {
+    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
+    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
+    return axios.delete(`${application.urlBase}/Migration/SimpleQueue/${simpleQueueId}`, {data: {mikrotikId: mikrotik._id}})
+  }
+
   // ====================================================================================================
 
   // Lista arp.
@@ -70,27 +86,27 @@ export class WorkerController {
   }
 
   // obtener registro arp.
-  static async getArpListById(arpId, mikrotikId) {
+  static async getArpListById(serviceId, mikrotikId) {
     let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.get(`${application.urlBase}/ArpList/${arpId}`, {data: {mikrotikId: mikrotik._id}})
+    return axios.get(`${application.urlBase}/ArpList/${serviceId}`, {data: {mikrotikId: mikrotik._id}})
   }
 
   // actualizar registro arp.
-  static async updateArpList(arpId, data) {
+  static async updateArpList(serviceId, data) {
     let mikrotik = await MikrotikStore.getMikrotikById(data.mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.put(`${application.urlBase}/ArpList/${arpId}`, data)
+    return axios.put(`${application.urlBase}/ArpList/${serviceId}`, data)
   }
 
   // borrar registro arp.
-  static async deleteArpList(arpId, mikrotikId) {
+  static async deleteArpList(serviceId, mikrotikId) {
     let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.delete(`${application.urlBase}/ArpList/${arpId}`, {data: {mikrotikId: mikrotik._id}})
+    return axios.delete(`${application.urlBase}/ArpList/${serviceId}`, {data: {mikrotikId: mikrotik._id}})
   }
 
   // Lista arp  por campo deshabilitado.
@@ -120,27 +136,27 @@ export class WorkerController {
   }
 
   // obtener registro cola simple.
-  static async getSimpleQueueById(simpleQueueId, mikrotikId) {
+  static async getSimpleQueueById(serviceId, mikrotikId) {
     let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.get(`${application.urlBase}/SimpleQueue/${simpleQueueId}`, {data: {mikrotikId: mikrotik._id}})
+    return axios.get(`${application.urlBase}/SimpleQueue/${serviceId}`, {data: {mikrotikId: mikrotik._id}})
   }
 
   // actualizar registro cola simple.
-  static async updateSimpleQueue(simpleQueueId, data) {
+  static async updateSimpleQueue(serviceId, data) {
     let mikrotik = await MikrotikStore.getMikrotikById(data.mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.put(`${application.urlBase}/SimpleQueue/${simpleQueueId}`, data)
+    return axios.put(`${application.urlBase}/SimpleQueue/${serviceId}`, data)
   }
 
   // borrar registro cola simple.
-  static async deleteSimpleQueue(simpleQueueId, mikrotikId) {
+  static async deleteSimpleQueue(serviceId, mikrotikId) {
     let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.delete(`${application.urlBase}/SimpleQueue/${simpleQueueId}`, {data: {mikrotikId: mikrotik._id}})
+    return axios.delete(`${application.urlBase}/SimpleQueue/${serviceId}`, {data: {mikrotikId: mikrotik._id}})
   }
 
   // Lista de cola simple por campo deshabilitado.

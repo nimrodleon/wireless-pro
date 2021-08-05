@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
+import {BitWorkerService} from 'src/app/system/services';
 import {AuthService} from 'src/app/user/services';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {ServiceDetailService} from '../../services';
@@ -29,13 +30,16 @@ export class ServiceDetailComponent implements OnInit {
   titlePayment: string;
   // ============================================================
   currentRole: string;
+  workerActivityList: Array<any>;
+  workerActivityYear: FormControl = this.fb.control(moment().format('YYYY'));
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private serviceDetailService: ServiceDetailService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private bitWorkerService: BitWorkerService) {
   }
 
   ngOnInit(): void {
@@ -43,6 +47,7 @@ export class ServiceDetailComponent implements OnInit {
       this.serviceDetailService.getCurrentService(params.get('id'));
       this.serviceDetailService.getAveriaList(params.get('id'), this.averiaYearInput.value);
       this.serviceDetailService.getPaymentList(params.get('id'), this.paymentYearInput.value);
+      this.getWorkerActivityList(params.get('id'), this.workerActivityYear.value);
     });
     // vincular modal servicios.
     this.serviceModal = new bootstrap.Modal(
@@ -276,6 +281,80 @@ export class ServiceDetailComponent implements OnInit {
         }
       });
     }
+  }
+
+  // ====================================================================================================
+
+  // Lista de estado de cambios.
+  private getWorkerActivityList(serviceId: string, year: string): void {
+    this.bitWorkerService.getWorkerActivities(serviceId, year).subscribe(result => {
+      this.workerActivityList = result;
+    });
+  }
+
+  // botón cargar lista estado de cambios.
+  getWorkerActivityListClick(): void {
+    this.getWorkerActivityList(this.currentService._id, this.workerActivityYear.value);
+  }
+
+  // Habilitar servicio.
+  enableServiceInBitWorker(event: any): void {
+    event.preventDefault();
+    this.bitWorkerService.createWorkerActivity({
+      serviceId: this.currentService._id,
+      task: 'HABILITAR SERVICIO',
+      remark: '-'
+    }).subscribe(() => {
+      this.getWorkerActivityListClick();
+    });
+  }
+
+  // Suspender servicio.
+  suspendServiceInBitWorker(event: any): void {
+    event.preventDefault();
+    this.bitWorkerService.createWorkerActivity({
+      serviceId: this.currentService._id,
+      task: 'SUSPENDER SERVICIO',
+      remark: '-'
+    }).subscribe(() => {
+      this.getWorkerActivityListClick();
+    });
+  }
+
+  // Cambiar plan de servicio.
+  changeServicePlanInBitWorker(event: any): void {
+    event.preventDefault();
+    this.bitWorkerService.createWorkerActivity({
+      serviceId: this.currentService._id,
+      task: 'CAMBIAR PLAN DE SERVICIO',
+      remark: '-'
+    }).subscribe(() => {
+      this.getWorkerActivityListClick();
+    });
+  }
+
+  // Registrar servicio.
+  registerServiceInBitWorker(event: any): void {
+    event.preventDefault();
+    this.bitWorkerService.createWorkerActivity({
+      serviceId: this.currentService._id,
+      task: 'REGISTRAR SERVICIO',
+      remark: '-'
+    }).subscribe(() => {
+      this.getWorkerActivityListClick();
+    });
+  }
+
+  // Borrar servicio.
+  deleteServiceInBitWorker(event: any): void {
+    event.preventDefault();
+    this.bitWorkerService.createWorkerActivity({
+      serviceId: this.currentService._id,
+      task: 'BORRAR SERVICIO',
+      remark: '-'
+    }).subscribe(() => {
+      this.getWorkerActivityListClick();
+    });
   }
 
 }
