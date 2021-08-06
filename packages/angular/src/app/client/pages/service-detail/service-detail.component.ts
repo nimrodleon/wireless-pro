@@ -336,9 +336,71 @@ export class ServiceDetailComponent implements OnInit {
   // Registrar servicio.
   registerServiceInBitWorker(event: any): void {
     event.preventDefault();
+    Sweetalert2.messageConfirm().then(result => {
+      if (result.isConfirmed) {
+        // comprobar que el servicio no este registrado.
+        let {mikrotikId, ipAddress} = this.currentService;
+        this.bitWorkerService.getArpListByIpAddress(mikrotikId, ipAddress)
+          .subscribe(result => {
+            // registrar si el valor del resultado es cero.
+            if (Array.from(result).length > 0) {
+              // migrar registro actual.
+              console.log('No');
+            } else {
+              console.log('Ok');
+              // registrar nuevo servicio.
+              this.bitWorkerService.getInterfaceNameById(this.currentService.interfaceId)
+                .subscribe(interfaceName => {
+                  // registrar arp-item.
+                  this.bitWorkerService.createArpList({
+                    address: this.currentService.ipAddress,
+                    macAddress: this.currentService.macAddress,
+                    interface: interfaceName,
+                    comment: this.currentClient.fullName,
+                    disabled: 'no',
+                    mikrotikId: this.currentService.mikrotikId,
+                    serviceId: this.currentService._id
+                  }).subscribe(() => {
+                    // registrar cola-simple.
+                    this.bitWorkerService.createSimpleQueue({
+                      name: this.currentService._id,
+                      target: this.currentService.ipAddress,
+                      maxLimit: `${this.currentServicePlan.uploadSpeed}/${this.currentServicePlan.downloadSpeed}`,
+                      limitAt: '0/0',
+                      comment: this.currentClient.fullName,
+                      disabled: 'no',
+                      mikrotikId: this.currentService.mikrotikId,
+                      serviceId: this.currentService._id
+                    }).subscribe(() => {
+                      this.bitWorkerService.createWorkerActivity({
+                        serviceId: this.currentService._id,
+                        task: 'REGISTRAR SERVICIO',
+                        remark: '-'
+                      }).subscribe(() => {
+                        this.getWorkerActivityListClick();
+                      });
+                    });
+                  });
+                });
+            }
+          });
+      }
+    });
+    // this.bitWorkerService.createWorkerActivity({
+    //   serviceId: this.currentService._id,
+    //   task: 'REGISTRAR SERVICIO',
+    //   remark: '-'
+    // }).subscribe(() => {
+    //   this.getWorkerActivityListClick();
+    // });
+  }
+
+  // Actualizar servicio.
+  updateServiceInBitWorker(event: any): void {
+    event.preventDefault();
     this.bitWorkerService.createWorkerActivity({
       serviceId: this.currentService._id,
-      task: 'REGISTRAR SERVICIO',
+      task: 'ACTUALIZAR SERVICIO',
       remark: '-'
     }).subscribe(() => {
       this.getWorkerActivityListClick();

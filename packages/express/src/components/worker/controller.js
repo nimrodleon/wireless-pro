@@ -10,7 +10,7 @@ export class WorkerController {
     let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.post(`${application.urlBase}/Migration/Mikrotik/Add`, {
+    return axios.post(`${application.urlBase}/Mikrotik/Add`, {
       'ipAddress': mikrotik.host,
       'port': mikrotik.port,
       'userName': mikrotik.userName,
@@ -19,52 +19,20 @@ export class WorkerController {
     })
   }
 
-  // cache arp.
-  static async migrationArpCache(mikrotikId) {
-    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
-    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
-    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.post(`${application.urlBase}/Migration/Arp/Cache`, {mikrotikId: mikrotik._id})
-  }
-
-  // cache cola simple.
-  static async migrationSimpleQueueCache(mikrotikId) {
-    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
-    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
-    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.post(`${application.urlBase}/Migration/SimpleQueue/Cache`, {mikrotikId: mikrotik._id})
-  }
-
   // obtener lista arp por <ip-address>.
   static async getArpListByIpAddress(mikrotikId, ipAddress) {
     let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.get(`${application.urlBase}/Migration/Arp/${ipAddress}`, {data: {mikrotikId: mikrotik._id}})
+    return axios.get(`${application.urlBase}/Mikrotik/Arp/${ipAddress}`, {data: {mikrotikId: mikrotik._id}})
   }
 
-  // obtener lista de cola simple por <ip-address>.
-  static async getSimpleQueueByIpAddress(mikrotikId, ipAddress) {
+  // obtener lista de cola simple por <name>.
+  static async getSimpleQueueByName(mikrotikId, name) {
     let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
     let application = await InfoStore.getApplicationId(mikrotik.applicationId)
     axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.get(`${application.urlBase}/Migration/SimpleQueue/${ipAddress}`, {data: {mikrotikId: mikrotik._id}})
-  }
-
-  // borrar arp por id.
-  static async deleteArpMigration(mikrotikId, arpId) {
-    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
-    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
-    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.delete(`${application.urlBase}/Migration/Arp/${arpId}`, {data: {mikrotikId: mikrotik._id}})
-  }
-
-  // borrar simple-queue por id.
-  static async deleteSimpleQueueMigration(mikrotikId, simpleQueueId) {
-    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
-    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
-    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
-    return axios.delete(`${application.urlBase}/Migration/SimpleQueue/${simpleQueueId}`, {data: {mikrotikId: mikrotik._id}})
+    return axios.get(`${application.urlBase}/Mikrotik/SimpleQueue/${name}`, {data: {mikrotikId: mikrotik._id}})
   }
 
   // ====================================================================================================

@@ -4,7 +4,6 @@ declare var bootstrap: any;
 import {BitWorkerService, MikrotikService} from '../../services';
 import {Mikrotik} from '../../interfaces';
 import {Sweetalert2} from 'src/app/global/interfaces';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mikrotik-list',
@@ -86,22 +85,6 @@ export class MikrotikListComponent implements OnInit {
         this.bitWorkerService.addMikrotik(this.currentMikrotik._id)
           .subscribe(async () => {
             await Sweetalert2.messageSuccess();
-          });
-      }
-    });
-  }
-
-  // generar migración de datos.
-  generateMigration(event: any): void {
-    event.preventDefault();
-    Sweetalert2.messageConfirm().then(result => {
-      if (result.isConfirmed) {
-        this.bitWorkerService.arpCache(this.currentMikrotik._id)
-          .subscribe(() => {
-            this.bitWorkerService.simpleQueueCache(this.currentMikrotik._id)
-              .subscribe(async () => {
-                await Sweetalert2.messageSuccess();
-              });
           });
       }
     });

@@ -251,6 +251,12 @@
                 </li>
                 <li>
                   <a class="dropdown-item" href="#"
+                     (click)="updateServiceInBitWorker($event)">
+                    <span class="text-uppercase">Actualizar</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
                      (click)="deleteServiceInBitWorker($event)">
                     <span class="text-uppercase">Borrar</span>
                   </a>
@@ -284,6 +290,7 @@
             </tbody>
           </table>
         </div>
+        <pre>{{currentService|json}}</pre>
         <pre>{{workerActivityList|json}}</pre>
         <!-- ##(End) Estado de cambios -->
       </div>

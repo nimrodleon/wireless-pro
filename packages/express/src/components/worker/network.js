@@ -14,26 +14,6 @@ function addMikrotik(req, res = response) {
   })
 }
 
-// http://<HOST>/api/bitWorker/:id/arp/cache
-router.get('/:id/arp/cache', [verifyToken], arpCache)
-
-// cargar arp a la cache.
-function arpCache(req, res = response) {
-  WorkerController.migrationArpCache(req.params.id).then(({data}) => {
-    res.json(data)
-  })
-}
-
-// http://<HOST>/api/bitWorker/:id/simple-queue/cache
-router.get('/:id/simple-queue/cache', [verifyToken], simpleQueueCache)
-
-// cargar cola simple a la cache.
-function simpleQueueCache(req, res = response) {
-  WorkerController.migrationSimpleQueueCache(req.params.id).then(({data}) => {
-    res.json(data)
-  })
-}
-
 // http://<HOST>/api/bitWorker/:id/getArpListByIpAddress/:ipAddress
 router.get('/:id/getArpListByIpAddress/:ipAddress', [verifyToken], getArpListByIpAddress)
 
@@ -45,35 +25,13 @@ function getArpListByIpAddress(req, res = response) {
   })
 }
 
-// http://<HOST>/api/bitWorker/:id/getSimpleQueueByIpAddress/:ipAddress
-router.get('/:id/getSimpleQueueByIpAddress/:ipAddress', [verifyToken], getSimpleQueueByIpAddress)
+// http://<HOST>/api/bitWorker/:id/getSimpleQueueByName/:name
+router.get('/:id/getSimpleQueueByName/:name', [verifyToken], getSimpleQueueByName)
 
-// cargar lista cola simple por ipAddress.
-function getSimpleQueueByIpAddress(req, res = response) {
-  let {id, ipAddress} = req.params
-  WorkerController.getSimpleQueueByIpAddress(id, ipAddress).then(({data}) => {
-    res.json(data)
-  })
-}
-
-// http://<HOST>/api/bitWorker/:id/deleteArpMigration/:arpId
-router.delete('/:id/deleteArpMigration/:arpId', [verifyToken], deleteArpMigration)
-
-// borrar arp por id.
-function deleteArpMigration(req, res = response) {
-  let {id, arpId} = req.params
-  WorkerController.deleteArpMigration(id, arpId).then(({data}) => {
-    res.json(data)
-  })
-}
-
-// http://<HOST>/api/bitWorker/:id/deleteArpMigration/:arpId
-router.delete('/:id/deleteSimpleQueueMigration/:simpleQueueId', [verifyToken], deleteSimpleQueueMigration)
-
-// borrar simple-queue por id.
-function deleteSimpleQueueMigration(req, res = response) {
-  let {id, simpleQueueId} = req.params
-  WorkerController.deleteSimpleQueueMigration(id, simpleQueueId).then(({data}) => {
+// cargar lista cola simple por nombre.
+function getSimpleQueueByName(req, res = response) {
+  let {id, name} = req.params
+  WorkerController.getSimpleQueueByName(id, name).then(({data}) => {
     res.json(data)
   })
 }

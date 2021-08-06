@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {Observable} from 'rxjs';
+import {InterfaceService} from './interface.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class BitWorkerService {
   private baseURL: string = environment.baseUrl + 'bitWorker';
 
   constructor(
-    private http: HttpClient) {
+    private http: HttpClient,
+    private interfaceService: InterfaceService) {
   }
 
   // agregar mikrotik.
@@ -18,34 +20,14 @@ export class BitWorkerService {
     return this.http.get(`${this.baseURL}/${mikrotikId}/mikrotik/add`);
   }
 
-  // cargar arp a la cache.
-  arpCache(mikrotikId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/arp/cache`);
-  }
-
-  // cargar cola simple a la cache.
-  simpleQueueCache(mikrotikId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/simple-queue/cache`);
-  }
-
   // buscar arp por ipAddress.
   getArpListByIpAddress(mikrotikId: string, ipAddress: string): Observable<any> {
     return this.http.get(`${this.baseURL}/${mikrotikId}/getArpListByIpAddress/${ipAddress}`);
   }
 
-  // buscar cola simple por ipAddress.
-  getSimpleQueueByIpAddress(mikrotikId: string, ipAddress: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueByIpAddress/${ipAddress}`);
-  }
-
-  // borrar arp por id.
-  deleteArpMigration(mikrotikId: string, arpId: string): Observable<any> {
-    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteArpMigration/${arpId}`);
-  }
-
-  // borrar cola-simple por id.
-  deleteSimpleQueueMigration(mikrotikId: string, simpleQueueId: string): Observable<any> {
-    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteSimpleQueueMigration/${simpleQueueId}`);
+  // buscar cola simple por nombre.
+  getSimpleQueueByName(mikrotikId: string, name: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueByName/${name}`);
   }
 
   // ====================================================================================================
@@ -122,6 +104,15 @@ export class BitWorkerService {
   // registrar cambios de estado.
   createWorkerActivity(data: any): Observable<any> {
     return this.http.post(`${this.baseURL}/createWorkerActivity`, data);
+  }
+
+  // Obtener nombre de la interfaz mikrotik.
+  getInterfaceNameById(interfaceId: string): Observable<string> {
+    let subject = new Subject<string>();
+    this.interfaceService.getInterfaceById(interfaceId).subscribe(result => {
+      subject.next(result.name);
+    });
+    return subject.asObservable();
   }
 
 }
