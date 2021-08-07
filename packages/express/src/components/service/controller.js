@@ -57,6 +57,17 @@ export class ServiceController {
     })
   }
 
+  // cambiar plan de servicio.
+  static changeServicePlan(id, servicePlanId) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.changeServicePlan(id, servicePlanId))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // reporte instalaciones diarias.
   // static reportDailyInstallations(date) {
   //   return new Promise((resolve, reject) => {

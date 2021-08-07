@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {Client, Payment, Service} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
@@ -68,14 +68,22 @@ export class ServiceDetailService {
   // ============================================================
 
   // cargar valores por defecto.
-  getCurrentService(serviceId: string): void {
-    this.serviceService.getServiceById(serviceId).subscribe(result => {
-      this._currentService = result;
-      this.clientService.getClientById(result.clientId)
-        .subscribe(result => this._currentClient = result);
-      this.servicePlanService.getServicePlan(result.servicePlanId)
-        .subscribe(result => this._currentServicePlan = result);
-    });
+  getCurrentService(serviceId: string): Observable<boolean> {
+    let subject = new Subject<boolean>();
+    this.serviceService.getServiceById(serviceId)
+      .subscribe(service => {
+        this._currentService = service;
+        this.clientService.getClientById(service.clientId)
+          .subscribe(result => {
+            this._currentClient = result;
+            this.servicePlanService.getServicePlan(service.servicePlanId)
+              .subscribe(result => {
+                this._currentServicePlan = result;
+                subject.next(true);
+              });
+          });
+      });
+    return subject.asObservable();
   }
 
   // borrar servicio actual.
@@ -83,6 +91,11 @@ export class ServiceDetailService {
     this.serviceService.deleteService(serviceId).subscribe(() => {
       Sweetalert2.deleteSuccess();
     });
+  }
+
+  // cambiar plan de servicio.
+  changeServicePlan(id: string, servicePlanId: string): Observable<Service> {
+    return this.serviceService.changeServicePlan(id, servicePlanId);
   }
 
   // ============================================================

@@ -33,6 +33,11 @@ export class ServiceService {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
+  // cambiar plan de servicio.
+  changeServicePlan(id: string, servicePlanId: string): Observable<Service> {
+    return this.http.put<Service>(`${this.baseURL}/${id}/changeServicePlan`, {servicePlanId});
+  }
+
   // paymentsCount(id: string): Observable<number> {
   //   return this.http.get<number>(`${this.baseURL}/${id}/payments/count`);
   // }

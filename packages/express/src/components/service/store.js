@@ -37,6 +37,13 @@ export class ServiceStore {
     return this.updateService(id, _service)
   }
 
+  // cambiar plan de servicio.
+  static async changeServicePlan(id, servicePlanId) {
+    let _service = await this.getService(id)
+    _service.servicePlanId = servicePlanId
+    return this.updateService(id, _service)
+  }
+
   // reporte instalaciones diarias.
   // static async reportDailyInstallations(date) {
   //   return Service.find({createdAt: date})

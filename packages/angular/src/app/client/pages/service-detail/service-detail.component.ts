@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Observable, Subject} from 'rxjs';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
-import {BitWorkerService} from 'src/app/system/services';
+import {BitWorkerService, ServicePlanService} from 'src/app/system/services';
 import {AuthService} from 'src/app/user/services';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {ServiceDetailService} from '../../services';
@@ -39,12 +40,14 @@ export class ServiceDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private serviceDetailService: ServiceDetailService,
     private authService: AuthService,
-    private bitWorkerService: BitWorkerService) {
+    private bitWorkerService: BitWorkerService,
+    private servicePlanService: ServicePlanService) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      this.serviceDetailService.getCurrentService(params.get('id'));
+      this.serviceDetailService.getCurrentService(params.get('id'))
+        .subscribe(result => console.log(result));
       this.serviceDetailService.getAveriaList(params.get('id'), this.averiaYearInput.value);
       this.serviceDetailService.getPaymentList(params.get('id'), this.paymentYearInput.value);
       this.getWorkerActivityList(params.get('id'), this.workerActivityYear.value);
@@ -127,8 +130,8 @@ export class ServiceDetailComponent implements OnInit {
   // cerrar modal servicios.
   hideServiceModal(value: boolean): void {
     if (value === true) {
-      this.serviceDetailService.getCurrentService(this.currentService._id);
-      this.serviceModal.hide();
+      this.serviceDetailService.getCurrentService(this.currentService._id)
+        .subscribe(() => this.serviceModal.hide());
     }
   }
 
@@ -242,8 +245,8 @@ export class ServiceDetailComponent implements OnInit {
       this.paymentModal.hide();
     }
     if (!print.printReceipt) {
-      this.getPaymentList();
-      this.serviceDetailService.getCurrentService(this.currentService._id);
+      this.serviceDetailService.getCurrentService(this.currentService._id)
+        .subscribe(() => this.getPaymentList());
     } else {
       this.router.navigate(['/client/ticket', print.paymentId])
         .then(() => console.info('Imprimir Ticket'));
@@ -297,39 +300,160 @@ export class ServiceDetailComponent implements OnInit {
     this.getWorkerActivityList(this.currentService._id, this.workerActivityYear.value);
   }
 
-  // Habilitar servicio.
-  enableServiceInBitWorker(event: any): void {
-    event.preventDefault();
-    this.bitWorkerService.createWorkerActivity({
-      serviceId: this.currentService._id,
-      task: 'HABILITAR SERVICIO',
-      remark: '-'
-    }).subscribe(() => {
-      this.getWorkerActivityListClick();
+  // valores del registro simpleQueue.
+  getSimpleQueueValues(disabled: string): any {
+    return {
+      name: this.currentService._id,
+      target: this.currentService.ipAddress,
+      maxLimit: `${this.currentServicePlan.uploadSpeed}/${this.currentServicePlan.downloadSpeed}`,
+      limitAt: '0/0',
+      comment: this.currentClient.fullName,
+      disabled: disabled,
+      mikrotikId: this.currentService.mikrotikId,
+      serviceId: this.currentService._id
+    };
+  }
+
+  // valores del registro arp.
+  getArpValues(interfaceId: string, disabled: string): Observable<any> {
+    let subject = new Subject<any>();
+    this.bitWorkerService.getInterfaceNameById(interfaceId).subscribe(interfaceName => {
+      subject.next({
+        address: this.currentService.ipAddress,
+        macAddress: this.currentService.macAddress,
+        interface: interfaceName,
+        comment: this.currentClient.fullName,
+        disabled: disabled,
+        mikrotikId: this.currentService.mikrotikId,
+        serviceId: this.currentService._id
+      });
     });
+    return subject.asObservable();
+  }
+
+  // valores planes de servicio.
+  getServicePlan(): Observable<any> {
+    let subject = new Subject<any>();
+    this.servicePlanService.getServicePlans()
+      .subscribe(result => {
+        let data = {};
+        Array.from(result).forEach(item => {
+          data[item._id] = item.name;
+        });
+        subject.next(data);
+      });
+    return subject.asObservable();
+  }
+
+  // Habilitar servicio.
+  async enableServiceInBitWorker(event: any) {
+    event.preventDefault();
+    const {value: option} = await Swal.fire({
+      title: 'HABILITAR SERVICIO',
+      input: 'select',
+      inputOptions: {
+        'N01': 'ACTIVACIÓN POR REGISTRO DE PAGO',
+        'N02': 'ACTIVACIÓN A SOLICITUD DEL CLIENTE',
+      },
+      inputPlaceholder: 'Seleccione una opción',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (option) {
+      Swal.fire(`You selected: ${option}`);
+    }
+
+
+    // this.bitWorkerService.createWorkerActivity({
+    //   serviceId: this.currentService._id,
+    //   task: 'HABILITAR SERVICIO',
+    //   remark: '-'
+    // }).subscribe(() => {
+    //   this.getWorkerActivityListClick();
+    // });
+
   }
 
   // Suspender servicio.
-  suspendServiceInBitWorker(event: any): void {
+  async suspendServiceInBitWorker(event: any) {
     event.preventDefault();
-    this.bitWorkerService.createWorkerActivity({
-      serviceId: this.currentService._id,
-      task: 'SUSPENDER SERVICIO',
-      remark: '-'
-    }).subscribe(() => {
-      this.getWorkerActivityListClick();
+    const {value: option} = await Swal.fire({
+      title: 'SUSPENSIÓN DE SERVICIO',
+      input: 'select',
+      inputOptions: {
+        'N03': 'CORTE POR FALTA DE PAGO',
+        'N04': 'SUSPENSIÓN A SOLICITUD DEL CLIENTE'
+      },
+      inputPlaceholder: 'Seleccione una opción',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar'
     });
+
+    if (option) {
+      Swal.fire(`You selected: ${option}`);
+    }
+
+    // this.bitWorkerService.createWorkerActivity({
+    //   serviceId: this.currentService._id,
+    //   task: 'SUSPENDER SERVICIO',
+    //   remark: '-'
+    // }).subscribe(() => {
+    //   this.getWorkerActivityListClick();
+    // });
+
   }
 
   // Cambiar plan de servicio.
   changeServicePlanInBitWorker(event: any): void {
     event.preventDefault();
-    this.bitWorkerService.createWorkerActivity({
-      serviceId: this.currentService._id,
-      task: 'CAMBIAR PLAN DE SERVICIO',
-      remark: '-'
-    }).subscribe(() => {
-      this.getWorkerActivityListClick();
+    this.getServicePlan().subscribe(async (result) => {
+      const {value: option} = await Swal.fire({
+        title: 'PLANES DE SERVICIO',
+        input: 'select',
+        inputOptions: {...result},
+        inputPlaceholder: 'Seleccione una opción',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar'
+      });
+      if (option) {
+        let {mikrotikId} = this.currentService;
+        let serviceId = this.currentService._id;
+        this.bitWorkerService.getSimpleQueueById(mikrotikId, serviceId)
+          .subscribe(async (data) => {
+            if (!data.ok) {
+              await Sweetalert2.errorMessage();
+            } else {
+              // obtener el plan de servicio seleccionado.
+              this.servicePlanService.getServicePlan(option)
+                .subscribe(result => {
+                  // cambiar el plan de servicio - del servicio actual.
+                  this.serviceDetailService.changeServicePlan(serviceId, result._id)
+                    .subscribe(async () => {
+                      // volver a cargar el servicio actual.
+                      this.serviceDetailService.getCurrentService(serviceId)
+                        .subscribe(() => {
+                          // actualizar datos en el router mikrotik.
+                          let disabled = data.simpleQueue.disabled;
+                          if (disabled === 'true' || disabled === 'false')
+                            disabled = disabled === 'true' ? 'yes' : 'no';
+                          this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues(disabled))
+                            .subscribe(() => {
+                              // registrar worker activity.
+                              this.bitWorkerService.createWorkerActivity({
+                                serviceId: this.currentService._id,
+                                task: 'CAMBIAR PLAN DE SERVICIO',
+                                remark: result.name,
+                              }).subscribe(() => {
+                                this.getWorkerActivityListClick();
+                              });
+                            });
+                        });
+                    });
+                });
+            }
+          });
+      }
     });
   }
 
@@ -339,83 +463,111 @@ export class ServiceDetailComponent implements OnInit {
     Sweetalert2.messageConfirm().then(result => {
       if (result.isConfirmed) {
         // comprobar que el servicio no este registrado.
-        let {mikrotikId, ipAddress} = this.currentService;
-        this.bitWorkerService.getArpListByIpAddress(mikrotikId, ipAddress)
-          .subscribe(result => {
-            // registrar si el valor del resultado es cero.
-            if (Array.from(result).length > 0) {
-              // migrar registro actual.
-              console.log('No');
+        let {mikrotikId, ipAddress, interfaceId} = this.currentService;
+        if (!mikrotikId) return Sweetalert2.errorMessage();
+        // comprobar que servicio no este registro.
+        this.bitWorkerService.getArpListById(mikrotikId, this.currentService._id)
+          .subscribe(async (result) => {
+            if (result.ok) {
+              await Sweetalert2.errorMessage();
             } else {
-              console.log('Ok');
-              // registrar nuevo servicio.
-              this.bitWorkerService.getInterfaceNameById(this.currentService.interfaceId)
-                .subscribe(interfaceName => {
-                  // registrar arp-item.
-                  this.bitWorkerService.createArpList({
-                    address: this.currentService.ipAddress,
-                    macAddress: this.currentService.macAddress,
-                    interface: interfaceName,
-                    comment: this.currentClient.fullName,
-                    disabled: 'no',
-                    mikrotikId: this.currentService.mikrotikId,
-                    serviceId: this.currentService._id
-                  }).subscribe(() => {
-                    // registrar cola-simple.
-                    this.bitWorkerService.createSimpleQueue({
-                      name: this.currentService._id,
-                      target: this.currentService.ipAddress,
-                      maxLimit: `${this.currentServicePlan.uploadSpeed}/${this.currentServicePlan.downloadSpeed}`,
-                      limitAt: '0/0',
-                      comment: this.currentClient.fullName,
-                      disabled: 'no',
-                      mikrotikId: this.currentService.mikrotikId,
-                      serviceId: this.currentService._id
-                    }).subscribe(() => {
-                      this.bitWorkerService.createWorkerActivity({
-                        serviceId: this.currentService._id,
-                        task: 'REGISTRAR SERVICIO',
-                        remark: '-'
-                      }).subscribe(() => {
-                        this.getWorkerActivityListClick();
+              // comprobar que la ip del servicio no este registro en el mikrotik.
+              this.bitWorkerService.getArpListByIpAddress(mikrotikId, ipAddress)
+                .subscribe(async (result) => {
+                  if (result.ok) {
+                    await Sweetalert2.errorMessage();
+                  } else {
+                    // registrar nuevo servicio.
+                    if (!interfaceId) return Sweetalert2.errorMessage();
+                    this.getArpValues(interfaceId, 'no').subscribe(data => {
+                      this.bitWorkerService.createArpList(data).subscribe(() => {
+                        this.bitWorkerService.createSimpleQueue(this.getSimpleQueueValues('no'))
+                          .subscribe(() => {
+                            Sweetalert2.messageSuccess();
+                            this.bitWorkerService.createWorkerActivity({
+                              serviceId: this.currentService._id,
+                              task: 'REGISTRAR SERVICIO',
+                              remark: '-'
+                            }).subscribe(() => {
+                              this.getWorkerActivityListClick();
+                            });
+                          });
                       });
                     });
-                  });
+                  }
                 });
             }
           });
       }
     });
-    // this.bitWorkerService.createWorkerActivity({
-    //   serviceId: this.currentService._id,
-    //   task: 'REGISTRAR SERVICIO',
-    //   remark: '-'
-    // }).subscribe(() => {
-    //   this.getWorkerActivityListClick();
-    // });
   }
 
   // Actualizar servicio.
   updateServiceInBitWorker(event: any): void {
     event.preventDefault();
-    this.bitWorkerService.createWorkerActivity({
-      serviceId: this.currentService._id,
-      task: 'ACTUALIZAR SERVICIO',
-      remark: '-'
-    }).subscribe(() => {
-      this.getWorkerActivityListClick();
+    Sweetalert2.messageConfirm().then(result => {
+      if (result.isConfirmed) {
+        let serviceId = this.currentService._id;
+        let {mikrotikId, interfaceId} = this.currentService;
+        if (!mikrotikId) return Sweetalert2.errorMessage();
+        this.bitWorkerService.getArpListById(mikrotikId, serviceId)
+          .subscribe(async (result) => {
+            let {arpItem} = result;
+            if (!result.ok) {
+              await Sweetalert2.errorMessage();
+            } else {
+              if (!interfaceId) return Sweetalert2.errorMessage();
+              this.getArpValues(interfaceId, arpItem.disabled).subscribe(data => {
+                this.bitWorkerService.updateArpList(serviceId, data).subscribe(() => {
+                  this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues(arpItem.disabled))
+                    .subscribe(() => {
+                      Sweetalert2.messageSuccess();
+                      this.bitWorkerService.createWorkerActivity({
+                        serviceId: this.currentService._id,
+                        task: 'ACTUALIZAR SERVICIO',
+                        remark: '-'
+                      }).subscribe(() => {
+                        this.getWorkerActivityListClick();
+                      });
+                    });
+                });
+              });
+            }
+          });
+      }
     });
   }
 
   // Borrar servicio.
   deleteServiceInBitWorker(event: any): void {
     event.preventDefault();
-    this.bitWorkerService.createWorkerActivity({
-      serviceId: this.currentService._id,
-      task: 'BORRAR SERVICIO',
-      remark: '-'
-    }).subscribe(() => {
-      this.getWorkerActivityListClick();
+    Sweetalert2.deleteConfirm().then(result => {
+      if (result.isConfirmed) {
+        let serviceId = this.currentService._id;
+        let {mikrotikId} = this.currentService;
+        if (!mikrotikId) return Sweetalert2.errorMessage();
+        this.bitWorkerService.getArpListById(mikrotikId, serviceId)
+          .subscribe(async (result) => {
+            if (!result.ok) {
+              await Sweetalert2.errorMessage();
+            } else {
+              this.bitWorkerService.deleteArpList(mikrotikId, serviceId)
+                .subscribe(() => {
+                  this.bitWorkerService.deleteSimpleQueue(mikrotikId, serviceId)
+                    .subscribe(() => {
+                      Sweetalert2.deleteSuccess();
+                      this.bitWorkerService.createWorkerActivity({
+                        serviceId: this.currentService._id,
+                        task: 'BORRAR SERVICIO',
+                        remark: '-'
+                      }).subscribe(() => {
+                        this.getWorkerActivityListClick();
+                      });
+                    });
+                });
+            }
+          });
+      }
     });
   }
 
