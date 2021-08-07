@@ -345,6 +345,17 @@ export class ServiceDetailComponent implements OnInit {
     return subject.asObservable();
   }
 
+  // obtener nota de operación.
+  getOperationDescription(id: string) {
+    let remarkStatusChange = {
+      'N01': 'ACTIVACIÓN POR REGISTRO DE PAGO',
+      'N02': 'ACTIVACIÓN A SOLICITUD DEL CLIENTE',
+      'N03': 'CORTE POR FALTA DE PAGO',
+      'N04': 'SUSPENSIÓN A SOLICITUD DEL CLIENTE'
+    };
+    return remarkStatusChange[id];
+  }
+
   // Habilitar servicio.
   async enableServiceInBitWorker(event: any) {
     event.preventDefault();
@@ -361,18 +372,32 @@ export class ServiceDetailComponent implements OnInit {
     });
 
     if (option) {
-      Swal.fire(`You selected: ${option}`);
+      let serviceId = this.currentService._id;
+      let {mikrotikId, interfaceId} = this.currentService;
+      this.bitWorkerService.getSimpleQueueById(mikrotikId, serviceId)
+        .subscribe(async (data) => {
+          if (!data.ok) {
+            await Sweetalert2.errorMessage();
+          } else {
+            if (!interfaceId) return Sweetalert2.errorMessage();
+            this.getArpValues(interfaceId, 'no').subscribe(arpData => {
+              this.bitWorkerService.updateArpList(serviceId, arpData).subscribe(() => {
+                this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues('no'))
+                  .subscribe(() => {
+                    Sweetalert2.messageSuccess();
+                    this.bitWorkerService.createWorkerActivity({
+                      serviceId: this.currentService._id,
+                      task: 'HABILITAR SERVICIO',
+                      remark: this.getOperationDescription(option)
+                    }).subscribe(() => {
+                      this.getWorkerActivityListClick();
+                    });
+                  });
+              });
+            });
+          }
+        });
     }
-
-
-    // this.bitWorkerService.createWorkerActivity({
-    //   serviceId: this.currentService._id,
-    //   task: 'HABILITAR SERVICIO',
-    //   remark: '-'
-    // }).subscribe(() => {
-    //   this.getWorkerActivityListClick();
-    // });
-
   }
 
   // Suspender servicio.
@@ -391,17 +416,32 @@ export class ServiceDetailComponent implements OnInit {
     });
 
     if (option) {
-      Swal.fire(`You selected: ${option}`);
+      let serviceId = this.currentService._id;
+      let {mikrotikId, interfaceId} = this.currentService;
+      this.bitWorkerService.getSimpleQueueById(mikrotikId, serviceId)
+        .subscribe(async (data) => {
+          if (!data.ok) {
+            await Sweetalert2.errorMessage();
+          } else {
+            if (!interfaceId) return Sweetalert2.errorMessage();
+            this.getArpValues(interfaceId, 'yes').subscribe(arpData => {
+              this.bitWorkerService.updateArpList(serviceId, arpData).subscribe(() => {
+                this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues('yes'))
+                  .subscribe(() => {
+                    Sweetalert2.messageSuccess();
+                    this.bitWorkerService.createWorkerActivity({
+                      serviceId: this.currentService._id,
+                      task: 'SUSPENDER SERVICIO',
+                      remark: this.getOperationDescription(option)
+                    }).subscribe(() => {
+                      this.getWorkerActivityListClick();
+                    });
+                  });
+              });
+            });
+          }
+        });
     }
-
-    // this.bitWorkerService.createWorkerActivity({
-    //   serviceId: this.currentService._id,
-    //   task: 'SUSPENDER SERVICIO',
-    //   remark: '-'
-    // }).subscribe(() => {
-    //   this.getWorkerActivityListClick();
-    // });
-
   }
 
   // Cambiar plan de servicio.
@@ -439,7 +479,7 @@ export class ServiceDetailComponent implements OnInit {
                             disabled = disabled === 'true' ? 'yes' : 'no';
                           this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues(disabled))
                             .subscribe(() => {
-                              // registrar worker activity.
+                              Sweetalert2.messageSuccess();
                               this.bitWorkerService.createWorkerActivity({
                                 serviceId: this.currentService._id,
                                 task: 'CAMBIAR PLAN DE SERVICIO',
