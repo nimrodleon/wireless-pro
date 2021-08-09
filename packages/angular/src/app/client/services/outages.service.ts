@@ -8,33 +8,30 @@ import {Outage} from '../interfaces';
   providedIn: 'root'
 })
 export class OutagesService {
-  private baseURL: string = environment.baseUrl + 'services/outages';
+  private baseURL: string = environment.baseUrl + 'outages';
 
   constructor(private http: HttpClient) {
   }
 
-  /**
-   * List outage history.
-   * @param id serviceId
-   */
-  getOutages(id: string): Observable<Outage[]> {
-    return this.http.get<Outage[]>(this.baseURL + '/' + id + '/service');
+  // Lista de cortes.
+  getOutages(id: string): Observable<Array<Outage>> {
+    return this.http.get<Array<Outage>>(`${this.baseURL}/${id}/service`);
   }
 
-  /**
-   * Get service outage.
-   * @param id
-   */
-  getOutage(id: string): Observable<Outage> {
-    return this.http.get<Outage>(this.baseURL + '/' + id);
-  }
-
-  /**
-   * Create Outage document.
-   * @param outage
-   */
-  create(outage: Outage): Observable<Outage> {
-    return this.http.post<Outage>(this.baseURL, outage);
-  }
+  // /**
+  //  * Get service outage.
+  //  * @param id
+  //  */
+  // getOutage(id: string): Observable<Outage> {
+  //   return this.http.get<Outage>(this.baseURL + '/' + id);
+  // }
+  //
+  // /**
+  //  * Create Outage document.
+  //  * @param outage
+  //  */
+  // create(outage: Outage): Observable<Outage> {
+  //   return this.http.post<Outage>(this.baseURL, outage);
+  // }
 
 }

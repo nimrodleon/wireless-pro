@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ClientService} from '../../services';
 import {Client} from '../../interfaces';
 
 @Component({
@@ -28,8 +27,7 @@ export class ClientFormModalComponent implements OnInit {
   });
 
   constructor(
-    private fb: FormBuilder,
-    private clientService: ClientService) {
+    private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -37,9 +35,6 @@ export class ClientFormModalComponent implements OnInit {
     myModal.addEventListener('shown.bs.modal', () => {
       this.clientForm.reset({...this.currentClient});
     });
-    // myModal.addEventListener('hide.bs.modal', () => {
-    //   this.clientForm.reset({...this.clientService.defaultValues()});
-    // });
     this.clientForm.valueChanges
       .subscribe(value => this.currentClient = value);
   }

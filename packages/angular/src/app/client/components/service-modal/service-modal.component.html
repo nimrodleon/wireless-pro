@@ -124,7 +124,9 @@
                 <div class="col-6">
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
-                    <input type="text" formControlName="macAddress" placeholder="MAC Address" class="form-control">
+                    <input type="text" formControlName="macAddress" placeholder="MAC Address"
+                           class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('macAddress')}">
+                    <div class="invalid-feedback">La dirección MAC es requerido.</div>
                   </div>
                 </div>
               </div>

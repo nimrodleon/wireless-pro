@@ -40,7 +40,6 @@ const serviceSchema = new Schema({
     ref: 'Device'
   },
   macAddress: String,
-  // lastOutage: String,
   // ============================================================
   address: String,
   city: String,

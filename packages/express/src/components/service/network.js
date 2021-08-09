@@ -44,6 +44,7 @@ router.post('/', [
   check('mikrotikId', 'El servidor mikrotik es obligatorio').not().isEmpty(),
   check('interfaceId', 'La interfaz mikrotik es obligatorio').not().isEmpty(),
   check('accessPoint', 'El punto de acceso es obligatorio').not().isEmpty(),
+  check('macAddress', 'La dirección MAC es obligatorio').not().isEmpty(),
   check('address', 'La dirección es obligatorio').not().isEmpty(),
   check('city', 'La ciudad es obligatorio').not().isEmpty(),
   check('region', 'La región es obligatorio').not().isEmpty(),

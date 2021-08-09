@@ -9,7 +9,7 @@ declare var bootstrap: any;
 import {BitWorkerService, ServicePlanService} from 'src/app/system/services';
 import {AuthService} from 'src/app/user/services';
 import {Sweetalert2} from 'src/app/global/interfaces';
-import {ServiceDetailService} from '../../services';
+import {OutagesService, ServiceDetailService} from '../../services';
 import {PrintPayment} from '../../interfaces';
 
 @Component({
@@ -41,7 +41,8 @@ export class ServiceDetailComponent implements OnInit {
     private serviceDetailService: ServiceDetailService,
     private authService: AuthService,
     private bitWorkerService: BitWorkerService,
-    private servicePlanService: ServicePlanService) {
+    private servicePlanService: ServicePlanService,
+    private outagesService: OutagesService) {
   }
 
   ngOnInit(): void {
@@ -359,6 +360,9 @@ export class ServiceDetailComponent implements OnInit {
   // Habilitar servicio.
   async enableServiceInBitWorker(event: any) {
     event.preventDefault();
+    if (this.currentRole !== this.roles.ROLE_CASH) {
+      return Sweetalert2.accessDeniedGeneric();
+    }
     const {value: option} = await Swal.fire({
       title: 'HABILITAR SERVICIO',
       input: 'select',
@@ -388,6 +392,7 @@ export class ServiceDetailComponent implements OnInit {
                     this.bitWorkerService.createWorkerActivity({
                       serviceId: this.currentService._id,
                       task: 'HABILITAR SERVICIO',
+                      typeOperation: option,
                       remark: this.getOperationDescription(option)
                     }).subscribe(() => {
                       this.getWorkerActivityListClick();
@@ -403,6 +408,9 @@ export class ServiceDetailComponent implements OnInit {
   // Suspender servicio.
   async suspendServiceInBitWorker(event: any) {
     event.preventDefault();
+    if (this.currentRole !== this.roles.ROLE_CASH) {
+      return Sweetalert2.accessDeniedGeneric();
+    }
     const {value: option} = await Swal.fire({
       title: 'SUSPENSIÓN DE SERVICIO',
       input: 'select',
@@ -432,6 +440,7 @@ export class ServiceDetailComponent implements OnInit {
                     this.bitWorkerService.createWorkerActivity({
                       serviceId: this.currentService._id,
                       task: 'SUSPENDER SERVICIO',
+                      typeOperation: option,
                       remark: this.getOperationDescription(option)
                     }).subscribe(() => {
                       this.getWorkerActivityListClick();
@@ -445,8 +454,11 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Cambiar plan de servicio.
-  changeServicePlanInBitWorker(event: any): void {
+  async changeServicePlanInBitWorker(event: any) {
     event.preventDefault();
+    if (this.currentRole !== this.roles.ROLE_CASH) {
+      return Sweetalert2.accessDeniedGeneric();
+    }
     this.getServicePlan().subscribe(async (result) => {
       const {value: option} = await Swal.fire({
         title: 'PLANES DE SERVICIO',
@@ -483,6 +495,7 @@ export class ServiceDetailComponent implements OnInit {
                               this.bitWorkerService.createWorkerActivity({
                                 serviceId: this.currentService._id,
                                 task: 'CAMBIAR PLAN DE SERVICIO',
+                                typeOperation: '-',
                                 remark: result.name,
                               }).subscribe(() => {
                                 this.getWorkerActivityListClick();
@@ -498,8 +511,11 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Registrar servicio.
-  registerServiceInBitWorker(event: any): void {
+  async registerServiceInBitWorker(event: any) {
     event.preventDefault();
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      return Sweetalert2.accessDeniedGeneric();
+    }
     Sweetalert2.messageConfirm().then(result => {
       if (result.isConfirmed) {
         // comprobar que el servicio no este registrado.
@@ -527,6 +543,7 @@ export class ServiceDetailComponent implements OnInit {
                             this.bitWorkerService.createWorkerActivity({
                               serviceId: this.currentService._id,
                               task: 'REGISTRAR SERVICIO',
+                              typeOperation: '-',
                               remark: '-'
                             }).subscribe(() => {
                               this.getWorkerActivityListClick();
@@ -543,8 +560,11 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Actualizar servicio.
-  updateServiceInBitWorker(event: any): void {
+  async updateServiceInBitWorker(event: any) {
     event.preventDefault();
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      return Sweetalert2.accessDeniedGeneric();
+    }
     Sweetalert2.messageConfirm().then(result => {
       if (result.isConfirmed) {
         let serviceId = this.currentService._id;
@@ -565,6 +585,7 @@ export class ServiceDetailComponent implements OnInit {
                       this.bitWorkerService.createWorkerActivity({
                         serviceId: this.currentService._id,
                         task: 'ACTUALIZAR SERVICIO',
+                        typeOperation: '-',
                         remark: '-'
                       }).subscribe(() => {
                         this.getWorkerActivityListClick();
@@ -579,8 +600,11 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Borrar servicio.
-  deleteServiceInBitWorker(event: any): void {
+  async deleteServiceInBitWorker(event: any) {
     event.preventDefault();
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      return Sweetalert2.accessDeniedGeneric();
+    }
     Sweetalert2.deleteConfirm().then(result => {
       if (result.isConfirmed) {
         let serviceId = this.currentService._id;
@@ -599,6 +623,7 @@ export class ServiceDetailComponent implements OnInit {
                       this.bitWorkerService.createWorkerActivity({
                         serviceId: this.currentService._id,
                         task: 'BORRAR SERVICIO',
+                        typeOperation: '-',
                         remark: '-'
                       }).subscribe(() => {
                         this.getWorkerActivityListClick();
@@ -609,6 +634,29 @@ export class ServiceDetailComponent implements OnInit {
           });
       }
     });
+  }
+
+  // ====================================================================================================
+
+  async cortesAntiguos(event: any) {
+    event.preventDefault();
+    this.outagesService.getOutages(this.currentService._id)
+      .subscribe(result => {
+        let content: string = '';
+        Array.from(result).forEach(item => {
+          content += `
+          <tr>
+            <td>${item.description}</td>
+            <td class="text-end">${item.status === 'A' ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>'}</td>
+            <td>${item.createdAt}</td>
+          </tr>
+          `;
+        });
+        return Swal.fire({
+          title: '<strong>LISTA DE CORTES</strong>',
+          html: `<table class="table table-striped mb-0"><tbody>${content}</tbody></table>`
+        });
+      });
   }
 
 }

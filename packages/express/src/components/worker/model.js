@@ -9,6 +9,7 @@ const workerActivitySchema = new Schema({
   },
   task: String,
   user: String,
+  typeOperation: String,
   remark: String,
   year: {
     type: String,

@@ -39,7 +39,7 @@ export class ServiceModalComponent implements OnInit {
     password: [''],
     basicNote: [''],
     accessPoint: ['', [Validators.required]],
-    macAddress: [''],
+    macAddress: ['', [Validators.required]],
     address: ['', [Validators.required]],
     city: ['', [Validators.required]],
     region: ['', [Validators.required]],

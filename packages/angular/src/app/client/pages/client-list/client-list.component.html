@@ -5,20 +5,29 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex mt-2 justify-content-between">
-          <div class="d-flex align-items-center">
-            <h4 class="text-uppercase m-0 me-2">Lista de Clientes</h4>
-            <div class="btn-group">
-              <button type="button" (click)="addClientModal()" class="btn btn-success">
-                <i class="fas fa-plus"></i><span class="text-uppercase ms-1">Cliente</span>
+          <div class="row row-cols-auto g-2">
+            <div class="col-auto">
+              <h4 class="text-uppercase m-0 mt-1">Lista de Clientes</h4>
+            </div>
+            <div class="col-auto">
+              <div class="btn-group">
+                <button type="button" (click)="addClientModal()" class="btn btn-success">
+                  <i class="fas fa-plus"></i><span class="text-uppercase ms-1">Cliente</span>
+                </button>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown">
+                  <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu text-uppercase">
+                  <li><a class="dropdown-item" routerLink="/client/payment-daily">Diario de pagos</a></li>
+                  <li><a class="dropdown-item" routerLink="/client/receivable">Clientes por Cobrar</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-auto">
+              <button type="button" class="btn btn-warning">
+                <i class="fas fa-download"></i><span class="text-uppercase ms-1">Exportar</span>
               </button>
-              <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                      data-bs-toggle="dropdown">
-                <span class="visually-hidden">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" routerLink="/client/payment-daily">Diario de pagos</a></li>
-                <li><a class="dropdown-item" routerLink="/client/receivable">Clientes por Cobrar</a></li>
-              </ul>
             </div>
           </div><!-- //.d-flex -->
           <form (submit)="searchClient()"

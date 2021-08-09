@@ -266,7 +266,7 @@
           </div>
           <div class="col-auto">
             <label class="col-form-label">
-              <a href="#" class="fw-bold text-danger">[Cortes Antiguos]</a>
+              <a href="#" (click)="cortesAntiguos($event)" class="fw-bold text-danger">[Cortes Antiguos]</a>
             </label>
           </div>
         </form>
@@ -290,8 +290,6 @@
             </tbody>
           </table>
         </div>
-        <pre>{{currentService|json}}</pre>
-        <pre>{{workerActivityList|json}}</pre>
         <!-- ##(End) Estado de cambios -->
       </div>
     </div>
