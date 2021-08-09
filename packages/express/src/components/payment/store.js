@@ -33,10 +33,10 @@ export class PaymentStore {
   }
 
   // reporte pago diario.
-  static async reportDailyPay(date) {
-    return Payment.find({
-      created_date: date
-    }).populate({path: 'client', select: 'fullName'})
-      .populate({path: 'service', select: 'ipAddress'})
+  static async reportePagosDiario(date) {
+    return Payment.find({createdAt: date, isDeleted: false})
+      .populate({path: 'clientId', select: 'fullName'})
+      .populate({path: 'serviceId', select: 'ipAddress'})
   }
+
 }

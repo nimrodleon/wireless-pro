@@ -1,5 +1,5 @@
 import {model, Schema} from 'mongoose'
-import moment from 'moment-timezone'
+import moment from 'moment'
 
 // Schema de pagos.
 const paymentSchema = new Schema({
@@ -23,8 +23,8 @@ const paymentSchema = new Schema({
     ref: 'User'
   },
   createdAt: {
-    type: Date,
-    default: moment().utc().toDate()
+    type: String,
+    default: moment().format('YYYY-MM-DD')
   },
   isDeleted: {
     type: Boolean,
@@ -33,11 +33,11 @@ const paymentSchema = new Schema({
 })
 
 // formatear fecha de creación.
-paymentSchema.methods.toJSON = function () {
-  const model = this.toObject()
-  model.createdAt = moment(model.createdAt).tz(process.env.TIME_ZONE).format('YYYY-MM-DD')
-  return model
-}
+// paymentSchema.methods.toJSON = function () {
+//   const model = this.toObject()
+//   model.createdAt = moment(model.createdAt).tz(process.env.TIME_ZONE).format('YYYY-MM-DD')
+//   return model
+// }
 
 // Almacena información de los pagos.
 export const Payment = model('Payment', paymentSchema)

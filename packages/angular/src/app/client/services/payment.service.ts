@@ -72,4 +72,9 @@ export class PaymentService {
     };
   }
 
+  // reporte pagos diario.
+  reportePagosDiario(date: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/reporte/pagosDiario/${date}`);
+  }
+
 }

@@ -80,15 +80,13 @@ function deletePayment(req, res = response) {
   })
 }
 
-// http://<HOST>/api/payments/report/payment-journal/:date
-router.get('/report/payment-journal/:date', [verifyToken], reportDailyPay)
+// http://<HOST>/api/payments/reporte/pagosDiario/:date
+router.get('/reporte/pagosDiario/:date', [verifyToken], reportePagosDiario)
 
 // reporte de pagos diarios.
-function reportDailyPay(req, res = response) {
-  PaymentController.reportDailyPay(req.params.date).then(result => {
+function reportePagosDiario(req, res = response) {
+  PaymentController.reportePagosDiario(req.params.date).then(result => {
     res.json(result)
-  }).catch(err => {
-    res.status(500).json(err)
   })
 }
 

@@ -47,10 +47,10 @@ export class PaymentController {
   }
 
   // reporte pago diario.
-  static reportDailyPay(date) {
+  static reportePagosDiario(date) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(PaymentStore.reportDailyPay(date))
+        resolve(PaymentStore.reportePagosDiario(date))
       } catch (err) {
         reject(err)
       }

@@ -9,9 +9,9 @@
           <h4 class="text-uppercase m-0 me-2">Diario de Pagos</h4>
           <div class="input-group me-2" style="width: 240px;">
             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-            <input type="date" name="createdAt" class="form-control">
+            <input type="date" [formControl]="queryInput" class="form-control">
           </div>
-          <button type="button" class="btn btn-success text-uppercase">
+          <button type="button" (click)="generarReporteClick()" class="btn btn-success text-uppercase">
             <i class="fas fa-search"></i> Buscar
           </button>
         </div>
@@ -29,25 +29,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let item of paymentList">
               <td>
-                <a [routerLink]="['/client/detail', 0]">
-                  CLIENTE APELLIDO
+                <a [routerLink]="['/client/service-detail', item.serviceId?._id]">
+                  {{item.clientId?.fullName}}
                 </a>
               </td>
-              <td>10.0.1.10</td>
-              <td>2020-10-20</td>
-              <td>2020-10-12</td>
-              <td>200</td>
+              <td>{{item.serviceId?.ipAddress}}</td>
+              <td>{{item.payFrom}}</td>
+              <td>{{item.payUp}}</td>
+              <td>{{item.amount}}</td>
             </tr>
-            <ng-container>
-              <tr class="bg-secondary font-weight-bold">
-                <td colspan="4" class="text-white">
-                  <span class="text-uppercase">Total de Registros [ 0 ]</span>
-                </td>
-                <td class="text-white">200</td>
-              </tr>
-            </ng-container>
             </tbody>
           </table>
         </div>
