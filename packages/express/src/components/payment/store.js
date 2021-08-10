@@ -21,6 +21,7 @@ export class PaymentStore {
     await _payment.save()
     let _service = await ServiceStore.getService(_payment.serviceId)
     _service.lastPayment = _payment._id
+    _service.paidUpTo = _payment.payUp
     await ServiceStore.updateService(_service._id, _service)
     return _payment
   }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
 import {Client} from '../../interfaces';
@@ -46,7 +47,8 @@ export class ClientListComponent implements OnInit {
   }
 
   // Agregar cliente.
-  addClientModal(): void {
+  addClientModal(event: any): void {
+    event.preventDefault();
     this.titleModal = 'Agregar Cliente';
     this.currentClient = this.clientService.defaultValues();
     this.clientModal.show();
@@ -62,6 +64,36 @@ export class ClientListComponent implements OnInit {
           this.router.navigate(['/client/detail', result._id])
             .then(() => console.info('Cliente Guardado!'));
         });
+    }
+  }
+
+  // exportar datos.
+  async exportDataClick() {
+    const {value: fruit} = await Swal.fire({
+      title: 'EXPORTAR DATOS',
+      input: 'select',
+      inputOptions: {
+        'E01': 'LISTA DE CLIENTES',
+        'E02': 'SERVICIOS POR ESTADO',
+        'E03': 'SERVICIOS POR AREA COBERTURA',
+        'E04': 'SERVICIOS POR TARIFA DE PRECIOS',
+        'E05': 'SERVICIOS SIN REGISTRO DE PAGO',
+      },
+      inputPlaceholder: 'Seleccione una opción',
+      showCancelButton: true,
+      // inputValidator: (value) => {
+      //   return new Promise((resolve) => {
+      //     if (value === 'oranges') {
+      //       resolve()
+      //     } else {
+      //       resolve('You need to select oranges :)')
+      //     }
+      //   })
+      // }
+    });
+
+    if (fruit) {
+      Swal.fire(`You selected: ${fruit}`);
     }
   }
 

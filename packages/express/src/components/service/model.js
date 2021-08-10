@@ -70,6 +70,7 @@ const serviceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Payment'
   },
+  paidUpTo: String,
   // ============================================================
   createdAt: {
     type: Date,

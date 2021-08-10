@@ -11,21 +11,42 @@
             </div>
             <div class="col-auto">
               <div class="btn-group">
-                <button type="button" (click)="addClientModal()" class="btn btn-success">
-                  <i class="fas fa-plus"></i><span class="text-uppercase ms-1">Cliente</span>
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                  <i class="fas fa-cog"></i>
+                  <span class="text-uppercase ms-1">Opciones</span>
                 </button>
-                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                        data-bs-toggle="dropdown">
-                  <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu text-uppercase">
-                  <li><a class="dropdown-item" routerLink="/client/payment-daily">Diario de pagos</a></li>
-                  <li><a class="dropdown-item" routerLink="/client/receivable">Clientes por Cobrar</a></li>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="#" (click)="addClientModal($event)">
+                      <span class="text-uppercase">Registrar Cliente</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <span class="text-uppercase">Servicios Temporal</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="dropdown-item" routerLink="/client/payment-daily">
+                      <span class="text-uppercase">Diario de pagos</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" routerLink="/client/receivable">
+                      <span class="text-uppercase">Clientes por Cobrar</span>
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
             <div class="col-auto">
-              <button type="button" class="btn btn-warning">
+              <button type="button" (click)="exportDataClick()" class="btn btn-success">
                 <i class="fas fa-download"></i><span class="text-uppercase ms-1">Exportar</span>
               </button>
             </div>
