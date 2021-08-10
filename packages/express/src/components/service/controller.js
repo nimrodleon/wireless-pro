@@ -68,6 +68,17 @@ export class ServiceController {
     })
   }
 
+  // reporte clientes por cobrar.
+  static reporteClientesPorCobrar(date) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.reporteClientesPorCobrar(date))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // reporte instalaciones diarias.
   // static reportDailyInstallations(date) {
   //   return new Promise((resolve, reject) => {

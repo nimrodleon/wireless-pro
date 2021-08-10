@@ -129,6 +129,16 @@ function changeServicePlan(req, res = response) {
   })
 }
 
+// http://<HOST>/api/services/reporte/clientesPorCobrar/:date
+router.get('/reporte/clientesPorCobrar/:date', [verifyToken], reporteClientesPorCobrar)
+
+// reporte clientes por cobrar.
+function reporteClientesPorCobrar(req, res = response) {
+  ServiceController.reporteClientesPorCobrar(req.params.date).then(result => {
+    res.json(result)
+  })
+}
+
 // // http://<HOST>/api/services/report/daily/:date
 // router.get('/report/daily/:date', [verifyToken], reportInstallations)
 //

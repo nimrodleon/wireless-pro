@@ -44,6 +44,13 @@ export class ServiceStore {
     return this.updateService(id, _service)
   }
 
+  // reporte clientes por cobrar.
+  static async reporteClientesPorCobrar(date) {
+    return Service.find({
+      status: 'H', lastPayment: {$exists: true}, paidUpTo: {$lt: date}, isDeleted: false
+    }).populate({path: 'clientId', select: 'fullName'})
+  }
+
   // reporte instalaciones diarias.
   // static async reportDailyInstallations(date) {
   //   return Service.find({createdAt: date})
