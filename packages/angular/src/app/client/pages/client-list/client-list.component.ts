@@ -69,7 +69,7 @@ export class ClientListComponent implements OnInit {
 
   // exportar datos.
   async exportDataClick() {
-    const {value: fruit} = await Swal.fire({
+    const {value: option} = await Swal.fire({
       title: 'EXPORTAR DATOS',
       input: 'select',
       inputOptions: {
@@ -81,6 +81,7 @@ export class ClientListComponent implements OnInit {
       },
       inputPlaceholder: 'Seleccione una opción',
       showCancelButton: true,
+      cancelButtonText: 'Cancelar'
       // inputValidator: (value) => {
       //   return new Promise((resolve) => {
       //     if (value === 'oranges') {
@@ -92,8 +93,8 @@ export class ClientListComponent implements OnInit {
       // }
     });
 
-    if (fruit) {
-      Swal.fire(`You selected: ${fruit}`);
+    if (option) {
+      Swal.fire(`You selected: ${option}`);
     }
   }
 

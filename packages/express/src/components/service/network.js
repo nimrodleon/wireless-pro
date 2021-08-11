@@ -1,5 +1,6 @@
 import express, {response} from 'express'
 import {check} from 'express-validator'
+import excel from 'exceljs'
 import {checkRolAdmin, checkRolNetwork, validate, verifyToken} from '../middlewares'
 import {ServiceController} from './controller'
 
@@ -139,24 +140,37 @@ function reporteClientesPorCobrar(req, res = response) {
   })
 }
 
+// http://<HOST>/api/services/reporte/servicioSinRegistroDePago
+router.get('/reporte/servicioSinRegistroDePago', [verifyToken], reporteServicioSinRegistroDePago)
+
+// lista de servicios sin registro de pago.
+function reporteServicioSinRegistroDePago(req, res = response) {
+  ServiceController.reporteServicioSinRegistroDePago().then(result => {
+    let workbook = new excel.Workbook()
+    let worksheet = workbook.addWorksheet('REPORTE')
+    worksheet.columns = [
+      {header: 'NOMBRES Y APELLIDOS', key: 'fullName', width: 60},
+      {header: 'DIRECCIÓN IP', key: 'ipAddress', width: 20},
+    ]
+    let arrData = []
+    Array.from(result).forEach(obj => {
+      arrData.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
+    })
+    worksheet.addRows(arrData)
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', 'attachment; filename=servicios-sin-registro-de-pago.xlsx')
+    return workbook.xlsx.write(res).then(() => {
+      res.status(200).end()
+    })
+  })
+}
+
 // // http://<HOST>/api/services/report/daily/:date
 // router.get('/report/daily/:date', [verifyToken], reportInstallations)
 //
 // // instalaciones diarias.
 // function reportInstallations(req, res = response) {
 //   ServiceController.reportDailyInstallations(req.params.date).then(result => {
-//     res.json(result)
-//   }).catch(err => {
-//     res.status(500).json(err)
-//   })
-// }
-
-// // http://<HOST>/api/services/report/services-without-payment
-// router.get('/report/services-without-payment', [verifyToken], reportServicesWithoutPayment)
-//
-// // lista de servicios sin registro de pago.
-// function reportServicesWithoutPayment(req, res = response) {
-//   ServiceController.reportServicesWithoutPayment().then(result => {
 //     res.json(result)
 //   }).catch(err => {
 //     res.status(500).json(err)
@@ -181,18 +195,6 @@ function reporteClientesPorCobrar(req, res = response) {
 // // Lista de servicios según tarifa de pago.
 // function clientsByServicePlans(req, res = response) {
 //   ServiceController.reportServicesByServicePlan(req.params.id).then(result => {
-//     res.json(result)
-//   }).catch(err => {
-//     res.status(500).json(err)
-//   })
-// }
-
-// // http://<HOST>/api/services/report/receivables/:date
-// router.get('/report/receivables/:date', [verifyToken], reportServicesPayable)
-//
-// // Lista de clientes por cobrar.
-// function reportServicesPayable(req, res = response) {
-//   ServiceController.reportServicesPayable(req.params.date).then(result => {
 //     res.json(result)
 //   }).catch(err => {
 //     res.status(500).json(err)

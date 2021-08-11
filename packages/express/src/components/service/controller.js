@@ -79,22 +79,22 @@ export class ServiceController {
     })
   }
 
+  // reporte servicios sin registro de pago.
+  static reporteServicioSinRegistroDePago() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.reporteServicioSinRegistroDePago())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // reporte instalaciones diarias.
   // static reportDailyInstallations(date) {
   //   return new Promise((resolve, reject) => {
   //     try {
   //       resolve(ServiceStore.reportDailyInstallations(date))
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
-
-  // reporte servicios sin registro de pago.
-  // static reportServicesWithoutPayment() {
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       resolve(ServiceStore.reportServicesWithoutPayment())
   //     } catch (err) {
   //       reject(err)
   //     }
@@ -117,17 +117,6 @@ export class ServiceController {
   //   return new Promise((resolve, reject) => {
   //     try {
   //       resolve(ServiceStore.reportServicesByServicePlan(id))
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
-
-  // Lista de clientes por cobrar.
-  // static reportServicesPayable(date) {
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       resolve(ServiceStore.reportServicesPayable(date))
   //     } catch (err) {
   //       reject(err)
   //     }

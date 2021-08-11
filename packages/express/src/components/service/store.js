@@ -51,17 +51,17 @@ export class ServiceStore {
     }).populate({path: 'clientId', select: 'fullName'})
   }
 
+  // reporte servicios sin registro de pago.
+  static async reporteServicioSinRegistroDePago() {
+    return Service.find({status: 'H', lastPayment: {$exists: false}, isDeleted: false})
+      .populate({path: 'clientId', select: 'fullName'})
+  }
+
   // reporte instalaciones diarias.
   // static async reportDailyInstallations(date) {
   //   return Service.find({createdAt: date})
   //     .populate({path: 'client', select: 'fullName'})
   //     .populate({path: 'servicePlan', select: 'name priceMonthly'})
-  // }
-
-  // lista de servicios sin registro de pago.
-  // static async reportServicesWithoutPayment() {
-  //   return Service.find({isActive: true, payment: {$exists: false}})
-  //     .populate({path: 'client', select: 'fullName is_active', match: {'is_active': true}})
   // }
 
   // Lista de servicios suspendidos.
@@ -76,24 +76,6 @@ export class ServiceStore {
   //   return Service.find({isActive: true, servicePlan: id})
   //     .populate({path: 'client', select: 'fullName'})
   //     .populate('servicePlan')
-  // }
-
-  // Lista de Clientes por Cobrar.
-  // static async reportServicesPayable(date) {
-  //   let _services = await Service.find({
-  //     isActive: true, payment: {$exists: true}
-  //   }).select('ipAddress isActive')
-  //     .populate({
-  //       path: 'payment', select: 'payUp',
-  //       match: {payUp: {$lt: date}}
-  //     }).populate({path: 'client', select: 'fullName'})
-  //   let arrServices = []
-  //   await _.forEach(_services, value => {
-  //     if (value.payment) {
-  //       arrServices.push(value)
-  //     }
-  //   })
-  //   return arrServices
   // }
 
 }
