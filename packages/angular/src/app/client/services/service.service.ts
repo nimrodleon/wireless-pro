@@ -38,6 +38,11 @@ export class ServiceService {
     return this.http.put<Service>(`${this.baseURL}/${id}/changeServicePlan`, {servicePlanId});
   }
 
+  // reporte de servicios por cobrar.
+  reporteClientesPorCobrar(date: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/reporte/clientesPorCobrar/${date}`);
+  }
+
   // paymentsCount(id: string): Observable<number> {
   //   return this.http.get<number>(`${this.baseURL}/${id}/payments/count`);
   // }
