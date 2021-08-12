@@ -165,6 +165,47 @@ function reporteServicioSinRegistroDePago(req, res = response) {
   })
 }
 
+// http://<HOST>/api/services/reporte/serviciosPorEstado
+router.get('/reporte/serviciosPorEstado', [verifyToken], reporteServiciosPorEstado)
+
+// reporte servicios por estado.
+async function reporteServiciosPorEstado(req, res = response) {
+  let workbook = new excel.Workbook()
+  let servicesHab = await ServiceController.getServicesByStatus('H')
+  let worksheetHab = workbook.addWorksheet('HABILITADOS')
+  let serviceHeader = [
+    {header: 'NOMBRES Y APELLIDOS', key: 'fullName', width: 60},
+    {header: 'DIRECCIÓN IP', key: 'ipAddress', width: 20},
+  ]
+  worksheetHab.columns = serviceHeader
+  let arrDataHab = []
+  Array.from(servicesHab).forEach(obj => {
+    arrDataHab.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
+  })
+  worksheetHab.addRows(arrDataHab)
+  let servicesSus = await ServiceController.getServicesByStatus('S')
+  let worksheetSus = workbook.addWorksheet('SUSPENDIDOS')
+  worksheetSus.columns = serviceHeader
+  let arrDataSus = []
+  Array.from(servicesSus).forEach(obj => {
+    arrDataSus.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
+  })
+  worksheetSus.addRows(arrDataSus)
+  let servicesDes = await ServiceController.getServicesByStatus('D')
+  let worksheetDes = workbook.addWorksheet('DESHABILITADOS')
+  worksheetDes.columns = serviceHeader
+  let arrDataDes = []
+  Array.from(servicesDes).forEach(obj => {
+    arrDataDes.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
+  })
+  worksheetDes.addRows(arrDataDes)
+  res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  res.setHeader('Content-Disposition', 'attachment; filename=servicios-por-estado.xlsx')
+  return workbook.xlsx.write(res).then(() => {
+    res.status(200).end()
+  })
+}
+
 // // http://<HOST>/api/services/report/daily/:date
 // router.get('/report/daily/:date', [verifyToken], reportInstallations)
 //

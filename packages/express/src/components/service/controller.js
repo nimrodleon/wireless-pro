@@ -90,6 +90,17 @@ export class ServiceController {
     })
   }
 
+  // servicios por campo status.
+  static getServicesByStatus(status) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.getServicesByStatus(status))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // reporte instalaciones diarias.
   // static reportDailyInstallations(date) {
   //   return new Promise((resolve, reject) => {

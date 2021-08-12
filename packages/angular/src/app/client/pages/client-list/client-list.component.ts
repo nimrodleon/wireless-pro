@@ -73,11 +73,9 @@ export class ClientListComponent implements OnInit {
       title: 'EXPORTAR DATOS',
       input: 'select',
       inputOptions: {
-        'E01': 'LISTA DE CLIENTES',
+        'E01': 'LISTADO DE CLIENTES',
         'E02': 'SERVICIOS POR ESTADO',
-        'E03': 'SERVICIOS POR AREA COBERTURA',
-        'E04': 'SERVICIOS POR TARIFA DE PRECIOS',
-        'E05': 'SERVICIOS SIN REGISTRO DE PAGO',
+        'E03': 'SERVICIOS SIN REGISTRO DE PAGO',
       },
       inputPlaceholder: 'Seleccione una opción',
       showCancelButton: true,
