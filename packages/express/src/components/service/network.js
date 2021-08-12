@@ -171,7 +171,7 @@ router.get('/reporte/serviciosPorEstado', [verifyToken], reporteServiciosPorEsta
 // reporte servicios por estado.
 async function reporteServiciosPorEstado(req, res = response) {
   let workbook = new excel.Workbook()
-  let servicesHab = await ServiceController.getServicesByStatus('H')
+  const servicesHab = await ServiceController.getServicesByStatus('H')
   let worksheetHab = workbook.addWorksheet('HABILITADOS')
   let serviceHeader = [
     {header: 'NOMBRES Y APELLIDOS', key: 'fullName', width: 60},
@@ -183,7 +183,7 @@ async function reporteServiciosPorEstado(req, res = response) {
     arrDataHab.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
   })
   worksheetHab.addRows(arrDataHab)
-  let servicesSus = await ServiceController.getServicesByStatus('S')
+  const servicesSus = await ServiceController.getServicesByStatus('S')
   let worksheetSus = workbook.addWorksheet('SUSPENDIDOS')
   worksheetSus.columns = serviceHeader
   let arrDataSus = []
@@ -191,14 +191,14 @@ async function reporteServiciosPorEstado(req, res = response) {
     arrDataSus.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
   })
   worksheetSus.addRows(arrDataSus)
-  let servicesDes = await ServiceController.getServicesByStatus('D')
-  let worksheetDes = workbook.addWorksheet('DESHABILITADOS')
-  worksheetDes.columns = serviceHeader
-  let arrDataDes = []
-  Array.from(servicesDes).forEach(obj => {
-    arrDataDes.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
-  })
-  worksheetDes.addRows(arrDataDes)
+  // let servicesDes = await ServiceController.getServicesByStatus('D')
+  // let worksheetDes = workbook.addWorksheet('DESHABILITADOS')
+  // worksheetDes.columns = serviceHeader
+  // let arrDataDes = []
+  // Array.from(servicesDes).forEach(obj => {
+  //   arrDataDes.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
+  // })
+  // worksheetDes.addRows(arrDataDes)
   res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
   res.setHeader('Content-Disposition', 'attachment; filename=servicios-por-estado.xlsx')
   return workbook.xlsx.write(res).then(() => {
