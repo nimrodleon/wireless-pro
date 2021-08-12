@@ -9,25 +9,31 @@
           <div class="d-flex align-items-center">
             <h4 class="text-uppercase m-0 me-2">Órdenes de Instalación</h4>
             <div class="btn-group">
-              <button type="button"
-                      routerLink="/installation_orders/new"
-                      class="btn btn-success">
-                <i class="fas fa-plus"></i>
-                <span class="text-uppercase ms-1">Orden</span>
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-cog"></i>
+                <span class="text-uppercase ms-1">Opciones</span>
               </button>
-              <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                      data-bs-toggle="dropdown">
-                <span class="visually-hidden">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu text-uppercase">
-                <li><a class="dropdown-item" routerLink="/installation_orders/report">Reporte Mensual</a></li>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" routerLink="/installation_orders/new">
+                    <span class="text-uppercase">Registrar Orden</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" routerLink="/installation_orders/report">
+                    <span class="text-uppercase">Reporte Mensual</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </div><!-- //.d-flex -->
           <form (submit)="installationOrdersLoad($event)" class="row row-cols-auto g-2">
             <div class="col-auto">
-              <input type="text" [formControl]="query"
-                     class="form-control" placeholder="CLIENTE...">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                <input type="text" [formControl]="query"
+                       class="form-control" placeholder="CLIENTE...">
+              </div>
             </div>
             <div class="col-auto">
               <button type="submit" class="btn btn-primary">

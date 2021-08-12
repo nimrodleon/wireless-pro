@@ -4,21 +4,24 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex align-items-center justify-content-between py-2">
-          <h4 class="text-uppercase mb-0">Materiales y Servicios</h4>
+        <div class="d-flex justify-content-between py-2">
+          <div class="d-flex align-items-center">
+            <h4 class="text-uppercase mb-0 me-2">Materiales y Servicios</h4>
+            <button (click)="addMaterial()" type="button" class="btn btn-success">
+              <i class="fas fa-plus"></i>
+              <span class="text-uppercase ms-1">Material</span>
+            </button>
+          </div>
           <form (ngSubmit)="onSearch()" class="row row-cols-auto g-2">
             <div class="col-auto">
-              <button (click)="addMaterial()" type="button" class="btn btn-primary">
-                <i class="fas fa-plus"></i>
-                <span class="text-uppercase ms-1">Material</span>
-              </button>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                <input type="search" [(ngModel)]="query" name="query" class="form-control"
+                       placeholder="MATERIAL...">
+              </div>
             </div>
             <div class="col-auto">
-              <input type="search" [(ngModel)]="query" name="query" class="form-control"
-                     placeholder="MATERIAL...">
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-success">
+              <button type="submit" class="btn btn-primary">
                 <i class="fas fa-search"></i>
                 <span class="text-uppercase ms-1">Buscar</span>
               </button>

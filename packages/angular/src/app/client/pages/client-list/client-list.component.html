@@ -54,8 +54,11 @@
           <form (submit)="searchClient()"
                 class="row row-cols-auto g-2">
             <div class="col-auto">
-              <input type="text" [formControl]="queryInput"
-                     class="form-control" placeholder="D.N.I/Nombre/Dirección/Teléfono">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                <input type="text" [formControl]="queryInput"
+                       class="form-control" placeholder="D.N.I/Nombre/Dirección/Teléfono">
+              </div>
             </div>
             <div class="col-auto">
               <button type="submit" class="btn btn-primary">
