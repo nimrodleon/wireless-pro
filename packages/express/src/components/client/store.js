@@ -57,8 +57,9 @@ export class ClientStore {
     return data
   }
 
-  // Lista de clientes activos/inactivos.
-  static async getClientsActive(status) {
-    return Client.find({is_active: status})
+  // Lista de clientes.
+  static async getClientList() {
+    return Client.find({isDeleted: false})
   }
+
 }

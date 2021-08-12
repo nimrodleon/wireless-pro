@@ -68,14 +68,15 @@ export class ClientController {
     })
   }
 
-  // lista de clientes activos/inactivos.
-  static getClientsActive(status) {
+  // Lista de Clientes.
+  static getClientList() {
     return new Promise((resolve, reject) => {
       try {
-        resolve(ClientStore.getClientsActive(status))
+        resolve(ClientStore.getClientList())
       } catch (err) {
         reject(err)
       }
     })
   }
+
 }

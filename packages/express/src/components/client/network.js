@@ -1,4 +1,5 @@
 import express, {response} from 'express'
+import excel from 'exceljs'
 import {check} from 'express-validator'
 import {checkRolAdmin, validate, verifyToken} from '../middlewares'
 import {ClientController} from './controller'
@@ -103,27 +104,30 @@ function deleteClient(req, res = response) {
   })
 }
 
-// http://<HOST>/api/clients/active-clients
-router.get('/active-clients', [verifyToken], getActiveClients)
+// http://<HOST>/api/clients/reporte/listaDeClientes
+router.get('/reporte/listaDeClientes', [verifyToken], reporteListaDeClientes)
 
-// lista de clientes activos.
-function getActiveClients(req, res = response) {
-  ClientController.getClientsActive(true).then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(400).json(err)
-  })
-}
-
-// http://<HOST>/api/clients/clients-disconnected
-router.get('/clients-disconnected', [verifyToken], getClientsDisconnected)
-
-// lista de clientes archivados.
-function getClientsDisconnected(req, res = response) {
-  ClientController.getClientsActive(false).then(result => {
-    res.json(result)
-  }).catch(err => {
-    res.status(400).json(err)
+// exportar lista de clientes.
+function reporteListaDeClientes(req, res = response) {
+  ClientController.getClientList().then(result => {
+    let workbook = new excel.Workbook()
+    let worksheet = workbook.addWorksheet('REPORTE')
+    worksheet.columns = [
+      {header: 'D.N.I/R.U.C', key: 'dni', width: 20},
+      {header: 'NOMBRES Y APELLIDOS', key: 'fullName', width: 50},
+      {header: 'DIRECCIÓN', key: 'address', width: 50},
+      {header: 'TELÉFONO', key: 'phoneNumber', width: 20}
+    ]
+    let arrData = []
+    Array.from(result).forEach(obj => {
+      arrData.push({dni: obj.dni, fullName: obj.fullName, address: obj.fullAddress, phoneNumber: obj.phone})
+    })
+    worksheet.addRows(arrData)
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    res.setHeader('Content-Disposition', 'attachment; filename=Lista-De-Clientes.xlsx')
+    return workbook.xlsx.write(res).then(() => {
+      res.status(200).end()
+    })
   })
 }
 
