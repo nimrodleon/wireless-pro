@@ -124,7 +124,7 @@ function reporteListaDeClientes(req, res = response) {
     })
     worksheet.addRows(arrData)
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    res.setHeader('Content-Disposition', 'attachment; filename=Lista-De-Clientes.xlsx')
+    res.setHeader('Content-Disposition', 'attachment; filename=Lista-de-clientes.xlsx')
     return workbook.xlsx.write(res).then(() => {
       res.status(200).end()
     })

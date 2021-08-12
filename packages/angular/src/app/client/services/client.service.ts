@@ -35,6 +35,11 @@ export class ClientService {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
+  // exportar lista de clientes.
+  reporteListaDeClientes(): Observable<Blob> {
+    return this.http.get(`${this.baseURL}/reporte/listaDeClientes`, {responseType: 'blob'});
+  }
+
   // valor por defecto cliente.
   defaultValues(): Client {
     return {

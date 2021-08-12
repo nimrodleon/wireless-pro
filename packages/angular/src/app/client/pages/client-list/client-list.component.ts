@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
 import {Client} from '../../interfaces';
-import {ClientService} from '../../services';
+import {ClientService, ServiceService} from '../../services';
 
 @Component({
   selector: 'app-client-list',
@@ -21,8 +21,9 @@ export class ClientListComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private clientService: ClientService,
-    private router: Router) {
+    private serviceService: ServiceService) {
     this.currentClient = this.clientService.defaultValues();
   }
 
@@ -80,19 +81,37 @@ export class ClientListComponent implements OnInit {
       inputPlaceholder: 'Seleccione una opción',
       showCancelButton: true,
       cancelButtonText: 'Cancelar'
-      // inputValidator: (value) => {
-      //   return new Promise((resolve) => {
-      //     if (value === 'oranges') {
-      //       resolve()
-      //     } else {
-      //       resolve('You need to select oranges :)')
-      //     }
-      //   })
-      // }
     });
 
-    if (option) {
-      Swal.fire(`You selected: ${option}`);
+    // Lista de clientes.
+    if (option && option === 'E01') {
+      this.clientService.reporteListaDeClientes().subscribe(result => {
+        let downloadURL = window.URL.createObjectURL(result);
+        let link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = 'lista-de-clientes.xlsx';
+        link.click();
+      });
+    }
+    // Lista de servicios por estado.
+    if (option && option === 'E02') {
+      this.serviceService.reporteServiciosPorEstado().subscribe(result => {
+        let downloadURL = window.URL.createObjectURL(result);
+        let link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = 'servicios-por-estado.xlsx';
+        link.click();
+      });
+    }
+    // Lista de servicios sin registro de pago.
+    if (option && option === 'E03') {
+      this.serviceService.reporteServicioSinRegistroDePago().subscribe(result => {
+        let downloadURL = window.URL.createObjectURL(result);
+        let link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = 'servicios-sin-registro-de-pago.xlsx';
+        link.click();
+      });
     }
   }
 

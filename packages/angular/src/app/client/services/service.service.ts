@@ -43,6 +43,16 @@ export class ServiceService {
     return this.http.get(`${this.baseURL}/reporte/clientesPorCobrar/${date}`);
   }
 
+  // reporte servicios por estado.
+  reporteServiciosPorEstado(): Observable<Blob> {
+    return this.http.get(`${this.baseURL}/reporte/serviciosPorEstado`, {responseType: 'blob'});
+  }
+
+  // reporte servicios sin registro de pago.
+  reporteServicioSinRegistroDePago(): Observable<Blob> {
+    return this.http.get(`${this.baseURL}/reporte/servicioSinRegistroDePago`, {responseType: 'blob'});
+  }
+
   // paymentsCount(id: string): Observable<number> {
   //   return this.http.get<number>(`${this.baseURL}/${id}/payments/count`);
   // }
