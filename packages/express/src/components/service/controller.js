@@ -101,37 +101,4 @@ export class ServiceController {
     })
   }
 
-  // reporte instalaciones diarias.
-  // static reportDailyInstallations(date) {
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       resolve(ServiceStore.reportDailyInstallations(date))
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
-
-  // Lista de servicios suspendidos.
-  // static reportDisconnectedServices() {
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       resolve(ServiceStore.reportDisconnectedServices())
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
-
-  // Lista de servicios según tarifa de pago.
-  // static reportServicesByServicePlan(id) {
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       resolve(ServiceStore.reportServicesByServicePlan(id))
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
-
 }

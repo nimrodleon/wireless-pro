@@ -171,7 +171,7 @@ router.get('/reporte/serviciosPorEstado', [verifyToken], reporteServiciosPorEsta
 // reporte servicios por estado.
 async function reporteServiciosPorEstado(req, res = response) {
   let workbook = new excel.Workbook()
-  const servicesHab = await ServiceController.getServicesByStatus('H')
+  const servicesHab = await ServiceController.getServicesByStatus('HABILITADO')
   let worksheetHab = workbook.addWorksheet('HABILITADOS')
   let serviceHeader = [
     {header: 'NOMBRES Y APELLIDOS', key: 'fullName', width: 60},
@@ -183,7 +183,7 @@ async function reporteServiciosPorEstado(req, res = response) {
     arrDataHab.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
   })
   worksheetHab.addRows(arrDataHab)
-  const servicesSus = await ServiceController.getServicesByStatus('S')
+  const servicesSus = await ServiceController.getServicesByStatus('SUSPENDIDO')
   let worksheetSus = workbook.addWorksheet('SUSPENDIDOS')
   worksheetSus.columns = serviceHeader
   let arrDataSus = []
@@ -191,55 +191,11 @@ async function reporteServiciosPorEstado(req, res = response) {
     arrDataSus.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
   })
   worksheetSus.addRows(arrDataSus)
-  // let servicesDes = await ServiceController.getServicesByStatus('D')
-  // let worksheetDes = workbook.addWorksheet('DESHABILITADOS')
-  // worksheetDes.columns = serviceHeader
-  // let arrDataDes = []
-  // Array.from(servicesDes).forEach(obj => {
-  //   arrDataDes.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
-  // })
-  // worksheetDes.addRows(arrDataDes)
   res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
   res.setHeader('Content-Disposition', 'attachment; filename=servicios-por-estado.xlsx')
   return workbook.xlsx.write(res).then(() => {
     res.status(200).end()
   })
 }
-
-// // http://<HOST>/api/services/report/daily/:date
-// router.get('/report/daily/:date', [verifyToken], reportInstallations)
-//
-// // instalaciones diarias.
-// function reportInstallations(req, res = response) {
-//   ServiceController.reportDailyInstallations(req.params.date).then(result => {
-//     res.json(result)
-//   }).catch(err => {
-//     res.status(500).json(err)
-//   })
-// }
-
-// // http://<HOST>/api/services/report/disconnected-services
-// router.get('/report/disconnected-services', [verifyToken], reportDisconnectedServices)
-//
-// // Lista de servicios suspendidos.
-// function reportDisconnectedServices(req, res = response) {
-//   ServiceController.reportDisconnectedServices().then(result => {
-//     res.json(result)
-//   }).catch(err => {
-//     res.status(500).json(err)
-//   })
-// }
-
-// // http://<HOST>/api/services/report/customers-by-service-plan/:id
-// router.get('/report/customers-by-service-plan/:id', [verifyToken], clientsByServicePlans)
-//
-// // Lista de servicios según tarifa de pago.
-// function clientsByServicePlans(req, res = response) {
-//   ServiceController.reportServicesByServicePlan(req.params.id).then(result => {
-//     res.json(result)
-//   }).catch(err => {
-//     res.status(500).json(err)
-//   })
-// }
 
 export const serviceRouter = router

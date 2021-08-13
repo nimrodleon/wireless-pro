@@ -43,10 +43,9 @@
                     <span class="input-group-text"><i class="fas fa-heartbeat"></i></span>
                     <select formControlName="status"
                             class="form-select" [ngClass]="{'is-invalid': inputIsInvalid('status')}">
-                      <option value="H">Habilitado</option>
-                      <option value="D">Deshabilitado</option>
-                      <option value="N">Notificado</option>
-                      <option value="S">Suspendido</option>
+                      <option value="HABILITADO">HABILITADO</option>
+                      <option value="DESHABILITADO">DESHABILITADO</option>
+                      <option value="SUSPENDIDO">SUSPENDIDO</option>
                     </select>
                     <div class="invalid-feedback">El estado del servicio es requerido.</div>
                   </div>
@@ -226,11 +225,11 @@
                 <label class="col-2 col-form-label text-end">Frecuencia</label>
                 <div class="col-6">
                   <select formControlName="commonPayment" class="form-select">
-                    <option value="M">Mensual</option>
-                    <option value="B">Bimestral</option>
-                    <option value="T">Trimestral</option>
-                    <option value="S">Semestral</option>
-                    <option value="A">Anual</option>
+                    <option value="MENSUAL">MENSUAL</option>
+                    <option value="BIMESTRAL">BIMESTRAL</option>
+                    <option value="TRIMESTRAL">TRIMESTRAL</option>
+                    <option value="SEMESTRAL">SEMESTRAL</option>
+                    <option value="ANUAL">ANUAL</option>
                   </select>
                 </div>
               </div>

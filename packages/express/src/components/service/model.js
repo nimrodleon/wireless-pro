@@ -8,16 +8,10 @@ const serviceSchema = new Schema({
     ref: 'Client'
   },
   ipAddress: String,
-  // [
-  // H=>'Habilitado',
-  // D=>'Deshabilitado',
-  // N=>'Notificado',
-  // S=>'Suspendido'
-  // ]
   status: {
     type: String,
-    default: 'H',
-    enum: ['H', 'D', 'N', 'S']
+    default: 'HABILITADO',
+    enum: ['HABILITADO', 'DESHABILITADO', 'SUSPENDIDO']
   },
   servicePlanId: {
     type: Schema.Types.ObjectId,
@@ -61,8 +55,8 @@ const serviceSchema = new Schema({
   price: Number,
   commonPayment: {
     type: String,
-    default: 'M',
-    enum: ['M', 'B', 'T', 'S', 'A']
+    default: 'MENSUAL',
+    enum: ['MENSUAL', 'BIMESTRAL', 'TRIMESTRAL', 'SEMESTRAL', 'ANUAL']
   },
   paymentNote: String,
   // ============================================================

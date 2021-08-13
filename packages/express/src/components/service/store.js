@@ -1,4 +1,3 @@
-// import _ from 'lodash'
 import {Service} from './model'
 
 // CRUD - services.
@@ -7,11 +6,6 @@ export class ServiceStore {
   static async getServices(clientId) {
     return Service.find({clientId: clientId, isDeleted: false})
   }
-
-  // Listado de servicios sin => [servicePlan]
-  // static async getServicesV2(clientId) {
-  //   return Service.find({client: clientId})
-  // }
 
   // devolver servicio por id.
   static async getService(id) {
@@ -62,26 +56,5 @@ export class ServiceStore {
     return Service.find({status: status, isDeleted: false})
       .populate({path: 'clientId', select: 'fullName'})
   }
-
-  // reporte instalaciones diarias.
-  // static async reportDailyInstallations(date) {
-  //   return Service.find({createdAt: date})
-  //     .populate({path: 'client', select: 'fullName'})
-  //     .populate({path: 'servicePlan', select: 'name priceMonthly'})
-  // }
-
-  // Lista de servicios suspendidos.
-  // static async reportDisconnectedServices() {
-  //   return Service.find({isActive: false})
-  //     .populate({path: 'client', select: 'fullName'})
-  //     .populate({path: 'servicePlan', select: 'name priceMonthly'})
-  // }
-
-  // Lista de servicios según tarifa de pago.
-  // static async reportServicesByServicePlan(id) {
-  //   return Service.find({isActive: true, servicePlan: id})
-  //     .populate({path: 'client', select: 'fullName'})
-  //     .populate('servicePlan')
-  // }
 
 }
