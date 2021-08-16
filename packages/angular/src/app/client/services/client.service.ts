@@ -45,7 +45,7 @@ export class ClientService {
     return {
       _id: undefined,
       dni: '',
-      type: 'PERSONA',
+      type: 'D.N.I',
       fullName: '',
       fullAddress: '',
       phone: '',

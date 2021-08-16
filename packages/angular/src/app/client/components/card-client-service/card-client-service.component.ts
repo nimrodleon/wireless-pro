@@ -23,20 +23,6 @@ export class CardClientServiceComponent implements OnInit {
     new ClipboardJS('[data-clipboard-text]');
   }
 
-  // retornar estado del servicio.
-  getStatusText(value: string): string {
-    switch (value) {
-      case 'H':
-        return 'HABILITADO';
-      case 'D':
-        return 'DESHABILITADO';
-      case 'N':
-        return 'NOTIFICADO';
-      case 'S':
-        return 'SUSPENDIDO';
-    }
-  }
-
   // editar servicio.
   editServiceClick(): void {
     this.sendIdService.emit(this.currentService._id);

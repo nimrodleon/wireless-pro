@@ -63,7 +63,7 @@ export class ServiceService {
       _id: undefined,
       clientId: '',
       ipAddress: '',
-      status: 'H',
+      status: 'HABILITADO',
       servicePlanId: '',
       initialDate: '',
       mikrotikId: '',
@@ -72,7 +72,7 @@ export class ServiceService {
       password: '',
       basicNote: '',
       accessPoint: '',
-      macAddress: '',
+      macAddress: '00:00:00:00:00:00',
       address: '',
       city: '',
       region: '',
@@ -80,7 +80,7 @@ export class ServiceService {
       paymentType: 'PRE',
       defPrice: false,
       price: 0,
-      commonPayment: 'M',
+      commonPayment: 'MENSUAL',
       paymentNote: '',
       createdAt: null
     };

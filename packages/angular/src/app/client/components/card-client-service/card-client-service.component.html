@@ -2,7 +2,9 @@
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <h5 class="card-title text-uppercase mb-0">
-        <a [routerLink]="['/client/service-detail', currentService._id]">
+        <a [routerLink]="['/client/service-detail', currentService._id]"
+           [ngClass]="{'text-success': currentService.status === 'HABILITADO',
+           'text-danger': currentService.status === 'SUSPENDIDO'}">
           {{currentService.address ? currentService.address : currentService.ipAddress}}
         </a>
       </h5>
@@ -45,7 +47,7 @@
     </div>
     <p class="my-1">
       <span class="text-uppercase"><i class="fas fa-desktop"></i> Estado: </span>
-      <span class="fw-bold">{{getStatusText(currentService.status)}}</span>
+      <span class="fw-bold">{{currentService.status}}</span>
     </p>
     <ng-container *ngIf="true">
       <p class="my-1">

@@ -8,8 +8,12 @@
         <div>
           <h4 class="text-uppercase">{{currentClient.fullName}}</h4>
           <p class="lead m-0">
-            <a [routerLink]="['/client/detail', currentService.clientId]" class="font-weight-bold">
-              {{ currentServicePlan.name }} "[{{ currentServicePlan.priceMonthly}}]" - {{currentService.ipAddress}}
+            <a [routerLink]="['/client/detail', currentService.clientId]"
+               class="font-weight-bold"
+               [ngClass]="{'text-success': currentService.status === 'HABILITADO',
+               'text-danger': currentService.status === 'SUSPENDIDO'}">
+              {{ currentServicePlan.name }} "[{{ currentServicePlan.priceMonthly}}] {{currentService.paymentType}}"
+              - {{currentService.ipAddress}}
             </a>
           </p>
         </div>
