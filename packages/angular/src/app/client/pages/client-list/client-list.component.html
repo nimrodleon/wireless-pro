@@ -73,6 +73,7 @@
           <table class="table table-striped">
             <thead>
             <tr class="text-uppercase">
+              <th>Tipo</th>
               <th>D.N.I</th>
               <th>Nombres</th>
               <th>Dirección</th>
@@ -81,6 +82,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let client of clientList" [id]="client._id">
+              <td>{{client.type}}</td>
               <td>{{client.dni}}</td>
               <td>
                 <a [routerLink]="['/client/detail', client._id]">{{client.fullName}}</a>

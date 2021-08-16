@@ -6,8 +6,8 @@ const clientSchema = new Schema({
   type: {
     type: String,
     uppercase: true,
-    default: 'PERSONA',
-    enum: ['PERSONA', 'EMPRESA']
+    default: 'D.N.I',
+    enum: ['D.N.I', 'R.U.C']
   },
   fullName: {
     type: String,

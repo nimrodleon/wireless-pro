@@ -18,13 +18,13 @@
             </div>
             <div class="col-6 mb-3">
               <div class="input-group has-validation">
-                <span class="input-group-text"><i class="fas fa-user-cog"></i></span>
+                <span class="input-group-text"><i class="fas fa-passport"></i></span>
                 <select formControlName="type" class="form-select"
                         [ngClass]="{'is-invalid': inputIsInvalid('type')}">
-                  <option value="PERSONA">PERSONA</option>
-                  <option value="EMPRESA">EMPRESA</option>
+                  <option value="D.N.I">D.N.I</option>
+                  <option value="R.U.C">R.U.C</option>
                 </select>
-                <div class="invalid-feedback">El tipo de cliente es requerido.</div>
+                <div class="invalid-feedback">El tipo documento es requerido.</div>
               </div>
             </div>
           </div>

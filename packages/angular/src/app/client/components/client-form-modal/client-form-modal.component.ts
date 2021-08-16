@@ -18,7 +18,7 @@ export class ClientFormModalComponent implements OnInit {
   clientForm: FormGroup = this.fb.group({
     _id: [null],
     dni: ['', [Validators.required]],
-    type: ['PERSONA', [Validators.required]],
+    type: ['D.N.I', [Validators.required]],
     fullName: ['', [Validators.required]],
     fullAddress: ['', [Validators.required]],
     phone: ['', [Validators.required]],
