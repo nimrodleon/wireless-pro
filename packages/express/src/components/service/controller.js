@@ -68,6 +68,17 @@ export class ServiceController {
     })
   }
 
+  // cambiar estado del servicio.
+  static changeStatusService(id, status) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.changeStatusService(id, status))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // reporte clientes por cobrar.
   static reporteClientesPorCobrar(date) {
     return new Promise((resolve, reject) => {

@@ -38,6 +38,13 @@ export class ServiceStore {
     return this.updateService(id, _service)
   }
 
+  // cambiar estado del servicio.
+  static async changeStatusService(id, status) {
+    let _service = await this.getService(id)
+    _service.status = status
+    return this.updateService(id, _service)
+  }
+
   // reporte clientes por cobrar.
   static async reporteClientesPorCobrar(date) {
     return Service.find({

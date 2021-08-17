@@ -130,6 +130,21 @@ function changeServicePlan(req, res = response) {
   })
 }
 
+// http://<HOST>/api/services/:id/changeStatusService
+router.put('/:id/changeStatusService', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], changeStatusService)
+
+// cambiar estado del servicio.
+function changeStatusService(req, res = response) {
+  let {status} = req.body
+  ServiceController.changeStatusService(req.params.id, status).then(result => {
+    res.json(result)
+  })
+}
+
 // http://<HOST>/api/services/reporte/clientesPorCobrar/:date
 router.get('/reporte/clientesPorCobrar/:date', [verifyToken], reporteClientesPorCobrar)
 
