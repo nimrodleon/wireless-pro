@@ -110,7 +110,10 @@ export class ServiceDetailComponent implements OnInit {
       await Sweetalert2.accessDeniedGeneric();
     } else {
       this.titleService = 'Editar Servicio';
-      this.serviceModal.show();
+      this.serviceDetailService.getCurrentService(this.currentService._id)
+        .subscribe(() => {
+          this.serviceModal.show();
+        });
     }
   }
 
@@ -289,6 +292,11 @@ export class ServiceDetailComponent implements OnInit {
 
   // ====================================================================================================
 
+  // botón cargar lista estado de cambios.
+  getWorkerActivityListClick(): void {
+    this.getWorkerActivityList(this.currentService._id, this.workerActivityYear.value);
+  }
+
   // Lista de estado de cambios.
   private getWorkerActivityList(serviceId: string, year: string): void {
     this.bitWorkerService.getWorkerActivities(serviceId, year).subscribe(result => {
@@ -296,13 +304,8 @@ export class ServiceDetailComponent implements OnInit {
     });
   }
 
-  // botón cargar lista estado de cambios.
-  getWorkerActivityListClick(): void {
-    this.getWorkerActivityList(this.currentService._id, this.workerActivityYear.value);
-  }
-
   // valores del registro simpleQueue.
-  getSimpleQueueValues(disabled: string): any {
+  private getSimpleQueueValues(disabled: string): any {
     return {
       name: this.currentService._id,
       target: this.currentService.ipAddress,
@@ -316,7 +319,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // valores del registro arp.
-  getArpValues(interfaceId: string, disabled: string): Observable<any> {
+  private getArpValues(interfaceId: string, disabled: string): Observable<any> {
     let subject = new Subject<any>();
     this.bitWorkerService.getInterfaceNameById(interfaceId).subscribe(interfaceName => {
       subject.next({
@@ -333,7 +336,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // valores planes de servicio.
-  getServicePlan(): Observable<any> {
+  private getServicePlan(): Observable<any> {
     let subject = new Subject<any>();
     this.servicePlanService.getServicePlans()
       .subscribe(result => {
@@ -346,9 +349,19 @@ export class ServiceDetailComponent implements OnInit {
     return subject.asObservable();
   }
 
+  // cambiar estado del servicio.
+  private changeStatusService(status: string): void {
+    this.serviceDetailService.changeStatusService(this.currentService._id, status)
+      .subscribe(() => {
+        this.serviceDetailService.getCurrentService(this.currentService._id)
+          .subscribe(result => console.log(result));
+      });
+  }
+
   // obtener nota de operación.
   getOperationDescription(id: string) {
     let remarkStatusChange = {
+      'HST': 'HABILITAR SERVICIO TEMPORAL',
       'N01': 'ACTIVACIÓN POR REGISTRO DE PAGO',
       'N02': 'ACTIVACIÓN A SOLICITUD DEL CLIENTE',
       'N03': 'CORTE POR FALTA DE PAGO',
@@ -367,6 +380,7 @@ export class ServiceDetailComponent implements OnInit {
       title: 'HABILITAR SERVICIO',
       input: 'select',
       inputOptions: {
+        'HST': 'HABILITAR SERVICIO TEMPORAL',
         'N01': 'ACTIVACIÓN POR REGISTRO DE PAGO',
         'N02': 'ACTIVACIÓN A SOLICITUD DEL CLIENTE',
       },
@@ -397,6 +411,7 @@ export class ServiceDetailComponent implements OnInit {
                     }).subscribe(() => {
                       this.getWorkerActivityListClick();
                     });
+                    this.changeStatusService('HABILITADO');
                   });
               });
             });
@@ -445,6 +460,7 @@ export class ServiceDetailComponent implements OnInit {
                     }).subscribe(() => {
                       this.getWorkerActivityListClick();
                     });
+                    this.changeStatusService('SUSPENDIDO');
                   });
               });
             });
@@ -548,6 +564,7 @@ export class ServiceDetailComponent implements OnInit {
                             }).subscribe(() => {
                               this.getWorkerActivityListClick();
                             });
+                            this.changeStatusService('HABILITADO');
                           });
                       });
                     });
@@ -628,6 +645,7 @@ export class ServiceDetailComponent implements OnInit {
                       }).subscribe(() => {
                         this.getWorkerActivityListClick();
                       });
+                      this.changeStatusService('DESHABILITADO');
                     });
                 });
             }

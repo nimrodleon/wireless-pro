@@ -38,6 +38,11 @@ export class ServiceService {
     return this.http.put<Service>(`${this.baseURL}/${id}/changeServicePlan`, {servicePlanId});
   }
 
+  // cambiar estado del servicio.
+  changeStatusService(id: string, status: string): Observable<Service> {
+    return this.http.put<Service>(`${this.baseURL}/${id}/changeStatusService`, {status});
+  }
+
   // reporte de servicios por cobrar.
   reporteClientesPorCobrar(date: string): Observable<any> {
     return this.http.get(`${this.baseURL}/reporte/clientesPorCobrar/${date}`);

@@ -98,6 +98,11 @@ export class ServiceDetailService {
     return this.serviceService.changeServicePlan(id, servicePlanId);
   }
 
+  // cambiar estado del servicio.
+  changeStatusService(id: string, status: string): Observable<Service> {
+    return this.serviceService.changeStatusService(id, status);
+  }
+
   // ============================================================
 
   // cargar lista de averias.
