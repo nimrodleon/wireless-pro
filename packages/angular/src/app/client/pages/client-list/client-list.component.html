@@ -25,7 +25,7 @@
                     <hr class="dropdown-divider">
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="#" (click)="temporalServicesClick($event)">
                       <span class="text-uppercase">Servicios Temporal</span>
                     </a>
                   </li>
@@ -100,5 +100,6 @@
       [currentClient]="currentClient"
       (hideModal)="saveChanges($event)">
     </app-client-form-modal>
+    <app-temporal-services></app-temporal-services>
   </div>
 </div>

@@ -18,6 +18,7 @@ export class ClientListComponent implements OnInit {
   titleModal: string = '';
   queryInput: FormControl = this.fb.control('');
   clientModal: any;
+  temporalServicesModal: any;
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +33,9 @@ export class ClientListComponent implements OnInit {
     // vincular modal cliente.
     this.clientModal = new bootstrap.Modal(
       document.querySelector('#client-form-modal'));
+    // vincular modal servicios temporales.
+    this.temporalServicesModal = new bootstrap.Modal(
+      document.querySelector('#temporal-services'));
   }
 
   // Se Ejecuta desde el Buscador.
@@ -66,6 +70,12 @@ export class ClientListComponent implements OnInit {
             .then(() => console.info('Cliente Guardado!'));
         });
     }
+  }
+
+  // cargar servicios temporales.
+  temporalServicesClick(event: any): void {
+    event.preventDefault();
+    this.temporalServicesModal.show();
   }
 
   // exportar datos.

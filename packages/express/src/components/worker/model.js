@@ -7,6 +7,10 @@ const workerActivitySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Service'
   },
+  clientId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Client'
+  },
   task: String,
   user: String,
   typeOperation: String,

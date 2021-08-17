@@ -24,6 +24,7 @@ import {TicketComponent} from './pages/ticket/ticket.component';
 import {ReceivableComponent} from './pages/receivable/receivable.component';
 import {PaymentDailyComponent} from './pages/payment-daily/payment-daily.component';
 import {ServiceModalComponent} from './components/service-modal/service-modal.component';
+import {TemporalServicesComponent} from './components/temporal-services/temporal-services.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {ServiceModalComponent} from './components/service-modal/service-modal.co
     TicketComponent,
     ReceivableComponent,
     PaymentDailyComponent,
-    ServiceModalComponent
+    ServiceModalComponent,
+    TemporalServicesComponent
   ],
   imports: [
     CommonModule,
