@@ -1,4 +1,4 @@
-export interface InstallationOrder {
+export interface WorkOrder {
   _id: string;
   userId: string;
   clientId: string;

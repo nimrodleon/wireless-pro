@@ -10,7 +10,7 @@
           (ngSubmit)="searchSubmit()"
           class="row row-cols-auto g-2 my-2">
           <div class="col-auto">
-            <h4 class="text-uppercase pt-1 mb-0">Lista Ordenes de Instalación</h4>
+            <h4 class="text-uppercase pt-1 mb-0">Ordenes de Trabajo</h4>
           </div>
           <div class="col-auto">
             <input type="number" formControlName="year" class="form-control" style="width: 100px;">
@@ -54,32 +54,32 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of installationOrders">
+            <tr *ngFor="let item of workOrders">
               <td>
-                <a [routerLink]="['/installation_orders/detail', item.InstallationOrder._id]"
+                <a [routerLink]="['/work_orders/detail', item.WorkOrder._id]"
                    class="text-uppercase">{{item.fullName}}</a>
                 <div class="d-flex">
                   <div class="text-uppercase me-1">
-                    <span class="badge bg-info">{{item.InstallationOrder.typeInstallation}}</span>
+                    <span class="badge bg-info">{{item.WorkOrder.typeInstallation}}</span>
                   </div>
                   <div class="text-uppercase ms-1">
-                    <span *ngIf="item.InstallationOrder.statusOrder === 'PENDIENTE'" class="badge bg-primary">
-                      {{item.InstallationOrder.statusOrder}}</span>
-                    <span *ngIf="item.InstallationOrder.statusOrder === 'EN PROCESO'" class="badge bg-warning">
-                      {{item.InstallationOrder.statusOrder}}</span>
-                    <span *ngIf="item.InstallationOrder.statusOrder === 'FINALIZADO'" class="badge bg-success">
-                      {{item.InstallationOrder.statusOrder}}</span>
+                    <span *ngIf="item.WorkOrder.statusOrder === 'PENDIENTE'" class="badge bg-primary">
+                      {{item.WorkOrder.statusOrder}}</span>
+                    <span *ngIf="item.WorkOrder.statusOrder === 'EN PROCESO'" class="badge bg-warning">
+                      {{item.WorkOrder.statusOrder}}</span>
+                    <span *ngIf="item.WorkOrder.statusOrder === 'FINALIZADO'" class="badge bg-success">
+                      {{item.WorkOrder.statusOrder}}</span>
                   </div>
                 </div>
-                <span class="blockquote-footer">{{item.InstallationOrder.createdAt}}</span>
+                <span class="blockquote-footer">{{item.WorkOrder.createdAt}}</span>
               </td>
-              <td>{{item.InstallationOrder.address}}</td>
+              <td>{{item.WorkOrder.address}}</td>
               <td>{{item.phone}}</td>
               <td>
                 <div class="btn-opt ms-auto">
-                  <button [routerLink]="['/installation_orders/edit', item.InstallationOrder._id]"
+                  <button [routerLink]="['/work_orders/edit', item.WorkOrder._id]"
                           class="btn btn-secondary btn-sm me-2"><i class="fas fa-edit"></i></button>
-                  <button (click)="deleteOrderInstallation(item.InstallationOrder._id)" class="btn btn-danger btn-sm">
+                  <button (click)="deleteWorkOrder(item.WorkOrder._id)" class="btn btn-danger btn-sm">
                     <i class="fas fa-trash-alt"></i></button>
                 </div>
               </td>

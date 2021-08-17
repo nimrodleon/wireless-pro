@@ -1,28 +1,28 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import Swal from 'sweetalert2';
-import {InstallationOrderService} from '../../services';
+import {WorkOrderService} from '../../services';
 import {AuthService} from 'src/app/user/services';
 
 @Component({
-  selector: 'app-installation-orders',
-  templateUrl: './installation-orders.component.html',
-  styleUrls: ['./installation-orders.component.scss']
+  selector: 'app-work-orders',
+  templateUrl: './work-orders.component.html',
+  styleUrls: ['./work-orders.component.scss']
 })
-export class InstallationOrdersComponent implements OnInit {
-  installationOrders: any[];
+export class WorkOrdersComponent implements OnInit {
+  workOrders: any[];
   query: FormControl = this.fb.control('');
   currentRole: string;
 
   constructor(
     private fb: FormBuilder,
-    private installationOrderService: InstallationOrderService,
+    private workOrderService: WorkOrderService,
     private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    // Cargar ordenes de instalación.
-    this.getInstallationOrders(this.query.value);
+    // Cargar ordenes de trabajo.
+    this.getWorkOrders(this.query.value);
     // Obtener el rol del usuario autentificado.
     this.authService.getRoles().subscribe(result => this.currentRole = result);
   }
@@ -32,20 +32,20 @@ export class InstallationOrdersComponent implements OnInit {
     return this.authService.roles;
   }
 
-  // Cargar lista de ordenes de instalación.
-  private getInstallationOrders(query: string): void {
-    this.installationOrderService.getInstallationOrders(query)
-      .subscribe(result => this.installationOrders = result);
+  // Cargar lista de ordenes de trabajo.
+  private getWorkOrders(query: string): void {
+    this.workOrderService.getWorkOrders(query)
+      .subscribe(result => this.workOrders = result);
   }
 
-  // Buscar ordenes de instalación.
-  installationOrdersLoad(e: any): void {
+  // Buscar ordenes de trabajo.
+  workOrdersLoad(e: any): void {
     e.preventDefault();
-    this.getInstallationOrders(this.query.value);
+    this.getWorkOrders(this.query.value);
   }
 
-  // borrar orden de instalación.
-  deleteOrderInstallation(id: string): void {
+  // borrar orden de trabajo.
+  deleteWorkOrder(id: string): void {
     if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
         'Información',
@@ -64,9 +64,9 @@ export class InstallationOrdersComponent implements OnInit {
         cancelButtonText: 'Cancelar'
       }).then(result => {
         if (result.isConfirmed) {
-          this.installationOrderService.deleteOrder(id)
+          this.workOrderService.deleteOrder(id)
             .subscribe(() => {
-              this.getInstallationOrders(this.query.value);
+              this.getWorkOrders(this.query.value);
             });
         }
       });

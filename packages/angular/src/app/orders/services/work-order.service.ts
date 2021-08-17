@@ -5,7 +5,7 @@ import {environment} from 'src/environments/environment';
 import {ServicePlanService} from '../../system/services';
 import {ClientService} from '../../client/services';
 import {UserService} from '../../user/services';
-import {InstallationOrder} from '../interfaces';
+import {WorkOrder} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
 import {Client} from '../../client/interfaces';
 import {User} from '../../user/interfaces';
@@ -13,8 +13,8 @@ import {User} from '../../user/interfaces';
 @Injectable({
   providedIn: 'root'
 })
-export class InstallationOrderService {
-  private baseURL: string = environment.baseUrl + 'installation_orders';
+export class WorkOrderService {
+  private baseURL: string = environment.baseUrl + 'work_orders';
 
   constructor(
     private http: HttpClient,
@@ -58,48 +58,48 @@ export class InstallationOrderService {
     return this.servicePlanService.getServicePlan(id);
   }
 
-  // Lista de ordenes de instalación.
-  getInstallationOrders(query: string): Observable<any> {
+  // Lista de ordenes de trabajo.
+  getWorkOrders(query: string): Observable<any> {
     let params = new HttpParams();
     params = params.append('search', query);
     return this.http.get(this.baseURL, {params});
   }
 
-  // Lista de ordenes de instalación por mes y año.
-  getInstallationOrdersByYearMonth(query: any): Observable<any> {
+  // Lista ordenes de trabajo por mes y año.
+  getWorkOrdersByYearMonth(query: any): Observable<any> {
     let params = new HttpParams();
     params = params.append('search', query.search);
     return this.http.get(`${this.baseURL}/${query.year}/${query.month}/report`, {params});
   }
 
-  // Obtener orden de instalación por id.
-  getInstallationOrderById(id): Observable<InstallationOrder> {
-    return this.http.get<InstallationOrder>(`${this.baseURL}/${id}`);
+  // Obtener orden de trabajo por id.
+  getWorkOrderById(id): Observable<WorkOrder> {
+    return this.http.get<WorkOrder>(`${this.baseURL}/${id}`);
   }
 
-  // Obtener orden de instalación por id del cliente.
-  getInstallationOrderByClientId(id: string): Observable<InstallationOrder[]> {
-    return this.http.get<InstallationOrder[]>(`${this.baseURL}/${id}/client`);
+  // Obtener orden de trabajo por id del cliente.
+  getWorkOrderByClientId(id: string): Observable<WorkOrder[]> {
+    return this.http.get<WorkOrder[]>(`${this.baseURL}/${id}/client`);
   }
 
   // registrar orden de instalación.
-  addOrder(data: InstallationOrder): Observable<InstallationOrder> {
+  addOrder(data: WorkOrder): Observable<WorkOrder> {
     delete data.createdAt;
-    return this.http.post<InstallationOrder>(this.baseURL, data);
+    return this.http.post<WorkOrder>(this.baseURL, data);
   }
 
   // actualizar orden de instalación.
-  updateOrder(data: InstallationOrder): Observable<InstallationOrder> {
-    return this.http.patch<InstallationOrder>(`${this.baseURL}/${data._id}`, data);
+  updateOrder(data: WorkOrder): Observable<WorkOrder> {
+    return this.http.patch<WorkOrder>(`${this.baseURL}/${data._id}`, data);
   }
 
   // borrar orden de instalación.
-  deleteOrder(id: string): Observable<InstallationOrder> {
-    return this.http.delete<InstallationOrder>(`${this.baseURL}/${id}`);
+  deleteOrder(id: string): Observable<WorkOrder> {
+    return this.http.delete<WorkOrder>(`${this.baseURL}/${id}`);
   }
 
   // Valores por defecto.
-  defaultValues(): InstallationOrder {
+  defaultValues(): WorkOrder {
     return {
       _id: undefined,
       userId: undefined,

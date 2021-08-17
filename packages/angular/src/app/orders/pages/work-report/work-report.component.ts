@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import * as moment from 'moment';
-import {InstallationOrderService} from '../../services';
 import Swal from 'sweetalert2';
-import {AuthService} from '../../../user/services';
+import {WorkOrderService} from '../../services';
+import {AuthService} from 'src/app/user/services';
 
 interface IQueryForm {
   year: string;
@@ -12,12 +12,12 @@ interface IQueryForm {
 }
 
 @Component({
-  selector: 'app-installation-report',
-  templateUrl: './installation-report.component.html',
-  styleUrls: ['./installation-report.component.scss']
+  selector: 'app-work-report',
+  templateUrl: './work-report.component.html',
+  styleUrls: ['./work-report.component.scss']
 })
-export class InstallationReportComponent implements OnInit {
-  installationOrders: any[];
+export class WorkReportComponent implements OnInit {
+  workOrders: any[];
   queryData: IQueryForm = {
     year: moment().format('YYYY'),
     month: moment().format('MM'),
@@ -32,15 +32,15 @@ export class InstallationReportComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private installationOrderService: InstallationOrderService,
+    private workOrderService: WorkOrderService,
     private authService: AuthService) {
   }
 
   ngOnInit(): void {
     // Subscripción del formulario.
     this.queryForm.valueChanges.subscribe(values => this.queryData = values);
-    // Cargar lista ordenes de instalación.
-    this.getInstallationOrders();
+    // Cargar lista ordenes de trabajo.
+    this.getWorkOrders();
     // Obtener el rol del usuario autentificado.
     this.authService.getRoles().subscribe(result => this.currentRole = result);
   }
@@ -50,19 +50,19 @@ export class InstallationReportComponent implements OnInit {
     return this.authService.roles;
   }
 
-  // Cargar lista de ordenes de instalación.
-  private getInstallationOrders(): void {
-    this.installationOrderService.getInstallationOrdersByYearMonth(this.queryData)
-      .subscribe(result => this.installationOrders = result);
+  // Cargar lista de ordenes de trabajo.
+  private getWorkOrders(): void {
+    this.workOrderService.getWorkOrdersByYearMonth(this.queryData)
+      .subscribe(result => this.workOrders = result);
   }
 
-  // Buscar ordenes de instalación.
+  // Buscar ordenes de trabajo.
   searchSubmit(): void {
-    this.getInstallationOrders();
+    this.getWorkOrders();
   }
 
-  // borrar orden de instalación.
-  deleteOrderInstallation(id: string): void {
+  // borrar orden de trabajo.
+  deleteWorkOrder(id: string): void {
     if (this.currentRole !== this.roles.ROLE_ADMIN) {
       Swal.fire(
         'Información',
@@ -81,9 +81,9 @@ export class InstallationReportComponent implements OnInit {
         cancelButtonText: 'Cancelar'
       }).then(result => {
         if (result.isConfirmed) {
-          this.installationOrderService.deleteOrder(id)
+          this.workOrderService.deleteOrder(id)
             .subscribe(() => {
-              this.getInstallationOrders();
+              this.getWorkOrders();
             });
         }
       });

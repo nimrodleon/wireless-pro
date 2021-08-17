@@ -4,8 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 declare var bootstrap: any;
 import {ClientDetailService} from '../../services';
 import {Client, Service} from '../../interfaces';
-import {InstallationOrderService} from 'src/app/orders/services';
-import {InstallationOrder} from 'src/app/orders/interfaces';
+import {WorkOrderService} from 'src/app/orders/services';
+import {WorkOrder} from 'src/app/orders/interfaces';
 import {AuthService} from 'src/app/user/services';
 import {Sweetalert2} from 'src/app/global/interfaces';
 
@@ -20,14 +20,14 @@ export class ClientDetailComponent implements OnInit {
   currentService: Service;
   titleService: string;
   titleClient: string;
-  installationOrderList: Array<InstallationOrder>;
+  installationOrderList: Array<WorkOrder>;
   // ============================================================
   currentRole: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private clientDetailService: ClientDetailService,
-    private installationOrderService: InstallationOrderService,
+    private installationOrderService: WorkOrderService,
     private authService: AuthService) {
     this.currentService = this.clientDetailService.serviceDefaultValues();
   }
@@ -37,7 +37,7 @@ export class ClientDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.clientDetailService.getClient(params.get('id'));
       this.clientDetailService.getServiceList(params.get('id'));
-      this.installationOrderService.getInstallationOrderByClientId(params.get('id'))
+      this.installationOrderService.getWorkOrderByClientId(params.get('id'))
         .subscribe(result => this.installationOrderList = result);
     });
     // Obtener rol del usuario autentificado.

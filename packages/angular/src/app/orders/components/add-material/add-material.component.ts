@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, Validators} from '@angular/forms';
 declare var jQuery: any;
 import {environment} from 'src/environments/environment';
 import {MaterialService} from 'src/app/system/services';
-import {InstallationOrderDetailService, OrderMaterialService} from '../../services';
+import {WorkOrderDetailService, OrderMaterialService} from '../../services';
 import {OrderMaterial} from '../../interfaces';
 
 @Component({
@@ -25,7 +25,7 @@ export class AddMaterialComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private orderMaterialService: OrderMaterialService,
-    private installationOrderDetailService: InstallationOrderDetailService,
+    private workOrderDetailService: WorkOrderDetailService,
     private materialService: MaterialService) {
     this.orderMaterial = this.orderMaterialService.defaultValues();
   }
@@ -52,9 +52,9 @@ export class AddMaterialComponent implements OnInit {
     });
   }
 
-  // Orden de instalación actual.
-  get currentInstallationOrder() {
-    return this.installationOrderDetailService.currentInstallationOrder;
+  // Orden de trabajo actual.
+  get currentWorkOrder() {
+    return this.workOrderDetailService.currentWorkOrder;
   }
 
   // cambiar item select2.
@@ -75,13 +75,13 @@ export class AddMaterialComponent implements OnInit {
           .subscribe(result => {
             this.orderMaterial.materialId = result._id;
             this.orderMaterial.description = result.description;
-            this.orderMaterial.orderId = this.currentInstallationOrder._id;
+            this.orderMaterial.orderId = this.currentWorkOrder._id;
             this.orderMaterial.price = result.price;
             this.orderMaterial.quantity1 = this.quantity1.value;
             // registrar material de la orden de instalación.
             this.orderMaterialService.addMaterial(this.orderMaterial)
               .subscribe(result => {
-                this.installationOrderDetailService.addOrderMaterial(result);
+                this.workOrderDetailService.addOrderMaterial(result);
                 this.hideModal.emit(true);
               });
           });

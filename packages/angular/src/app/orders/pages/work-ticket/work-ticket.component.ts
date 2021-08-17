@@ -1,41 +1,41 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {InfoService, ServicePlanService} from 'src/app/system/services';
-import {InstallationOrderService} from '../../services';
+import {WorkOrderService} from '../../services';
 import {Info, ServicePlan} from 'src/app/system/interfaces';
-import {InstallationOrder} from '../../interfaces';
+import {WorkOrder} from '../../interfaces';
 import {Client} from '../../../client/interfaces';
 import {ClientService} from '../../../client/services';
 
 @Component({
-  selector: 'app-installation-ticket',
-  templateUrl: './installation-ticket.component.html',
-  styleUrls: ['./installation-ticket.component.scss']
+  selector: 'app-work-ticket',
+  templateUrl: './work-ticket.component.html',
+  styleUrls: ['./work-ticket.component.scss']
 })
-export class InstallationTicketComponent implements OnInit {
+export class WorkTicketComponent implements OnInit {
   info: Info;
-  installationOrder: InstallationOrder;
+  workOrder: WorkOrder;
   servicePlan: ServicePlan;
   client: Client;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private infoService: InfoService,
-    private installationOrderService: InstallationOrderService,
+    private workOrderService: WorkOrderService,
     private servicePlanService: ServicePlanService,
     private clientService: ClientService) {
     // Valores por defecto.
     this.info = this.infoService.defaultValues();
-    this.installationOrder = this.installationOrderService.defaultValues();
+    this.workOrder = this.workOrderService.defaultValues();
     this.servicePlan = this.servicePlanService.defaultValues();
     this.client = this.clientService.defaultValues();
   }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      this.installationOrderService.getInstallationOrderById(params.get('id'))
+      this.workOrderService.getWorkOrderById(params.get('id'))
         .subscribe(result => {
-          this.installationOrder = result;
+          this.workOrder = result;
           this.servicePlanService.getServicePlan(result.servicePlanId)
             .subscribe(result => this.servicePlan = result);
           this.clientService.getClientById(result.clientId)

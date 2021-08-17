@@ -8,7 +8,7 @@ import {OrderMaterial} from '../interfaces';
   providedIn: 'root'
 })
 export class OrderMaterialService {
-  private baseURL: string = environment.baseUrl + 'installation_orders';
+  private baseURL: string = environment.baseUrl + 'work_orders';
 
   constructor(
     private http: HttpClient) {

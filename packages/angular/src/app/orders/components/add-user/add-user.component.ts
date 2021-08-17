@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {UserService} from 'src/app/user/services';
-import {InstallationOrderDetailService} from '../../services';
+import {WorkOrderDetailService} from '../../services';
 import {Select2} from 'src/app/global/interfaces';
 
 @Component({
@@ -18,7 +18,7 @@ export class AddUserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private installationOrderDetailService: InstallationOrderDetailService) {
+    private workOrderDetailService: WorkOrderDetailService) {
   }
 
   ngOnInit(): void {
@@ -31,8 +31,8 @@ export class AddUserComponent implements OnInit {
   selectUserClick(): void {
     this.userService.getUserById(this.userId.value)
       .subscribe(result => {
-        this.installationOrderDetailService.setUserTechnical(result);
-        this.installationOrderDetailService.updateInstallationOrder();
+        this.workOrderDetailService.setUserTechnical(result);
+        this.workOrderDetailService.updateWorkOrder();
         this.hideModal.emit(true);
       });
   }

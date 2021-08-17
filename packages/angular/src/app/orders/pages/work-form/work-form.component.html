@@ -5,30 +5,38 @@
     <!-- ##(Begin) Content -->
     <div class="row">
       <div class="col-12">
-        <form (ngSubmit)="saveChanges()" [formGroup]="installationOrderForm">
+        <form (ngSubmit)="saveChanges()" [formGroup]="workOrderForm">
           <div class="row mt-2">
             <div class="pb-2 col-12">
-              <button type="button" (click)="addClientClick()" class="btn btn-success me-2">
-                <span class="text-uppercase">Crear Nuevo Cliente</span>
-              </button>
-              <button type="button" class="btn btn-info"
-                      data-bs-toggle="modal" data-bs-target="#selectClientModal">
-                <span class="text-uppercase">Buscar Cliente</span>
-              </button>
-            </div>
-            <div class="col-6">
-              <div *ngIf="installationOrder.clientId !== ''" class="pb-2">
-                <a [routerLink]="['/client/detail/', currentClientSelected._id]"
-                   class="h5 me-3">{{currentClientSelected.fullName}}</a>
+              <div class="row row-cols-auto g-2">
+                <div class="col-auto">
+                  <button type="button" (click)="addClientClick()" class="btn btn-success">
+                    <span class="text-uppercase">Crear Nuevo Cliente</span>
+                  </button>
+                </div>
+                <div class="col-auto">
+                  <button type="button" class="btn btn-info"
+                          data-bs-toggle="modal" data-bs-target="#selectClientModal">
+                    <span class="text-uppercase">Buscar Cliente</span>
+                  </button>
+                </div>
+                <div class="col-auto">
+                  <div *ngIf="workOrder.clientId !== ''" class="col-form-label">
+                    <a [routerLink]="['/client/detail/', currentClientSelected._id]"
+                       class="h5 me-3">{{currentClientSelected.fullName}}</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="card">
+            <div class="card-header">
+              <span class="fw-bold text-uppercase">Información orden de Trabajo</span>
+            </div>
             <div class="card-body">
-              <h5 class="card-title">Información orden de Instalación</h5>
               <div class="pb-3">
-                <input type="text" class="form-control" id="searchAddress"
-                       placeholder="Ingrese una dirección para buscar en google..." disabled>
+                <input type="text" class="form-control"
+                       placeholder="Ingrese una descripción de la Tarea a realizar...">
               </div>
               <div class="row">
                 <div class="col-6">
@@ -57,14 +65,15 @@
                     </div>
                   </div>
                   <div class="row pb-3">
-                    <label class="col-4 col-form-label text-end">Tipo Instalación</label>
+                    <label class="col-4 col-form-label text-end">Tipo Tarea</label>
                     <div class="col-8">
                       <select formControlName="typeInstallation" class="form-select"
                               [ngClass]="{'is-invalid': inputIsInvalid('typeInstallation')}">
                         <option value="INSTALACIÓN">INSTALACIÓN</option>
                         <option value="RE-INSTALACIÓN">RE-INSTALACIÓN</option>
+                        <option value="SERVICIO A DOMICILIO">SERVICIO A DOMICILIO</option>
                       </select>
-                      <div class="invalid-feedback">Debe seleccionar tipo de instalación.</div>
+                      <div class="invalid-feedback">Debe seleccionar tipo de tarea.</div>
                     </div>
                   </div>
                   <div class="row pb-3">
@@ -116,7 +125,7 @@
               <i class="fas fa-save"></i>
               <span class="text-uppercase ms-1">Aceptar y Guardar</span>
             </button>
-            <button type="button" routerLink="/installation_orders" class="btn btn-danger">
+            <button type="button" routerLink="/work_orders" class="btn btn-danger">
               <i class="fas fa-undo"></i>
               <span class="text-uppercase ms-1">Cancelar</span>
             </button>

@@ -2,17 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 declare var bootstrap: any;
-import {InstallationOrderDetailService, OrderMaterialService} from '../../services';
+import {WorkOrderDetailService, OrderMaterialService} from '../../services';
 import {OrderMaterial} from '../../interfaces';
 import {Service} from 'src/app/client/interfaces';
 import {ServiceService} from 'src/app/client/services';
 
 @Component({
-  selector: 'app-installation-detail',
-  templateUrl: './installation-detail.component.html',
-  styleUrls: ['./installation-detail.component.scss']
+  selector: 'app-work-detail',
+  templateUrl: './work-detail.component.html',
+  styleUrls: ['./work-detail.component.scss']
 })
-export class InstallationDetailComponent implements OnInit {
+export class WorkDetailComponent implements OnInit {
   userModal: any;
   materialModal: any;
   itemMaterialModal: any;
@@ -25,7 +25,7 @@ export class InstallationDetailComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private installationOrderDetailService: InstallationOrderDetailService,
+    private workOrderDetailService: WorkOrderDetailService,
     private orderMaterialService: OrderMaterialService,
     private serviceService: ServiceService) {
   }
@@ -33,7 +33,7 @@ export class InstallationDetailComponent implements OnInit {
   ngOnInit(): void {
     // cargar datos orden de instalación.
     this.activatedRoute.paramMap.subscribe(params => {
-      this.installationOrderDetailService.getInstallationOrder(params.get('id'));
+      this.workOrderDetailService.getWorkOrder(params.get('id'));
     });
     // establecer formularios modales.
     this.userModal = new bootstrap.Modal(
@@ -47,28 +47,28 @@ export class InstallationDetailComponent implements OnInit {
   }
 
   // orden de instalación.
-  get currentInstallationOrder() {
-    return this.installationOrderDetailService.currentInstallationOrder;
+  get currentWorkOrder() {
+    return this.workOrderDetailService.currentWorkOrder;
   }
 
   // lista de materiales.
   get orderMaterials() {
-    return this.installationOrderDetailService.orderMaterials;
+    return this.workOrderDetailService.orderMaterials;
   }
 
   // plan de servicio.
   get currentServicePlan() {
-    return this.installationOrderDetailService.currentServicePlan;
+    return this.workOrderDetailService.currentServicePlan;
   }
 
   // cliente actual.
   get currentClient() {
-    return this.installationOrderDetailService.currentClient;
+    return this.workOrderDetailService.currentClient;
   }
 
   // técnico actual.
   get userTechnical() {
-    return this.installationOrderDetailService.userTechnical;
+    return this.workOrderDetailService.userTechnical;
   }
 
   // Editar item material.
@@ -82,7 +82,7 @@ export class InstallationDetailComponent implements OnInit {
   // Cerrar modal agregar técnico.
   hideUserModal(value: boolean): void {
     if (value === true) {
-      this.changeStatusOrderInstallation('EN PROCESO');
+      this.changeStatusWorkOrder('EN PROCESO');
       this.userModal.hide();
     }
   }
@@ -97,40 +97,40 @@ export class InstallationDetailComponent implements OnInit {
   // Cerrar modal editar item tabla.
   hideItemMaterialModal(value: boolean): void {
     if (value === true) {
-      this.installationOrderDetailService.getOrderMaterials(this.currentInstallationOrder._id);
+      this.workOrderDetailService.getOrderMaterials(this.currentWorkOrder._id);
       this.itemMaterialModal.hide();
     }
   }
 
   // Comprobar existencia de usuario.
   userNotExist(): boolean {
-    return this.currentInstallationOrder.userId === undefined
-      || this.currentInstallationOrder.userId === '';
+    return this.currentWorkOrder.userId === undefined
+      || this.currentWorkOrder.userId === '';
   }
 
   // Borrar el técnico actual.
   deleteUserTechnical(e): void {
     e.preventDefault();
-    delete this.currentInstallationOrder.userId;
+    delete this.currentWorkOrder.userId;
   }
 
-  // cambiar estado de la orden de instalación.
-  changeStatusOrderInstallation(status: string): void {
-    let _orderInstallation = this.currentInstallationOrder;
+  // cambiar estado de la orden de trabajo.
+  changeStatusWorkOrder(status: string): void {
+    let _orderInstallation = this.currentWorkOrder;
     _orderInstallation.statusOrder = status;
-    this.installationOrderDetailService.currentInstallationOrder = _orderInstallation;
+    this.workOrderDetailService.currentWorkOrder = _orderInstallation;
     // actualizar orden de instalación.
-    this.installationOrderDetailService.updateInstallationOrder();
+    this.workOrderDetailService.updateWorkOrder();
   }
 
-  // Habilitar orden de instalación.
-  enableOrderInstallation(): void {
-    this.changeStatusOrderInstallation('EN PROCESO');
+  // Habilitar orden de trabajo.
+  enableWorkOrder(): void {
+    this.changeStatusWorkOrder('EN PROCESO');
   }
 
-  // Finalizar orden de Instalación.
-  finishOrderInstallation(): void {
-    this.changeStatusOrderInstallation('FINALIZADO');
+  // Finalizar orden de trabajo.
+  finishWorkOrder(): void {
+    this.changeStatusWorkOrder('FINALIZADO');
   }
 
   // agregar servicio.
@@ -139,9 +139,9 @@ export class InstallationDetailComponent implements OnInit {
     this.titleService = 'Agregar Servicio';
     this.currentService = this.serviceService.defaultValues();
     this.currentService.clientId = this.currentClient._id;
-    this.currentService.address = this.currentInstallationOrder.address;
-    this.currentService.city = this.currentInstallationOrder.city;
-    this.currentService.region = this.currentInstallationOrder.region;
+    this.currentService.address = this.currentWorkOrder.address;
+    this.currentService.city = this.currentWorkOrder.city;
+    this.currentService.region = this.currentWorkOrder.region;
     this.serviceModal.show();
   }
 

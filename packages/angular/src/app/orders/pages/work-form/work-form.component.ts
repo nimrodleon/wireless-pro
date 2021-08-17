@@ -6,20 +6,20 @@ import Swal from 'sweetalert2';
 declare var jQuery: any;
 declare var bootstrap: any;
 import {environment} from 'src/environments/environment';
-import {InstallationOrderService} from '../../services';
+import {WorkOrderService} from '../../services';
 import {ServicePlan} from 'src/app/system/interfaces';
 import {Client} from 'src/app/client/interfaces';
-import {InstallationOrder} from '../../interfaces';
+import {WorkOrder} from '../../interfaces';
 
 @Component({
-  selector: 'app-installation-form',
-  templateUrl: './installation-form.component.html',
-  styleUrls: ['./installation-form.component.scss']
+  selector: 'app-work-form',
+  templateUrl: './work-form.component.html',
+  styleUrls: ['./work-form.component.scss']
 })
-export class InstallationFormComponent implements OnInit {
+export class WorkFormComponent implements OnInit {
   private baseURL: string = environment.baseUrl;
-  installationOrder: InstallationOrder;
-  installationOrderForm: FormGroup = this.fb.group({
+  workOrder: WorkOrder;
+  workOrderForm: FormGroup = this.fb.group({
     _id: [null],
     clientId: [''],
     address: ['', [Validators.required]],
@@ -40,20 +40,20 @@ export class InstallationFormComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private installationOrderService: InstallationOrderService) {
+    private workOrderService: WorkOrderService) {
     // Cargar valores por defecto.
-    this.installationOrder = this.installationOrderService.defaultValues();
-    this.currentClientSelected = this.installationOrderService.clientDefaultValues();
+    this.workOrder = this.workOrderService.defaultValues();
+    this.currentClientSelected = this.workOrderService.clientDefaultValues();
   }
 
   ngOnInit(): void {
     // cargar datos orden de instalación modo edición.
     this.activatedRoute.paramMap.subscribe(params => {
       if (params.get('id')) {
-        this.installationOrderService.getInstallationOrderById(params.get('id'))
+        this.workOrderService.getWorkOrderById(params.get('id'))
           .subscribe(result => {
-            this.installationOrderForm.reset({...result});
-            this.installationOrderService.getClientById(result.clientId)
+            this.workOrderForm.reset({...result});
+            this.workOrderService.getClientById(result.clientId)
               .subscribe(result => this.currentClientSelected = result);
           });
       }
@@ -71,10 +71,10 @@ export class InstallationFormComponent implements OnInit {
       }
     });
     // Suscripción al formulario.
-    this.installationOrderForm.valueChanges
-      .subscribe(values => this.installationOrder = values);
+    this.workOrderForm.valueChanges
+      .subscribe(values => this.workOrder = values);
     // Lista de planes de servicio.
-    this.installationOrderService.getServicePlans()
+    this.workOrderService.getServicePlans()
       .subscribe(result => {
         this.servicePlanList = result;
       });
@@ -88,23 +88,23 @@ export class InstallationFormComponent implements OnInit {
 
   // Verificar campo invalido.
   inputIsInvalid(field: string) {
-    return this.installationOrderForm.controls[field].errors
-      && this.installationOrderForm.controls[field].touched;
+    return this.workOrderForm.controls[field].errors
+      && this.workOrderForm.controls[field].touched;
   }
 
   // Seleccionar cliente.
   selectClientClick(): void {
-    this.installationOrder.clientId = jQuery('#searchClient').val();
-    if (this.installationOrder.clientId !== '') {
+    this.workOrder.clientId = jQuery('#searchClient').val();
+    if (this.workOrder.clientId !== '') {
       // Cargar cliente seleccionado.
-      this.installationOrderService.getClientById(this.installationOrder.clientId)
+      this.workOrderService.getClientById(this.workOrder.clientId)
         .subscribe(result => {
           this.currentClientSelected = result;
           // Cargar dirección del cliente al formulario.
-          delete this.installationOrder.address;
-          this.installationOrderForm.reset({
+          delete this.workOrder.address;
+          this.workOrderForm.reset({
             address: this.currentClientSelected.fullAddress,
-            ...this.installationOrder,
+            ...this.workOrder,
           });
         });
       // Cerrar modal buscar cliente.
@@ -114,23 +114,23 @@ export class InstallationFormComponent implements OnInit {
 
   // botón agregar cliente.
   addClientClick(): void {
-    this.currentClientSelected = this.installationOrderService.clientDefaultValues();
+    this.currentClientSelected = this.workOrderService.clientDefaultValues();
     this.addClientModal.show();
   }
 
   // Guardar Clientes.
   createClient(data: Client): void {
     delete data._id;
-    this.installationOrderService.addClient(data)
+    this.workOrderService.addClient(data)
       .subscribe(result => {
         // actualizar cliente seleccionado.
         this.currentClientSelected = result;
-        this.installationOrder.clientId = this.currentClientSelected._id;
+        this.workOrder.clientId = this.currentClientSelected._id;
         // Cargar dirección del cliente al formulario.
-        delete this.installationOrder.address;
-        this.installationOrderForm.reset({
+        delete this.workOrder.address;
+        this.workOrderForm.reset({
           address: this.currentClientSelected.fullAddress,
-          ...this.installationOrder,
+          ...this.workOrder,
         });
         // Cerrar modal agregar cliente.
         this.addClientModal.hide();
@@ -140,25 +140,25 @@ export class InstallationFormComponent implements OnInit {
   // Guardar orden de instalación.
   saveChanges(): void {
     // validar cliente seleccionado.
-    if (this.installationOrder.clientId === '') {
+    if (this.workOrder.clientId === '') {
       Swal.fire('Seleccionar un Cliente!');
     } else {
       // cuando existe un cliente seleccionado.
-      if (this.installationOrderForm.invalid) {
-        this.installationOrderForm.markAllAsTouched();
+      if (this.workOrderForm.invalid) {
+        this.workOrderForm.markAllAsTouched();
         return;
       }
       // Guardar datos, sólo si es válido el formulario.
-      if (this.installationOrder._id === null) {
-        delete this.installationOrder._id;
-        this.installationOrderService.addOrder(this.installationOrder)
+      if (this.workOrder._id === null) {
+        delete this.workOrder._id;
+        this.workOrderService.addOrder(this.workOrder)
           .subscribe(result => {
-            this.router.navigate(['/installation_orders/ticket', result._id])
+            this.router.navigate(['/work_orders/ticket', result._id])
               .then(() => console.info('Imprimir Ticket!!'));
           });
       } else {
-        this.installationOrderService.updateOrder(this.installationOrder).subscribe(result => {
-          this.router.navigate(['/installation_orders/detail', result._id])
+        this.workOrderService.updateOrder(this.workOrder).subscribe(result => {
+          this.router.navigate(['/work_orders/detail', result._id])
             .then(() => console.info('Orden de Instalación actualizada!'));
         });
       }

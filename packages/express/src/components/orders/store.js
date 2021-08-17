@@ -16,16 +16,16 @@ export class OrderStore {
           from: 'orders',
           localField: '_id',
           foreignField: 'clientId',
-          as: 'InstallationOrder'
+          as: 'WorkOrder'
         }
       },
       {
         $project: {
           fullName: true,
           phone: true,
-          InstallationOrder: {
+          WorkOrder: {
             $filter: {
-              input: '$InstallationOrder',
+              input: '$WorkOrder',
               as: 'ord',
               cond: {
                 $and: [
@@ -38,7 +38,7 @@ export class OrderStore {
         }
       },
       {
-        $unwind: '$InstallationOrder'
+        $unwind: '$WorkOrder'
       }
     ])
   }
@@ -56,16 +56,16 @@ export class OrderStore {
           from: 'orders',
           localField: '_id',
           foreignField: 'clientId',
-          as: 'InstallationOrder'
+          as: 'WorkOrder'
         }
       },
       {
         $project: {
           fullName: true,
           phone: true,
-          InstallationOrder: {
+          WorkOrder: {
             $filter: {
-              input: '$InstallationOrder',
+              input: '$WorkOrder',
               as: 'ord',
               cond: {
                 $and: [
@@ -79,7 +79,7 @@ export class OrderStore {
         }
       },
       {
-        $unwind: '$InstallationOrder'
+        $unwind: '$WorkOrder'
       }
     ])
   }

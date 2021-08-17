@@ -5,29 +5,29 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {OrdersRoutingModule} from './orders-routing.module';
 import {GlobalModule} from '../global/global.module';
 import {ClientModule} from '../client/client.module';
-import {InstallationOrderService, InstallationOrderDetailService, OrderMaterialService} from './services';
+import {WorkOrderService, WorkOrderDetailService, OrderMaterialService} from './services';
 import {ServicePlanService} from '../system/services';
 import {ClientService} from '../client/services';
 import {UserService} from '../user/services';
-import {InstallationOrdersComponent} from './pages/installation-orders/installation-orders.component';
-import {InstallationFormComponent} from './pages/installation-form/installation-form.component';
-import {InstallationDetailComponent} from './pages/installation-detail/installation-detail.component';
+import {WorkOrdersComponent} from './pages/work-orders/work-orders.component';
+import {WorkFormComponent} from './pages/work-form/work-form.component';
+import {WorkDetailComponent} from './pages/work-detail/work-detail.component';
 import {ItemMaterialComponent} from './components/item-material/item-material.component';
-import {InstallationReportComponent} from './pages/installation-report/installation-report.component';
+import {WorkReportComponent} from './pages/work-report/work-report.component';
 import {AddMaterialComponent} from './components/add-material/add-material.component';
 import {AddUserComponent} from './components/add-user/add-user.component';
-import {InstallationTicketComponent} from './pages/installation-ticket/installation-ticket.component';
+import {WorkTicketComponent} from './pages/work-ticket/work-ticket.component';
 
 @NgModule({
   declarations: [
-    InstallationOrdersComponent,
-    InstallationFormComponent,
-    InstallationDetailComponent,
+    WorkOrdersComponent,
+    WorkFormComponent,
+    WorkDetailComponent,
     ItemMaterialComponent,
-    InstallationReportComponent,
+    WorkReportComponent,
     AddMaterialComponent,
     AddUserComponent,
-    InstallationTicketComponent
+    WorkTicketComponent
   ],
   imports: [
     CommonModule,
@@ -37,8 +37,8 @@ import {InstallationTicketComponent} from './pages/installation-ticket/installat
     ClientModule
   ],
   providers: [
-    InstallationOrderService,
-    InstallationOrderDetailService,
+    WorkOrderService,
+    WorkOrderDetailService,
     OrderMaterialService,
     ServicePlanService,
     ClientService,

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {InstallationOrderService} from './installation-order.service';
+import {WorkOrderService} from './work-order.service';
 import {OrderMaterialService} from './order-material.service';
-import {InstallationOrder, OrderMaterial} from '../interfaces';
+import {WorkOrder, OrderMaterial} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
 import {Client} from '../../client/interfaces';
 import {User} from '../../user/interfaces';
@@ -9,19 +9,19 @@ import {User} from '../../user/interfaces';
 @Injectable({
   providedIn: 'root'
 })
-export class InstallationOrderDetailService {
-  private _currentInstallationOrder: InstallationOrder;
+export class WorkOrderDetailService {
+  private _currentWorkOrder: WorkOrder;
   private _orderMaterials: Array<OrderMaterial>;
   private _currentServicePlan: ServicePlan;
   private _currentClient: Client;
   private _userTechnical: User;
 
   constructor(
-    private installationOrderService: InstallationOrderService,
+    private workOrderService: WorkOrderService,
     private orderMaterialService: OrderMaterialService) {
-    this._currentInstallationOrder = this.installationOrderService.defaultValues();
-    this._currentServicePlan = this.installationOrderService.servicePlanDefaultValues();
-    this._currentClient = this.installationOrderService.clientDefaultValues();
+    this._currentWorkOrder = this.workOrderService.defaultValues();
+    this._currentServicePlan = this.workOrderService.servicePlanDefaultValues();
+    this._currentClient = this.workOrderService.clientDefaultValues();
   }
 
   // retornar cliente actual.
@@ -30,13 +30,13 @@ export class InstallationOrderDetailService {
   }
 
   // retornar orden de instalación actual.
-  get currentInstallationOrder(): InstallationOrder {
-    return this._currentInstallationOrder;
+  get currentWorkOrder(): WorkOrder {
+    return this._currentWorkOrder;
   }
 
   // Cambiar valor de la orden de instalación.
-  set currentInstallationOrder(data: InstallationOrder) {
-    this._currentInstallationOrder = data;
+  set currentWorkOrder(data: WorkOrder) {
+    this._currentWorkOrder = data;
   }
 
   // retornar materiales de ordenes de instalación.
@@ -57,7 +57,7 @@ export class InstallationOrderDetailService {
   // Cargar datos del técnico.
   setUserTechnical(user: User): void {
     this._userTechnical = user;
-    this._currentInstallationOrder.userId = user._id;
+    this._currentWorkOrder.userId = user._id;
   }
 
   // Agregar material a la lista.
@@ -65,16 +65,16 @@ export class InstallationOrderDetailService {
     this._orderMaterials.push(data);
   }
 
-  // cargar orden de instalación.
-  getInstallationOrder(id: string): void {
-    this.installationOrderService.getInstallationOrderById(id)
+  // cargar orden de trabajo.
+  getWorkOrder(id: string): void {
+    this.workOrderService.getWorkOrderById(id)
       .subscribe(result => {
-        this._currentInstallationOrder = result;
-        this.installationOrderService.getClientById(result.clientId)
+        this._currentWorkOrder = result;
+        this.workOrderService.getClientById(result.clientId)
           .subscribe(result => this._currentClient = result);
-        this.installationOrderService.getServicePlanById(result.servicePlanId)
+        this.workOrderService.getServicePlanById(result.servicePlanId)
           .subscribe(result => this._currentServicePlan = result);
-        this.installationOrderService.getUserById(result.userId)
+        this.workOrderService.getUserById(result.userId)
           .subscribe(result => this._userTechnical = result);
       });
     // cargar lista de materiales.
@@ -87,11 +87,10 @@ export class InstallationOrderDetailService {
       .subscribe(result => this._orderMaterials = result);
   }
 
-  // actualizar orden de instalación.
-  updateInstallationOrder(): void {
-    this.installationOrderService.updateOrder(this._currentInstallationOrder)
-      .subscribe(result => this._currentInstallationOrder = result);
+  // actualizar orden de trabajo.
+  updateWorkOrder(): void {
+    this.workOrderService.updateOrder(this._currentWorkOrder)
+      .subscribe(result => this._currentWorkOrder = result);
   }
-
 
 }

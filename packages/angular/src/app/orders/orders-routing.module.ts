@@ -1,21 +1,21 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {InstallationOrdersComponent} from './pages/installation-orders/installation-orders.component';
-import {InstallationFormComponent} from './pages/installation-form/installation-form.component';
-import {InstallationDetailComponent} from './pages/installation-detail/installation-detail.component';
-import {InstallationReportComponent} from './pages/installation-report/installation-report.component';
-import {InstallationTicketComponent} from './pages/installation-ticket/installation-ticket.component';
+import {WorkOrdersComponent} from './pages/work-orders/work-orders.component';
+import {WorkFormComponent} from './pages/work-form/work-form.component';
+import {WorkDetailComponent} from './pages/work-detail/work-detail.component';
+import {WorkReportComponent} from './pages/work-report/work-report.component';
+import {WorkTicketComponent} from './pages/work-ticket/work-ticket.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      {path: '', component: InstallationOrdersComponent},
-      {path: 'new', component: InstallationFormComponent},
-      {path: 'edit/:id', component: InstallationFormComponent},
-      {path: 'detail/:id', component: InstallationDetailComponent},
-      {path: 'ticket/:id', component: InstallationTicketComponent},
-      {path: 'report', component: InstallationReportComponent},
+      {path: '', component: WorkOrdersComponent},
+      {path: 'new', component: WorkFormComponent},
+      {path: 'edit/:id', component: WorkFormComponent},
+      {path: 'detail/:id', component: WorkDetailComponent},
+      {path: 'ticket/:id', component: WorkTicketComponent},
+      {path: 'report', component: WorkReportComponent},
       {path: '**', redirectTo: ''}
     ]
   }
