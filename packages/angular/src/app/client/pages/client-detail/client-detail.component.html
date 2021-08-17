@@ -58,11 +58,12 @@
                 <tbody>
                 <tr *ngFor="let order of installationOrderList">
                   <td>
-                    <a [routerLink]="['/installation_orders/detail', order._id]"
+                    <a [routerLink]="['/work_orders/detail', order._id]"
                        class="text-uppercase">{{order.address}}</a>
+                    <div *ngIf="order.description" class="card px-2">{{order.description}}</div>
                     <div class="d-flex">
                       <div class="text-uppercase me-2">
-                        <span class="badge bg-info">{{order.typeInstallation}}</span>
+                        <span class="badge bg-info">{{order.typeTask}}</span>
                       </div>
                       <div class="text-uppercase">
                         <span *ngIf="order.statusOrder === 'PENDIENTE'"

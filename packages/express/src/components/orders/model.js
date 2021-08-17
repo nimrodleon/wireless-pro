@@ -11,15 +11,19 @@ const orderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Client'
   },
+  description: {
+    type: String,
+    uppercase: true,
+  },
   address: String,
   city: String,
   region: String,
-  typeInstallation: String,
+  typeTask: String,
   servicePlanId: {
     type: Schema.Types.ObjectId,
     ref: 'ServicePlan'
   },
-  costInstallation: Number,
+  total: Number,
   amount: Number,
   statusOrder: {
     type: String,

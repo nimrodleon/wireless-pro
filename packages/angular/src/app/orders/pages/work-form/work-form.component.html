@@ -35,7 +35,7 @@
             </div>
             <div class="card-body">
               <div class="pb-3">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control" formControlName="description"
                        placeholder="Ingrese una descripción de la Tarea a realizar...">
               </div>
               <div class="row">
@@ -67,8 +67,8 @@
                   <div class="row pb-3">
                     <label class="col-4 col-form-label text-end">Tipo Tarea</label>
                     <div class="col-8">
-                      <select formControlName="typeInstallation" class="form-select"
-                              [ngClass]="{'is-invalid': inputIsInvalid('typeInstallation')}">
+                      <select formControlName="typeTask" class="form-select"
+                              [ngClass]="{'is-invalid': inputIsInvalid('typeTask')}">
                         <option value="INSTALACIÓN">INSTALACIÓN</option>
                         <option value="RE-INSTALACIÓN">RE-INSTALACIÓN</option>
                         <option value="SERVICIO A DOMICILIO">SERVICIO A DOMICILIO</option>
@@ -87,11 +87,11 @@
                     </div>
                   </div>
                   <div class="row pb-3">
-                    <label class="col-4 col-form-label text-end">Costo Instalación</label>
+                    <label class="col-4 col-form-label text-end">Total</label>
                     <div class="col-8">
-                      <input type="number" formControlName="costInstallation" step="0.01" class="form-control"
-                             [ngClass]="{'is-invalid': inputIsInvalid('costInstallation')}">
-                      <div class="invalid-feedback">El costo de instalación debe ser mínimo cero.</div>
+                      <input type="number" formControlName="total" step="0.01" class="form-control"
+                             [ngClass]="{'is-invalid': inputIsInvalid('total')}">
+                      <div class="invalid-feedback">El monto total debe ser mínimo cero.</div>
                     </div>
                   </div>
                   <div class="row">

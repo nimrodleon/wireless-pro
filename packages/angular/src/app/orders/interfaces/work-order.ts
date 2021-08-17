@@ -2,12 +2,13 @@ export interface WorkOrder {
   _id: string;
   userId: string;
   clientId: string;
+  description: string;
   address: string;
   city: string;
   region: string;
-  typeInstallation: string;
+  typeTask: string;
   servicePlanId: string;
-  costInstallation: number;
+  total: number;
   amount: number;
   statusOrder: string;
   createdAt: any;

@@ -22,12 +22,13 @@ export class WorkFormComponent implements OnInit {
   workOrderForm: FormGroup = this.fb.group({
     _id: [null],
     clientId: [''],
+    description: [''],
     address: ['', [Validators.required]],
     city: ['', [Validators.required]],
     region: ['', [Validators.required]],
-    typeInstallation: ['', [Validators.required]],
+    typeTask: ['', [Validators.required]],
     servicePlanId: ['', [Validators.required]],
-    costInstallation: [0, [Validators.required, Validators.min(0)]],
+    total: [0, [Validators.required, Validators.min(0)]],
     amount: [0, [Validators.required, Validators.min(0)]],
     statusOrder: ['PENDIENTE']
   });

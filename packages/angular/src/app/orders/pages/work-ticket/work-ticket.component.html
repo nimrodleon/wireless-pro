@@ -21,20 +21,24 @@
       <hr class="d-print-block my-1">
       <table class="w-100">
         <tr>
+          <th class="text-uppercase text-end">Concepto:</th>
+          <td class="text-uppercase">{{workOrder.description}}</td>
+        </tr>
+        <tr>
           <th class="text-uppercase text-end">Dirección:</th>
           <td class="text-uppercase">{{workOrder.address}}</td>
         </tr>
         <tr>
           <th class="text-uppercase text-end">Servicio:</th>
-          <td class="text-uppercase">{{workOrder.typeInstallation}}</td>
+          <td class="text-uppercase">{{workOrder.typeTask}}</td>
         </tr>
         <tr>
           <th class="text-uppercase text-end">Plan:</th>
           <td class="text-uppercase">{{servicePlan.name}}</td>
         </tr>
         <tr>
-          <th class="text-uppercase text-end">Costo:</th>
-          <td class="text-uppercase">{{workOrder.costInstallation}}</td>
+          <th class="text-uppercase text-end">Total:</th>
+          <td class="text-uppercase">{{workOrder.total}}</td>
         </tr>
         <tr>
           <th class="text-uppercase text-end">Pagado:</th>

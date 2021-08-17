@@ -77,7 +77,8 @@ function deleteOrder(req, res = response) {
   })
 }
 
-// ========================================
+// ====================================================================================================
+
 // http://<HOST>/api/work_orders/:id/material
 router.get('/:id/material', [verifyToken], getMaterials)
 

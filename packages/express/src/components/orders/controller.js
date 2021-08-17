@@ -1,6 +1,6 @@
 import {OrderStore} from './store'
 
-// Lógica - Orden de Instalación.
+// Lógica - Orden de Trabajo.
 export class OrderController {
   // Lista de ordenes de instalación.
   static async getOrderList(query) {
@@ -79,7 +79,8 @@ export class OrderController {
     })
   }
 
-  // ========================================
+  // ====================================================================================================
+
   // Lista de materiales.
   static async getMaterials(orderId) {
     return new Promise((resolve, reject) => {

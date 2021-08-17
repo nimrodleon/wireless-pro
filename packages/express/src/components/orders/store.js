@@ -1,9 +1,9 @@
 import {Order, OrderMaterial} from './model'
 import {Client} from '../client/model'
 
-// CRUD - Ordenes de Instalación.
+// CRUD - Ordenes de Trabajo.
 export class OrderStore {
-  // Lista de ordenes de instalación.
+  // Lista de ordenes de trabajo.
   static async getOrderList(query) {
     return Client.aggregate([
       {
@@ -113,7 +113,8 @@ export class OrderStore {
     return this.updateOrder(id, _order)
   }
 
-  // ========================================
+  // ====================================================================================================
+
   // Lista de materiales.
   static async getMaterials(orderId) {
     return OrderMaterial.find({orderId: orderId})

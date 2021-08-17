@@ -59,9 +59,10 @@
               <td>
                 <a [routerLink]="['/work_orders/detail', item.WorkOrder._id]"
                    class="text-uppercase">{{item.fullName}}</a>
+                <div *ngIf="item.WorkOrder.description" class="card px-2">{{item.WorkOrder.description}}</div>
                 <div class="d-flex">
                   <div class="text-uppercase me-1">
-                    <span class="badge bg-info">{{item.WorkOrder.typeInstallation}}</span>
+                    <span class="badge bg-info">{{item.WorkOrder.typeTask}}</span>
                   </div>
                   <div class="text-uppercase ms-1">
                     <span *ngIf="item.WorkOrder.statusOrder === 'PENDIENTE'" class="badge bg-primary">
@@ -72,7 +73,7 @@
                       {{item.WorkOrder.statusOrder}}</span>
                   </div>
                 </div>
-                <span class="blockquote-footer">{{item.WorkOrder.createdAt}}</span>
+                <span class="blockquote-footer">{{item.WorkOrder.createdAt|date}}</span>
               </td>
               <td>{{item.WorkOrder.address}}</td>
               <td>{{item.phone}}</td>
