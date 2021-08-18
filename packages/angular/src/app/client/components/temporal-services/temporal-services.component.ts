@@ -1,11 +1,12 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {Router} from '@angular/router';
+import {Observable, Subject} from 'rxjs';
 import Swal from 'sweetalert2';
 import {BitWorkerService, ServicePlanService} from 'src/app/system/services';
 import {ClientService, ServiceService} from '../../services';
 import {Sweetalert2} from 'src/app/global/interfaces';
+import {AuthService} from 'src/app/user/services';
 import {Service} from '../../interfaces';
-import {Observable, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-temporal-services',
@@ -14,11 +15,13 @@ import {Observable, Subject} from 'rxjs';
 })
 export class TemporalServicesComponent implements OnInit {
   servicesList: any;
+  currentRole: string;
   @Output()
   hideModal = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
+    private authService: AuthService,
     private serviceService: ServiceService,
     private servicePlanService: ServicePlanService,
     private clientService: ClientService,
@@ -29,6 +32,13 @@ export class TemporalServicesComponent implements OnInit {
     // cargar servicios temporales.
     this.serviceService.getTemporalServices()
       .subscribe(result => this.servicesList = result);
+    // obtener rol del usuario autentificado.
+    this.authService.getRoles().subscribe(result => this.currentRole = result);
+  }
+
+  // Lista de permisos.
+  get roles() {
+    return this.authService.roles;
   }
 
   // cargar detalle del servicio.
@@ -86,6 +96,9 @@ export class TemporalServicesComponent implements OnInit {
 
   // corregir servicio temporal.
   async corregirClick(serviceId: string) {
+    if (this.currentRole !== this.roles.ROLE_CASH) {
+      return Sweetalert2.accessDeniedGeneric();
+    }
     const {value: option} = await Swal.fire({
       title: 'CORREGIR SERVICIO TEMPORAL',
       input: 'select',
@@ -106,7 +119,6 @@ export class TemporalServicesComponent implements OnInit {
       // suspender servicio.
       this.suspendService(serviceId);
     }
-
   }
 
   // habilitar servicio.
