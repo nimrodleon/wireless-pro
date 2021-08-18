@@ -1,5 +1,40 @@
 # Changelog
 
-This changelog goes through all the changes that have been made in each release
-without substantial changes to our git log; to see the highlights of what has
-been added to each release, please refer to the [blog](!#BLOG).
+Todos los cambios notables de este proyecto se documentarán en este archivo.
+
+## [2.0.0] - 2021-08-18
+- Migración de documentos v1 MongoDB.
+```
+db.users.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.averias.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.clients.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.coverages.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.devices.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.materials.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.outages.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.payments.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.services.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.serviceplans.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.tasks.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.taskmaterials.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.towers.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+db.tramos.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
+
+// actualización de usuarios.
+db.users.update({"name": {$exists: true}}, {$rename: {"name":"fullName"}}, false, true)
+db.users.update({}, {$set: {roles:"ROLE_USER"} }, {multi: true})
+db.users.updateOne({userName:"admin"},{$set:{"roles": "ROLE_ADMIN"}})
+
+// actualización de servicios.
+db.services.update({"client": {$exists: true}}, {$rename: {"client":"clientId"}}, false, true)
+db.services.update({"servicePlan": {$exists: true}}, {$rename: {"servicePlan":"servicePlanId"}}, false, true)
+db.services.update({"dateFrom": {$exists: true}}, {$rename: {"dateFrom":"initialDate"}}, false, true)
+db.services.update({"note": {$exists: true}}, {$rename: {"note":"basicNote"}}, false, true)
+db.services.update({"payment": {$exists: true}}, {$rename: {"payment":"lastPayment"}}, false, true)
+
+// actualización de pagos.
+db.payments.update({"client": {$exists: true}}, {$rename: {"client":"clientId"}}, false, true)
+db.payments.update({"service": {$exists: true}}, {$rename: {"service":"serviceId"}}, false, true)
+db.payments.update({"payment_method": {$exists: true}}, {$rename: {"payment_method":"paymentMethod"}}, false, true)
+db.payments.update({"created_date": {$exists: true}}, {$rename: {"created_date":"createdAt"}}, false, true)
+```
