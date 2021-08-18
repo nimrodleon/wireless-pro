@@ -78,6 +78,13 @@ export class ClientListComponent implements OnInit {
     this.temporalServicesModal.show();
   }
 
+  // cerrar servicios temporales.
+  hideTemporalService(value: boolean): void {
+    if (value === true) {
+      this.temporalServicesModal.hide();
+    }
+  }
+
   // exportar datos.
   async exportDataClick() {
     const {value: option} = await Swal.fire({

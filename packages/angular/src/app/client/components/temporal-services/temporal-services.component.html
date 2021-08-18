@@ -18,10 +18,16 @@
             </thead>
             <tbody>
             <tr *ngFor="let item of servicesList">
-              <td>{{item.clientId?.fullName}}</td>
+              <td>
+                <a href="#" (click)="loadDetailService($event, item._id)">{{item.clientId?.fullName}}</a>
+              </td>
               <td>{{item.ipAddress}}</td>
               <td>{{item.paidUpTo|date}}</td>
-              <td></td>
+              <td class="text-end">
+                <button type="button" (click)="corregirClick(item._id)" class="btn btn-primary">
+                  <span class="text-uppercase">Corregir</span>
+                </button>
+              </td>
             </tr>
             </tbody>
           </table>
