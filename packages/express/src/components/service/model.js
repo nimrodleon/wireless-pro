@@ -13,6 +13,10 @@ const serviceSchema = new Schema({
     default: 'HABILITADO',
     enum: ['HABILITADO', 'DESHABILITADO', 'SUSPENDIDO']
   },
+  temporal: {
+    type: Boolean,
+    default: false
+  },
   servicePlanId: {
     type: Schema.Types.ObjectId,
     ref: 'ServicePlan'

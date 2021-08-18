@@ -79,6 +79,17 @@ export class ServiceController {
     })
   }
 
+  // Lista de servicios temporales.
+  static getTemporalServices() {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServiceStore.getTemporalServices())
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // reporte clientes por cobrar.
   static reporteClientesPorCobrar(date) {
     return new Promise((resolve, reject) => {

@@ -13,4 +13,5 @@ export class WorkerStore {
     await _workerActivity.save()
     return _workerActivity
   }
+
 }

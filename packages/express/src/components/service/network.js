@@ -145,6 +145,16 @@ function changeStatusService(req, res = response) {
   })
 }
 
+// http://<HOST>/api/services/reporte/getTemporalServices
+router.get('/reporte/getTemporalServices', [verifyToken], getTemporalServices)
+
+// Lista de servicios temporales.
+function getTemporalServices(req, res = response) {
+  ServiceController.getTemporalServices().then(result => {
+    res.json(result)
+  })
+}
+
 // http://<HOST>/api/services/reporte/clientesPorCobrar/:date
 router.get('/reporte/clientesPorCobrar/:date', [verifyToken], reporteClientesPorCobrar)
 

@@ -42,19 +42,30 @@ export class ServiceStore {
   static async changeStatusService(id, status) {
     let _service = await this.getService(id)
     _service.status = status
+    _service.temporal = false
+    if (status === 'HST') {
+      _service.status = 'HABILITADO'
+      _service.temporal = true
+    }
     return this.updateService(id, _service)
+  }
+
+  // lista de servicios temporales.
+  static async getTemporalServices() {
+    return Service.find({temporal: true, isDeleted: false})
+      .populate({path: 'clientId', select: 'fullName'})
   }
 
   // reporte clientes por cobrar.
   static async reporteClientesPorCobrar(date) {
     return Service.find({
-      status: 'H', lastPayment: {$exists: true}, paidUpTo: {$lt: date}, isDeleted: false
+      status: 'HABILITADO', lastPayment: {$exists: true}, paidUpTo: {$lt: date}, isDeleted: false
     }).populate({path: 'clientId', select: 'fullName'})
   }
 
   // reporte servicios sin registro de pago.
   static async reporteServicioSinRegistroDePago() {
-    return Service.find({status: 'H', lastPayment: {$exists: false}, isDeleted: false})
+    return Service.find({status: 'HABILITADO', lastPayment: {$exists: false}, isDeleted: false})
       .populate({path: 'clientId', select: 'fullName'})
   }
 

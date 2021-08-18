@@ -405,14 +405,17 @@ export class ServiceDetailComponent implements OnInit {
                     Sweetalert2.messageSuccess();
                     this.bitWorkerService.createWorkerActivity({
                       serviceId: this.currentService._id,
-                      clientId: this.currentClient._id,
                       task: 'HABILITAR SERVICIO',
                       typeOperation: option,
                       remark: this.getOperationDescription(option)
                     }).subscribe(() => {
                       this.getWorkerActivityListClick();
                     });
-                    this.changeStatusService('HABILITADO');
+                    if (option === 'HST') {
+                      this.changeStatusService('HST');
+                    } else {
+                      this.changeStatusService('HABILITADO');
+                    }
                   });
               });
             });
@@ -455,7 +458,6 @@ export class ServiceDetailComponent implements OnInit {
                     Sweetalert2.messageSuccess();
                     this.bitWorkerService.createWorkerActivity({
                       serviceId: this.currentService._id,
-                      clientId: this.currentClient._id,
                       task: 'SUSPENDER SERVICIO',
                       typeOperation: option,
                       remark: this.getOperationDescription(option)
@@ -512,7 +514,6 @@ export class ServiceDetailComponent implements OnInit {
                               Sweetalert2.messageSuccess();
                               this.bitWorkerService.createWorkerActivity({
                                 serviceId: this.currentService._id,
-                                clientId: this.currentClient._id,
                                 task: 'CAMBIAR PLAN DE SERVICIO',
                                 typeOperation: '-',
                                 remark: result.name,
@@ -561,7 +562,6 @@ export class ServiceDetailComponent implements OnInit {
                             Sweetalert2.messageSuccess();
                             this.bitWorkerService.createWorkerActivity({
                               serviceId: this.currentService._id,
-                              clientId: this.currentClient._id,
                               task: 'REGISTRAR SERVICIO',
                               typeOperation: '-',
                               remark: '-'
@@ -605,7 +605,6 @@ export class ServiceDetailComponent implements OnInit {
                       Sweetalert2.messageSuccess();
                       this.bitWorkerService.createWorkerActivity({
                         serviceId: this.currentService._id,
-                        clientId: this.currentClient._id,
                         task: 'ACTUALIZAR SERVICIO',
                         typeOperation: '-',
                         remark: '-'
@@ -644,7 +643,6 @@ export class ServiceDetailComponent implements OnInit {
                       Sweetalert2.deleteSuccess();
                       this.bitWorkerService.createWorkerActivity({
                         serviceId: this.currentService._id,
-                        clientId: this.currentClient._id,
                         task: 'BORRAR SERVICIO',
                         typeOperation: '-',
                         remark: '-'
