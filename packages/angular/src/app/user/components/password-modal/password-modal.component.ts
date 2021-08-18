@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {UserService} from '../../services';
 import Swal from 'sweetalert2';
+import {UserService} from '../../services';
 
 interface PasswordModel {
   password: string;

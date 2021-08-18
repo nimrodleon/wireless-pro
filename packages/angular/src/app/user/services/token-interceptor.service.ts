@@ -49,7 +49,7 @@ export class TokenInterceptorService implements HttpInterceptor {
           // se debe cerrar la sesión automáticamente.
           // TODO: comentar `this.authService.logout()` para testear.
           if (error.status === 401) {
-            // this.authService.logout();
+            this.authService.logout();
           }
           return throwError(error);
         }));
