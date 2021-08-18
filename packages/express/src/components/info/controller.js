@@ -58,6 +58,17 @@ export class InfoController {
     })
   }
 
+  // actualizar aplicación.
+  static updateApplication(id, data) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(InfoStore.updateApplication(id, data))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // borrar aplicación.
   static deleteApplication(id) {
     return new Promise((resolve, reject) => {

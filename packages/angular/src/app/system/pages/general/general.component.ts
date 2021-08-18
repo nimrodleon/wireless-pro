@@ -6,6 +6,10 @@ import {ApplicationService, InfoService} from '../../services';
 
 declare var bootstrap: any;
 
+enum AppOption {
+  None, Add, Edit
+}
+
 @Component({
   selector: 'app-general',
   templateUrl: './general.component.html',
@@ -16,7 +20,9 @@ export class GeneralComponent implements OnInit {
   Editor = ClassicEditor;
   applicationForm: Application;
   applicationList: Array<Application>;
+  titleApplication: string;
   applicationModal: any;
+  _appOption: number = AppOption.None;
 
   constructor(
     private infoService: InfoService,
@@ -58,13 +64,42 @@ export class GeneralComponent implements OnInit {
       .subscribe(result => this.applicationList = result);
   }
 
-  // registrar aplicación.
-  createApplication(): void {
-    this.applicationService.createApplication(this.applicationForm)
-      .subscribe(result => {
-        this.applicationList.push(result);
-        this.applicationModal.hide();
-      });
+  // abrir modal aplicación.
+  addApplicationClick(): void {
+    this._appOption = AppOption.Add;
+    this.titleApplication = 'Agregar Aplicación';
+    this.applicationForm = this.applicationService.defaultValues();
+    this.applicationModal.show();
+  }
+
+  // guardar aplicación.
+  saveApplication(): void {
+    if (this._appOption === AppOption.Add) {
+      this.applicationService.createApplication(this.applicationForm)
+        .subscribe(() => {
+          this.getApplications();
+          this._appOption = AppOption.None;
+          this.applicationModal.hide();
+        });
+    }
+    if (this._appOption === AppOption.Edit) {
+      this.applicationService.updateApplication(this.applicationForm._id, this.applicationForm)
+        .subscribe(() => {
+          this.getApplications();
+          this._appOption = AppOption.None;
+          this.applicationModal.hide();
+        });
+    }
+  }
+
+  // editar aplicación.
+  editApplicationClick(appId: string): void {
+    this._appOption = AppOption.Edit;
+    this.titleApplication = 'Editar Aplicación';
+    this.applicationService.getApplicationById(appId).subscribe(result => {
+      this.applicationForm = result;
+      this.applicationModal.show();
+    });
   }
 
   // borrar aplicación.

@@ -34,6 +34,11 @@ export class InfoStore {
     return _application
   }
 
+  // actualizar aplicación.
+  static async updateApplication(id, data) {
+    return Application.findByIdAndUpdate(id, data, {new: true})
+  }
+
   // borrar aplicación.
   static async deleteApplication(id) {
     let _application = await Application.findById(id)
