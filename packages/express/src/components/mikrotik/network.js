@@ -1,5 +1,6 @@
 import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
+import {check} from 'express-validator'
+import {checkRolAdmin, validate, verifyToken} from '../middlewares'
 import {MikrotikController} from './controller'
 
 const router = express.Router()
@@ -25,7 +26,16 @@ function getMikrotikById(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik
-router.post('/', [verifyToken], createMikrotik)
+router.post('/', [
+  verifyToken,
+  checkRolAdmin,
+  check('name', 'El nombre es obligatorio').not().isEmpty(),
+  check('host', 'La dirección IP es obligatorio').not().isEmpty(),
+  check('port', 'El puerto es obligatorio').not().isEmpty(),
+  check('userName', 'El nombre de usuario es obligatorio').not().isEmpty(),
+  check('applicationId', 'La aplicación es obligatorio').not().isEmpty(),
+  validate
+], createMikrotik)
 
 // registrar mikrotik.
 function createMikrotik(req, res = response) {
@@ -35,7 +45,17 @@ function createMikrotik(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/:id
-router.patch('/:id', [verifyToken], updateMikrotik)
+router.patch('/:id', [
+  verifyToken,
+  checkRolAdmin,
+  check('id', 'No es un ID válido').isMongoId(),
+  check('name', 'El nombre es obligatorio').not().isEmpty(),
+  check('host', 'La dirección IP es obligatorio').not().isEmpty(),
+  check('port', 'El puerto es obligatorio').not().isEmpty(),
+  check('userName', 'El nombre de usuario es obligatorio').not().isEmpty(),
+  check('applicationId', 'La aplicación es obligatorio').not().isEmpty(),
+  validate
+], updateMikrotik)
 
 // actualizar mikrotik.
 function updateMikrotik(req, res = response) {
@@ -45,7 +65,12 @@ function updateMikrotik(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/:id
-router.delete('/:id', [verifyToken], deleteMikrotik)
+router.delete('/:id', [
+  verifyToken,
+  checkRolAdmin,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], deleteMikrotik)
 
 // borrar mikrotik.
 function deleteMikrotik(req, res = response) {
@@ -77,7 +102,13 @@ function getInterfaceById(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/add/interface
-router.post('/add/interface', [verifyToken], createInterface)
+router.post('/add/interface', [
+  verifyToken,
+  checkRolAdmin,
+  check('name', 'El nombre es obligatorio').not().isEmpty(),
+  check('mikrotikId', 'El ID del mikrotik es obligatorio').not().isEmpty(),
+  validate
+], createInterface)
 
 // registrar interfaz.
 function createInterface(req, res = response) {
@@ -87,7 +118,14 @@ function createInterface(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/update/interface/:id
-router.patch('/update/interface/:id', [verifyToken], updateInterface)
+router.patch('/update/interface/:id', [
+  verifyToken,
+  checkRolAdmin,
+  check('id', 'No es un ID válido').isMongoId(),
+  check('name', 'El nombre es obligatorio').not().isEmpty(),
+  check('mikrotikId', 'El ID del mikrotik es obligatorio').not().isEmpty(),
+  validate
+], updateInterface)
 
 // actualizar interfaz.
 function updateInterface(req, res = response) {
@@ -97,7 +135,12 @@ function updateInterface(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/delete/interface/:id
-router.delete('/delete/interface/:id', [verifyToken], deleteInterface)
+router.delete('/delete/interface/:id', [
+  verifyToken,
+  checkRolAdmin,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], deleteInterface)
 
 // borrar interfaz.
 function deleteInterface(req, res = response) {

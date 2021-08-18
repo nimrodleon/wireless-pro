@@ -39,69 +39,51 @@
       <div class="col-5">
         <div class="card">
           <div class="card-header">
-            <div class="d-flex justify-content-between">
-              <h5 class="mb-0 card-title text-uppercase">Información</h5>
-              <a href="#" (click)="editMikrotik($event)"><i class="fas fa-edit"></i></a>
-            </div>
+            <h5 class="mb-0 card-title text-uppercase">Información</h5>
           </div>
           <div class="card-body">
-            <nav>
-              <div class="nav nav-tabs" role="tablist">
-                <button class="nav-link active" data-bs-toggle="tab"
-                        data-bs-target="#nav-basic" type="button" role="tab">
-                  <i class="fas fa-info-circle"></i><span class="text-uppercase ms-1">Básico</span>
+            <div class="pb-2">
+              <button type="button" (click)="editMikrotik()" class="btn btn-primary me-2">
+                <i class="fas fa-edit"></i>
+                <span class="text-uppercase ms-1">Editar</span>
+              </button>
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                  <i class="fas fa-cog"></i>
+                  <span class="text-uppercase ms-1">Opciones</span>
                 </button>
-                <button class="nav-link" data-bs-toggle="tab"
-                        data-bs-target="#nav-status-change" type="button" role="tab">
-                  <i class="fas fa-exchange-alt"></i><span class="text-uppercase ms-1">Estado de Cambios</span>
-                </button>
-              </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-basic" role="tabpanel">
-                <!-- ##(Begin) Básico -->
-                <div class="d-flex justify-content-between border-bottom">
-                  <span class="text-uppercase"><i class="fas fa-user"></i> Nombre</span>
-                  <span>{{currentMikrotik.name}}</span>
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                  <span class="text-uppercase"><i class="fas fa-user"></i> Usuario</span>
-                  <span>{{currentMikrotik.userName}}</span>
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                  <span class="text-uppercase"><i class="fas fa-key"></i> Contraseña</span>
-                  <span>{{currentMikrotik.password}}</span>
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                  <span class="text-uppercase"><i class="fas fa-server"></i> Host</span>
-                  <span class="fw-bold">{{currentMikrotik.host}}</span>
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                  <span class="text-uppercase"><i class="fas fa-eye"></i> Puerto</span>
-                  <span>{{currentMikrotik.port}}</span>
-                </div>
-                <!-- ##(End) Básico -->
-              </div>
-              <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
-                <!-- ##(Begin) Estado de cambios -->
-                <div class="my-2">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                      <i class="fas fa-cog"></i>
-                      <span class="text-uppercase ms-1">Opciones</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item" (click)="addMikrotik($event)" href="#">
-                          <span class="text-uppercase">Registrar Mikrotik</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- ##(End) Estado de cambios -->
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" (click)="addMikrotik($event)" href="#">
+                      <span class="text-uppercase">Add/Update Mikrotik</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
+            <!-- ##(Begin) Básico -->
+            <div class="d-flex justify-content-between border-bottom">
+              <span class="text-uppercase"><i class="fas fa-user"></i> Nombre</span>
+              <span>{{currentMikrotik.name}}</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span class="text-uppercase"><i class="fas fa-user"></i> Usuario</span>
+              <span>{{currentMikrotik.userName}}</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span class="text-uppercase"><i class="fas fa-key"></i> Contraseña</span>
+              <span>{{currentMikrotik.password}}</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span class="text-uppercase"><i class="fas fa-server"></i> Host</span>
+              <span class="fw-bold">{{currentMikrotik.host}}</span>
+            </div>
+            <div class="d-flex justify-content-between border-bottom">
+              <span class="text-uppercase"><i class="fas fa-eye"></i> Puerto</span>
+              <span>{{currentMikrotik.port}}</span>
+            </div>
+            <!-- ##(End) Básico -->
+
           </div><!-- //.card-body -->
         </div>
       </div><!-- //.col-5 -->

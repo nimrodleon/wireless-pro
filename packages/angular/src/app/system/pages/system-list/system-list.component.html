@@ -43,7 +43,7 @@
                                [detail]="'Lista de Equipos'">
             </app-system-option>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4" *ngIf="checkRolAdmin()">
             <app-system-option [icon]="'fas fa-server'"
                                [href]="'/system/mikrotik'" [title]="'Equipos Mikrotik'"
                                [detail]="'Lista de Equipos Mikrotik'">

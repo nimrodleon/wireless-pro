@@ -4,6 +4,8 @@ declare var bootstrap: any;
 import {BitWorkerService, MikrotikService} from '../../services';
 import {Mikrotik} from '../../interfaces';
 import {Sweetalert2} from 'src/app/global/interfaces';
+import {AuthService} from 'src/app/user/services';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-mikrotik-list',
@@ -19,9 +21,10 @@ export class MikrotikListComponent implements OnInit {
   title: string;
 
   constructor(
+    private router: Router,
+    private authService: AuthService,
     private mikrotikService: MikrotikService,
     private bitWorkerService: BitWorkerService) {
-    // establecer valores por defecto.
     this.currentMikrotik = this.mikrotikService.defaultValues();
     this.mikrotikFormData = this.mikrotikService.defaultValues();
   }
@@ -30,7 +33,18 @@ export class MikrotikListComponent implements OnInit {
     // Establecer modal mikrotik form.
     this.mikrotikModal = new bootstrap.Modal(
       document.querySelector('#mikrotik-form'));
+    // obtener rol del usuario autentificado.
+    this.authService.getRoles().subscribe(async (result) => {
+      if (result !== this.roles.ROLE_ADMIN) {
+        await this.router.navigate(['/system']);
+      }
+    });
     this.getMikrotikList();
+  }
+
+  // Lista de permisos.
+  get roles() {
+    return this.authService.roles;
   }
 
   // Lista de mikrotik.
@@ -61,8 +75,7 @@ export class MikrotikListComponent implements OnInit {
   }
 
   // Editar mikrotik.
-  editMikrotik(e: any): void {
-    e.preventDefault();
+  editMikrotik(): void {
     this.editMode = true;
     this.title = 'Editar Mikrotik';
     this.mikrotikFormData = this.currentMikrotik;

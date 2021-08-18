@@ -10,7 +10,7 @@ export class MaterialStore {
       $or: [
         {description: {$regex: query}}
       ]
-    })
+    }).hint({$natural: -1}).limit(50)
   }
 
   // devolver material por id.
