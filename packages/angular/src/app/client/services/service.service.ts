@@ -43,6 +43,11 @@ export class ServiceService {
     return this.http.put<Service>(`${this.baseURL}/${id}/changeStatusService`, {status});
   }
 
+  // lista de servicios temporales.
+  getTemporalServices(): Observable<any> {
+    return this.http.get(`${this.baseURL}/reporte/getTemporalServices`);
+  }
+
   // reporte de servicios por cobrar.
   reporteClientesPorCobrar(date: string): Observable<any> {
     return this.http.get(`${this.baseURL}/reporte/clientesPorCobrar/${date}`);

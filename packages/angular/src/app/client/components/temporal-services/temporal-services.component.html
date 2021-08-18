@@ -7,17 +7,22 @@
       </div>
       <div class="modal-body pt-0">
         <div class="table-responsive">
-          <table class="table table-striped">
+          <table class="table table-striped mb-0">
             <thead>
             <tr class="text-uppercase">
               <th>Nombres y Apellidos</th>
               <th>Dirección Ip</th>
-              <th>Fecha</th>
+              <th>PAGÓ HASTA</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-
+            <tr *ngFor="let item of servicesList">
+              <td>{{item.clientId?.fullName}}</td>
+              <td>{{item.ipAddress}}</td>
+              <td>{{item.paidUpTo|date}}</td>
+              <td></td>
+            </tr>
             </tbody>
           </table>
         </div>
