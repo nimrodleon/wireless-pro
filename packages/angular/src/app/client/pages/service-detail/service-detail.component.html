@@ -12,8 +12,11 @@
                class="font-weight-bold"
                [ngClass]="{'text-success': currentService.status === 'HABILITADO',
                'text-danger': currentService.status === 'SUSPENDIDO'}">
-              {{ currentServicePlan.name }} "[{{ currentServicePlan.priceMonthly}}] {{currentService.paymentType}}"
-              - {{currentService.ipAddress}}
+              {{ currentServicePlan.name }}
+              <span class="fw-bold">
+                "[{{ currentService.defPrice ?
+                currentService.price : currentServicePlan.priceMonthly}}] {{currentService.paymentType}}"
+              </span> - {{currentService.ipAddress}}
             </a>
           </p>
         </div>

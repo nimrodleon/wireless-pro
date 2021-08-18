@@ -40,7 +40,7 @@ export class PaymentModalComponent implements OnInit {
       this.payment.serviceId = this.currentService._id;
       this.payment.year = moment().format('YYYY');
       this.payment.month = moment().format('MM');
-      this.payment.amount = this.currentServicePlan.priceMonthly;
+      this.payment.amount = this.currentService.defPrice ? this.currentService.price : this.currentServicePlan.priceMonthly;
       this.payment.paymentMethod = 'CAJA';
       if (this.currentService.status
         && this.currentService.status !== 'H') {
