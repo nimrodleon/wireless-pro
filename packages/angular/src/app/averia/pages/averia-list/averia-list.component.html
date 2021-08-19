@@ -76,7 +76,7 @@
                   </ng-container>
                   </span>
                 </div>
-                <span class="blockquote-footer">{{ averia.createdAt }}</span>
+                <span class="blockquote-footer">{{ averia.createdAt|date }}</span>
               </td>
               <td>
                 <button (click)="attendAveriaClick(averia._id)" class="btn btn-info btn-sm">
