@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 declare var bootstrap: any;
 import {BitWorkerService, MikrotikService} from '../../services';
 import {Mikrotik} from '../../interfaces';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {AuthService} from 'src/app/user/services';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-mikrotik-list',
@@ -96,6 +96,19 @@ export class MikrotikListComponent implements OnInit {
     Sweetalert2.messageConfirm().then(result => {
       if (result.isConfirmed) {
         this.bitWorkerService.addMikrotik(this.currentMikrotik._id)
+          .subscribe(async () => {
+            await Sweetalert2.messageSuccess();
+          });
+      }
+    });
+  }
+
+  // exportar datos mikrotik.
+  exportData(event: any): void {
+    event.preventDefault();
+    Sweetalert2.messageConfirm().then(result => {
+      if (result.isConfirmed) {
+        this.bitWorkerService.getExportDataMikrotik(this.currentMikrotik._id)
           .subscribe(async () => {
             await Sweetalert2.messageSuccess();
           });

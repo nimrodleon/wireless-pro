@@ -30,6 +30,11 @@ export class BitWorkerService {
     return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueByName/${name}`);
   }
 
+  // exportar datos mikrotik.
+  getExportDataMikrotik(mikrotikId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${mikrotikId}/getExportDataMikrotik`);
+  }
+
   // ====================================================================================================
 
   // lista arp.
