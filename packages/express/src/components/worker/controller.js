@@ -35,6 +35,14 @@ export class WorkerController {
     return axios.get(`${application.urlBase}/Mikrotik/SimpleQueue/${name}`, {data: {mikrotikId: mikrotik._id}})
   }
 
+  // exportar datos del mikrotik en excel.
+  static async getExportDataMikrotik(mikrotikId) {
+    let mikrotik = await MikrotikStore.getMikrotikById(mikrotikId)
+    let application = await InfoStore.getApplicationId(mikrotik.applicationId)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${application.token}`
+    return axios.post(`${application.urlBase}/Mikrotik/ExportData`, {mikrotikId: mikrotik._id})
+  }
+
   // ====================================================================================================
 
   // Lista arp.

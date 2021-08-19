@@ -36,6 +36,16 @@ function getSimpleQueueByName(req, res = response) {
   })
 }
 
+// http://<HOST>/api/bitWorker/:id/getExportDataMikrotik
+router.get('/:id/getExportDataMikrotik', [verifyToken], getExportDataMikrotik)
+
+// exportar datos del mikrotik a excel.
+function getExportDataMikrotik(req, res = response) {
+  WorkerController.getExportDataMikrotik(req.params.id).then(({data}) => {
+    res.json(data)
+  })
+}
+
 // ====================================================================================================
 
 // http://<HOST>/api/bitWorker/:id/getArpList
