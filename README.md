@@ -10,6 +10,9 @@ Software para gestión de redes Wifi.
 db.collection.update( {}, {$set: {"is_active":true} }, {multi: true} )
 ```
 
+### Configuración de Recursos Compartidos.
+
+---
 ### Instalar CIFS-utils.
 ```
 sudo apt install cifs-utils
@@ -30,4 +33,8 @@ Se le pedirá que proporcione su contraseña de Windows antes de que se complete
 Para montar un sistema de ficheros CIFS de forma permanente deberemos añadir al **/etc/fstab** una línea similar a la siguiente:
 ```
 //<IpAddress>/smbfolder /media/smbfolder cifs user=<Win10>,password=<******>,noexec,user,rw,nounix,uid=1000,iocharset=utf8 0 0
+```
+Una vez modificado el **/etc/fstab** podemos habilitar los puntos de montaje con:
+```
+sudo mount -a
 ```
