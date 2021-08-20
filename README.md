@@ -25,3 +25,9 @@ sudo mount.cifs //Windows/SharedFolder /mnt/share -o user=account
 Reemplace “Windows” con la dirección IP o el nombre de host de su PC con Windows y “SharedFolder” con el nombre de su carpeta compartida. Para el nombre de usuario, reemplace “cuenta” con su nombre de usuario de Windows o el correo electrónico completo de la cuenta de Microsoft.
 
 Se le pedirá que proporcione su contraseña de Windows antes de que se complete el proceso de montaje. Escriba esto y luego haga clic en Enter. Si usó la información correcta, su carpeta de Windows ahora debería estar montada y accesible en la carpeta que creó.
+
+### Montar un sistema de ficheros por samba (CIFS) en Linux.
+Para montar un sistema de ficheros CIFS de forma permanente deberemos añadir al **/etc/fstab** una línea similar a la siguiente:
+```
+//<IpAddress>/smbfolder /media/smbfolder cifs user=<Win10>,password=<******>,noexec,user,rw,nounix,uid=1000,iocharset=utf8 0 0
+```
