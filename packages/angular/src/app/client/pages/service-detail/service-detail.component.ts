@@ -681,4 +681,45 @@ export class ServiceDetailComponent implements OnInit {
       });
   }
 
+  // ====================================================================================================
+
+  // Swal modal detalle del servicio actual.
+  async detailServiceClick(event: any) {
+    event.preventDefault();
+    let content: string = `
+      <tr>
+        <th>Dirección IP</th>
+        <th>Dirección MAC</th>
+      </tr>
+      <tr>
+        <td>${this.currentService.ipAddress}</td>
+        <td>${this.currentService.macAddress}</td>
+      </tr>
+      <tr>
+        <th>Precio definido</th>
+        <th>Estado</th>
+      </tr>
+      <tr>
+        <td>${this.currentService.defPrice ?
+      '<i class="fas fa-check-circle text-success"></i>'
+      : '<i class="fas fa-times-circle text-danger"></i>'}
+        </td>
+        <td>${this.currentService.status}</td>
+      </tr>
+      <tr>
+        <th>Tipo</th>
+        <th>Precio Mensual</th>
+      </tr>
+      <tr>
+        <td>${this.currentService.paymentType}</td>
+        <td>${this.currentService.price}</td>
+      </tr>
+      ${this.currentService.paymentNote && '<tr><td colspan="2">' + this.currentService.paymentNote + '</td></tr>'}
+    `;
+    return Swal.fire({
+      title: '<strong>DETALLE DEL SERVICIO</strong>',
+      html: `<table class="table mb-0"><tbody>${content}</tbody></table>`
+    });
+  }
+
 }
