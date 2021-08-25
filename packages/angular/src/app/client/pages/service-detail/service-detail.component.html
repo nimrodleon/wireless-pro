@@ -104,7 +104,7 @@
                   </td>
                   <td>
                     <a [routerLink]="['/client/ticket', payment._id]">
-                      {{getMonthName(payment.month)}} | {{payment.payFrom}} a {{payment.payUp}}
+                      {{getMonthName(payment.month)}} | {{payment.payFrom|date}} a {{payment.payUp|date}}
                     </a>
                   </td>
                   <td>{{payment.amount}}</td>

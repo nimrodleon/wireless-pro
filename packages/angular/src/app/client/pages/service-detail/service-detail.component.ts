@@ -687,7 +687,7 @@ export class ServiceDetailComponent implements OnInit {
   // Swal modal detalle del servicio actual.
   async detailServiceClick(event: any) {
     event.preventDefault();
-    let content: string = `
+    const content: string = `
       <tr>
         <th>Dirección IP</th>
         <th>Dirección MAC</th>
@@ -715,7 +715,9 @@ export class ServiceDetailComponent implements OnInit {
         <td>${this.currentService.paymentType}</td>
         <td>${this.currentService.price}</td>
       </tr>
-      ${this.currentService.paymentNote && '<tr><td colspan="2">' + this.currentService.paymentNote + '</td></tr>'}
+      <tr>
+        <td colspan="2">${this.currentService.paymentNote}</td>
+      </tr>
     `;
     return Swal.fire({
       title: '<strong>DETALLE DEL SERVICIO</strong>',
