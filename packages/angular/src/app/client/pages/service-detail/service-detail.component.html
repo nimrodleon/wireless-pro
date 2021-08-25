@@ -247,22 +247,22 @@
                     <span class="text-uppercase">Cambiar Plan</span>
                   </a>
                 </li>
-                <li>
+                <li *ngIf="currentRole === roles.ROLE_NETWORK">
                   <hr class="dropdown-divider">
                 </li>
-                <li>
+                <li *ngIf="currentRole === roles.ROLE_NETWORK">
                   <a class="dropdown-item" href="#"
                      (click)="registerServiceInBitWorker($event)">
                     <span class="text-uppercase">Registrar</span>
                   </a>
                 </li>
-                <li>
+                <li *ngIf="currentRole === roles.ROLE_NETWORK">
                   <a class="dropdown-item" href="#"
                      (click)="updateServiceInBitWorker($event)">
                     <span class="text-uppercase">Actualizar</span>
                   </a>
                 </li>
-                <li>
+                <li *ngIf="currentRole === roles.ROLE_NETWORK">
                   <a class="dropdown-item" href="#"
                      (click)="deleteServiceInBitWorker($event)">
                     <span class="text-uppercase">Borrar</span>
