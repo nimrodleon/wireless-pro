@@ -3,7 +3,9 @@
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
 ## [2.0.0] - 2021-08-18
+
 - Migración de documentos v1 MongoDB.
+
 ```
 db.users.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
 db.averias.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
@@ -21,20 +23,20 @@ db.towers.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
 db.tramos.update( {}, {$set: {"isDeleted":false} }, {multi: true} )
 
 // actualización de usuarios.
-db.users.update({"name": {$exists: true}}, {$rename: {"name":"fullName"}}, false, true)
+db.users.updateMany({"name": {$exists: true}}, {$rename: {"name":"fullName"}})
 db.users.update({}, {$set: {roles:"ROLE_USER"} }, {multi: true})
 db.users.updateOne({userName:"admin"},{$set:{"roles": "ROLE_ADMIN"}})
 
 // actualización de servicios.
-db.services.update({"client": {$exists: true}}, {$rename: {"client":"clientId"}}, false, true)
-db.services.update({"servicePlan": {$exists: true}}, {$rename: {"servicePlan":"servicePlanId"}}, false, true)
-db.services.update({"dateFrom": {$exists: true}}, {$rename: {"dateFrom":"initialDate"}}, false, true)
-db.services.update({"note": {$exists: true}}, {$rename: {"note":"basicNote"}}, false, true)
-db.services.update({"payment": {$exists: true}}, {$rename: {"payment":"lastPayment"}}, false, true)
+db.services.updateMany({"client": {$exists: true}}, {$rename: {"client":"clientId"}})
+db.services.updateMany({"servicePlan": {$exists: true}}, {$rename: {"servicePlan":"servicePlanId"}})
+db.services.updateMany({"dateFrom": {$exists: true}}, {$rename: {"dateFrom":"initialDate"}})
+db.services.updateMany({"note": {$exists: true}}, {$rename: {"note":"basicNote"}})
+db.services.updateMany({"payment": {$exists: true}}, {$rename: {"payment":"lastPayment"}})
 
 // actualización de pagos.
-db.payments.update({"client": {$exists: true}}, {$rename: {"client":"clientId"}}, false, true)
-db.payments.update({"service": {$exists: true}}, {$rename: {"service":"serviceId"}}, false, true)
-db.payments.update({"payment_method": {$exists: true}}, {$rename: {"payment_method":"paymentMethod"}}, false, true)
-db.payments.update({"created_date": {$exists: true}}, {$rename: {"created_date":"createdAt"}}, false, true)
+db.payments.updateMany({"client": {$exists: true}}, {$rename: {"client":"clientId"}})
+db.payments.updateMany({"service": {$exists: true}}, {$rename: {"service":"serviceId"}})
+db.payments.updateMany({"payment_method": {$exists: true}}, {$rename: {"payment_method":"paymentMethod"}})
+db.payments.updateMany({"created_date": {$exists: true}}, {$rename: {"created_date":"createdAt"}})
 ```
