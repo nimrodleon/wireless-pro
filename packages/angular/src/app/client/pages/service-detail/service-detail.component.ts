@@ -321,17 +321,18 @@ export class ServiceDetailComponent implements OnInit {
   // valores del registro arp.
   private getArpValues(interfaceId: string, disabled: string): Observable<any> {
     let subject = new Subject<any>();
-    this.bitWorkerService.getInterfaceNameById(interfaceId).subscribe(interfaceName => {
-      subject.next({
-        address: this.currentService.ipAddress,
-        macAddress: this.currentService.macAddress,
-        interface: interfaceName,
-        comment: this.currentClient.fullName,
-        disabled: disabled,
-        mikrotikId: this.currentService.mikrotikId,
-        serviceId: this.currentService._id
+    this.bitWorkerService.getInterfaceNameById(interfaceId)
+      .subscribe(interfaceName => {
+        subject.next({
+          address: this.currentService.ipAddress,
+          macAddress: this.currentService.macAddress,
+          interface: interfaceName,
+          comment: this.currentClient.fullName,
+          disabled: disabled,
+          mikrotikId: this.currentService.mikrotikId,
+          serviceId: this.currentService._id
+        });
       });
-    });
     return subject.asObservable();
   }
 
@@ -555,9 +556,10 @@ export class ServiceDetailComponent implements OnInit {
                   } else {
                     // registrar nuevo servicio.
                     if (!interfaceId) return Sweetalert2.errorMessage();
-                    this.getArpValues(interfaceId, 'no').subscribe(data => {
+                    const disabled = this.currentService.status === 'HABILITADO' ? 'no' : 'yes';
+                    this.getArpValues(interfaceId, disabled).subscribe(data => {
                       this.bitWorkerService.createArpList(data).subscribe(() => {
-                        this.bitWorkerService.createSimpleQueue(this.getSimpleQueueValues('no'))
+                        this.bitWorkerService.createSimpleQueue(this.getSimpleQueueValues(disabled))
                           .subscribe(() => {
                             Sweetalert2.messageSuccess();
                             this.bitWorkerService.createWorkerActivity({
@@ -568,7 +570,6 @@ export class ServiceDetailComponent implements OnInit {
                             }).subscribe(() => {
                               this.getWorkerActivityListClick();
                             });
-                            this.changeStatusService('HABILITADO');
                           });
                       });
                     });
@@ -593,14 +594,14 @@ export class ServiceDetailComponent implements OnInit {
         if (!mikrotikId) return Sweetalert2.errorMessage();
         this.bitWorkerService.getArpListById(mikrotikId, serviceId)
           .subscribe(async (result) => {
-            let {arpItem} = result;
             if (!result.ok) {
               await Sweetalert2.errorMessage();
             } else {
               if (!interfaceId) return Sweetalert2.errorMessage();
-              this.getArpValues(interfaceId, arpItem.disabled).subscribe(data => {
+              const disabled = this.currentService.status === 'HABILITADO' ? 'no' : 'yes';
+              this.getArpValues(interfaceId, disabled).subscribe(data => {
                 this.bitWorkerService.updateArpList(serviceId, data).subscribe(() => {
-                  this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues(arpItem.disabled))
+                  this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues(disabled))
                     .subscribe(() => {
                       Sweetalert2.messageSuccess();
                       this.bitWorkerService.createWorkerActivity({
