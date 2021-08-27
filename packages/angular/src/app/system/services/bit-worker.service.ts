@@ -15,88 +15,34 @@ export class BitWorkerService {
     private interfaceService: InterfaceService) {
   }
 
-  // agregar mikrotik.
-  addMikrotik(mikrotikId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/mikrotik/add`);
+  // Habilitar servicio.
+  enableService(serviceId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/enableService`);
   }
 
-  // buscar arp por ipAddress.
-  getArpListByIpAddress(mikrotikId: string, ipAddress: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getArpListByIpAddress/${ipAddress}`);
+  // Suspender servicio.
+  suspendService(serviceId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/suspendService`);
   }
 
-  // buscar cola simple por nombre.
-  getSimpleQueueByName(mikrotikId: string, name: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueByName/${name}`);
+  // Cambiar plan de servicio.
+  changeServicePlan(serviceId: string, servicePlanId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/changeServicePlan/${servicePlanId}`);
   }
 
-  // exportar datos mikrotik.
-  getExportDataMikrotik(mikrotikId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getExportDataMikrotik`);
+  // registrar servicio en mikrotik.
+  addService(serviceId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/addService`);
   }
 
-  // ====================================================================================================
-
-  // lista arp.
-  getArpList(mikrotikId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getArpList`);
+  // actualizar plan de servicio.
+  updateService(serviceId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/updateService`);
   }
 
-  // registrar arp item.
-  createArpList(data: any): Observable<any> {
-    return this.http.post(`${this.baseURL}/createArpList`, data);
-  }
-
-  // obtener arp item por id.
-  getArpListById(mikrotikId: string, serviceId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getArpListById/${serviceId}`);
-  }
-
-  // actualizar arp Item.
-  updateArpList(serviceId: string, data: any): Observable<any> {
-    return this.http.put(`${this.baseURL}/updateArpList/${serviceId}`, data);
-  }
-
-  // borrar arp item.
-  deleteArpList(mikrotikId: string, serviceId: string): Observable<any> {
-    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteArpList/${serviceId}`);
-  }
-
-  // cargar lista arp por campo disabled.
-  getArpListByDisabled(mikrotikId: string, value: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getArpListByDisabled/${value}`);
-  }
-
-  // ====================================================================================================
-
-  // lista cola simple.
-  getSimpleQueueList(mikrotikId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueList`);
-  }
-
-  // registrar cola simple.
-  createSimpleQueue(data: any): Observable<any> {
-    return this.http.post(`${this.baseURL}/createSimpleQueue`, data);
-  }
-
-  // obtener cola simple item por id.
-  getSimpleQueueById(mikrotikId: string, serviceId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueById/${serviceId}`);
-  }
-
-  // actualizar cola simple.
-  updateSimpleQueue(serviceId: string, data: any): Observable<any> {
-    return this.http.put(`${this.baseURL}/updateSimpleQueue/${serviceId}`, data);
-  }
-
-  // borrar cola simple.
-  deleteSimpleQueue(mikrotikId: string, serviceId: string): Observable<any> {
-    return this.http.delete(`${this.baseURL}/${mikrotikId}/deleteSimpleQueue/${serviceId}`);
-  }
-
-  // cargar lista cola simples por campo disabled.
-  getSimpleQueueByDisabled(mikrotikId: string, value: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${mikrotikId}/getSimpleQueueByDisabled/${value}`);
+  // borrar servicio del mikrotik.
+  deleteService(serviceId: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/deleteService`);
   }
 
   // ====================================================================================================
