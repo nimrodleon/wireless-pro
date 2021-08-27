@@ -9,10 +9,6 @@
                 type="button" role="tab" aria-selected="true">
           <i class="fas fa-info-circle"></i><span class="text-uppercase ms-1">Información general</span>
         </button>
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-application"
-                type="button" role="tab" aria-selected="false">
-          <i class="fas fa-rocket"></i><span class="text-uppercase ms-1">Aplicaciones</span>
-        </button>
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -92,78 +88,7 @@
         </div>
         <!-- ##(End) General -->
       </div>
-      <div class="tab-pane fade" id="nav-application" role="tabpanel">
-        <!-- ##(Begin) Aplicaciones -->
-        <button (click)="addApplicationClick()" class="btn btn-success mt-2">
-          <i class="fas fa-plus"></i>
-          <span class="text-uppercase ms-1">Agregar</span>
-        </button>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-            <tr class="text-uppercase">
-              <th>Nombre</th>
-              <th>URL</th>
-              <th>Token</th>
-              <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let application of applicationList">
-              <td>{{application.name}}</td>
-              <td>{{application.urlBase}}</td>
-              <td>{{application.token.length > 32 ?
-                application.token.substr(0, 31) + '...' : application}}</td>
-              <td>
-                <div class="btn-opt ms-auto">
-                  <button (click)="editApplicationClick(application._id)" class="btn btn-secondary btn-sm me-2">
-                    <i class="fas fa-edit"></i></button>
-                  <button (click)="deleteApplication(application._id)" class="btn btn-danger btn-sm">
-                    <i class="fas fa-trash-alt"></i></button>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- Modal Form -->
-        <div class="modal fade" id="add-application-modal" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title text-uppercase">{{this.titleApplication}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-rocket"></i></span>
-                    <input type="text" name="name" [(ngModel)]="applicationForm.name" class="form-control"
-                           placeholder="Nombre">
-                  </div>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
-                    <input type="text" name="urlBase" [(ngModel)]="applicationForm.urlBase" class="form-control"
-                           placeholder="URL-base">
-                  </div>
-                  <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                    <input type="text" name="token" [(ngModel)]="applicationForm.token" class="form-control"
-                           placeholder="Token">
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary text-uppercase" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" (click)="saveApplication()" class="btn btn-primary text-uppercase">Guardar
-                  Cambios
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- ##(End) Aplicaciones -->
-      </div>
+      <!-- Other Id TabContent. -->
     </div>
     <!-- ##(End) Content -->
   </div>

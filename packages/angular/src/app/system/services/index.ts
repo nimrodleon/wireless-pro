@@ -4,7 +4,6 @@ export * from './material.service';
 export * from './service-plan.service';
 export * from './tower.service';
 export * from './tramo.service';
-export * from './application.service';
 export * from './mikrotik.service';
 export * from './interface.service';
 export * from './bit-worker.service';

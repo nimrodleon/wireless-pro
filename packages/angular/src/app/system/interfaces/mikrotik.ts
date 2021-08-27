@@ -5,5 +5,4 @@ export interface Mikrotik {
   port: number;
   userName: string;
   password: string;
-  applicationId: string;
 }

@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 declare var bootstrap: any;
-import {ApplicationService, InterfaceService, MikrotikService} from '../../services';
-import {Application, Interface} from '../../interfaces';
+import {InterfaceService, MikrotikService} from '../../services';
+import {Interface} from '../../interfaces';
 
 @Component({
   selector: 'app-mikrotik-form',
@@ -16,7 +16,6 @@ export class MikrotikFormComponent implements OnInit {
   editMode: boolean;
   @Input()
   currentMikrotik;
-  applicationList: Array<Application>;
   @Output()
   hideModal = new EventEmitter<boolean>();
   // ============================================================
@@ -26,13 +25,11 @@ export class MikrotikFormComponent implements OnInit {
 
   constructor(
     private mikrotikService: MikrotikService,
-    private interfaceService: InterfaceService,
-    private applicationService: ApplicationService) {
+    private interfaceService: InterfaceService) {
     this.currentInterface = this.interfaceService.defaultValues();
   }
 
   ngOnInit(): void {
-    this.getApplicationList();
     let myModal = document.querySelector('#mikrotik-form');
     myModal.addEventListener('shown.bs.modal', () => {
       if (this.editMode) {
@@ -46,12 +43,6 @@ export class MikrotikFormComponent implements OnInit {
       this.currentInterface = this.interfaceService.defaultValues();
       basicTab.show();
     });
-  }
-
-  // Lista de aplicaciones.
-  getApplicationList(): void {
-    this.applicationService.getApplications()
-      .subscribe(result => this.applicationList = result);
   }
 
   // Guardar cambios.

@@ -48,7 +48,6 @@ export class MikrotikService {
       port: 8728,
       userName: '',
       password: '',
-      applicationId: '',
     };
   }
 

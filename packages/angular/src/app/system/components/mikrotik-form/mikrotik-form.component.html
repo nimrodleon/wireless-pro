@@ -51,19 +51,11 @@
                          class="form-control" placeholder="admin">
                 </div>
               </div>
-              <div class="row pb-3">
+              <div class="row">
                 <label class="col-3 col-form-label text-end">Contraseña</label>
                 <div class="col-9">
                   <input type="text" name="password" [(ngModel)]="currentMikrotik.password"
                          class="form-control" placeholder="**********">
-                </div>
-              </div>
-              <div class="row">
-                <label class="col-3 col-form-label text-end">Aplicación</label>
-                <div class="col-9">
-                  <select class="form-select" name="applicationId" [(ngModel)]="currentMikrotik.applicationId">
-                    <option *ngFor="let item of applicationList" [value]="item._id">{{item.name}}</option>
-                  </select>
                 </div>
               </div>
             </form>
