@@ -57,17 +57,6 @@ export class ServiceController {
     })
   }
 
-  // cambiar plan de servicio.
-  static changeServicePlan(id, servicePlanId) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(ServiceStore.changeServicePlan(id, servicePlanId))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
   // cambiar estado del servicio.
   static changeStatusService(id, status) {
     return new Promise((resolve, reject) => {

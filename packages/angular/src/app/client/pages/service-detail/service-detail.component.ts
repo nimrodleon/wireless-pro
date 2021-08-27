@@ -304,38 +304,6 @@ export class ServiceDetailComponent implements OnInit {
     });
   }
 
-  // valores del registro simpleQueue.
-  private getSimpleQueueValues(disabled: string): any {
-    return {
-      name: this.currentService._id,
-      target: this.currentService.ipAddress,
-      maxLimit: `${this.currentServicePlan.uploadSpeed}/${this.currentServicePlan.downloadSpeed}`,
-      limitAt: '0/0',
-      comment: this.currentClient.fullName,
-      disabled: disabled,
-      mikrotikId: this.currentService.mikrotikId,
-      serviceId: this.currentService._id
-    };
-  }
-
-  // valores del registro arp.
-  private getArpValues(interfaceId: string, disabled: string): Observable<any> {
-    let subject = new Subject<any>();
-    this.bitWorkerService.getInterfaceNameById(interfaceId)
-      .subscribe(interfaceName => {
-        subject.next({
-          address: this.currentService.ipAddress,
-          macAddress: this.currentService.macAddress,
-          interface: interfaceName,
-          comment: this.currentClient.fullName,
-          disabled: disabled,
-          mikrotikId: this.currentService.mikrotikId,
-          serviceId: this.currentService._id
-        });
-      });
-    return subject.asObservable();
-  }
-
   // valores planes de servicio.
   private getServicePlan(): Observable<any> {
     let subject = new Subject<any>();
@@ -351,12 +319,8 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // cambiar estado del servicio.
-  private changeStatusService(status: string): void {
-    this.serviceDetailService.changeStatusService(this.currentService._id, status)
-      .subscribe(() => {
-        this.serviceDetailService.getCurrentService(this.currentService._id)
-          .subscribe(result => console.log(result));
-      });
+  private changeStatusService(status: string): Observable<any> {
+    return this.serviceDetailService.changeStatusService(this.currentService._id, status);
   }
 
   // obtener nota de operación.
@@ -392,35 +356,27 @@ export class ServiceDetailComponent implements OnInit {
 
     if (option) {
       let serviceId = this.currentService._id;
-      let {mikrotikId, interfaceId} = this.currentService;
-      this.bitWorkerService.getSimpleQueueById(mikrotikId, serviceId)
-        .subscribe(async (data) => {
-          if (!data.ok) {
-            await Sweetalert2.errorMessage();
-          } else {
-            if (!interfaceId) return Sweetalert2.errorMessage();
-            this.getArpValues(interfaceId, 'no').subscribe(arpData => {
-              this.bitWorkerService.updateArpList(serviceId, arpData).subscribe(() => {
-                this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues('no'))
-                  .subscribe(() => {
-                    Sweetalert2.messageSuccess();
-                    this.bitWorkerService.createWorkerActivity({
-                      serviceId: this.currentService._id,
-                      task: 'HABILITAR SERVICIO',
-                      typeOperation: option,
-                      remark: this.getOperationDescription(option)
-                    }).subscribe(() => {
-                      this.getWorkerActivityListClick();
-                    });
-                    if (option === 'HST') {
-                      this.changeStatusService('HST');
-                    } else {
-                      this.changeStatusService('HABILITADO');
-                    }
-                  });
-              });
+      const status = option === 'HST' ? 'HST' : 'HABILITADO';
+      this.changeStatusService(status)
+        .subscribe(() => {
+          this.bitWorkerService.updateService(serviceId)
+            .subscribe(async (result) => {
+              if (!result.ok) {
+                await Sweetalert2.errorMessage();
+              } else {
+                this.bitWorkerService.createWorkerActivity({
+                  serviceId: this.currentService._id,
+                  task: 'HABILITAR SERVICIO',
+                  typeOperation: option,
+                  remark: this.getOperationDescription(option)
+                }).subscribe(() => {
+                  this.getWorkerActivityListClick();
+                });
+                this.serviceDetailService.getCurrentService(this.currentService._id)
+                  .subscribe(result => console.log(result));
+                await Sweetalert2.messageSuccess();
+              }
             });
-          }
         });
     }
   }
@@ -445,31 +401,26 @@ export class ServiceDetailComponent implements OnInit {
 
     if (option) {
       let serviceId = this.currentService._id;
-      let {mikrotikId, interfaceId} = this.currentService;
-      this.bitWorkerService.getSimpleQueueById(mikrotikId, serviceId)
-        .subscribe(async (data) => {
-          if (!data.ok) {
-            await Sweetalert2.errorMessage();
-          } else {
-            if (!interfaceId) return Sweetalert2.errorMessage();
-            this.getArpValues(interfaceId, 'yes').subscribe(arpData => {
-              this.bitWorkerService.updateArpList(serviceId, arpData).subscribe(() => {
-                this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues('yes'))
-                  .subscribe(() => {
-                    Sweetalert2.messageSuccess();
-                    this.bitWorkerService.createWorkerActivity({
-                      serviceId: this.currentService._id,
-                      task: 'SUSPENDER SERVICIO',
-                      typeOperation: option,
-                      remark: this.getOperationDescription(option)
-                    }).subscribe(() => {
-                      this.getWorkerActivityListClick();
-                    });
-                    this.changeStatusService('SUSPENDIDO');
-                  });
-              });
+      this.changeStatusService('SUSPENDIDO')
+        .subscribe(() => {
+          this.bitWorkerService.updateService(serviceId)
+            .subscribe(async (result) => {
+              if (!result.ok) {
+                await Sweetalert2.errorMessage();
+              } else {
+                this.bitWorkerService.createWorkerActivity({
+                  serviceId: this.currentService._id,
+                  task: 'SUSPENDER SERVICIO',
+                  typeOperation: option,
+                  remark: this.getOperationDescription(option)
+                }).subscribe(() => {
+                  this.getWorkerActivityListClick();
+                });
+                this.serviceDetailService.getCurrentService(this.currentService._id)
+                  .subscribe(result => console.log(result));
+                await Sweetalert2.messageSuccess();
+              }
             });
-          }
         });
     }
   }
@@ -480,55 +431,46 @@ export class ServiceDetailComponent implements OnInit {
     if (this.currentRole !== this.roles.ROLE_CASH) {
       return Sweetalert2.accessDeniedGeneric();
     }
-    this.getServicePlan().subscribe(async (result) => {
-      const {value: option} = await Swal.fire({
-        title: 'PLANES DE SERVICIO',
-        input: 'select',
-        inputOptions: {...result},
-        inputPlaceholder: 'Seleccione una opción',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar'
-      });
-      if (option) {
-        let {mikrotikId} = this.currentService;
-        let serviceId = this.currentService._id;
-        this.bitWorkerService.getSimpleQueueById(mikrotikId, serviceId)
-          .subscribe(async (data) => {
-            if (!data.ok) {
-              await Sweetalert2.errorMessage();
-            } else {
-              // obtener el plan de servicio seleccionado.
-              this.servicePlanService.getServicePlan(option)
-                .subscribe(result => {
-                  // cambiar el plan de servicio - del servicio actual.
-                  this.serviceDetailService.changeServicePlan(serviceId, result._id)
-                    .subscribe(async () => {
-                      // volver a cargar el servicio actual.
-                      this.serviceDetailService.getCurrentService(serviceId)
-                        .subscribe(() => {
-                          // actualizar datos en el router mikrotik.
-                          let disabled = data.simpleQueue.disabled;
-                          if (disabled === 'true' || disabled === 'false')
-                            disabled = disabled === 'true' ? 'yes' : 'no';
-                          this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues(disabled))
-                            .subscribe(() => {
-                              Sweetalert2.messageSuccess();
-                              this.bitWorkerService.createWorkerActivity({
-                                serviceId: this.currentService._id,
-                                task: 'CAMBIAR PLAN DE SERVICIO',
-                                typeOperation: '-',
-                                remark: result.name,
-                              }).subscribe(() => {
-                                this.getWorkerActivityListClick();
-                              });
-                            });
+    this.getServicePlan()
+      .subscribe(async (result) => {
+        const {value: option} = await Swal.fire({
+          title: 'PLANES DE SERVICIO',
+          input: 'select',
+          inputOptions: {...result},
+          inputPlaceholder: 'Seleccione una opción',
+          showCancelButton: true,
+          cancelButtonText: 'Cancelar'
+        });
+        if (option) {
+          let serviceId = this.currentService._id;
+          this.bitWorkerService.changeServicePlan(serviceId, option)
+            .subscribe(result => {
+              if (result.ok) {
+                this.bitWorkerService.updateService(serviceId)
+                  .subscribe(async (result) => {
+                    if (!result.ok) {
+                      await Sweetalert2.errorMessage();
+                    } else {
+                      this.servicePlanService.getServicePlan(option)
+                        .subscribe(result => {
+                          this.bitWorkerService.createWorkerActivity({
+                            serviceId: this.currentService._id,
+                            task: 'CAMBIAR PLAN DE SERVICIO',
+                            typeOperation: '-',
+                            remark: result.name,
+                          }).subscribe(() => {
+                            this.getWorkerActivityListClick();
+                          });
                         });
-                    });
-                });
-            }
-          });
-      }
-    });
+                      this.serviceDetailService.getCurrentService(this.currentService._id)
+                        .subscribe(result => console.log(result));
+                      await Sweetalert2.messageSuccess();
+                    }
+                  });
+              }
+            });
+        }
+      });
   }
 
   // Registrar servicio.
@@ -539,42 +481,21 @@ export class ServiceDetailComponent implements OnInit {
     }
     Sweetalert2.messageConfirm().then(result => {
       if (result.isConfirmed) {
-        // comprobar que el servicio no este registrado.
-        let {mikrotikId, ipAddress, interfaceId} = this.currentService;
-        if (!mikrotikId) return Sweetalert2.errorMessage();
-        // comprobar que servicio no este registro.
-        this.bitWorkerService.getArpListById(mikrotikId, this.currentService._id)
+        let serviceId = this.currentService._id;
+        this.bitWorkerService.addService(serviceId)
           .subscribe(async (result) => {
-            if (result.ok) {
+            if (!result.ok) {
               await Sweetalert2.errorMessage();
             } else {
-              // comprobar que la ip del servicio no este registro en el mikrotik.
-              this.bitWorkerService.getArpListByIpAddress(mikrotikId, ipAddress)
-                .subscribe(async (result) => {
-                  if (result.ok) {
-                    await Sweetalert2.errorMessage();
-                  } else {
-                    // registrar nuevo servicio.
-                    if (!interfaceId) return Sweetalert2.errorMessage();
-                    const disabled = this.currentService.status === 'HABILITADO' ? 'no' : 'yes';
-                    this.getArpValues(interfaceId, disabled).subscribe(data => {
-                      this.bitWorkerService.createArpList(data).subscribe(() => {
-                        this.bitWorkerService.createSimpleQueue(this.getSimpleQueueValues(disabled))
-                          .subscribe(() => {
-                            Sweetalert2.messageSuccess();
-                            this.bitWorkerService.createWorkerActivity({
-                              serviceId: this.currentService._id,
-                              task: 'REGISTRAR SERVICIO',
-                              typeOperation: '-',
-                              remark: '-'
-                            }).subscribe(() => {
-                              this.getWorkerActivityListClick();
-                            });
-                          });
-                      });
-                    });
-                  }
-                });
+              this.bitWorkerService.createWorkerActivity({
+                serviceId: this.currentService._id,
+                task: 'REGISTRAR SERVICIO',
+                typeOperation: '-',
+                remark: '-'
+              }).subscribe(() => {
+                this.getWorkerActivityListClick();
+              });
+              await Sweetalert2.messageSuccess();
             }
           });
       }
@@ -590,31 +511,20 @@ export class ServiceDetailComponent implements OnInit {
     Sweetalert2.messageConfirm().then(result => {
       if (result.isConfirmed) {
         let serviceId = this.currentService._id;
-        let {mikrotikId, interfaceId} = this.currentService;
-        if (!mikrotikId) return Sweetalert2.errorMessage();
-        this.bitWorkerService.getArpListById(mikrotikId, serviceId)
+        this.bitWorkerService.updateService(serviceId)
           .subscribe(async (result) => {
             if (!result.ok) {
               await Sweetalert2.errorMessage();
             } else {
-              if (!interfaceId) return Sweetalert2.errorMessage();
-              const disabled = this.currentService.status === 'HABILITADO' ? 'no' : 'yes';
-              this.getArpValues(interfaceId, disabled).subscribe(data => {
-                this.bitWorkerService.updateArpList(serviceId, data).subscribe(() => {
-                  this.bitWorkerService.updateSimpleQueue(serviceId, this.getSimpleQueueValues(disabled))
-                    .subscribe(() => {
-                      Sweetalert2.messageSuccess();
-                      this.bitWorkerService.createWorkerActivity({
-                        serviceId: this.currentService._id,
-                        task: 'ACTUALIZAR SERVICIO',
-                        typeOperation: '-',
-                        remark: '-'
-                      }).subscribe(() => {
-                        this.getWorkerActivityListClick();
-                      });
-                    });
-                });
+              this.bitWorkerService.createWorkerActivity({
+                serviceId: this.currentService._id,
+                task: 'ACTUALIZAR SERVICIO',
+                typeOperation: '-',
+                remark: '-'
+              }).subscribe(() => {
+                this.getWorkerActivityListClick();
               });
+              await Sweetalert2.messageSuccess();
             }
           });
       }
@@ -630,29 +540,20 @@ export class ServiceDetailComponent implements OnInit {
     Sweetalert2.deleteConfirm().then(result => {
       if (result.isConfirmed) {
         let serviceId = this.currentService._id;
-        let {mikrotikId} = this.currentService;
-        if (!mikrotikId) return Sweetalert2.errorMessage();
-        this.bitWorkerService.getArpListById(mikrotikId, serviceId)
+        this.bitWorkerService.deleteService(serviceId)
           .subscribe(async (result) => {
             if (!result.ok) {
               await Sweetalert2.errorMessage();
             } else {
-              this.bitWorkerService.deleteArpList(mikrotikId, serviceId)
-                .subscribe(() => {
-                  this.bitWorkerService.deleteSimpleQueue(mikrotikId, serviceId)
-                    .subscribe(() => {
-                      Sweetalert2.deleteSuccess();
-                      this.bitWorkerService.createWorkerActivity({
-                        serviceId: this.currentService._id,
-                        task: 'BORRAR SERVICIO',
-                        typeOperation: '-',
-                        remark: '-'
-                      }).subscribe(() => {
-                        this.getWorkerActivityListClick();
-                      });
-                      this.changeStatusService('DESHABILITADO');
-                    });
-                });
+              this.bitWorkerService.createWorkerActivity({
+                serviceId: this.currentService._id,
+                task: 'BORRAR SERVICIO',
+                typeOperation: '-',
+                remark: '-'
+              }).subscribe(() => {
+                this.getWorkerActivityListClick();
+              });
+              await Sweetalert2.deleteSuccess();
             }
           });
       }

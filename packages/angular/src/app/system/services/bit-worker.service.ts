@@ -15,16 +15,6 @@ export class BitWorkerService {
     private interfaceService: InterfaceService) {
   }
 
-  // Habilitar servicio.
-  enableService(serviceId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${serviceId}/enableService`);
-  }
-
-  // Suspender servicio.
-  suspendService(serviceId: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/${serviceId}/suspendService`);
-  }
-
   // Cambiar plan de servicio.
   changeServicePlan(serviceId: string, servicePlanId: string): Observable<any> {
     return this.http.get(`${this.baseURL}/${serviceId}/changeServicePlan/${servicePlanId}`);

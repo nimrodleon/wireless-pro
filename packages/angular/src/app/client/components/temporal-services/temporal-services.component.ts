@@ -1,12 +1,10 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable, Subject} from 'rxjs';
 import Swal from 'sweetalert2';
 import {BitWorkerService, ServicePlanService} from 'src/app/system/services';
 import {ClientService, ServiceService} from '../../services';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {AuthService} from 'src/app/user/services';
-import {Service} from '../../interfaces';
 
 @Component({
   selector: 'app-temporal-services',
@@ -42,56 +40,10 @@ export class TemporalServicesComponent implements OnInit {
   }
 
   // cargar detalle del servicio.
-  loadDetailService(event: any, serviceId: string): void {
+  async loadDetailService(event: any, serviceId: string) {
     event.preventDefault();
     this.hideModal.emit(true);
-    this.router.navigate(['/client/service-detail', serviceId])
-      .then(() => {
-        console.log('Hide Temporal Service.');
-      });
-  }
-
-  // valores del registro arp.
-  private getArpValues(interfaceId: string, service: Service, disabled: string): Observable<any> {
-    let subject = new Subject<any>();
-    this.bitWorkerService.getInterfaceNameById(interfaceId)
-      .subscribe(interfaceName => {
-        this.clientService.getClientById(service.clientId)
-          .subscribe(client => {
-            subject.next({
-              address: service.ipAddress,
-              macAddress: service.macAddress,
-              interface: interfaceName,
-              comment: client.fullName,
-              disabled: disabled,
-              mikrotikId: service.mikrotikId,
-              serviceId: service._id
-            });
-          });
-      });
-    return subject.asObservable();
-  }
-
-  // valores del registro simpleQueue.
-  private getSimpleQueueValues(service: Service, disabled: string): Observable<any> {
-    let subject = new Subject<any>();
-    this.clientService.getClientById(service.clientId)
-      .subscribe(client => {
-        this.servicePlanService.getServicePlan(service.servicePlanId)
-          .subscribe(result => {
-            subject.next({
-              name: service._id,
-              target: service.ipAddress,
-              maxLimit: `${result.uploadSpeed}/${result.downloadSpeed}`,
-              limitAt: '0/0',
-              comment: client.fullName,
-              disabled: disabled,
-              mikrotikId: service.mikrotikId,
-              serviceId: service._id
-            });
-          });
-      });
-    return subject.asObservable();
+    await this.router.navigate(['/client/service-detail', serviceId]);
   }
 
   // corregir servicio temporal.
@@ -123,85 +75,45 @@ export class TemporalServicesComponent implements OnInit {
 
   // habilitar servicio.
   private enableService(serviceId: string): void {
-    this.serviceService.getServiceById(serviceId)
-      .subscribe(result => {
-        let {mikrotikId, interfaceId} = result;
-        this.bitWorkerService.getSimpleQueueById(mikrotikId, serviceId)
-          .subscribe(async (data) => {
-            if (!data.ok) {
-              await Sweetalert2.errorMessage();
-            } else {
-              if (!interfaceId) return Sweetalert2.errorMessage();
-              this.getArpValues(interfaceId, result, 'no')
-                .subscribe(arpData => {
-                  this.bitWorkerService.updateArpList(serviceId, arpData)
-                    .subscribe(() => {
-                      this.getSimpleQueueValues(result, 'no')
-                        .subscribe(simpleData => {
-                          this.bitWorkerService.updateSimpleQueue(serviceId, simpleData)
-                            .subscribe(() => {
-                              Sweetalert2.messageSuccess();
-                              this.bitWorkerService.createWorkerActivity({
-                                serviceId: serviceId,
-                                task: 'HABILITAR SERVICIO',
-                                typeOperation: 'OPT1',
-                                remark: '-'
-                              }).subscribe(() => {
-                                this.serviceService.getTemporalServices()
-                                  .subscribe(result => this.servicesList = result);
-                              });
-                              this.serviceService.changeStatusService(serviceId, 'HABILITADO')
-                                .subscribe(() => {
-                                  console.log('Enabled services');
-                                });
-                            });
-                        });
-                    });
-                });
-            }
-          });
+    this.serviceService.changeStatusService(serviceId, 'HABILITADO')
+      .subscribe(() => {
+        this.bitWorkerService.updateService(serviceId).subscribe(async (result) => {
+          if (!result.ok) {
+            await Sweetalert2.errorMessage();
+          } else {
+            this.bitWorkerService.createWorkerActivity({
+              serviceId: serviceId,
+              task: 'HABILITAR SERVICIO',
+              typeOperation: 'OPT1',
+              remark: '-'
+            }).subscribe(() => {
+              this.serviceService.getTemporalServices()
+                .subscribe(result => this.servicesList = result);
+            });
+          }
+        });
       });
   }
 
   // suspender servicio.
   private suspendService(serviceId: string): void {
-    this.serviceService.getServiceById(serviceId)
-      .subscribe(result => {
-        let {mikrotikId, interfaceId} = result;
-        this.bitWorkerService.getSimpleQueueById(mikrotikId, serviceId)
-          .subscribe(async (data) => {
-            if (!data.ok) {
-              await Sweetalert2.errorMessage();
-            } else {
-              if (!interfaceId) return Sweetalert2.errorMessage();
-              this.getArpValues(interfaceId, result, 'yes')
-                .subscribe(arpData => {
-                  this.bitWorkerService.updateArpList(serviceId, arpData)
-                    .subscribe(() => {
-                      this.getSimpleQueueValues(result, 'yes')
-                        .subscribe(simpleData => {
-                          this.bitWorkerService.updateSimpleQueue(serviceId, simpleData)
-                            .subscribe(() => {
-                              Sweetalert2.messageSuccess();
-                              this.bitWorkerService.createWorkerActivity({
-                                serviceId: serviceId,
-                                task: 'SUSPENDER SERVICIO',
-                                typeOperation: 'OPT2',
-                                remark: '-'
-                              }).subscribe(() => {
-                                this.serviceService.getTemporalServices()
-                                  .subscribe(result => this.servicesList = result);
-                              });
-                              this.serviceService.changeStatusService(serviceId, 'SUSPENDIDO')
-                                .subscribe(() => {
-                                  console.log('Suspended services');
-                                });
-                            });
-                        });
-                    });
-                });
-            }
-          });
+    this.serviceService.changeStatusService(serviceId, 'SUSPENDIDO')
+      .subscribe(() => {
+        this.bitWorkerService.updateService(serviceId).subscribe(async (result) => {
+          if (!result.ok) {
+            await Sweetalert2.errorMessage();
+          } else {
+            this.bitWorkerService.createWorkerActivity({
+              serviceId: serviceId,
+              task: 'SUSPENDER SERVICIO',
+              typeOperation: 'OPT2',
+              remark: '-'
+            }).subscribe(() => {
+              this.serviceService.getTemporalServices()
+                .subscribe(result => this.servicesList = result);
+            });
+          }
+        });
       });
   }
 

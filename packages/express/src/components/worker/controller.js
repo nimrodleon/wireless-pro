@@ -3,22 +3,6 @@ import {WorkerStore} from './store'
 
 // Lógica bitWorker.
 export class WorkerController {
-  // Habilitar servicio.
-  static async enableService(serviceId) {
-    const URL = process.env.URL_BIT_WORKER
-    const token = process.env.TOKEN_BIT_WORKER
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    return axios.post(`${URL}/api/Service/Enable/${serviceId}`)
-  }
-
-  // Suspender servicio.
-  static async suspendService(serviceId) {
-    const URL = process.env.URL_BIT_WORKER
-    const token = process.env.TOKEN_BIT_WORKER
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    return axios.post(`${URL}/api/Service/Suspend/${serviceId}`)
-  }
-
   // Cambiar plan de servicio.
   static async changeServicePlan(serviceId, servicePlanId) {
     const URL = process.env.URL_BIT_WORKER

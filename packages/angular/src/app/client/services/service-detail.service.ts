@@ -93,11 +93,6 @@ export class ServiceDetailService {
     });
   }
 
-  // cambiar plan de servicio.
-  changeServicePlan(id: string, servicePlanId: string): Observable<Service> {
-    return this.serviceService.changeServicePlan(id, servicePlanId);
-  }
-
   // cambiar estado del servicio.
   changeStatusService(id: string, status: string): Observable<Service> {
     return this.serviceService.changeStatusService(id, status);

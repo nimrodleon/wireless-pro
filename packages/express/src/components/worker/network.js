@@ -4,26 +4,6 @@ import {WorkerController} from './controller'
 
 const router = express.Router()
 
-// http://<HOST>/api/bitWorker/:id/enableService
-router.get('/:id/enableService', [verifyToken], enableService)
-
-// Habilitar servicio.
-function enableService(req, res = response) {
-  WorkerController.enableService(req.params.id).then(({data}) => {
-    res.json(data)
-  })
-}
-
-// http://<HOST>/api/bitWorker/:id/suspendService
-router.get('/:id/suspendService', [verifyToken], suspendService)
-
-// Suspender servicio.
-function suspendService(req, res = response) {
-  WorkerController.suspendService(req.params.id).then(({data}) => {
-    res.json(data)
-  })
-}
-
 // http://<HOST>/api/bitWorker/:id/changeServicePlan/:servicePlanId
 router.get('/:id/changeServicePlan/:servicePlanId', [verifyToken], changeServicePlan)
 

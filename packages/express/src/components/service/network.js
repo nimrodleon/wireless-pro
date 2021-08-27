@@ -115,21 +115,6 @@ function deleteService(req, res = response) {
   })
 }
 
-// http://<HOST>/api/services/:id/changeServicePlan
-router.put('/:id/changeServicePlan', [
-  verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
-  validate
-], changeServicePlan)
-
-// cambiar plan de servicio.
-function changeServicePlan(req, res = response) {
-  let {servicePlanId} = req.body
-  ServiceController.changeServicePlan(req.params.id, servicePlanId).then(result => {
-    res.json(result)
-  })
-}
-
 // http://<HOST>/api/services/:id/changeStatusService
 router.put('/:id/changeStatusService', [
   verifyToken,

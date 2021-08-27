@@ -33,11 +33,6 @@ export class ServiceService {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
-  // cambiar plan de servicio.
-  changeServicePlan(id: string, servicePlanId: string): Observable<Service> {
-    return this.http.put<Service>(`${this.baseURL}/${id}/changeServicePlan`, {servicePlanId});
-  }
-
   // cambiar estado del servicio.
   changeStatusService(id: string, status: string): Observable<Service> {
     return this.http.put<Service>(`${this.baseURL}/${id}/changeStatusService`, {status});
@@ -62,10 +57,6 @@ export class ServiceService {
   reporteServicioSinRegistroDePago(): Observable<Blob> {
     return this.http.get(`${this.baseURL}/reporte/servicioSinRegistroDePago`, {responseType: 'blob'});
   }
-
-  // paymentsCount(id: string): Observable<number> {
-  //   return this.http.get<number>(`${this.baseURL}/${id}/payments/count`);
-  // }
 
   // valores por defecto.
   defaultValues(): Service {
