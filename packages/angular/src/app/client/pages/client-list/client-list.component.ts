@@ -91,8 +91,8 @@ export class ClientListComponent implements OnInit {
       title: 'EXPORTAR DATOS',
       input: 'select',
       inputOptions: {
-        'E01': 'LISTADO DE CLIENTES',
-        'E02': 'SERVICIOS POR ESTADO',
+        // 'E01': 'LISTADO DE CLIENTES',
+        // 'E02': 'SERVICIOS POR ESTADO',
         'E03': 'SERVICIOS SIN REGISTRO DE PAGO',
       },
       inputPlaceholder: 'Seleccione una opción',
@@ -101,25 +101,25 @@ export class ClientListComponent implements OnInit {
     });
 
     // Lista de clientes.
-    if (option && option === 'E01') {
-      this.clientService.reporteListaDeClientes().subscribe(result => {
-        let downloadURL = window.URL.createObjectURL(result);
-        let link = document.createElement('a');
-        link.href = downloadURL;
-        link.download = 'lista-de-clientes.xlsx';
-        link.click();
-      });
-    }
+    // if (option && option === 'E01') {
+    //   this.clientService.reporteListaDeClientes().subscribe(result => {
+    //     let downloadURL = window.URL.createObjectURL(result);
+    //     let link = document.createElement('a');
+    //     link.href = downloadURL;
+    //     link.download = 'lista-de-clientes.xlsx';
+    //     link.click();
+    //   });
+    // }
     // Lista de servicios por estado.
-    if (option && option === 'E02') {
-      this.serviceService.reporteServiciosPorEstado().subscribe(result => {
-        let downloadURL = window.URL.createObjectURL(result);
-        let link = document.createElement('a');
-        link.href = downloadURL;
-        link.download = 'servicios-por-estado.xlsx';
-        link.click();
-      });
-    }
+    // if (option && option === 'E02') {
+    //   this.serviceService.reporteServiciosPorEstado().subscribe(result => {
+    //     let downloadURL = window.URL.createObjectURL(result);
+    //     let link = document.createElement('a');
+    //     link.href = downloadURL;
+    //     link.download = 'servicios-por-estado.xlsx';
+    //     link.click();
+    //   });
+    // }
     // Lista de servicios sin registro de pago.
     if (option && option === 'E03') {
       this.serviceService.reporteServicioSinRegistroDePago().subscribe(result => {

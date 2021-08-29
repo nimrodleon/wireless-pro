@@ -49,9 +49,9 @@ export class ServiceService {
   }
 
   // reporte servicios por estado.
-  reporteServiciosPorEstado(): Observable<Blob> {
-    return this.http.get(`${this.baseURL}/reporte/serviciosPorEstado`, {responseType: 'blob'});
-  }
+  // reporteServiciosPorEstado(): Observable<Blob> {
+  //   return this.http.get(`${this.baseURL}/reporte/serviciosPorEstado`, {responseType: 'blob'});
+  // }
 
   // reporte servicios sin registro de pago.
   reporteServicioSinRegistroDePago(): Observable<Blob> {

@@ -62,10 +62,10 @@ export class ServiceStore {
       .populate({path: 'clientId', select: 'fullName'})
   }
 
-  // servicios por campo status.
-  static async getServicesByStatus(status) {
-    return Service.find({status: status, isDeleted: false})
-      .populate({path: 'clientId', select: 'fullName'})
-  }
+  // // servicios por campo status.
+  // static async getServicesByStatus(status) {
+  //   return Service.find({status: status, isDeleted: false})
+  //     .populate({path: 'clientId', select: 'fullName'})
+  // }
 
 }
