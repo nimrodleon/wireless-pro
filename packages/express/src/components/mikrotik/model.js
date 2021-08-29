@@ -7,10 +7,6 @@ const mikrotikSchema = new Schema({
   port: Number,
   userName: String,
   password: String,
-  applicationId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Application'
-  },
   isDeleted: {
     type: Boolean,
     default: false
