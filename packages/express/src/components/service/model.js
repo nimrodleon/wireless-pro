@@ -50,7 +50,7 @@ const serviceSchema = new Schema({
   paymentType: {
     type: String,
     default: 'PRE',
-    enum: ['PRE', 'POS']
+    enum: ['PRE', 'POS', 'CONVENIO']
   },
   defPrice: {
     type: Boolean,
