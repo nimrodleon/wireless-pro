@@ -43,9 +43,11 @@ export class PaymentModalComponent implements OnInit {
       this.payment.amount = this.currentService.defPrice ? this.currentService.price : this.currentServicePlan.priceMonthly;
       this.payment.paymentMethod = 'CAJA';
       if (this.currentService.status
-        && this.currentService.status !== 'H') {
+        && this.currentService.status !== 'HABILITADO') {
         this.paymentForm.reset(this.payment);
       } else {
+        // siempre que estado del servicio sea habilitado,
+        // calcular automáticamente la fecha de pago a realizar.
         if (this.currentService['lastPayment']
           && this.currentService['lastPayment'].length > 0) {
           this.paymentService.getPaymentById(this.currentService['lastPayment'])
