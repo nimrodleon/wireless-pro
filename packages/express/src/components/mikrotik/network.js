@@ -33,7 +33,6 @@ router.post('/', [
   check('host', 'La dirección IP es obligatorio').not().isEmpty(),
   check('port', 'El puerto es obligatorio').not().isEmpty(),
   check('userName', 'El nombre de usuario es obligatorio').not().isEmpty(),
-  check('applicationId', 'La aplicación es obligatorio').not().isEmpty(),
   validate
 ], createMikrotik)
 
@@ -53,7 +52,6 @@ router.patch('/:id', [
   check('host', 'La dirección IP es obligatorio').not().isEmpty(),
   check('port', 'El puerto es obligatorio').not().isEmpty(),
   check('userName', 'El nombre de usuario es obligatorio').not().isEmpty(),
-  check('applicationId', 'La aplicación es obligatorio').not().isEmpty(),
   validate
 ], updateMikrotik)
 

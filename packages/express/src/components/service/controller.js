@@ -101,15 +101,15 @@ export class ServiceController {
     })
   }
 
-  // servicios por campo status.
-  static getServicesByStatus(status) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(ServiceStore.getServicesByStatus(status))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
+  // // servicios por campo status.
+  // static getServicesByStatus(status) {
+  //   return new Promise((resolve, reject) => {
+  //     try {
+  //       resolve(ServiceStore.getServicesByStatus(status))
+  //     } catch (err) {
+  //       reject(err)
+  //     }
+  //   })
+  // }
 
 }

@@ -36,9 +36,9 @@ export class ClientService {
   }
 
   // exportar lista de clientes.
-  reporteListaDeClientes(): Observable<Blob> {
-    return this.http.get(`${this.baseURL}/reporte/listaDeClientes`, {responseType: 'blob'});
-  }
+  // reporteListaDeClientes(): Observable<Blob> {
+  //   return this.http.get(`${this.baseURL}/reporte/listaDeClientes`, {responseType: 'blob'});
+  // }
 
   // valor por defecto cliente.
   defaultValues(): Client {
