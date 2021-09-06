@@ -36,9 +36,10 @@ export class CardClientServiceComponent implements OnInit {
         Swal.fire({
           title: '<strong>PUNTO DE ACCESO</strong>',
           html: `
+          <span class="text-uppercase fw-bold pb-1">${result.name.trim()} / ${result.ssid.trim()}</span>
           <p class="pb-2">
             <span><i class="fas fa-network-wired"></i> Ip Address: </span>
-            <a href="https://${result.ipAddress}" target="_blank">${result.ipAddress}</a>
+            <a href="https://${result.ipAddress}" class="fw-bold" target="_blank">${result.ipAddress}</a>
           </p>
           <table class="table mb-0">
             <tr class="bg-warning">
@@ -58,6 +59,12 @@ export class CardClientServiceComponent implements OnInit {
           </table>
           `
         });
+      }, () => {
+        Swal.fire(
+          'Oops...',
+          'No existe una AP relacionada a este equipo!',
+          'error'
+        );
       });
   }
 

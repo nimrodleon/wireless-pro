@@ -68,7 +68,7 @@ export class Sweetalert2 {
   // mensaje de error.
   static async errorMessage() {
     return Swal.fire(
-      'Oops!',
+      'Oops...',
       'Parece que tenemos un problema!',
       'error'
     );
