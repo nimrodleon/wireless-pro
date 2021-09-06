@@ -40,3 +40,9 @@ db.payments.updateMany({"service": {$exists: true}}, {$rename: {"service":"servi
 db.payments.updateMany({"payment_method": {$exists: true}}, {$rename: {"payment_method":"paymentMethod"}})
 db.payments.updateMany({"created_date": {$exists: true}}, {$rename: {"created_date":"createdAt"}})
 ```
+
+- Migración de pagos para el reporte de caja diaria.
+```
+db.payments.updateMany({paymentMethod: {$eq: "C"}}, {$set: {paymentMethod: "CAJA"}})
+db.payments.updateMany({paymentMethod: {$ne: "CAJA"}}, {$set: {paymentMethod: "BANCO"}})
+```

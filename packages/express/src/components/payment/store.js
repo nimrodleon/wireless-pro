@@ -34,8 +34,8 @@ export class PaymentStore {
   }
 
   // reporte pago diario.
-  static async reportePagosDiario(date) {
-    return Payment.find({createdAt: date, isDeleted: false})
+  static async reportePagosDiario(date, method) {
+    return Payment.find({createdAt: date, paymentMethod: method, isDeleted: false})
       .populate({path: 'clientId', select: 'fullName'})
       .populate({path: 'serviceId', select: 'ipAddress'})
   }

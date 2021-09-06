@@ -11,6 +11,7 @@ import {PaymentService} from '../../services';
 export class PaymentDailyComponent implements OnInit {
   paymentList: Array<any>;
   queryInput: FormControl = this.fb.control(moment().format('YYYY-MM-DD'));
+  paymentMethodInput: FormControl = this.fb.control('CAJA');
 
   constructor(
     private fb: FormBuilder,
@@ -23,7 +24,7 @@ export class PaymentDailyComponent implements OnInit {
 
   // cargar reporte de pagos diario.
   generarReporteClick(): void {
-    this.paymentService.reportePagosDiario(this.queryInput.value)
+    this.paymentService.reportePagosDiario(this.queryInput.value, this.paymentMethodInput.value)
       .subscribe(result => this.paymentList = result);
   }
 

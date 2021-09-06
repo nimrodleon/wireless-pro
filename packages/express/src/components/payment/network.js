@@ -80,12 +80,12 @@ function deletePayment(req, res = response) {
   })
 }
 
-// http://<HOST>/api/payments/reporte/pagosDiario/:date
-router.get('/reporte/pagosDiario/:date', [verifyToken], reportePagosDiario)
+// http://<HOST>/api/payments/reporte/pagosDiario/:date/:method
+router.get('/reporte/pagosDiario/:date/:method', [verifyToken], reportePagosDiario)
 
 // reporte de pagos diarios.
 function reportePagosDiario(req, res = response) {
-  PaymentController.reportePagosDiario(req.params.date).then(result => {
+  PaymentController.reportePagosDiario(req.params.date, req.params.method).then(result => {
     res.json(result)
   })
 }

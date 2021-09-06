@@ -3,18 +3,26 @@
   <app-sidebar></app-sidebar>
   <div class="container-fluid">
     <!-- ##(Begin) Content -->
-    <div class="row">
-      <div class="col-12">
-        <div class="d-flex align-items-center my-2">
-          <h4 class="text-uppercase m-0 me-2">Diario de Pagos</h4>
-          <div class="input-group me-2" style="width: 240px;">
-            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-            <input type="date" [formControl]="queryInput" class="form-control">
-          </div>
-          <button type="button" (click)="generarReporteClick()" class="btn btn-primary text-uppercase">
-            <i class="fas fa-search"></i> Buscar
-          </button>
+    <div class="row row-cols-auto g-2 my-2">
+      <div class="col-auto">
+        <h4 class="text-uppercase mt-1 mb-0">Diario de Pagos</h4>
+      </div>
+      <div class="col-auto">
+        <div class="input-group" style="width: 240px;">
+          <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+          <input type="date" [formControl]="queryInput" class="form-control">
         </div>
+      </div>
+      <div class="col-auto">
+        <select [formControl]="paymentMethodInput" class="form-select">
+          <option value="CAJA">CAJA</option>
+          <option value="BANCO">BANCO</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="button" (click)="generarReporteClick()" class="btn btn-primary text-uppercase">
+          <i class="fas fa-search"></i> Buscar
+        </button>
       </div>
       <div class="col-12">
         <div class="table-responsive">
