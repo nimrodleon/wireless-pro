@@ -6,6 +6,8 @@ import {WorkOrderDetailService, OrderMaterialService} from '../../services';
 import {OrderMaterial} from '../../interfaces';
 import {Service} from 'src/app/client/interfaces';
 import {ServiceService} from 'src/app/client/services';
+import {AuthService} from '../../../user/services';
+import {Sweetalert2} from '../../../global/interfaces';
 
 @Component({
   selector: 'app-work-detail',
@@ -21,10 +23,13 @@ export class WorkDetailComponent implements OnInit {
   titleService: string;
   currentService: Service;
   serviceModal: any;
+  // ============================================================
+  currentRole: string;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private workOrderDetailService: WorkOrderDetailService,
     private orderMaterialService: OrderMaterialService,
     private serviceService: ServiceService) {
@@ -35,6 +40,8 @@ export class WorkDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.workOrderDetailService.getWorkOrder(params.get('id'));
     });
+    // Obtener rol del usuario autentificado.
+    this.authService.getRoles().subscribe(result => this.currentRole = result);
     // establecer formularios modales.
     this.userModal = new bootstrap.Modal(
       document.querySelector('#add-user-modal'));
@@ -44,6 +51,11 @@ export class WorkDetailComponent implements OnInit {
       document.querySelector('#item-material-modal'));
     this.serviceModal = new bootstrap.Modal(
       document.querySelector('#service-modal'));
+  }
+
+  // Lista de permisos.
+  get roles() {
+    return this.authService.roles;
   }
 
   // orden de instalación.
@@ -134,15 +146,19 @@ export class WorkDetailComponent implements OnInit {
   }
 
   // agregar servicio.
-  addServiceClick(event: any): void {
+  async addServiceClick(event: any) {
     event.preventDefault();
-    this.titleService = 'Agregar Servicio';
-    this.currentService = this.serviceService.defaultValues();
-    this.currentService.clientId = this.currentClient._id;
-    this.currentService.address = this.currentWorkOrder.address;
-    this.currentService.city = this.currentWorkOrder.city;
-    this.currentService.region = this.currentWorkOrder.region;
-    this.serviceModal.show();
+    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+      await Sweetalert2.accessDeniedGeneric();
+    } else {
+      this.titleService = 'Agregar Servicio';
+      this.currentService = this.serviceService.defaultValues();
+      this.currentService.clientId = this.currentClient._id;
+      this.currentService.address = this.currentWorkOrder.address;
+      this.currentService.city = this.currentWorkOrder.city;
+      this.currentService.region = this.currentWorkOrder.region;
+      this.serviceModal.show();
+    }
   }
 
   // cerrar modal servicio.
