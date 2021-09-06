@@ -140,12 +140,12 @@ function getTemporalServices(req, res = response) {
   })
 }
 
-// http://<HOST>/api/services/reporte/clientesPorCobrar/:date
-router.get('/reporte/clientesPorCobrar/:date', [verifyToken], reporteClientesPorCobrar)
+// http://<HOST>/api/services/reporte/clientesPorCobrar/:date/:type
+router.get('/reporte/clientesPorCobrar/:date/:type', [verifyToken], reporteClientesPorCobrar)
 
 // reporte clientes por cobrar.
 function reporteClientesPorCobrar(req, res = response) {
-  ServiceController.reporteClientesPorCobrar(req.params.date).then(result => {
+  ServiceController.reporteClientesPorCobrar(req.params.date, req.params.type).then(result => {
     res.json(result)
   })
 }

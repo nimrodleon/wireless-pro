@@ -50,9 +50,9 @@ export class ServiceStore {
   }
 
   // reporte clientes por cobrar.
-  static async reporteClientesPorCobrar(date) {
+  static async reporteClientesPorCobrar(date, type) {
     return Service.find({
-      status: 'HABILITADO', lastPayment: {$exists: true}, paidUpTo: {$lt: date}, isDeleted: false
+      status: 'HABILITADO', paymentType: type, lastPayment: {$exists: true}, paidUpTo: {$lt: date}, isDeleted: false
     }).populate({path: 'clientId', select: 'fullName'})
   }
 

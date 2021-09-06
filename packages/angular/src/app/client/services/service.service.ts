@@ -44,8 +44,8 @@ export class ServiceService {
   }
 
   // reporte de servicios por cobrar.
-  reporteClientesPorCobrar(date: string): Observable<any> {
-    return this.http.get(`${this.baseURL}/reporte/clientesPorCobrar/${date}`);
+  reporteClientesPorCobrar(date: string, type: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/reporte/clientesPorCobrar/${date}/${type}`);
   }
 
   // reporte servicios por estado.

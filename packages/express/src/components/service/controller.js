@@ -80,10 +80,10 @@ export class ServiceController {
   }
 
   // reporte clientes por cobrar.
-  static reporteClientesPorCobrar(date) {
+  static reporteClientesPorCobrar(date, type) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(ServiceStore.reporteClientesPorCobrar(date))
+        resolve(ServiceStore.reporteClientesPorCobrar(date, type))
       } catch (err) {
         reject(err)
       }

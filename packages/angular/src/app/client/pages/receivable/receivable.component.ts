@@ -11,6 +11,7 @@ import {ServiceService} from '../../services';
 export class ReceivableComponent implements OnInit {
   serviceList: Array<any>;
   queryInput: FormControl = this.fb.control(moment().format('YYYY-MM-DD'));
+  paymentTypeInput: FormControl = this.fb.control('PRE');
 
   constructor(
     private fb: FormBuilder,
@@ -23,7 +24,7 @@ export class ReceivableComponent implements OnInit {
 
   // generar reporte clientes por cobrar.
   cargarReporteClick(): void {
-    this.serviceService.reporteClientesPorCobrar(this.queryInput.value)
+    this.serviceService.reporteClientesPorCobrar(this.queryInput.value, this.paymentTypeInput.value)
       .subscribe(result => this.serviceList = result);
   }
 
