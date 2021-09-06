@@ -9,6 +9,7 @@ import {environment} from 'src/environments/environment';
 import {CoverageService, InterfaceService, MikrotikService, ServicePlanService} from 'src/app/system/services';
 import {Coverage, Interface, Mikrotik, ServicePlan} from 'src/app/system/interfaces';
 import {DeviceService} from 'src/app/devices/services';
+import {Sweetalert2} from 'src/app/global/interfaces';
 
 @Component({
   selector: 'app-service-modal',
@@ -144,17 +145,22 @@ export class ServiceModalComponent implements OnInit {
       this.serviceForm.markAllAsTouched();
       return;
     }
-    // Guardar datos, sólo si es válido el formulario.
-    if (this.currentService._id === null) {
-      // registrar servicio.
-      delete this.currentService._id;
-      this.serviceService.createService(this.currentService)
-        .subscribe(() => this.hideModal.emit(true));
-    } else {
-      // actualizar servicio.
-      this.serviceService.updateService(this.currentService)
-        .subscribe(() => this.hideModal.emit(true));
-    }
+    // Confirmar guardar cambios.
+    Sweetalert2.messageConfirm().then(result => {
+      if (result.isConfirmed) {
+        // Guardar datos, sólo si es válido el formulario.
+        if (this.currentService._id === null) {
+          // registrar servicio.
+          delete this.currentService._id;
+          this.serviceService.createService(this.currentService)
+            .subscribe(() => this.hideModal.emit(true));
+        } else {
+          // actualizar servicio.
+          this.serviceService.updateService(this.currentService)
+            .subscribe(() => this.hideModal.emit(true));
+        }
+      }
+    });
   }
 
 }

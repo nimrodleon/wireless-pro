@@ -16,7 +16,7 @@
               </button>
               <button class="nav-link" data-bs-toggle="tab"
                       data-bs-target="#nav-address" type="button" role="tab">
-                <i class="fas fa-map-marker-alt"></i><span class="text-uppercase ms-1">Dirección</span>
+                <i class="fas fa-map-marker-alt"></i><span class="text-uppercase ms-1">Localización</span>
               </button>
               <button class="nav-link" data-bs-toggle="tab"
                       data-bs-target="#nav-pay" type="button" role="tab">
@@ -138,7 +138,7 @@
                   <div class="pb-3">
                     <div class="input-group has-validation">
                       <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                      <input type="text" formControlName="address" placeholder="Dirección"
+                      <input type="text" formControlName="address" placeholder="Dirección/Localización"
                              class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('address')}">
                       <div class="invalid-feedback">La dirección es requerido.</div>
                     </div>
@@ -199,6 +199,7 @@
                     <option value="PRE">PRE-PAGO</option>
                     <option value="POS">POS-PAGO</option>
                     <option value="CONVENIO">CONVENIO</option>
+                    <option value="EMPRESA">EMPRESA</option>
                   </select>
                 </div>
                 <div class="col-6">
