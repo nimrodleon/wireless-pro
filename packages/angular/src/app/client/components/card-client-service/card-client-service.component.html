@@ -52,7 +52,7 @@
     <ng-container *ngIf="true">
       <p class="my-1">
         <span class="text-uppercase"><i class="fas fa-calendar-alt"></i> Registro: </span>
-        <span class="text-success">{{currentService.initialDate}}</span>
+        <span class="text-success">{{currentService.initialDate|date}}</span>
       </p>
     </ng-container>
     <p *ngIf="true" class="card-text">{{currentService.basicNote}}</p>
