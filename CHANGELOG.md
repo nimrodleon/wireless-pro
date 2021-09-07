@@ -2,7 +2,7 @@
 
 Todos los cambios notables de este proyecto se documentarán en este archivo.
 
-## [2.0.0] - 2021-08-18
+## [2.0.0] - 2021-09-07
 
 - Migración de documentos v1 MongoDB.
 
