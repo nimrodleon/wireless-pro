@@ -4,11 +4,10 @@ Software para gestión de redes Wifi.
 
 ---
 
-### Agregar un campo en mongodb a todo los documentos.
+## Repositorios relacionados con este proyecto.
 
-```
-db.collection.update( {}, {$set: {"is_active":true} }, {multi: true} )
-```
+- [https://gitlab.com/nleonc14/MkBitWorker](https://gitlab.com/nleonc14/MkBitWorker)
+- [https://gitlab.com/nleonc14/rd4-migration](https://gitlab.com/nleonc14/rd4-migration)
 
 ## Configuración de Recursos Compartidos.
 
@@ -58,21 +57,20 @@ sudo mount -a
 
 ---
 
-Para crear un servicio con **SYSTEMD**, Crearemos el siguiente archivo ```/lib/systemd/system/sample.service``` con el
-contenido siguiente:
+Para crear un servicio con **SYSTEMD**, Crearemos el siguiente archivo ```/lib/systemd/system/rd4-server.service``` con
+el contenido siguiente:
 
 ```
 [Unit]
-Description=<Sample>
-After=network.target
-StartLimitIntervalSec=0
+Description=rd4-server
 
 [Service]
-Type=simple
+WorkingDirectory=/var/www/server
+ExecStart=/var/www/server/SERVER
 Restart=always
-RestartSec=1
-User=<user>
-ExecStart=/usr/bin/env python3 /home/<user>/sample/sample.py
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=rd4-server
 
 [Install]
 WantedBy=multi-user.target
@@ -89,17 +87,17 @@ systemctl list-units --type target
 - **Poner en marcha el servicio.**
 
 ```
-sudo systemctl start sample
+sudo systemctl start rd4-server.service
 ```
 
 - **Para detener el servicio.**
 
 ```
-sudo systemctl stop sample
+sudo systemctl stop rd4-server.service
 ```
 
 - **Para iniciar el servicio con el sistema.**
 
 ```
-sudo systemctl enable sample
+sudo systemctl enable rd4-server.service
 ```

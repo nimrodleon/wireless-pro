@@ -41,7 +41,10 @@ db.payments.updateMany({"payment_method": {$exists: true}}, {$rename: {"payment_
 db.payments.updateMany({"created_date": {$exists: true}}, {$rename: {"created_date":"createdAt"}})
 ```
 
+- Los scripts de migración se cargan desde el
+  repositorio [https://gitlab.com/nleonc14/rd4-migration](https://gitlab.com/nleonc14/rd4-migration).
 - Migración de pagos para el reporte de caja diaria.
+
 ```
 db.payments.updateMany({paymentMethod: {$eq: "C"}}, {$set: {paymentMethod: "CAJA"}})
 db.payments.updateMany({paymentMethod: {$ne: "CAJA"}}, {$set: {paymentMethod: "BANCO"}})
