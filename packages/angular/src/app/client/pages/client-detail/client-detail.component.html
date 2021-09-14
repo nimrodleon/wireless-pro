@@ -36,13 +36,13 @@
                 <span class="fw-bold">
                 <i class="fas fa-street-view"></i> Dirección : </span> {{ currentClient.fullAddress }}
               </p>
-              <p class="my-1">
-                <span class="fw-bold">
-                <i class="fas fa-phone-alt"></i> Teléfono : </span> {{ currentClient.phone }}
-              </p>
               <p *ngIf="currentClient.telegram" class="my-1">
                 <span class="fw-bold me-1">
                 <i class="fab fa-telegram me-1"></i>Telegram : </span> {{ currentClient.telegram }}
+              </p>
+              <p class="my-1">
+                <span class="fw-bold">
+                <i class="fas fa-phone-alt"></i> Teléfono : </span> {{ currentClient.phone }}
               </p>
               <p *ngIf="currentClient.note" class="my-1">
                 <span class="fw-bold">
