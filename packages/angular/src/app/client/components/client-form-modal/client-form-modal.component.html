@@ -18,7 +18,7 @@
             </div>
             <div class="col-6 mb-3">
               <div class="input-group has-validation">
-                <span class="input-group-text"><i class="fas fa-passport"></i></span>
+                <span class="input-group-text"><i class="fas fa-filter"></i></span>
                 <select formControlName="type" class="form-select"
                         [ngClass]="{'is-invalid': inputIsInvalid('type')}">
                   <option value="D.N.I">D.N.I</option>
@@ -39,18 +39,26 @@
           </div>
           <div class="pb-3">
             <div class="input-group has-validation">
-              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+              <span class="input-group-text"><i class="fas fa-map-marker-alt mx-1"></i></span>
               <input type="text" formControlName="fullAddress" placeholder="Dirección"
                      class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('fullAddress')}">
               <div class="invalid-feedback">La dirección es requerido.</div>
             </div>
           </div>
-          <div class="pb-3">
-            <div class="input-group has-validation">
-              <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-              <input type="text" formControlName="phone" placeholder="Teléfono"
-                     class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('phone')}">
-              <div class="invalid-feedback">El Teléfono es requerido.</div>
+          <div class="row">
+            <div class="col-6 pb-3">
+              <div class="input-group has-validation">
+                <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                <input type="text" formControlName="phone" placeholder="Teléfono"
+                       class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('phone')}">
+                <div class="invalid-feedback">El Teléfono es requerido.</div>
+              </div>
+            </div>
+            <div class="col-6 pb-3">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fab fa-telegram"></i></span>
+                <input type="text" formControlName="telegram" placeholder="ChatID Telegram" class="form-control">
+              </div>
             </div>
           </div>
           <div class="pb-3">

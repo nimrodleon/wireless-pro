@@ -5,6 +5,7 @@ export interface Client {
   fullName: string;
   fullAddress: string;
   phone: string;
+  telegram: string;
   email: string;
   note: string;
 }

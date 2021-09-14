@@ -22,6 +22,7 @@ export class ClientFormModalComponent implements OnInit {
     fullName: ['', [Validators.required]],
     fullAddress: ['', [Validators.required]],
     phone: ['', [Validators.required]],
+    telegram: [''],
     email: ['', [Validators.email]],
     note: ['']
   });

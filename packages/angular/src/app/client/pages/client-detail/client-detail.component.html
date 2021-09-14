@@ -34,16 +34,19 @@
             <div class="border-top text-uppercase">
               <p class="my-1">
                 <span class="fw-bold">
-                <i class="fas fa-street-view"></i> Dirección: </span> {{ currentClient.fullAddress }}
+                <i class="fas fa-street-view"></i> Dirección : </span> {{ currentClient.fullAddress }}
               </p>
               <p class="my-1">
                 <span class="fw-bold">
-                <i class="fas fa-phone-alt"></i> Telefono: </span> {{ currentClient.phone }}
+                <i class="fas fa-phone-alt"></i> Teléfono : </span> {{ currentClient.phone }}
               </p>
-              <p class="my-1">
+              <p *ngIf="currentClient.telegram" class="my-1">
+                <span class="fw-bold me-1">
+                <i class="fab fa-telegram me-1"></i>Telegram : </span> {{ currentClient.telegram }}
+              </p>
+              <p *ngIf="currentClient.note" class="my-1">
                 <span class="fw-bold">
-                <i class="fas fa-envelope-open-text"></i> E-Mail: </span>
-                <span class="text-lowercase">{{ currentClient.email }}</span>
+                <i class="fas fa-comment"></i> Nota : </span> {{ currentClient.note }}
               </p>
             </div>
           </div>

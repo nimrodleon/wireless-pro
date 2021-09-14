@@ -49,6 +49,7 @@ export class ClientService {
       fullName: '',
       fullAddress: '',
       phone: '',
+      telegram: '',
       email: '',
       note: '',
     };

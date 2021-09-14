@@ -18,6 +18,7 @@ const clientSchema = new Schema({
     uppercase: true
   },
   phone: String,
+  telegram: String,
   email: String,
   note: String,
   isDeleted: {
