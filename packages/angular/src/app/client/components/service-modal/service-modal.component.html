@@ -1,5 +1,5 @@
 <div class="modal fade" id="service-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-fullscreen">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
@@ -7,122 +7,133 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="serviceForm">
-          <div class="row">
-            <div class="col-2">
-              opciones de menu
-            </div>
-            <div class="col-10">
-              <div id="basic">
-                <!-- ##(Begin) Básico -->
-                <div class="row mt-2">
-                  <div class="col-6 pb-3">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
-                      <input type="text" formControlName="ipAddress"
-                             class="form-control" placeholder="IP Address"
-                             pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
-                             [ngClass]="{'is-invalid': inputIsInvalid('ipAddress')}">
-                      <div class="invalid-feedback">Se requiere una dirección Ip válida.</div>
-                    </div>
-                  </div>
-                  <div class="col-6 pb-3">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text"><i class="fas fa-heartbeat"></i></span>
-                      <select formControlName="status"
-                              class="form-select" [ngClass]="{'is-invalid': inputIsInvalid('status')}">
-                        <option value="HABILITADO">HABILITADO</option>
-                        <option value="DESHABILITADO">DESHABILITADO</option>
-                        <option value="SUSPENDIDO">SUSPENDIDO</option>
-                      </select>
-                      <div class="invalid-feedback">El estado del servicio es requerido.</div>
-                    </div>
-                  </div>
+          <div id="basic">
+            <!-- ##(Begin) Básico -->
+            <h5>Información básica</h5>
+            <p class="text-dark">Esta es la información que usará para configurar la tarifa, mikrotik y la antena.</p>
+            <div class="row mt-2">
+              <label class="col-1 col-form-label text-end">IP</label>
+              <div class="col-4 pb-3">
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
+                  <input type="text" formControlName="ipAddress"
+                         class="form-control" placeholder="IP Address"
+                         pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+                         [ngClass]="{'is-invalid': inputIsInvalid('ipAddress')}">
+                  <div class="invalid-feedback">Se requiere una dirección Ip válida.</div>
                 </div>
-                <div class="row">
-                  <div class="col-6 pb-3">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                      <select formControlName="servicePlanId"
-                              class="form-select" [ngClass]="{'is-invalid': inputIsInvalid('servicePlanId')}">
-                        <option *ngFor="let item of servicePlanList" [value]="item._id">{{item.name}}</option>
-                      </select>
-                      <div class="invalid-feedback">El plan de servicio es requerido.</div>
-                    </div>
-                  </div>
-                  <div class="col-6 pb-3">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
-                      <input type="date" formControlName="initialDate"
-                             class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('initialDate')}">
-                      <div class="invalid-feedback">La fecha inicial es requerido.</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6 pb-3">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text"><i class="fas fa-server"></i></span>
-                      <select formControlName="mikrotikId"
-                              (change)="changeMikrotikValue($event.target)"
-                              class="form-select" [ngClass]="{'is-invalid': inputIsInvalid('mikrotikId')}">
-                        <option *ngFor="let item of mikrotikList" [value]="item._id">{{item.name}}</option>
-                      </select>
-                      <div class="invalid-feedback">El servidor Mikrotik es requerido.</div>
-                    </div>
-                  </div>
-                  <div class="col-6 pb-3">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text"><i class="fas fa-sim-card"></i></span>
-                      <select formControlName="interfaceId" class="form-select"
-                              [ngClass]="{'is-invalid': inputIsInvalid('interfaceId')}">
-                        <option *ngFor="let item of interfaceList" [value]="item._id">{{item.name}}</option>
-                      </select>
-                      <div class="invalid-feedback">La interfaz del mikrotik es requerido.</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6 pb-3">
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="fas fa-user"></i></span>
-                      <input type="text" formControlName="userName" placeholder="Username" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-6 pb-3">
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                      <input type="text" formControlName="password" placeholder="Password" class="form-control">
-                    </div>
-                  </div>
-                </div>
-                <div class="pb-3">
-                  <textarea formControlName="basicNote" class="form-control"></textarea>
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text"><i class="fas fa-signal"></i></span>
-                      <select name="accessPoint" class="form-select"
-                              [ngClass]="{'is-invalid': inputIsInvalid('accessPoint')}"></select>
-                      <div class="invalid-feedback">El punto de acceso es requerido.</div>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
-                      <input type="text" formControlName="macAddress" placeholder="MAC Address"
-                             class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('macAddress')}">
-                      <div class="invalid-feedback">La dirección MAC es requerido.</div>
-                    </div>
-                  </div>
-                </div>
-                <!-- ##(End) Básico -->
               </div>
-              <div id="location">
-                <!-- ##(Begin) Dirección -->
-                <div class="row mt-2">
-                  <div class="col-6">
-                    <div class="pb-3">
+              <label class="col-1 col-form-label text-end">Estado</label>
+              <div class="col-3 pb-3">
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fas fa-heartbeat"></i></span>
+                  <select formControlName="status"
+                          class="form-select" [ngClass]="{'is-invalid': inputIsInvalid('status')}">
+                    <option value="HABILITADO">HABILITADO</option>
+                    <option value="DESHABILITADO">DESHABILITADO</option>
+                    <option value="SUSPENDIDO">SUSPENDIDO</option>
+                  </select>
+                  <div class="invalid-feedback">El estado del servicio es requerido.</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-1 col-form-label text-end">Tarifa</label>
+              <div class="col-4 pb-3">
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                  <select formControlName="servicePlanId"
+                          class="form-select" [ngClass]="{'is-invalid': inputIsInvalid('servicePlanId')}">
+                    <option *ngFor="let item of servicePlanList" [value]="item._id">{{item.name}}</option>
+                  </select>
+                  <div class="invalid-feedback">El plan de servicio es requerido.</div>
+                </div>
+              </div>
+              <label class="col-1 col-form-label text-end">F. Inicial</label>
+              <div class="col-4 pb-3">
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                  <input type="date" formControlName="initialDate"
+                         class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('initialDate')}">
+                  <div class="invalid-feedback">La fecha inicial es requerido.</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-1 col-form-label text-end">Mikrotik</label>
+              <div class="col-4 pb-3">
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fas fa-server"></i></span>
+                  <select formControlName="mikrotikId"
+                          (change)="changeMikrotikValue($event.target)"
+                          class="form-select" [ngClass]="{'is-invalid': inputIsInvalid('mikrotikId')}">
+                    <option *ngFor="let item of mikrotikList" [value]="item._id">{{item.name}}</option>
+                  </select>
+                  <div class="invalid-feedback">El servidor Mikrotik es requerido.</div>
+                </div>
+              </div>
+              <label class="col-1 col-form-label text-end">Interface</label>
+              <div class="col-4 pb-3">
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fas fa-sim-card"></i></span>
+                  <select formControlName="interfaceId" class="form-select"
+                          [ngClass]="{'is-invalid': inputIsInvalid('interfaceId')}">
+                    <option *ngFor="let item of interfaceList" [value]="item._id">{{item.name}}</option>
+                  </select>
+                  <div class="invalid-feedback">La interfaz del mikrotik es requerido.</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-1 col-form-label text-end">Usuario</label>
+              <div class="col-4 pb-3">
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  <input type="text" formControlName="userName" placeholder="Username" class="form-control">
+                </div>
+              </div>
+              <label class="col-1 col-form-label text-end">Contraseña</label>
+              <div class="col-4 pb-3">
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                  <input type="text" formControlName="password" placeholder="Password" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-1 col-form-label text-end">AccessPoint</label>
+              <div class="col-4">
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fas fa-signal"></i></span>
+                  <select name="accessPoint" class="form-select"
+                          [ngClass]="{'is-invalid': inputIsInvalid('accessPoint')}"></select>
+                  <div class="invalid-feedback">El punto de acceso es requerido.</div>
+                </div>
+              </div>
+              <label class="col-1 col-form-label text-end">MAC</label>
+              <div class="col-4">
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
+                  <input type="text" formControlName="macAddress" placeholder="MAC Address"
+                         class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('macAddress')}">
+                  <div class="invalid-feedback">La dirección MAC es requerido.</div>
+                </div>
+              </div>
+            </div>
+            <!-- <textarea formControlName="basicNote" class="form-control"></textarea>-->
+            <!-- ##(End) Básico -->
+          </div>
+          <hr>
+          <div id="location">
+            <!-- ##(Begin) Dirección -->
+            <h5>Localización del servicio</h5>
+            <p class="text-dark">Esta información será la que utilice para identificar los diferentes servicios.</p>
+            <div class="row mt-2">
+              <div class="col-6">
+                <div class="pb-3">
+                  <div class="row">
+                    <label class="col-2 col-form-label text-end">Dirección</label>
+                    <div class="col-10">
                       <div class="input-group has-validation">
                         <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                         <input type="text" formControlName="address" placeholder="Dirección/Localización"
@@ -130,7 +141,12 @@
                         <div class="invalid-feedback">La dirección es requerido.</div>
                       </div>
                     </div>
-                    <div class="pb-3">
+                  </div>
+                </div>
+                <div class="pb-3">
+                  <div class="row">
+                    <label class="col-2 col-form-label text-end">Ciudad</label>
+                    <div class="col-10">
                       <div class="input-group has-validation">
                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                         <input type="text" formControlName="city" placeholder="Ciudad"
@@ -138,7 +154,12 @@
                         <div class="invalid-feedback">La ciudad es requerido.</div>
                       </div>
                     </div>
-                    <div class="pb-3">
+                  </div>
+                </div>
+                <div class="pb-3">
+                  <div class="row">
+                    <label class="col-2 col-form-label text-end">Región</label>
+                    <div class="col-10">
                       <div class="input-group has-validation">
                         <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
                         <input type="text" formControlName="region" placeholder="Región"
@@ -146,7 +167,12 @@
                         <div class="invalid-feedback">La región es requerido.</div>
                       </div>
                     </div>
-                    <div class="pb-3">
+                  </div>
+                </div>
+                <div class="pb-3">
+                  <div class="row">
+                    <label class="col-2 col-form-label text-end">Cobertura</label>
+                    <div class="col-10">
                       <div class="input-group has-validation">
                         <span class="input-group-text"><i class="fas fa-wifi"></i></span>
                         <select formControlName="coverageId"
@@ -156,72 +182,88 @@
                         <div class="invalid-feedback">La area cobertura es requerido.</div>
                       </div>
                     </div>
-                    <div class="pb-3">
+                  </div>
+                </div>
+                <div class="pb-3">
+                  <div class="row">
+                    <label class="col-2 col-form-label text-end">Lat</label>
+                    <div class="col-10">
                       <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
                         <input type="text" placeholder="Lat" class="form-control" disabled>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-2 col-form-label text-end">Long</label>
+                  <div class="col-10">
                     <div class="input-group">
                       <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
                       <input type="text" placeholder="Long" class="form-control" disabled>
                     </div>
                   </div>
-                  <div class="col-6">
-                    <!-- ##(Begin) map -->
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31015.952962683597!2d-73.39309230839163!3d-13.658121286107715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916d2bc7ff979013%3A0x7622e6cfe777add5!2sAndahuaylas!5e0!3m2!1ses!2spe!4v1624243954924!5m2!1ses!2spe"
-                      width="100%" height="310" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    <!-- ##(End) map -->
-                  </div>
                 </div>
-                <!-- ##(End) Dirección -->
               </div>
-              <div id="payment">
-                <!-- ##(Begin) Pagos -->
-                <div class="row pb-3 mt-2">
-                  <label class="col-2 col-form-label text-end">Tipo</label>
-                  <div class="col-4">
-                    <select formControlName="paymentType" class="form-select">
-                      <option value="PRE">PRE-PAGO</option>
-                      <option value="POS">POS-PAGO</option>
-                      <option value="CONVENIO">CONVENIO</option>
-                      <option value="EMPRESA">EMPRESA</option>
-                    </select>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-check form-switch pt-2">
-                      <input type="checkbox" formControlName="defPrice" class="form-check-input" id="customSwitch1">
-                      <label class="form-check-label" for="customSwitch1">Definir un precio en particular</label>
-                    </div>
-                  </div>
-                </div>
-                <div class="row pb-3">
-                  <label class="col-2 col-form-label text-end">Precio</label>
-                  <div class="col-6">
-                    <input type="number" formControlName="price" step="0.01" class="form-control"
-                           [ngClass]="{'is-invalid': inputIsInvalid('price')}">
-                    <div class="invalid-feedback">El valor mínimo del precio debe ser cero.</div>
-                  </div>
-                </div>
-                <div class="row pb-3">
-                  <label class="col-2 col-form-label text-end">Frecuencia</label>
-                  <div class="col-6">
-                    <select formControlName="commonPayment" class="form-select">
-                      <option value="MENSUAL">MENSUAL</option>
-                      <option value="BIMESTRAL">BIMESTRAL</option>
-                      <option value="TRIMESTRAL">TRIMESTRAL</option>
-                      <option value="SEMESTRAL">SEMESTRAL</option>
-                      <option value="ANUAL">ANUAL</option>
-                    </select>
-                  </div>
-                </div>
-                <label class="form-label">Información adicional</label>
-                <textarea formControlName="paymentNote" class="form-control"></textarea>
-                <!-- ##(End) Pagos -->
+              <div class="col-6">
+                <!-- ##(Begin) map -->
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31015.952962683597!2d-73.39309230839163!3d-13.658121286107715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916d2bc7ff979013%3A0x7622e6cfe777add5!2sAndahuaylas!5e0!3m2!1ses!2spe!4v1624243954924!5m2!1ses!2spe"
+                  width="100%" height="310" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <!-- ##(End) map -->
               </div>
             </div>
+            <!-- ##(End) Dirección -->
           </div>
+          <hr>
+          <div id="payment">
+            <!-- ##(Begin) Pagos -->
+            <h5>Información de pagos</h5>
+            <p class="text-dark">Esta es la información que usará para configurar el precio del servicio y su
+              tipo.</p>
+            <div class="row pb-3 mt-2">
+              <label class="col-2 col-form-label text-end">Tipo</label>
+              <div class="col-4">
+                <select formControlName="paymentType" class="form-select">
+                  <option value="PRE">PRE-PAGO</option>
+                  <option value="POS">POS-PAGO</option>
+                  <option value="CONVENIO">CONVENIO</option>
+                  <option value="EMPRESA">EMPRESA</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <div class="form-check form-switch pt-2">
+                  <input type="checkbox" formControlName="defPrice" class="form-check-input" id="customSwitch1">
+                  <label class="form-check-label" for="customSwitch1">Definir un precio en particular</label>
+                </div>
+              </div>
+            </div>
+            <div class="row pb-3">
+              <label class="col-2 col-form-label text-end">Precio</label>
+              <div class="col-6">
+                <input type="number" formControlName="price" step="0.01" class="form-control"
+                       [ngClass]="{'is-invalid': inputIsInvalid('price')}">
+                <div class="invalid-feedback">El valor mínimo del precio debe ser cero.</div>
+              </div>
+            </div>
+            <div class="row pb-3">
+              <label class="col-2 col-form-label text-end">Frecuencia</label>
+              <div class="col-6">
+                <select formControlName="commonPayment" class="form-select">
+                  <option value="MENSUAL">MENSUAL</option>
+                  <option value="BIMESTRAL">BIMESTRAL</option>
+                  <option value="TRIMESTRAL">TRIMESTRAL</option>
+                  <option value="SEMESTRAL">SEMESTRAL</option>
+                  <option value="ANUAL">ANUAL</option>
+                </select>
+              </div>
+            </div>
+            <label class="form-label">Información adicional</label>
+            <textarea formControlName="paymentNote" class="form-control"></textarea>
+            <!-- ##(End) Pagos -->
+          </div>
+
+
         </form>
       </div><!-- //.modal-body -->
       <div class="modal-footer">

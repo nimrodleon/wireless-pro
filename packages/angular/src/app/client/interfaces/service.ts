@@ -9,7 +9,7 @@ export interface Service {
   interfaceId: string;
   userName: string;
   password: string;
-  basicNote: string;
+  // basicNote: string;
   accessPoint: string;
   macAddress: string;
   address: string;
