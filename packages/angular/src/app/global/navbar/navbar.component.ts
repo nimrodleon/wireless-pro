@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
     return this.authService.loggedIn();
   }
 
-  logout(e): void {
+  logout(e: any): void {
     e.preventDefault();
     this.authService.logout();
   }
