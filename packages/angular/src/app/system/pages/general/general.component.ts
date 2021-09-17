@@ -11,7 +11,7 @@ import {InfoService} from '../../services';
 })
 export class GeneralComponent implements OnInit {
   info: Info;
-  Editor = ClassicEditor;
+  Editor: any = ClassicEditor;
 
   constructor(
     private infoService: InfoService) {

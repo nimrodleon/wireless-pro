@@ -7,16 +7,16 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 })
 export class SystemOptionComponent implements OnInit {
   @Input()
-  icon: string;
+  icon: string = '';
 
   @Input()
-  title: string;
+  title: string = '';
 
   @Input()
-  detail: string;
+  detail: string = '';
 
   @Input()
-  href: string;
+  href: string = '';
 
   @Output()
   onClick = new EventEmitter<any>();

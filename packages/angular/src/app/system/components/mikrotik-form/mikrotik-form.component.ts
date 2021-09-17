@@ -11,26 +11,27 @@ import {Interface} from '../../interfaces';
 })
 export class MikrotikFormComponent implements OnInit {
   @Input()
-  title: string;
+  title: string = '';
   @Input()
-  editMode: boolean;
+  editMode: boolean = false;
   @Input()
   currentMikrotik;
   @Output()
   hideModal = new EventEmitter<boolean>();
   // ============================================================
   currentInterface: Interface;
-  interfaceList: Array<Interface>;
+  interfaceList: Array<Interface> = new Array<Interface>();
   etherEditMode: boolean = false;
 
   constructor(
     private mikrotikService: MikrotikService,
     private interfaceService: InterfaceService) {
     this.currentInterface = this.interfaceService.defaultValues();
+    this.currentMikrotik = this.mikrotikService.defaultValues();
   }
 
   ngOnInit(): void {
-    let myModal = document.querySelector('#mikrotik-form');
+    let myModal: any = document.querySelector('#mikrotik-form');
     myModal.addEventListener('shown.bs.modal', () => {
       if (this.editMode) {
         this.getInterfaceList(this.currentMikrotik._id);

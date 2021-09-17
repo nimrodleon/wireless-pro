@@ -4,6 +4,7 @@ declare var jQuery: any;
 import {Tramo} from '../../interfaces';
 import {Coverage} from 'src/app/system/interfaces/coverage';
 import {CoverageService} from 'src/app/system/services/coverage.service';
+import {TramoService} from '../../services';
 
 @Component({
   selector: 'app-tramo-modal',
@@ -12,14 +13,16 @@ import {CoverageService} from 'src/app/system/services/coverage.service';
 })
 export class TramoModalComponent implements OnInit {
   @Input()
-  title: string;
+  title: string = '';
   @Input()
   tramo: Tramo;
-  coverages: Array<Coverage>;
+  coverages: Array<Coverage> = new Array<Coverage>();
   @Output() sendModel = new EventEmitter<Tramo>();
 
   constructor(
+    private tramoService: TramoService,
     private coverageService: CoverageService) {
+    this.tramo = this.tramoService.defaultValues();
   }
 
   ngOnInit(): void {

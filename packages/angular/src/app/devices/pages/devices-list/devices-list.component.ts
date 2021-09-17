@@ -95,7 +95,9 @@ export class DevicesListComponent implements OnInit {
 
   // botón para hacer ping.
   onPing(): void {
+    // @ts-ignore
     if (this.devices.length > 0) {
+      // @ts-ignore
       this.devices.forEach(item => {
         const _item = item;
         this.ping('http://' + _item.ipAddress)

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 declare var jQuery: any;
 import {ServicePlan} from '../../interfaces';
+import {ServicePlanService} from '../../services';
 
 @Component({
   selector: 'app-service-plan-modal',
@@ -9,11 +10,12 @@ import {ServicePlan} from '../../interfaces';
   styleUrls: ['./service-plan-modal.component.scss']
 })
 export class ServicePlanModalComponent implements OnInit {
-  @Input() title: string;
+  @Input() title: string = '';
   @Input() servicePlan: ServicePlan;
   @Output() sendServicePlan = new EventEmitter<ServicePlan>();
 
-  constructor() {
+  constructor(private servicePlanService: ServicePlanService) {
+    this.servicePlan = this.servicePlanService.defaultValues();
   }
 
   ngOnInit(): void {

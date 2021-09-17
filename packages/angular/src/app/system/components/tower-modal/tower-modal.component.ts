@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Coverage} from 'src/app/system/interfaces/coverage';
 import {CoverageService} from 'src/app/system/services/coverage.service';
 import {Tower} from '../../interfaces';
+import {TowerService} from '../../services';
 
 declare var jQuery: any;
 
@@ -11,13 +12,16 @@ declare var jQuery: any;
   styleUrls: ['./tower-modal.component.scss']
 })
 export class TowerModalComponent implements OnInit {
-  @Input() title: string;
+  @Input() title: string = '';
   @Input() tower: Tower;
   coverages: Array<Coverage>;
   @Output() sendModel = new EventEmitter<Tower>();
 
-  constructor(private coverageService: CoverageService) {
+  constructor(
+    private coverageService: CoverageService,
+    private towerService: TowerService) {
     this.coverages = new Array<Coverage>();
+    this.tower = this.towerService.defaultValues();
   }
 
   ngOnInit(): void {
