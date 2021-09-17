@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {DeviceTramoService} from './device-tramo.service';
 import {DeviceService} from './device.service';
-import {AuthService} from '../../user/services/auth.service';
+import {AuthService} from 'src/app/user/services/auth.service';
 import {Device} from '../interfaces';
 import {Coverage, Tramo, Tower} from '../../system/interfaces';
 import {CoverageService, TowerService, TramoService} from '../../system/services';
@@ -15,16 +15,16 @@ import Swal from 'sweetalert2';
 export class DeviceListService {
   private baseURL: string = environment.baseUrl + 'devices';
   private _coverages: Array<any> | undefined;
-  private _currentTramoId: string;
+  private _currentTramoId: string = '';
   private _devices: Array<Device> | undefined;
   private _currentDevice: Device = DeviceListService.defaultDeviceEmpty();
   // Variables para el formulario modal.
   private _coveragesList: Array<Coverage> | undefined;
   private _tramosList: Array<Tramo> | undefined;
   private _towersList: Array<Tower> | undefined;
-  public titleModal: string;
+  public titleModal: string = '';
   // Variables de autentificación y autorización.
-  private _currentRole: string;
+  private _currentRole: string = '';
 
   constructor(
     private http: HttpClient,
@@ -56,7 +56,7 @@ export class DeviceListService {
   // Obtener el rol del usuario autentificado.
   getRoles(): void {
     this.authService.getRoles()
-      .subscribe(res => this._currentRole = res);
+      .subscribe((res: string) => this._currentRole = res);
   }
 
   // Cargar areas de cobertura.
@@ -65,6 +65,7 @@ export class DeviceListService {
       .subscribe(res => {
         this._coverages = res;
         // Agregar tramos a las areas de cobertura.
+        // @ts-ignore
         this._coverages.forEach(item => {
           this.deviceTramoService.getTramosByCoverage(item._id)
             .subscribe(res => item.tramos = res);
@@ -93,7 +94,7 @@ export class DeviceListService {
   }
 
   // Lista de equipos.
-  get devices(): Array<Device> {
+  get devices(): Array<Device> | undefined {
     return this._devices;
   }
 
@@ -103,22 +104,22 @@ export class DeviceListService {
   }
 
   // Lista de areas cobertura.
-  get coveragesList(): Array<Coverage> {
+  get coveragesList(): Array<Coverage> | undefined {
     return this._coveragesList;
   }
 
   // Lista de tramos.
-  get tramosList(): Array<Tramo> {
+  get tramosList(): Array<Tramo> | undefined {
     return this._tramosList;
   }
 
   // Lista de torres.
-  get towersList(): Array<Tower> {
+  get towersList(): Array<Tower> | undefined {
     return this._towersList;
   }
 
   // actualizar el id del tramo actual.
-  setCurrentTramoId(id): void {
+  setCurrentTramoId(id: string): void {
     this._currentTramoId = id;
   }
 
@@ -128,7 +129,7 @@ export class DeviceListService {
   }
 
   // Obtener equipos por tramo.
-  getDevicesByTramo(id): void {
+  getDevicesByTramo(id: string): void {
     this.http.get<Array<Device>>(this.baseURL + '/tramo/' + id)
       .subscribe(res => this._devices = res);
   }

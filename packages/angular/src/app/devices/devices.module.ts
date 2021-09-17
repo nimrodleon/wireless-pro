@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DevicesRoutingModule} from './devices-routing.module';
 import {GlobalModule} from '../global/global.module';
-import {AuthService} from '../user/services/auth.service';
+import {AuthService} from 'src/app/user/services/auth.service';
 import {DeviceListService, DeviceTramoService, DeviceService} from './services';
 import {TowerService, TramoService, CoverageService} from '../system/services';
 import {DevicesListComponent} from './pages/devices-list/devices-list.component';

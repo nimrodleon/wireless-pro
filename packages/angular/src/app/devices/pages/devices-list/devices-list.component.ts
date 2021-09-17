@@ -64,7 +64,7 @@ export class DevicesListComponent implements OnInit {
     }
   }
 
-  private request_image(url) {
+  private request_image(url: any) {
     return new Promise((resolve, reject) => {
       let img = new Image();
       img.onload = () => {
@@ -77,7 +77,7 @@ export class DevicesListComponent implements OnInit {
     });
   }
 
-  private ping(url) {
+  private ping(url: any) {
     return new Promise((resolve, reject) => {
       let start = (new Date()).getTime();
       let response = () => {

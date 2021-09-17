@@ -16,7 +16,7 @@ export class DeviceTramoService {
     return this.http.get(this.baseURL + '/coverages/all');
   }
 
-  getTramosByCoverage(id): Observable<any> {
+  getTramosByCoverage(id: string): Observable<any> {
     return this.http.get(this.baseURL + '/coverage/' + id);
   }
 }
