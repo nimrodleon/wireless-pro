@@ -32,7 +32,7 @@ export class WorkFormComponent implements OnInit {
     amount: [0, [Validators.required, Validators.min(0)]],
     statusOrder: ['PENDIENTE']
   });
-  servicePlanList: ServicePlan[];
+  servicePlanList: Array<ServicePlan> = new Array<ServicePlan>();
   currentClientSelected: Client;
   selectClientModal: any;
   addClientModal: any;
@@ -102,8 +102,9 @@ export class WorkFormComponent implements OnInit {
         .subscribe(result => {
           this.currentClientSelected = result;
           // Cargar dirección del cliente al formulario.
+          // @ts-ignore
           delete this.workOrder.address;
-          this.workOrderForm.reset({
+          this.workOrderForm.reset(/* @ts-ignore */{
             address: this.currentClientSelected.fullAddress,
             ...this.workOrder,
           });
@@ -128,8 +129,9 @@ export class WorkFormComponent implements OnInit {
         this.currentClientSelected = result;
         this.workOrder.clientId = this.currentClientSelected._id;
         // Cargar dirección del cliente al formulario.
+        // @ts-ignore
         delete this.workOrder.address;
-        this.workOrderForm.reset({
+        this.workOrderForm.reset(/* @ts-ignore */{
           address: this.currentClientSelected.fullAddress,
           ...this.workOrder,
         });
@@ -151,6 +153,7 @@ export class WorkFormComponent implements OnInit {
       }
       // Guardar datos, sólo si es válido el formulario.
       if (this.workOrder._id === null) {
+        // @ts-ignore
         delete this.workOrder._id;
         this.workOrderService.addOrder(this.workOrder)
           .subscribe(result => {

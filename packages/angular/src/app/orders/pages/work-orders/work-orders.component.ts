@@ -10,9 +10,9 @@ import {AuthService} from 'src/app/user/services';
   styleUrls: ['./work-orders.component.scss']
 })
 export class WorkOrdersComponent implements OnInit {
-  workOrders: any[];
+  workOrders: Array<any> = new Array<any>();
   query: FormControl = this.fb.control('');
-  currentRole: string;
+  currentRole: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +24,7 @@ export class WorkOrdersComponent implements OnInit {
     // Cargar ordenes de trabajo.
     this.getWorkOrders(this.query.value);
     // Obtener el rol del usuario autentificado.
-    this.authService.getRoles().subscribe(result => this.currentRole = result);
+    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
   }
 
   // Lista de roles.

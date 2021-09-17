@@ -34,12 +34,12 @@ export class WorkOrderService {
   }
 
   // Obtener datos del cliente por id.
-  getClientById(id): Observable<Client> {
+  getClientById(id: string): Observable<Client> {
     return this.clientService.getClientById(id);
   }
 
   // Obtener datos del usuario.
-  getUserById(id): Observable<User> {
+  getUserById(id: string): Observable<User> {
     return this.userService.getUserById(id);
   }
 
@@ -73,7 +73,7 @@ export class WorkOrderService {
   }
 
   // Obtener orden de trabajo por id.
-  getWorkOrderById(id): Observable<WorkOrder> {
+  getWorkOrderById(id: any): Observable<WorkOrder> {
     return this.http.get<WorkOrder>(`${this.baseURL}/${id}`);
   }
 

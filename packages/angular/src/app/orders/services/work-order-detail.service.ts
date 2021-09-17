@@ -5,23 +5,26 @@ import {WorkOrder, OrderMaterial} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
 import {Client} from '../../client/interfaces';
 import {User} from '../../user/interfaces';
+import {UserService} from '../../user/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkOrderDetailService {
   private _currentWorkOrder: WorkOrder;
-  private _orderMaterials: Array<OrderMaterial>;
+  private _orderMaterials: Array<OrderMaterial> = new Array<OrderMaterial>();
   private _currentServicePlan: ServicePlan;
   private _currentClient: Client;
   private _userTechnical: User;
 
   constructor(
     private workOrderService: WorkOrderService,
-    private orderMaterialService: OrderMaterialService) {
+    private orderMaterialService: OrderMaterialService,
+    private userService: UserService) {
     this._currentWorkOrder = this.workOrderService.defaultValues();
     this._currentServicePlan = this.workOrderService.servicePlanDefaultValues();
     this._currentClient = this.workOrderService.clientDefaultValues();
+    this._userTechnical = this.userService.defaultValues();
   }
 
   // retornar cliente actual.
@@ -66,7 +69,7 @@ export class WorkOrderDetailService {
   }
 
   // cargar orden de trabajo.
-  getWorkOrder(id: string): void {
+  getWorkOrder(id: string | any): void {
     this.workOrderService.getWorkOrderById(id)
       .subscribe(result => {
         this._currentWorkOrder = result;

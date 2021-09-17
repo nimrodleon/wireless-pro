@@ -39,7 +39,7 @@ export class ItemMaterialComponent implements OnInit {
         value.total = value.difference * value.price;
         this.orderMaterial = value;
       });
-    let myModal = document.querySelector('#item-material-modal');
+    let myModal: any = document.querySelector('#item-material-modal');
     myModal.addEventListener('shown.bs.modal', () => {
       this.orderMaterialFg.reset({...this.orderMaterial});
     });

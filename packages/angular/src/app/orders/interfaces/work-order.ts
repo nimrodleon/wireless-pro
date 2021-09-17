@@ -1,6 +1,6 @@
 export interface WorkOrder {
-  _id: string;
-  userId: string;
+  _id: string | any;
+  userId: string | any;
   clientId: string;
   description: string;
   address: string;

@@ -31,7 +31,7 @@ export class AddMaterialComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let myModal = document.querySelector('#add-material-modal');
+    let myModal: any = document.querySelector('#add-material-modal');
     myModal.addEventListener('show.bs.modal', () => {
       jQuery('#searchMaterial').select2({
         theme: 'bootstrap-5',

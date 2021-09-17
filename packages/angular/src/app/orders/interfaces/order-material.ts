@@ -1,5 +1,5 @@
 export interface OrderMaterial {
-  _id: string;
+  _id: string | any;
   orderId: string;
   materialId: string;
   description: string;

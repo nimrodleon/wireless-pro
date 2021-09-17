@@ -17,7 +17,7 @@ interface IQueryForm {
   styleUrls: ['./work-report.component.scss']
 })
 export class WorkReportComponent implements OnInit {
-  workOrders: any[];
+  workOrders: Array<any> = new Array<any>();
   queryData: IQueryForm = {
     year: moment().format('YYYY'),
     month: moment().format('MM'),
@@ -28,7 +28,7 @@ export class WorkReportComponent implements OnInit {
     month: [moment().format('MM')],
     search: ['']
   });
-  currentRole: string;
+  currentRole: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -42,7 +42,7 @@ export class WorkReportComponent implements OnInit {
     // Cargar lista ordenes de trabajo.
     this.getWorkOrders();
     // Obtener el rol del usuario autentificado.
-    this.authService.getRoles().subscribe(result => this.currentRole = result);
+    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
   }
 
   // Lista de roles.

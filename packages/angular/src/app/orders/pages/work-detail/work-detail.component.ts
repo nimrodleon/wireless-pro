@@ -20,11 +20,11 @@ export class WorkDetailComponent implements OnInit {
   itemMaterialModal: any;
   orderMaterial: OrderMaterial;
   // ============================================================
-  titleService: string;
+  titleService: string = '';
   currentService: Service;
   serviceModal: any;
   // ============================================================
-  currentRole: string;
+  currentRole: string = '';
 
   constructor(
     private router: Router,
@@ -33,6 +33,8 @@ export class WorkDetailComponent implements OnInit {
     private workOrderDetailService: WorkOrderDetailService,
     private orderMaterialService: OrderMaterialService,
     private serviceService: ServiceService) {
+    this.orderMaterial = this.orderMaterialService.defaultValues();
+    this.currentService = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -41,7 +43,7 @@ export class WorkDetailComponent implements OnInit {
       this.workOrderDetailService.getWorkOrder(params.get('id'));
     });
     // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe(result => this.currentRole = result);
+    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
     // establecer formularios modales.
     this.userModal = new bootstrap.Modal(
       document.querySelector('#add-user-modal'));
@@ -121,8 +123,9 @@ export class WorkDetailComponent implements OnInit {
   }
 
   // Borrar el técnico actual.
-  deleteUserTechnical(e): void {
+  deleteUserTechnical(e: any): void {
     e.preventDefault();
+    // @ts-ignore
     delete this.currentWorkOrder.userId;
   }
 
