@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import Swal from 'sweetalert2';
-import {AuthService} from '../user/services/auth.service';
+import {AuthService} from '../user/services';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.login(this.user).subscribe(res => {
+    this.authService.login(this.user).subscribe((res: any) => {
       localStorage.setItem('token', res.token);
       this.router.navigate(['/']);
-    }, err => {
+    }, (err: any) => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
