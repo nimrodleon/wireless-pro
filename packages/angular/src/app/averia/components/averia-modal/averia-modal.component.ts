@@ -10,7 +10,7 @@ import {AveriaService} from '../../services/averia.service';
 })
 export class AveriaModalComponent implements OnInit {
   @Input()
-  title: string;
+  title: string = '';
   @Input()
   averia: Averia;
   @Output()
@@ -20,13 +20,14 @@ export class AveriaModalComponent implements OnInit {
 
   constructor(
     private averiaService: AveriaService) {
+    this.averia = this.averiaService.defaultValues();
   }
 
   ngOnInit(): void {
     this.averiaForm.valueChanges
       .subscribe(value => this.averia = value);
     // eventos del formulario modal.
-    let myModal = document.querySelector('#app-averia-modal');
+    let myModal: any = document.querySelector('#app-averia-modal');
     myModal.addEventListener('shown.bs.modal', () => {
       // cargar valores al formulario.
       this.averiaForm.reset({...this.averia});
@@ -37,6 +38,7 @@ export class AveriaModalComponent implements OnInit {
   saveChanges(): void {
     if (this.averia._id === null) {
       delete this.averia._id;
+      // @ts-ignore
       delete this.averia.year;
       delete this.averia.createdAt;
       delete this.averia.user;

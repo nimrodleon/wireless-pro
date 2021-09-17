@@ -1,5 +1,5 @@
 export interface Averia {
-  _id: string;
+  _id: string | any;
   averia: string;
   client: string | any;
   serviceId: string;

@@ -14,9 +14,9 @@ import {Averia} from '../../interfaces/averia';
 })
 export class AveriaListComponent implements OnInit {
   averias: Array<Averia>;
-  titleModal: string;
+  titleModal: string = '';
   currentAveria: Averia;
-  currentRole: string;
+  currentRole: string = '';
   // ============================================================
   queryInput: FormControl = this.fb.control('');
   averiaModal: any;
@@ -26,13 +26,14 @@ export class AveriaListComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private averiaService: AveriaService) {
+    this.averias = new Array<Averia>();
     this.currentAveria = this.averiaService.defaultValues();
   }
 
   ngOnInit(): void {
     this.getAveriaList();
     // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe(res => this.currentRole = res);
+    this.authService.getRoles().subscribe((res: string) => this.currentRole = res);
     // vincular averia modal.
     this.averiaModal = new bootstrap.Modal(
       document.querySelector('#app-averia-modal'));

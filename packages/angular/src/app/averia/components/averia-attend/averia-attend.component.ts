@@ -21,13 +21,14 @@ export class AveriaAttendComponent implements OnInit {
   constructor(
     private userService: UserService,
     private averiaService: AveriaService) {
+    this.averia = this.averiaService.defaultValues();
   }
 
   ngOnInit(): void {
     this.averiaForm.valueChanges
       .subscribe(value => this.averia = value);
     // eventos del modal atender averia.
-    let myModal = document.querySelector('#app-averia-attend');
+    let myModal: any = document.querySelector('#app-averia-attend');
     myModal.addEventListener('shown.bs.modal', () => {
       // cargar datos al formulario.
       this.averiaForm.reset({...this.averia});
