@@ -13,7 +13,7 @@ import {AuthService} from 'src/app/user/services';
 })
 export class TemporalServicesComponent implements OnInit {
   servicesList: any;
-  currentRole: string;
+  currentRole: string = '';
   @Output()
   hideModal = new EventEmitter<boolean>();
 
@@ -31,7 +31,7 @@ export class TemporalServicesComponent implements OnInit {
     this.serviceService.getTemporalServices()
       .subscribe(result => this.servicesList = result);
     // obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe(result => this.currentRole = result);
+    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
   }
 
   // Lista de permisos.
@@ -47,6 +47,7 @@ export class TemporalServicesComponent implements OnInit {
   }
 
   // corregir servicio temporal.
+  // @ts-ignore
   async corregirClick(serviceId: string) {
     if (this.currentRole !== this.roles.ROLE_CASH) {
       return Sweetalert2.accessDeniedGeneric();

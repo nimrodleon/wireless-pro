@@ -18,20 +18,20 @@ import {PrintPayment} from '../../interfaces';
   styleUrls: ['./service-detail.component.scss']
 })
 export class ServiceDetailComponent implements OnInit {
-  titleService: string;
+  titleService: string = '';
   serviceModal: any;
   // ============================================================
   averiaYearInput: FormControl = this.fb.control(moment().format('YYYY'));
-  titleAveria: string;
+  titleAveria: string = '';
   averiaModal: any;
   attendAveriaModal: any;
   // ============================================================
   paymentYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   paymentModal: any;
-  titlePayment: string;
+  titlePayment: string = '';
   // ============================================================
-  currentRole: string;
-  workerActivityList: Array<any>;
+  currentRole: string = '';
+  workerActivityList: Array<any> = new Array<any>();
   workerActivityYear: FormControl = this.fb.control(moment().format('YYYY'));
 
   constructor(
@@ -66,7 +66,7 @@ export class ServiceDetailComponent implements OnInit {
     this.paymentModal = new bootstrap.Modal(
       document.querySelector('#payment-modal'));
     // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe(result => this.currentRole = result);
+    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
   }
 
   // Lista de permisos.
@@ -204,6 +204,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // obtener nombre del mes.
+  // @ts-ignore
   getMonthName(value: string) {
     switch (value) {
       case '01':
@@ -258,6 +259,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // borrar pago de servicio.
+  // @ts-ignore
   async deletePayment() {
     let chkDel = document.querySelectorAll('#chkDel:checked');
     if (chkDel.length <= 0) {
@@ -298,7 +300,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Lista de estado de cambios.
-  private getWorkerActivityList(serviceId: string, year: string): void {
+  private getWorkerActivityList(serviceId: string | any, year: string | any): void {
     this.bitWorkerService.getWorkerActivities(serviceId, year).subscribe(result => {
       this.workerActivityList = result;
     });
@@ -311,6 +313,7 @@ export class ServiceDetailComponent implements OnInit {
       .subscribe(result => {
         let data = {};
         Array.from(result).forEach(item => {
+          // @ts-ignore
           data[item._id] = item.name;
         });
         subject.next(data);
@@ -332,10 +335,12 @@ export class ServiceDetailComponent implements OnInit {
       'N03': 'CORTE POR FALTA DE PAGO',
       'N04': 'SUSPENSIÓN A SOLICITUD DEL CLIENTE'
     };
+    // @ts-ignore
     return remarkStatusChange[id];
   }
 
   // Habilitar servicio.
+  // @ts-ignore
   async enableServiceInBitWorker(event: any) {
     event.preventDefault();
     if (this.currentRole !== this.roles.ROLE_CASH) {
@@ -382,6 +387,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Suspender servicio.
+  // @ts-ignore
   async suspendServiceInBitWorker(event: any) {
     event.preventDefault();
     if (this.currentRole !== this.roles.ROLE_CASH) {
@@ -426,6 +432,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Cambiar plan de servicio.
+  // @ts-ignore
   async changeServicePlanInBitWorker(event: any) {
     event.preventDefault();
     if (this.currentRole !== this.roles.ROLE_CASH) {
@@ -474,6 +481,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Registrar servicio.
+  // @ts-ignore
   async registerServiceInBitWorker(event: any) {
     event.preventDefault();
     if (this.currentRole !== this.roles.ROLE_NETWORK) {
@@ -503,6 +511,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Actualizar servicio.
+  // @ts-ignore
   async updateServiceInBitWorker(event: any) {
     event.preventDefault();
     if (this.currentRole !== this.roles.ROLE_NETWORK) {
@@ -532,6 +541,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // Borrar servicio.
+  // @ts-ignore
   async deleteServiceInBitWorker(event: any) {
     event.preventDefault();
     if (this.currentRole !== this.roles.ROLE_NETWORK) {

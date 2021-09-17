@@ -3,6 +3,7 @@ import * as ClipboardJS from 'clipboard';
 import Swal from 'sweetalert2';
 import {DeviceService} from 'src/app/devices/services';
 import {Service} from '../../interfaces';
+import {ServiceService} from '../../services';
 
 @Component({
   selector: 'app-card-client-service',
@@ -16,7 +17,9 @@ export class CardClientServiceComponent implements OnInit {
   sendIdService = new EventEmitter<string>();
 
   constructor(
+    private serviceService: ServiceService,
     private deviceService: DeviceService) {
+    this.currentService = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {

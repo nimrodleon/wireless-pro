@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Client, Payment, Service} from '../../interfaces';
+import {Client, Payment} from '../../interfaces';
 import {ClientService, PaymentService, ServiceService} from '../../services';
 import {ServicePlan, Info} from '../../../system/interfaces';
 import {ServicePlanService, InfoService} from '../../../system/services';

@@ -9,7 +9,7 @@ import {ServiceService} from '../../services';
   styleUrls: ['./receivable.component.scss']
 })
 export class ReceivableComponent implements OnInit {
-  serviceList: Array<any>;
+  serviceList: Array<any> = new Array<any>();
   queryInput: FormControl = this.fb.control(moment().format('YYYY-MM-DD'));
   paymentTypeInput: FormControl = this.fb.control('PRE');
 

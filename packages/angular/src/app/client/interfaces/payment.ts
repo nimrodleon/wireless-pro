@@ -1,5 +1,5 @@
 export interface Payment {
-  _id: string;
+  _id: string | any;
   clientId: string;
   serviceId: string;
   year: string;

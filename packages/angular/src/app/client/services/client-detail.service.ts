@@ -12,8 +12,8 @@ import {ServiceService} from './service.service';
 })
 export class ClientDetailService {
   private _currentClient: Client;
-  private _currentRole: string;
-  private _serviceList: Array<Service>;
+  private _currentRole: string = '';
+  private _serviceList: Array<Service> = new Array<Service>();
 
   constructor(
     private router: Router,
@@ -47,11 +47,11 @@ export class ClientDetailService {
   // Obtener el rol del usuario autentificado.
   getRoles(): void {
     this.authService.getRoles()
-      .subscribe(res => this._currentRole = res);
+      .subscribe((res: string) => this._currentRole = res);
   }
 
   // establecer cliente actual.
-  getClient(id: string): void {
+  getClient(id: string | any): void {
     this.clientService.getClientById(id)
       .subscribe(res => this._currentClient = res);
   }
@@ -76,12 +76,12 @@ export class ClientDetailService {
   }
 
   // obtener servicio por id.
-  getServiceById(id): Observable<Service> {
+  getServiceById(id: string): Observable<Service> {
     return this.serviceService.getServiceById(id);
   }
 
   // cargar lista de servicios.
-  getServiceList(clientId: string): void {
+  getServiceList(clientId: string | any): void {
     this.serviceService.getServices(clientId)
       .subscribe(result => this._serviceList = result);
   }

@@ -18,7 +18,7 @@ import {Sweetalert2} from 'src/app/global/interfaces';
 })
 export class ServiceModalComponent implements OnInit {
   @Input()
-  title: string;
+  title: string = '';
   @Input()
   currentService: Service;
   @Output()
@@ -51,10 +51,10 @@ export class ServiceModalComponent implements OnInit {
     commonPayment: ['M'],
     paymentNote: [''],
   });
-  servicePlanList: Array<ServicePlan>;
-  mikrotikList: Array<Mikrotik>;
-  interfaceList: Array<Interface>;
-  coverageList: Array<Coverage>;
+  servicePlanList: Array<ServicePlan> = new Array<ServicePlan>();
+  mikrotikList: Array<Mikrotik> = new Array<Mikrotik>();
+  interfaceList: Array<Interface> = new Array<Interface>();
+  coverageList: Array<Coverage> = new Array<Coverage>();
 
   constructor(
     private fb: FormBuilder,
@@ -64,6 +64,7 @@ export class ServiceModalComponent implements OnInit {
     private ethernetService: InterfaceService,
     private coverageService: CoverageService,
     private deviceService: DeviceService) {
+    this.currentService = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -80,7 +81,7 @@ export class ServiceModalComponent implements OnInit {
     this.serviceForm.valueChanges.subscribe(value => this.currentService = value);
     // escuchar eventos del modal.
     let accessPoint = jQuery('select[name="accessPoint');
-    let myModal = document.querySelector('#service-modal');
+    let myModal: any = document.querySelector('#service-modal');
     myModal.addEventListener('shown.bs.modal', () => {
       // cargar lista de interfaces.
       this.getInterfaceList(this.currentService.mikrotikId);
@@ -96,7 +97,7 @@ export class ServiceModalComponent implements OnInit {
             Authorization: 'Bearer ' + localStorage.getItem('token')
           }
         }
-      }).on('select2:select', (e) => {
+      }).on('select2:select', (e: any) => {
         let {data} = e.params;
         this.currentService.accessPoint = data.id;
         this.serviceForm.reset({...this.currentService});

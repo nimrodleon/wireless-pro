@@ -9,7 +9,7 @@ import {PaymentService} from '../../services';
   styleUrls: ['./payment-daily.component.scss']
 })
 export class PaymentDailyComponent implements OnInit {
-  paymentList: Array<any>;
+  paymentList: Array<any> = new Array<any>();
   queryInput: FormControl = this.fb.control(moment().format('YYYY-MM-DD'));
   paymentMethodInput: FormControl = this.fb.control('CAJA');
 

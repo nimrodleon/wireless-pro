@@ -13,7 +13,7 @@ import {ClientService, ServiceService} from '../../services';
   styleUrls: ['./client-list.component.scss']
 })
 export class ClientListComponent implements OnInit {
-  clientList: Array<Client>;
+  clientList: Array<Client> = new Array<Client>();
   currentClient: Client;
   titleModal: string = '';
   queryInput: FormControl = this.fb.control('');
@@ -62,6 +62,7 @@ export class ClientListComponent implements OnInit {
   // Guarda los datos del Cliente.
   saveChanges(client: Client): void {
     if (client._id === null) {
+      // @ts-ignore
       delete client._id;
       this.clientService.createClient(client)
         .subscribe(result => {

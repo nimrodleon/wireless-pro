@@ -18,11 +18,11 @@ export class ClientDetailComponent implements OnInit {
   serviceModal: any;
   clientModal: any;
   currentService: Service;
-  titleService: string;
-  titleClient: string;
-  installationOrderList: Array<WorkOrder>;
+  titleService: string = '';
+  titleClient: string = '';
+  installationOrderList: Array<WorkOrder> = new Array<WorkOrder>();
   // ============================================================
-  currentRole: string;
+  currentRole: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -41,7 +41,7 @@ export class ClientDetailComponent implements OnInit {
         .subscribe(result => this.installationOrderList = result);
     });
     // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe(result => this.currentRole = result);
+    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
     // vincular modal servicio.
     this.serviceModal = new bootstrap.Modal(
       document.querySelector('#service-modal'));

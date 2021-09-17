@@ -2,8 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import * as moment from 'moment';
 import {Payment, PrintPayment, Service} from '../../interfaces';
-import {PaymentService} from '../../services';
+import {PaymentService, ServiceService} from '../../services';
 import {ServicePlan} from 'src/app/system/interfaces';
+import {ServicePlanService} from 'src/app/system/services';
 
 @Component({
   selector: 'app-payment-modal',
@@ -12,7 +13,7 @@ import {ServicePlan} from 'src/app/system/interfaces';
 })
 export class PaymentModalComponent implements OnInit {
   @Input()
-  title: string;
+  title: string = '';
   @Input()
   currentService: Service;
   @Input()
@@ -27,14 +28,18 @@ export class PaymentModalComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private serviceService: ServiceService,
+    private servicePlanService: ServicePlanService,
     private paymentService: PaymentService) {
+    this.currentService = this.serviceService.defaultValues();
+    this.currentServicePlan = this.servicePlanService.defaultValues();
   }
 
   ngOnInit(): void {
     this.paymentForm.valueChanges
       .subscribe(value => this.payment = value);
     // eventos del modal.
-    let myModal = document.querySelector('#payment-modal');
+    let myModal: any = document.querySelector('#payment-modal');
     myModal.addEventListener('shown.bs.modal', () => {
       this.payment.clientId = this.currentService.clientId;
       this.payment.serviceId = this.currentService._id;
@@ -48,16 +53,20 @@ export class PaymentModalComponent implements OnInit {
       } else {
         // siempre que estado del servicio sea habilitado,
         // calcular automáticamente la fecha de pago a realizar.
-        if (this.currentService['lastPayment']
-          && this.currentService['lastPayment'].length > 0) {
-          this.paymentService.getPaymentById(this.currentService['lastPayment'])
-            .subscribe(result => {
-              this.payment.payFrom = result.payUp;
-              this.payment.payUp = moment(this.payment.payFrom).add(1, 'M').format('YYYY-MM-DD');
-              this.paymentForm.reset(this.payment);
-            });
-        } else {
-          this.paymentForm.reset(this.payment);
+        // @ts-ignore
+        if (this.currentService['lastPayment']) {
+          // @ts-ignore
+          if (this.currentService['lastPayment'].length > 0) {
+            // @ts-ignore
+            this.paymentService.getPaymentById(this.currentService['lastPayment'])
+              .subscribe(result => {
+                this.payment.payFrom = result.payUp;
+                this.payment.payUp = moment(this.payment.payFrom).add(1, 'M').format('YYYY-MM-DD');
+                this.paymentForm.reset(this.payment);
+              });
+          } else {
+            this.paymentForm.reset(this.payment);
+          }
         }
       }
     });
@@ -76,6 +85,7 @@ export class PaymentModalComponent implements OnInit {
       return;
     }
     // Guardar datos, sólo si es válido el formulario.
+    // @ts-ignore
     delete this.payment._id;
     delete this.payment.user;
     delete this.payment.createdAt;

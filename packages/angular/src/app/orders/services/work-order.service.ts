@@ -78,7 +78,7 @@ export class WorkOrderService {
   }
 
   // Obtener orden de trabajo por id del cliente.
-  getWorkOrderByClientId(id: string): Observable<WorkOrder[]> {
+  getWorkOrderByClientId(id: string | any): Observable<WorkOrder[]> {
     return this.http.get<WorkOrder[]>(`${this.baseURL}/${id}/client`);
   }
 

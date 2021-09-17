@@ -18,10 +18,10 @@ export class ServiceDetailService {
   private _currentClient: Client;
   private _currentServicePlan: ServicePlan;
   // ============================================================
-  private _averiaList: Array<Averia>;
+  private _averiaList: Array<Averia> = new Array<Averia>();
   private _currentAveria: Averia;
   // ============================================================
-  private _paymentList: Array<Payment>;
+  private _paymentList: Array<Payment> = new Array<Payment>();
 
   constructor(
     private serviceService: ServiceService,
@@ -33,6 +33,7 @@ export class ServiceDetailService {
     this._currentService = this.serviceService.defaultValues();
     this._currentClient = this.clientService.defaultValues();
     this._currentServicePlan = this.servicePlanService.defaultValues();
+    this._currentAveria = this.averiaService.defaultValues();
   }
 
   // servicio actual.
@@ -68,7 +69,7 @@ export class ServiceDetailService {
   // ============================================================
 
   // cargar valores por defecto.
-  getCurrentService(serviceId: string): Observable<boolean> {
+  getCurrentService(serviceId: string | any): Observable<boolean> {
     let subject = new Subject<boolean>();
     this.serviceService.getServiceById(serviceId)
       .subscribe(service => {
@@ -101,7 +102,7 @@ export class ServiceDetailService {
   // ============================================================
 
   // cargar lista de averias.
-  getAveriaList(serviceId: string, year: string): void {
+  getAveriaList(serviceId: string | any, year: string | any): void {
     this.averiaService.getAveriasByServiceId(serviceId, year)
       .subscribe(result => this._averiaList = result);
   }
@@ -137,13 +138,13 @@ export class ServiceDetailService {
   // ============================================================
 
   // Lista de pagos.
-  getPaymentList(serviceId: string, year: string): void {
+  getPaymentList(serviceId: string | any, year: string | any): void {
     this.paymentService.getPaymentList(serviceId, year)
       .subscribe(result => this._paymentList = result);
   }
 
   // borrar pago.
-  deletePayment(id: string): Observable<Payment> {
+  deletePayment(id: string | any): Observable<Payment> {
     return this.paymentService.deletePayment(id);
   }
 

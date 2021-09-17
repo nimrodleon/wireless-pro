@@ -1,5 +1,5 @@
-export class Outage {
-  _id: string;
+export interface Outage {
+  _id: string | any;
   service: string;
   description: string;
   status: string;

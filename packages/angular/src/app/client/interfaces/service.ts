@@ -1,5 +1,5 @@
 export interface Service {
-  _id: string;
+  _id: string | any;
   clientId: string;
   ipAddress: string;
   status: string;
