@@ -15,9 +15,9 @@ export class MikrotikListComponent implements OnInit {
   mikrotikModal: any;
   currentMikrotik: Mikrotik;
   mikrotikFormData: Mikrotik;
-  mikrotikList: Array<Mikrotik>;
+  mikrotikList: Array<Mikrotik> = new Array<Mikrotik>();
   editMode: boolean = false;
-  title: string;
+  title: string = '';
 
   constructor(
     private router: Router,
@@ -32,7 +32,7 @@ export class MikrotikListComponent implements OnInit {
     this.mikrotikModal = new bootstrap.Modal(
       document.querySelector('#mikrotik-form'));
     // obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe(async (result) => {
+    this.authService.getRoles().subscribe(async (result: any) => {
       if (result !== this.roles.ROLE_ADMIN) {
         await this.router.navigate(['/system']);
       }

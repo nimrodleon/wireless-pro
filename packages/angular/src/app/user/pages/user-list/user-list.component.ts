@@ -12,9 +12,9 @@ import {Sweetalert2} from 'src/app/global/interfaces';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  users: Array<User>;
+  users: Array<User> = new Array<User>();
   currentUser: User;
-  currentUserId: string;
+  currentUserId: string = '';
   titleModal: string = '';
   editMode: boolean = false;
   chkStatus: boolean = false;

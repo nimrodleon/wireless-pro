@@ -4,7 +4,7 @@ declare var jQuery: any;
 import Swal from 'sweetalert2';
 import {Tower} from '../../interfaces';
 import {TowerService} from '../../services';
-import {AuthService} from '../../../user/services/auth.service';
+import {AuthService} from '../../../user/services';
 
 @Component({
   selector: 'app-tower-list',
@@ -18,7 +18,7 @@ export class TowerListComponent implements OnInit {
     _id: '', tower: '', coverage: '',
   };
   towers: Array<any> = new Array<any>();
-  currentRole: string;
+  currentRole: string = '';
 
   // Constructor de la Clase.
   constructor(
@@ -33,7 +33,7 @@ export class TowerListComponent implements OnInit {
     this.getTowers();
     // Obtener el rol del usuario autentificado.
     this.authService.getRoles()
-      .subscribe(res => this.currentRole = res);
+      .subscribe((res: string) => this.currentRole = res);
   }
 
   get roles() {

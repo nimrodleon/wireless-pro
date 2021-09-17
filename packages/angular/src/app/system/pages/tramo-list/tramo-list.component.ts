@@ -14,8 +14,8 @@ import {Tramo} from '../../interfaces';
 export class TramoListComponent implements OnInit {
   tramos: Array<any>;
   query: string = '';
-  titleModal: string;
-  currentRole: string;
+  titleModal: string = '';
+  currentRole: string = '';
   currentTramo: Tramo = {
     _id: '',
     tramo: '',
@@ -31,7 +31,7 @@ export class TramoListComponent implements OnInit {
   ngOnInit(): void {
     this.getTramos();
     // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe(res => this.currentRole = res);
+    this.authService.getRoles().subscribe((res: string) => this.currentRole = res);
   }
 
   get roles() {

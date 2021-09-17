@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 declare var jQuery: any;
 import {Coverage} from '../../interfaces';
+import {CoverageService} from '../../services';
 
 @Component({
   selector: 'app-coverage-modal',
@@ -10,7 +11,7 @@ import {Coverage} from '../../interfaces';
 })
 export class CoverageModalComponent implements OnInit {
   @Input()
-  title: string;
+  title: string = '';
 
   @Input()
   coverage: Coverage;
@@ -18,7 +19,8 @@ export class CoverageModalComponent implements OnInit {
   @Output()
   sendCoverage = new EventEmitter<Coverage>();
 
-  constructor() {
+  constructor(private coverageService: CoverageService) {
+    this.coverage = this.coverageService.defaultValues();
   }
 
   ngOnInit(): void {

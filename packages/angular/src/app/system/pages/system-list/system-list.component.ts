@@ -7,7 +7,7 @@ import {AuthService} from 'src/app/user/services';
   styleUrls: ['./system-list.component.scss']
 })
 export class SystemListComponent implements OnInit {
-  currentRole: string;
+  currentRole: string = '';
 
   constructor(private authService: AuthService) {
   }
@@ -15,7 +15,7 @@ export class SystemListComponent implements OnInit {
   ngOnInit(): void {
     // Obtener el rol actual del usuario autentificado.
     this.authService.getRoles()
-      .subscribe(res => this.currentRole = res);
+      .subscribe((res: string) => this.currentRole = res);
   }
 
   get roles() {

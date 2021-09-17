@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
-import _ from 'lodash';
+import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import {AuthService} from 'src/app/user/services/auth.service';
 import {ServicePlan} from '../../interfaces';
@@ -13,7 +13,7 @@ import {ServicePlanService} from '../../services';
   styleUrls: ['./service-plan.component.scss']
 })
 export class ServicePlanComponent implements OnInit {
-  servicePlanList: ServicePlan[];
+  servicePlanList: Array<ServicePlan> = new Array<ServicePlan>();
   servicePlan: ServicePlan = {
     _id: undefined,
     name: '',
@@ -63,6 +63,7 @@ export class ServicePlanComponent implements OnInit {
   onOrderName(event: any): void {
     event.preventDefault();
     this.orderName = this.orderName == 'asc' ? 'desc' : 'asc';
+    // @ts-ignore
     let objTmp = _.orderBy(this.servicePlanList, ['name'], [this.orderName]);
     this.servicePlanList = objTmp;
   }

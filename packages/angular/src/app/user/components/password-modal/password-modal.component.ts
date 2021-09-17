@@ -15,13 +15,15 @@ interface PasswordModel {
 })
 export class PasswordModalComponent implements OnInit {
   @Input()
-  currentUserId: string;
+  currentUserId: string = '';
   @Output()
   hideModal = new EventEmitter<boolean>();
   // ============================================================
   passwordModel: PasswordModel;
   checkPasswords: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    // @ts-ignore
     let pass = group.get('password').value;
+    // @ts-ignore
     let confirmPass = group.get('confirmPassword').value;
     return pass === confirmPass ? null : {notSame: true};
   };
@@ -42,7 +44,7 @@ export class PasswordModalComponent implements OnInit {
   ngOnInit(): void {
     this.passwordForm.valueChanges
       .subscribe(value => this.passwordModel = value);
-    let myModal = document.querySelector('#app-password-modal');
+    let myModal: any = document.querySelector('#app-password-modal');
     myModal.addEventListener('shown.bs.modal', () => {
 
     });
@@ -73,6 +75,7 @@ export class PasswordModalComponent implements OnInit {
       return;
     }
     // Guardar datos, sólo si es válido el formulario.
+    // @ts-ignore
     delete this.passwordModel.confirmPassword;
     this.userService.changePasswordUser(this.currentUserId, this.passwordModel)
       .subscribe(() => {

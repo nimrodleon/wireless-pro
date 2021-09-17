@@ -1,8 +1,8 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 // Local Imports.
 declare var jQuery: any;
-import { Material } from '../../interfaces';
-import { MaterialService } from '../../services';
+import {Material} from '../../interfaces';
+import {MaterialService} from '../../services';
 
 @Component({
   selector: 'app-material-modal',
@@ -11,7 +11,7 @@ import { MaterialService } from '../../services';
 })
 export class MaterialModalComponent implements OnInit {
   @Input()
-  title: string;
+  title: string = '';
 
   @Input()
   material: Material;
@@ -19,7 +19,9 @@ export class MaterialModalComponent implements OnInit {
   @Output()
   sendModel = new EventEmitter<Material>();
 
-  constructor(private materialService: MaterialService) { }
+  constructor(private materialService: MaterialService) {
+    this.material = this.materialService.defaultValues();
+  }
 
   ngOnInit(): void {
   }

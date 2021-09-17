@@ -43,8 +43,17 @@ export class TowerService {
     return this.http.get<Tower[]>(this.baseURL + '/v1/all');
   }
 
-  countDevices(id: string): Observable<number> {
-    return this.http.get<number>(this.baseURL + '/' + id + '/count');
+  // countDevices(id: string): Observable<number> {
+  //   return this.http.get<number>(this.baseURL + '/' + id + '/count');
+  // }
+
+  // valores por defecto.
+  defaultValues(): Tower {
+    return {
+      _id: undefined,
+      tower: '',
+      coverage: ''
+    };
   }
 
 }

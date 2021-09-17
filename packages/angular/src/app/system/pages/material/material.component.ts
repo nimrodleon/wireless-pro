@@ -4,7 +4,7 @@ declare var jQuery: any;
 import Swal from 'sweetalert2';
 import {Material} from '../../interfaces';
 import {MaterialService} from '../../services';
-import {AuthService} from '../../../user/services/auth.service';
+import {AuthService} from '../../../user/services';
 
 @Component({
   selector: 'app-material',
@@ -12,13 +12,13 @@ import {AuthService} from '../../../user/services/auth.service';
   styleUrls: ['./material.component.scss']
 })
 export class MaterialComponent implements OnInit {
-  titleModal: string;
-  materials: Material[];
+  titleModal: string = '';
+  materials: Array<Material> = new Array<Material>();
   currentMaterial: Material = {
     _id: '', und: '', description: '', price: 0
   };
   query: string = '';
-  currentRole: string;
+  currentRole: string = '';
 
   constructor(
     private authService: AuthService,
@@ -28,7 +28,7 @@ export class MaterialComponent implements OnInit {
   ngOnInit(): void {
     this.getMaterials();
     // Obtener el rol del usuario autentificado.
-    this.authService.getRoles().subscribe(res => this.currentRole = res);
+    this.authService.getRoles().subscribe((res: string) => this.currentRole = res);
   }
 
   get roles() {

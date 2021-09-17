@@ -47,4 +47,13 @@ export class TramoService {
   //   return this.http.get<number>(this.baseURL + '/' + id + '/count');
   // }
 
+  // valores por defecto.
+  defaultValues(): Tramo {
+    return {
+      _id: undefined,
+      tramo: '',
+      coverage: ''
+    };
+  }
+
 }

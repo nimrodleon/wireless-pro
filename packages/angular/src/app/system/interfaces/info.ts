@@ -1,5 +1,5 @@
 export interface Info {
-  _id: string;
+  _id: string | any;
   ruc: string;
   company: string;
   fullAddress: string;

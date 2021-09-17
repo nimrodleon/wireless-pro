@@ -1,5 +1,5 @@
 export interface ServicePlan {
-  _id: string;
+  _id: string | any;
   name: string;
   priceMonthly: number;
   downloadSpeed: string;

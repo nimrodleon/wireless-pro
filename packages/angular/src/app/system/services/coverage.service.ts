@@ -35,8 +35,16 @@ export class CoverageService {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
-  totalClients(): Observable<any> {
-    return this.http.get(this.baseURL + '/report/total');
+  // totalClients(): Observable<any> {
+  //   return this.http.get(this.baseURL + '/report/total');
+  // }
+
+  // valores por defecto.
+  defaultValues(): Coverage {
+    return {
+      _id: undefined,
+      name: '',
+    };
   }
 
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
-import _ from 'lodash';
+import * as _ from 'lodash';
 import {AuthService} from 'src/app/user/services/auth.service';
 import Swal from 'sweetalert2';
 import {Coverage} from '../../interfaces';
@@ -13,13 +13,13 @@ import {CoverageService} from '../../services';
   styleUrls: ['./coverage-list.component.scss']
 })
 export class CoverageListComponent implements OnInit {
-  coverages: Array<Coverage>;
-  titleModal: string;
+  coverages: Array<Coverage> = new Array<Coverage>();
+  titleModal: string = '';
   currentCoverage: Coverage = {
     _id: '', name: ''
   };
   query: string = '';
-  currentRole: string;
+  currentRole: string = '';
 
   constructor(
     private authService: AuthService,
@@ -33,7 +33,7 @@ export class CoverageListComponent implements OnInit {
   ngOnInit(): void {
     this.getCoverages();
     // Obtener el rol del usuario autentificado.
-    this.authService.getRoles().subscribe(res => this.currentRole = res);
+    this.authService.getRoles().subscribe((res: string) => this.currentRole = res);
   }
 
   // Obtiene las áreas de cobertura.
@@ -56,6 +56,7 @@ export class CoverageListComponent implements OnInit {
   onOrderName(event: any): void {
     event.preventDefault();
     this.orderName = this.orderName == 'asc' ? 'desc' : 'asc';
+    // @ts-ignore
     let objTmp = _.orderBy(this.coverages, ['name'], [this.orderName]);
     this.coverages = objTmp;
   }
@@ -117,7 +118,7 @@ export class CoverageListComponent implements OnInit {
       });
     } else {
       this.coverageService.update(coverage).subscribe(res => {
-        _.forEach(this.coverages, (item, key) => {
+        _.forEach(this.coverages, (item: any, key: any) => {
           if (item._id == res._id) {
             this.coverages[key] = res;
           }

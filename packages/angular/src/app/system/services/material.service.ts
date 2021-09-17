@@ -35,7 +35,18 @@ export class MaterialService {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
-  countTaskMaterials(id: string): Observable<any> {
-    return this.http.get(this.baseURL + '/' + id + '/count/material');
+  // countTaskMaterials(id: string): Observable<any> {
+  //   return this.http.get(this.baseURL + '/' + id + '/count/material');
+  // }
+
+  // valores por defecto.
+  defaultValues(): Material {
+    return {
+      _id: undefined,
+      und: '',
+      description: '',
+      price: 0
+    };
   }
+
 }

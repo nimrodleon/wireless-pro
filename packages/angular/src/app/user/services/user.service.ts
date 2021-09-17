@@ -29,7 +29,7 @@ export class UserService {
   }
 
   // buscar usuario formato select2.
-  getUsersWithSelect2(term): Observable<any> {
+  getUsersWithSelect2(term: string): Observable<any> {
     return this.http.get(this.baseURL + `/select2/q?term=${term}`);
   }
 

@@ -1,5 +1,5 @@
 export interface Mikrotik {
-  _id: string;
+  _id: string | any;
   name: string;
   host: string;
   port: number;

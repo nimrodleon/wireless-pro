@@ -10,11 +10,11 @@ import {UserService} from '../../services';
 })
 export class UserModalComponent implements OnInit {
   @Input()
-  title: string;
+  title: string = '';
   @Input()
   currentUser: User;
   @Input()
-  editMode: boolean;
+  editMode: boolean = false;
   @Output()
   hideModal = new EventEmitter<boolean>();
   // ============================================================
@@ -23,16 +23,18 @@ export class UserModalComponent implements OnInit {
 
   constructor(
     private userService: UserService) {
+    this.currentUser = this.userService.defaultValues();
   }
 
   ngOnInit(): void {
     this.userForm.valueChanges
       .subscribe(value => this.currentUser = value);
     // eventos del modal.
-    let myModal = document.querySelector('#app-user-modal');
+    let myModal: any = document.querySelector('#app-user-modal');
     myModal.addEventListener('shown.bs.modal', () => {
       this.userForm.reset(this.currentUser);
       if (this.editMode === true) {
+        // @ts-ignore
         delete this.currentUser.password;
         this.userForm.controls['password'].disable();
       }
@@ -60,6 +62,7 @@ export class UserModalComponent implements OnInit {
     // Guardar datos, sólo si es válido el formulario.
     if (this.currentUser._id === null) {
       // registrar usuario.
+      // @ts-ignore
       delete this.currentUser._id;
       this.userService.createUser(this.currentUser)
         .subscribe(() => {

@@ -19,16 +19,6 @@ export class TokenInterceptorService implements HttpInterceptor {
   constructor(private authService: AuthService) {
   }
 
-  // intercept(req, next) {
-  //   const tokenizeReq = req.clone({
-  //     setHeaders: {
-  //       Authorization: `Bearer ${this.authService.getToken()}`,
-  //       'Content-Type': 'application/json'
-  //     }
-  //   });
-  //   return next.handle(tokenizeReq);
-  // }
-
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const tokenizeReq = req.clone({
       setHeaders: {
