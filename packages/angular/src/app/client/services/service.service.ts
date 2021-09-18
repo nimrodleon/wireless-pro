@@ -71,7 +71,6 @@ export class ServiceService {
       interfaceId: '',
       userName: '',
       password: '',
-      // basicNote: '',
       accessPoint: '',
       macAddress: '00:00:00:00:00:00',
       address: '',
