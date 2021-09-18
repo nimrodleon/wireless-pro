@@ -9,6 +9,7 @@
         <form [formGroup]="clientForm">
           <div class="row">
             <div class="col-6 pb-3">
+              <label class="col-form-label-sm text-uppercase fw-bold">D.N.I/R.U.C</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                 <input type="text" placeholder="D.N.I/R.U.C" formControlName="dni"
@@ -17,6 +18,7 @@
               </div>
             </div>
             <div class="col-6 mb-3">
+              <label class="col-form-label-sm text-uppercase fw-bold">Tipo doc</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-filter"></i></span>
                 <select formControlName="type" class="form-select"
@@ -29,6 +31,7 @@
             </div>
           </div>
           <div class="pb-3">
+            <label class="col-form-label-sm text-uppercase fw-bold">Razón social / Nombres</label>
             <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
               <input type="text" formControlName="fullName"
@@ -38,6 +41,7 @@
             </div>
           </div>
           <div class="pb-3">
+            <label class="col-form-label-sm text-uppercase fw-bold">Dirección</label>
             <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-map-marker-alt mx-1"></i></span>
               <input type="text" formControlName="fullAddress" placeholder="Dirección"
@@ -47,6 +51,7 @@
           </div>
           <div class="row">
             <div class="col-6 pb-3">
+              <label class="col-form-label-sm text-uppercase fw-bold">Teléfono</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
                 <input type="text" formControlName="phone" placeholder="Teléfono"
@@ -55,6 +60,7 @@
               </div>
             </div>
             <div class="col-6 pb-3">
+              <label class="col-form-label-sm text-uppercase fw-bold">ChatID Telegram</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fab fa-telegram"></i></span>
                 <input type="text" formControlName="telegram" placeholder="ChatID Telegram" class="form-control">
@@ -62,6 +68,7 @@
             </div>
           </div>
           <div class="pb-3">
+            <label class="col-form-label-sm text-uppercase fw-bold">Correo electrónico</label>
             <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-envelope-open-text"></i></span>
               <input type="text" formControlName="email" placeholder="E-Mail"
@@ -69,6 +76,7 @@
               <div class="invalid-feedback">Ingrese un correo electrónico valido.</div>
             </div>
           </div>
+          <label class="col-form-label-sm text-uppercase fw-bold">Observación</label>
           <textarea class="form-control" formControlName="note"></textarea>
         </form>
       </div>
