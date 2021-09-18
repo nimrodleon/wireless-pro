@@ -49,13 +49,11 @@
       <span class="text-uppercase"><i class="fas fa-desktop"></i> Estado: </span>
       <span class="fw-bold">{{currentService.status}}</span>
     </p>
-    <ng-container *ngIf="true">
-      <p class="my-1">
-        <span class="text-uppercase"><i class="fas fa-calendar-alt"></i> Registro: </span>
-        <span class="text-success">{{currentService.initialDate|date}}</span>
-      </p>
-    </ng-container>
-    <!--<p *ngIf="true" class="card-text">{{currentService.basicNote}}</p>-->
+    <p class="my-1">
+      <span class="text-uppercase"><i class="fas fa-calendar-alt"></i> Registro: </span>
+      <span class="text-success">{{currentService.initialDate|date}}</span>
+    </p>
+    <p *ngIf="currentService.paymentNote" class="card-text">{{currentService.paymentNote}}</p>
   </div>
   <div class="card-footer">
     <button (click)="editServiceClick()" class="btn btn-primary">
