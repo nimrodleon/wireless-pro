@@ -9,6 +9,7 @@
         <form>
           <div class="row">
             <div class="pb-3 col-6">
+              <label class="col-form-label-sm text-uppercase fw-bold">IP Address</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
                 <input type="text" [(ngModel)]="device.ipAddress" name="ipAddress" placeholder="Ip Address"
@@ -16,6 +17,7 @@
               </div>
             </div>
             <div class="pb-3 col-4">
+              <label class="col-form-label-sm text-uppercase fw-bold">Tipo</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fas fa-signal"></i></span>
                 <select [(ngModel)]="device.mode" name="mode" class="form-select">
@@ -27,6 +29,7 @@
             </div>
           </div>
           <div class="pb-3">
+            <label class="col-form-label-sm text-uppercase fw-bold">Nombre antena</label>
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-tasks"></i></span>
               <input type="text" [(ngModel)]="device.name" name="name" placeholder="Nombre" class="form-control">
@@ -34,6 +37,7 @@
           </div>
           <div class="row">
             <div class="pb-3 col-6">
+              <label class="col-form-label-sm text-uppercase fw-bold">Usuario</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                 <input type="text" [(ngModel)]="device.userName" name="userName" placeholder="User"
@@ -41,6 +45,7 @@
               </div>
             </div>
             <div class="pb-3 col-6">
+              <label class="col-form-label-sm text-uppercase fw-bold">Contraseña</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                 <input type="text" [(ngModel)]="device.password" name="password" placeholder="Password"
@@ -49,6 +54,7 @@
             </div>
           </div>
           <div class="pb-3">
+            <label class="col-form-label-sm text-uppercase fw-bold">SSID, el nombre que muestra la red wifi</label>
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-globe"></i></span>
               <input type="text" [(ngModel)]="device.ssid" name="ssid" placeholder="SSID" class="form-control">
@@ -56,6 +62,7 @@
           </div>
           <div class="row">
             <div class="pb-3 col-6">
+              <label class="col-form-label-sm text-uppercase fw-bold">Area Cobertura</label>
               <div class="input-group">
                 <span class="input-group-text">
                   <i class="fas fa-map-marker-alt"></i>
@@ -66,6 +73,7 @@
               </div>
             </div>
             <div class="pb-3 col-6">
+              <label class="col-form-label-sm text-uppercase fw-bold">Torre</label>
               <div class="input-group">
                 <span class="input-group-text">
                   <i class="fas fa-broadcast-tower"></i>
@@ -78,6 +86,7 @@
           </div>
           <div class="row">
             <div class="col-6">
+              <label class="col-form-label-sm text-uppercase fw-bold">Tramo de red</label>
               <div class="input-group">
                 <span class="input-group-text">
                   <i class="fas fa-route"></i>
@@ -88,6 +97,7 @@
               </div>
             </div>
             <div class="col-6">
+              <label class="col-form-label-sm text-uppercase fw-bold">Punto de Acceso</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fas fa-wifi"></i></span>
                 <select name="accessPoint" [disabled]="!checkApMode()" class="form-select"></select>
