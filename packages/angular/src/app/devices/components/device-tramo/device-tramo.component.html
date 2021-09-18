@@ -1,15 +1,21 @@
-<ul class="TreeCoverage">
-  <li *ngFor="let coverage of coverages"
-      [id]="coverage._id" (click)="coverageItemClick($event)"
-      class="TreeCoverageItem">
-    {{coverage.name}}
-    <ul *ngIf="coverage.tramos" class="TreeTramo">
-      <li *ngFor="let tramo of coverage.tramos"
-          [id]="tramo._id" (click)="tramoItemClick($event)"
-          class="TreeTramoItem">{{tramo.tramo}}</li>
-    </ul>
-  </li>
-</ul>
+<div class="accordion accordion-flush" style="width: 270px;">
+  <div *ngFor="let coverage of coverages" class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#flush-'+coverage._id">
+        <span class="fw-bold">{{coverage.name}}</span></button>
+    </h2>
+    <div [id]="'flush-'+coverage._id" class="accordion-collapse collapse">
+      <div class="accordion-body">
+        <ul *ngIf="coverage.tramos" class="TreeTramo">
+          <li *ngFor="let tramo of coverage.tramos"
+              [id]="tramo._id" (click)="tramoItemClick($event)"
+              class="TreeTramoItem">{{tramo.tramo}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--
 <pre>

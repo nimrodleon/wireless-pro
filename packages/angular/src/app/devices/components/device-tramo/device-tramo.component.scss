@@ -1,53 +1,9 @@
-.TreeCoverage {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0;
-  font-size: 1.3rem;
-  width: 270px;
-  min-height: calc(100vh - 145px);
-  overflow-y: auto;
-
-  .TreeCoverageItem {
-    cursor: pointer;
-
-    &::before {
-      content: "\f07b";
-      font-family: "Font Awesome 5 Free";
-      display: inline-block;
-      padding-right: 4px;
-      font-weight: bold;
-    }
-  }
-
-  .TreeCoverageItemHover {
-    &::before {
-      content: "\f07c";
-      font-family: "Font Awesome 5 Free";
-      display: inline-block;
-      padding-right: 4px;
-      font-weight: bold;
-    }
-
-    .TreeTramo {
-      display: block;
-    }
-  }
-}
-
 .TreeTramo {
-  display: none;
-  list-style: none;
-  padding-left: 24px;
-
+  list-style: square;
+  padding-left: 14px;
+  margin-bottom: 0;
+  // Item tramo.
   .TreeTramoItem {
     cursor: pointer;
-
-    &::before {
-      content: "\f2d0";
-      font-family: "Font Awesome 5 Free";
-      display: inline-block;
-      padding-right: 4px;
-      font-weight: bold;
-    }
   }
 }

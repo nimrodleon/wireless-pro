@@ -23,11 +23,6 @@ export class DeviceTramoComponent implements OnInit {
     return this.deviceListService.currentTramoId;
   }
 
-  coverageItemClick(event: any): void {
-    const target = event.target;
-    target.classList.toggle('TreeCoverageItemHover');
-  }
-
   tramoItemClick(event: any): void {
     const target = event.target;
     const oldTramoItem = document.getElementById(this.currentTramoId);
