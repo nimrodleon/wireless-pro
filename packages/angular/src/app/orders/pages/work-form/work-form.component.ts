@@ -157,7 +157,7 @@ export class WorkFormComponent implements OnInit {
         delete this.workOrder._id;
         this.workOrderService.addOrder(this.workOrder)
           .subscribe(result => {
-            this.router.navigate(['/work_orders/ticket', result._id])
+            this.router.navigate(['/work_orders/detail', result._id])
               .then(() => console.info('Imprimir Ticket!!'));
           });
       } else {
