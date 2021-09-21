@@ -32,7 +32,7 @@ const serviceSchema = new Schema({
   },
   userName: String,
   password: String,
-  basicNote: String,
+  // basicNote: String,
   accessPoint: {
     type: Schema.Types.ObjectId,
     ref: 'Device'
