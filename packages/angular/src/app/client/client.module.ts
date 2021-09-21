@@ -25,6 +25,7 @@ import {ReceivableComponent} from './pages/receivable/receivable.component';
 import {PaymentDailyComponent} from './pages/payment-daily/payment-daily.component';
 import {ServiceModalComponent} from './components/service-modal/service-modal.component';
 import {TemporalServicesComponent} from './components/temporal-services/temporal-services.component';
+import {ChangeStatusComponent} from './components/change-status/change-status.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {TemporalServicesComponent} from './components/temporal-services/temporal
     ReceivableComponent,
     PaymentDailyComponent,
     ServiceModalComponent,
-    TemporalServicesComponent
+    TemporalServicesComponent,
+    ChangeStatusComponent
   ],
   imports: [
     CommonModule,
