@@ -1,1 +1,87 @@
-<p>change-status works!</p>
+<form class="row row-cols-auto g-2 mt-2 d-print-none">
+  <div class="col-auto">
+    <input type="number" [formControl]="workerActivityYear" class="form-control" placeholder="Year">
+  </div>
+  <div class="col-auto">
+    <button type="button" (click)="getWorkerActivityListClick()" class="btn btn-primary">
+      <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
+    </button>
+  </div>
+  <div class="col-auto">
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+        <i class="fas fa-cog"></i>
+        <span class="text-uppercase ms-1">Opciones</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item" href="#"
+             (click)="enableServiceInBitWorker($event)">
+            <span class="text-uppercase">Habilitar</span>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#"
+             (click)="suspendServiceInBitWorker($event)">
+            <span class="text-uppercase">Suspender</span>
+          </a>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li>
+          <a class="dropdown-item" href="#"
+             (click)="changeServicePlanInBitWorker($event)">
+            <span class="text-uppercase">Cambiar Plan</span>
+          </a>
+        </li>
+        <li *ngIf="currentRole === roles.ROLE_NETWORK">
+          <hr class="dropdown-divider">
+        </li>
+        <li *ngIf="currentRole === roles.ROLE_NETWORK">
+          <a class="dropdown-item" href="#"
+             (click)="registerServiceInBitWorker($event)">
+            <span class="text-uppercase">Registrar</span>
+          </a>
+        </li>
+        <li *ngIf="currentRole === roles.ROLE_NETWORK">
+          <a class="dropdown-item" href="#"
+             (click)="updateServiceInBitWorker($event)">
+            <span class="text-uppercase">Actualizar</span>
+          </a>
+        </li>
+        <li *ngIf="currentRole === roles.ROLE_NETWORK">
+          <a class="dropdown-item" href="#"
+             (click)="deleteServiceInBitWorker($event)">
+            <span class="text-uppercase">Borrar</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-auto">
+    <label class="col-form-label">
+      <a href="#" (click)="cortesAntiguos($event)" class="fw-bold text-danger">[ Cortes Antiguos ]</a>
+    </label>
+  </div>
+</form>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr class="text-uppercase">
+      <th>Tarea Realizada</th>
+      <th>Fecha</th>
+      <th>Responsable</th>
+      <th>Nota</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of workerActivityList">
+      <td>{{item.task}}</td>
+      <td>{{item.createdAt|date}}</td>
+      <td>{{item.user}}</td>
+      <td>{{item.remark}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
