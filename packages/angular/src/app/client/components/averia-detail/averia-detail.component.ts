@@ -3,9 +3,12 @@ import {FormBuilder, FormControl} from '@angular/forms';
 import * as moment from 'moment';
 
 declare var bootstrap: any;
-import {Service} from '../../interfaces';
-import {ServiceService} from '../../services';
+import {Client, Service} from '../../interfaces';
+import {ClientService, ServiceDetailService, ServiceService} from '../../services';
 import {Sweetalert2} from '../../../global/interfaces';
+import {Averia} from '../../../averia/interfaces/averia';
+import {AveriaService} from '../../../averia/services/averia.service';
+import {AuthService} from '../../../user/services';
 
 @Component({
   selector: 'app-averia-detail',
@@ -15,24 +18,47 @@ import {Sweetalert2} from '../../../global/interfaces';
 export class AveriaDetailComponent implements OnInit {
   @Input()
   currentService: Service;
+  @Input()
+  currentClient: Client;
+  @Input()
+  currentAveria: Averia;
   averiaYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   titleAveria: string = '';
   averiaModal: any;
   attendAveriaModal: any;
+  currentRole: string = '';
 
   constructor(
     private fb: FormBuilder,
-    private serviceService: ServiceService,) {
+    private serviceDetailService: ServiceDetailService,
+    private serviceService: ServiceService,
+    private clientService: ClientService,
+    private averiaService: AveriaService,
+    private authService: AuthService,) {
     this.currentService = this.serviceService.defaultValues();
+    this.currentClient = this.clientService.defaultValues();
+    this.currentAveria = this.averiaService.defaultValues();
   }
 
   ngOnInit(): void {
+    // Obtener rol del usuario autentificado.
+    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
     // vincular modal averia.
     this.averiaModal = new bootstrap.Modal(
       document.querySelector('#app-averia-modal'));
     // vincular modal atender averia.
     this.attendAveriaModal = new bootstrap.Modal(
       document.querySelector('#app-averia-attend'));
+  }
+
+  // Lista de permisos.
+  get roles() {
+    return this.authService.roles;
+  }
+
+  // Lista de averias.
+  get averiaList() {
+    return this.serviceDetailService.averiaList;
   }
 
   // cargar lista de averias.

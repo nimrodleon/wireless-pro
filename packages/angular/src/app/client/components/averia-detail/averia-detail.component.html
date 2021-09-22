@@ -83,3 +83,13 @@
     </tbody>
   </table>
 </div>
+
+<app-averia-modal
+  [title]="titleAveria"
+  [averia]="currentAveria"
+  (sendModel)="saveChangeAveria($event)">
+</app-averia-modal>
+<app-averia-attend
+  [averia]="currentAveria"
+  (sendModel)="saveChangeAveria($event)">
+</app-averia-attend>

@@ -122,7 +122,11 @@
       </div>
       <div class="tab-pane fade" id="nav-averias" role="tabpanel">
         <!-- ##(Begin) Averias -->
-        <app-averia-detail></app-averia-detail>
+        <app-averia-detail
+          [currentService]="currentService"
+          [currentClient]="currentClient"
+          [currentAveria]="currentAveria">
+        </app-averia-detail>
         <!-- ##(End) Averias -->
       </div>
       <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
@@ -137,15 +141,6 @@
       [currentService]="currentService"
       (hideModal)="hideServiceModal($event)">
     </app-service-modal>
-    <app-averia-modal
-      [title]="titleAveria"
-      [averia]="currentAveria"
-      (sendModel)="saveChangeAveria($event)">
-    </app-averia-modal>
-    <app-averia-attend
-      [averia]="currentAveria"
-      (sendModel)="saveChangeAveria($event)">
-    </app-averia-attend>
     <app-payment-modal
       [title]="titlePayment"
       [currentService]="currentService"

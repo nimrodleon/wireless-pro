@@ -73,11 +73,6 @@ export class ServiceDetailComponent implements OnInit {
     return this.serviceDetailService.currentServicePlan;
   }
 
-  // Lista de averias.
-  get averiaList() {
-    return this.serviceDetailService.averiaList;
-  }
-
   // averia actual.
   get currentAveria() {
     return this.serviceDetailService.currentAveria;
