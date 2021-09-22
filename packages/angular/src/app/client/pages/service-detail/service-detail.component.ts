@@ -19,10 +19,7 @@ export class ServiceDetailComponent implements OnInit {
   titleService: string = '';
   serviceModal: any;
   // ============================================================
-  averiaYearInput: FormControl = this.fb.control(moment().format('YYYY'));
-  titleAveria: string = '';
-  averiaModal: any;
-  attendAveriaModal: any;
+
   // ============================================================
   paymentYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   paymentModal: any;
@@ -42,19 +39,13 @@ export class ServiceDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.serviceDetailService.getCurrentService(params.get('id'))
         .subscribe(result => console.log(result));
-      this.serviceDetailService.getAveriaList(params.get('id'), this.averiaYearInput.value);
+      //  this.serviceDetailService.getAveriaList(params.get('id'), this.averiaYearInput.value);
       this.serviceDetailService.getPaymentList(params.get('id'), this.paymentYearInput.value);
       // this.getWorkerActivityList(params.get('id'), this.workerActivityYear.value);
     });
     // vincular modal servicios.
     this.serviceModal = new bootstrap.Modal(
       document.querySelector('#service-modal'));
-    // vincular modal averia.
-    this.averiaModal = new bootstrap.Modal(
-      document.querySelector('#app-averia-modal'));
-    // vincular modal atender averia.
-    this.attendAveriaModal = new bootstrap.Modal(
-      document.querySelector('#app-averia-attend'));
     // vincular modal pagos.
     this.paymentModal = new bootstrap.Modal(
       document.querySelector('#payment-modal'));
@@ -129,65 +120,6 @@ export class ServiceDetailComponent implements OnInit {
     if (value === true) {
       this.serviceDetailService.getCurrentService(this.currentService._id)
         .subscribe(() => this.serviceModal.hide());
-    }
-  }
-
-  // cargar lista de averias.
-  averiaListLoad(): void {
-    this.serviceDetailService.getAveriaList(this.currentService._id, this.averiaYearInput.value);
-  }
-
-  // agregar averia.
-  addAveriaClick(): void {
-    this.titleAveria = 'Agregar Averia';
-    this.serviceDetailService.setDefaultValueAveria();
-    this.averiaModal.show();
-  }
-
-  // editar averia.
-  editAveriaClick(id: string): void {
-    this.titleAveria = 'Editar Averia';
-    this.serviceDetailService.getAveriaById(id);
-    this.averiaModal.show();
-  }
-
-  // atender averia.
-  attendAveriaClick(id: string): void {
-    this.serviceDetailService.getAveriaById(id);
-    this.attendAveriaModal.show();
-  }
-
-  // guardar cambios averia.
-  async saveChangeAveria(data: any) {
-    if (data._id === undefined) {
-      // registrar averia.
-      data.client = this.currentClient._id;
-      data.serviceId = this.currentService._id;
-      await this.serviceDetailService.createAveria(data);
-      this.averiaModal.hide();
-      this.averiaListLoad();
-    } else {
-      // actualizar averia.
-      await this.serviceDetailService.updateAveria(data);
-      this.averiaModal.hide();
-      this.attendAveriaModal.hide();
-      this.averiaListLoad();
-    }
-  }
-
-  // borrar averia.
-  async deleteAveriaClick(id: string) {
-    if (this.currentRole !== this.roles.ROLE_ADMIN) {
-      await Sweetalert2.accessDenied();
-    } else {
-      Sweetalert2.deleteConfirm().then(result => {
-        if (result.isConfirmed) {
-          this.serviceDetailService.deleteAveria(id).subscribe(() => {
-            this.averiaListLoad();
-            Sweetalert2.deleteSuccess();
-          });
-        }
-      });
     }
   }
 

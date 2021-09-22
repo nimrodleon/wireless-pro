@@ -26,6 +26,7 @@ import {PaymentDailyComponent} from './pages/payment-daily/payment-daily.compone
 import {ServiceModalComponent} from './components/service-modal/service-modal.component';
 import {TemporalServicesComponent} from './components/temporal-services/temporal-services.component';
 import {ChangeStatusComponent} from './components/change-status/change-status.component';
+import {AveriaDetailComponent} from './components/averia-detail/averia-detail.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {ChangeStatusComponent} from './components/change-status/change-status.co
     PaymentDailyComponent,
     ServiceModalComponent,
     TemporalServicesComponent,
-    ChangeStatusComponent
+    ChangeStatusComponent,
+    AveriaDetailComponent
   ],
   imports: [
     CommonModule,
