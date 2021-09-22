@@ -29,18 +29,17 @@
               <!-- ##(Begin) Básico -->
               <div class="row mt-2">
                 <div class="col-6 pb-3">
-                  <label class="col-form-label-sm text-uppercase fw-bold">IP Address</label>
+                  <label class="col-form-label-sm text-uppercase">IP Address</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
-                    <input type="text" formControlName="ipAddress"
-                           class="form-control" placeholder="IP Address"
+                    <input type="text" formControlName="ipAddress" class="form-control"
                            pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
                            [ngClass]="{'is-invalid': inputIsInvalid('ipAddress')}">
                     <div class="invalid-feedback">Se requiere una dirección Ip válida.</div>
                   </div>
                 </div>
                 <div class="col-6 pb-3">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Estado del servicio</label>
+                  <label class="col-form-label-sm text-uppercase">Estado del servicio</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-heartbeat"></i></span>
                     <select formControlName="status"
@@ -55,7 +54,7 @@
               </div>
               <div class="row">
                 <div class="col-6 pb-3">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Plan de servicio</label>
+                  <label class="col-form-label-sm text-uppercase">Plan de servicio</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-tags"></i></span>
                     <select formControlName="servicePlanId"
@@ -66,7 +65,7 @@
                   </div>
                 </div>
                 <div class="col-6 pb-3">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Fecha inicial</label>
+                  <label class="col-form-label-sm text-uppercase">Fecha inicial</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
                     <input type="date" formControlName="initialDate"
@@ -77,7 +76,7 @@
               </div>
               <div class="row">
                 <div class="col-6 pb-3">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Servidor Mikrotik</label>
+                  <label class="col-form-label-sm text-uppercase">Servidor Mikrotik</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-server"></i></span>
                     <select formControlName="mikrotikId"
@@ -89,7 +88,7 @@
                   </div>
                 </div>
                 <div class="col-6 pb-3">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Interface Mikrotik</label>
+                  <label class="col-form-label-sm text-uppercase">Interface Mikrotik</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-sim-card"></i></span>
                     <select formControlName="interfaceId" class="form-select"
@@ -102,23 +101,23 @@
               </div>
               <div class="row">
                 <div class="col-6 pb-3">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Usuario antena</label>
+                  <label class="col-form-label-sm text-uppercase">Usuario antena</label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    <input type="text" formControlName="userName" placeholder="Username" class="form-control">
+                    <input type="text" formControlName="userName" class="form-control">
                   </div>
                 </div>
                 <div class="col-6 pb-3">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Contraseña antena</label>
+                  <label class="col-form-label-sm text-uppercase">Contraseña antena</label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="text" formControlName="password" placeholder="Password" class="form-control">
+                    <input type="text" formControlName="password" class="form-control">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-6">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Punto de Acceso</label>
+                  <label class="col-form-label-sm text-uppercase">Punto de Acceso</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-signal"></i></span>
                     <select name="accessPoint" class="form-select"
@@ -127,11 +126,11 @@
                   </div>
                 </div>
                 <div class="col-6">
-                  <label class="col-form-label-sm text-uppercase fw-bold">MAC Address</label>
+                  <label class="col-form-label-sm text-uppercase">MAC Address</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text"><i class="fas fa-ethernet"></i></span>
-                    <input type="text" formControlName="macAddress" placeholder="MAC Address"
-                           class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('macAddress')}">
+                    <input type="text" formControlName="macAddress" class="form-control"
+                           [ngClass]="{'is-invalid': inputIsInvalid('macAddress')}">
                     <div class="invalid-feedback">La dirección MAC es requerido.</div>
                   </div>
                 </div>
@@ -143,34 +142,34 @@
               <div class="row mt-2">
                 <div class="col-6">
                   <div class="pb-3">
-                    <label class="col-form-label-sm text-uppercase fw-bold">Localización/Dirección</label>
+                    <label class="col-form-label-sm text-uppercase">Dirección/Localización</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                      <input type="text" formControlName="address" placeholder="Dirección/Localización"
+                      <input type="text" formControlName="address"
                              class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('address')}">
                       <div class="invalid-feedback">La dirección es requerido.</div>
                     </div>
                   </div>
                   <div class="pb-3">
-                    <label class="col-form-label-sm text-uppercase fw-bold">Ciudad</label>
+                    <label class="col-form-label-sm text-uppercase">Ciudad</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text"><i class="fas fa-city"></i></span>
-                      <input type="text" formControlName="city" placeholder="Ciudad"
+                      <input type="text" formControlName="city"
                              class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('city')}">
                       <div class="invalid-feedback">La ciudad es requerido.</div>
                     </div>
                   </div>
                   <div class="pb-3">
-                    <label class="col-form-label-sm text-uppercase fw-bold">Región</label>
+                    <label class="col-form-label-sm text-uppercase">Región</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
-                      <input type="text" formControlName="region" placeholder="Región"
+                      <input type="text" formControlName="region"
                              class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('region')}">
                       <div class="invalid-feedback">La región es requerido.</div>
                     </div>
                   </div>
                   <div class="pb-3">
-                    <label class="col-form-label-sm text-uppercase fw-bold">Area Cobertura</label>
+                    <label class="col-form-label-sm text-uppercase">Area Cobertura</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text"><i class="fas fa-wifi"></i></span>
                       <select formControlName="coverageId"
@@ -191,17 +190,17 @@
               </div>
               <div class="row">
                 <div class="col-6">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Latitude</label>
+                  <label class="col-form-label-sm text-uppercase">Latitude</label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
-                    <input type="text" placeholder="Lat" class="form-control" disabled>
+                    <input type="text" class="form-control" disabled>
                   </div>
                 </div>
                 <div class="col-6">
-                  <label class="col-form-label-sm text-uppercase fw-bold">Longitude</label>
+                  <label class="col-form-label-sm text-uppercase">Longitude</label>
                   <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-thumbtack"></i></span>
-                    <input type="text" placeholder="Long" class="form-control" disabled>
+                    <input type="text" class="form-control" disabled>
                   </div>
                 </div>
               </div>
@@ -210,7 +209,7 @@
             <div class="tab-pane fade" id="nav-pay" role="tabpanel">
               <!-- ##(Begin) Pagos -->
               <div class="row pb-3 mt-2">
-                <label class="col-2 col-form-label-sm text-uppercase fw-bold text-end">Tipo</label>
+                <label class="col-2 col-form-label-sm text-uppercase text-end">Tipo</label>
                 <div class="col-4">
                   <select formControlName="paymentType" class="form-select">
                     <option value="PRE">PRE-PAGO</option>
@@ -227,7 +226,7 @@
                 </div>
               </div>
               <div class="row pb-3">
-                <label class="col-2 col-form-label-sm text-uppercase fw-bold text-end">Precio</label>
+                <label class="col-2 col-form-label-sm text-uppercase text-end">Precio</label>
                 <div class="col-6">
                   <input type="number" formControlName="price" step="0.01" class="form-control"
                          [ngClass]="{'is-invalid': inputIsInvalid('price')}">
@@ -235,7 +234,7 @@
                 </div>
               </div>
               <div class="row pb-3">
-                <label class="col-2 col-form-label-sm text-uppercase fw-bold text-end">Frecuencia</label>
+                <label class="col-2 col-form-label-sm text-uppercase text-end">Frecuencia</label>
                 <div class="col-6">
                   <select formControlName="commonPayment" class="form-select">
                     <option value="MENSUAL">MENSUAL</option>
@@ -246,7 +245,7 @@
                   </select>
                 </div>
               </div>
-              <label class="form-label text-uppercase fw-bold">Información adicional</label>
+              <label class="form-label text-uppercase">Información adicional</label>
               <textarea formControlName="paymentNote" class="form-control"></textarea>
               <!-- ##(End) Pagos -->
             </div>
