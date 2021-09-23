@@ -5,20 +5,20 @@
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body pt-1">
         <form [formGroup]="clientForm">
           <div class="row">
             <div class="col-6 pb-3">
-              <label class="col-form-label-sm text-uppercase fw-bold">D.N.I/R.U.C</label>
+              <label class="col-form-label-sm text-uppercase">D.N.I/R.U.C</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                <input type="text" placeholder="D.N.I/R.U.C" formControlName="dni"
-                       class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('dni')}">
+                <input type="text" formControlName="dni" class="form-control"
+                       [ngClass]="{'is-invalid': inputIsInvalid('dni')}">
                 <div class="invalid-feedback">El D.N.I. es requerido.</div>
               </div>
             </div>
             <div class="col-6 mb-3">
-              <label class="col-form-label-sm text-uppercase fw-bold">Tipo doc</label>
+              <label class="col-form-label-sm text-uppercase">Tipo doc</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-filter"></i></span>
                 <select formControlName="type" class="form-select"
@@ -31,53 +31,48 @@
             </div>
           </div>
           <div class="pb-3">
-            <label class="col-form-label-sm text-uppercase fw-bold">Razón social / Nombres</label>
+            <label class="col-form-label-sm text-uppercase">Razón social / Nombres</label>
             <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
               <input type="text" formControlName="fullName"
-                     placeholder="Razón Social/Nombres y Apellidos"
                      class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('fullName')}">
               <div class="invalid-feedback">La razón social es requerido.</div>
             </div>
           </div>
           <div class="pb-3">
-            <label class="col-form-label-sm text-uppercase fw-bold">Dirección</label>
+            <label class="col-form-label-sm text-uppercase">Dirección completa</label>
             <div class="input-group has-validation">
               <span class="input-group-text"><i class="fas fa-map-marker-alt mx-1"></i></span>
-              <input type="text" formControlName="fullAddress" placeholder="Dirección"
-                     class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('fullAddress')}">
+              <input type="text" formControlName="fullAddress" class="form-control"
+                     [ngClass]="{'is-invalid': inputIsInvalid('fullAddress')}">
               <div class="invalid-feedback">La dirección es requerido.</div>
             </div>
           </div>
           <div class="row">
             <div class="col-6 pb-3">
-              <label class="col-form-label-sm text-uppercase fw-bold">Teléfono</label>
+              <label class="col-form-label-sm text-uppercase">Teléfono</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                <input type="text" formControlName="phone" placeholder="Teléfono"
-                       class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('phone')}">
+                <input type="text" formControlName="phone" class="form-control"
+                       [ngClass]="{'is-invalid': inputIsInvalid('phone')}">
                 <div class="invalid-feedback">El Teléfono es requerido.</div>
               </div>
             </div>
             <div class="col-6 pb-3">
-              <label class="col-form-label-sm text-uppercase fw-bold">ChatID Telegram</label>
+              <label class="col-form-label-sm text-uppercase">ChatID Telegram</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fab fa-telegram"></i></span>
-                <input type="text" formControlName="telegram" placeholder="ChatID Telegram" class="form-control">
+                <input type="text" formControlName="telegram" class="form-control">
               </div>
             </div>
           </div>
-          <div class="pb-3">
-            <label class="col-form-label-sm text-uppercase fw-bold">Correo electrónico</label>
-            <div class="input-group has-validation">
-              <span class="input-group-text"><i class="fas fa-envelope-open-text"></i></span>
-              <input type="text" formControlName="email" placeholder="E-Mail"
-                     class="form-control" [ngClass]="{'is-invalid': inputIsInvalid('email')}">
-              <div class="invalid-feedback">Ingrese un correo electrónico valido.</div>
-            </div>
+          <label class="col-form-label-sm text-uppercase">Correo electrónico</label>
+          <div class="input-group has-validation">
+            <span class="input-group-text"><i class="fas fa-envelope-open-text"></i></span>
+            <input type="text" formControlName="email" class="form-control"
+                   [ngClass]="{'is-invalid': inputIsInvalid('email')}">
+            <div class="invalid-feedback">Ingrese un correo electrónico valido.</div>
           </div>
-          <label class="col-form-label-sm text-uppercase fw-bold">Observación</label>
-          <textarea class="form-control" formControlName="note"></textarea>
         </form>
       </div>
       <div class="modal-footer">
