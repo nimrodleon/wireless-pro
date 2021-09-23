@@ -54,70 +54,7 @@
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-payment" role="tabpanel">
         <!-- ##(Begin) Información de pagos -->
-        <div class="row">
-          <div class="col-12 d-print-none">
-            <form class="row row-cols-auto g-2 mt-2">
-              <div class="col-auto">
-                <input type="number" [formControl]="paymentYearInput" class="form-control" placeholder="Year">
-              </div>
-              <div class="col-auto">
-                <button type="button" (click)="getPaymentList()" class="btn btn-primary">
-                  <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
-                </button>
-              </div>
-              <div class="col-auto">
-                <button type="button" (click)="addPaymentClick()" class="btn btn-success">
-                  <i class="fas fa-money-check"></i><span class="text-uppercase ms-1">Pagar</span>
-                </button>
-              </div>
-              <div class="col-auto">
-                <button type="button" (click)="deletePayment()" class="btn btn-danger">
-                  <i class="fas fa-trash-alt"></i><span class="text-uppercase ms-1">Borrar</span>
-                </button>
-              </div>
-            </form>
-          </div><!-- //.col-12-->
-          <div class="col-12">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                <tr class="text-uppercase">
-                  <th>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" disabled>
-                    </div>
-                  </th>
-                  <th>Mes de Servicio</th>
-                  <th>Monto</th>
-                  <th>M.Pago</th>
-                  <th>Fecha</th>
-                  <th>User</th>
-                  <th>Nota</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let payment of paymentList">
-                  <td>
-                    <div class="form-check">
-                      <input type="checkbox" id="chkDel" [value]="payment._id" class="form-check-input">
-                    </div>
-                  </td>
-                  <td>
-                    <a [routerLink]="['/client/ticket', payment._id]">
-                      {{getMonthName(payment.month)}} | {{payment.payFrom|date}} a {{payment.payUp|date}}
-                    </a>
-                  </td>
-                  <td>{{payment.amount}}</td>
-                  <td>{{payment.paymentMethod}}</td>
-                  <td>{{payment.createdAt|date}}</td>
-                  <td>{{payment.user?.fullName}}</td>
-                  <td>{{payment.note}}</td>
-                </tr>
-                </tbody>
-              </table>
-            </div><!-- //.table-responsive -->
-          </div><!-- //.col-12 -->
-        </div><!-- //.row -->
+        <app-payment-detail></app-payment-detail>
         <!-- ##(End) Información de pagos -->
       </div>
       <div class="tab-pane fade" id="nav-averias" role="tabpanel">
@@ -141,12 +78,6 @@
       [currentService]="currentService"
       (hideModal)="hideServiceModal($event)">
     </app-service-modal>
-    <app-payment-modal
-      [title]="titlePayment"
-      [currentService]="currentService"
-      [currentServicePlan]="currentServicePlan"
-      (hideModal)="hidePaymentModal($event)">
-    </app-payment-modal>
     <!-- ##(End) Content -->
   </div>
 </div>
