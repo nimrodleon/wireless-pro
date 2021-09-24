@@ -3,7 +3,7 @@
     <input type="number" [formControl]="averiaYearInput" class="form-control" placeholder="Year">
   </div>
   <div class="col-auto">
-    <button type="button" (click)="averiaListLoad()" class="btn btn-primary">
+    <button type="button" (click)="getAverias()" class="btn btn-primary">
       <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
     </button>
   </div>
@@ -25,7 +25,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let averia of averiaList">
+    <tr *ngFor="let averia of averias">
       <td>
         <span class="d-block">{{averia.averia}}</span>
         <a [routerLink]="['/client/detail', currentClient._id]">

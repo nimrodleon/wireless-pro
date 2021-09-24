@@ -37,6 +37,7 @@ export class ServiceDetailService {
     return this.authService.roleIsNetwork();
   }
 
+  // rol de caja.
   get roleIsCash() {
     return this.authService.roleIsCash();
   }
@@ -88,54 +89,5 @@ export class ServiceDetailService {
   changeStatusService(id: string, status: string): Observable<Service> {
     return this.serviceService.changeStatusService(id, status);
   }
-
-  // ============================================================
-
-  // // cargar lista de averias.
-  // getAveriaList(serviceId: string | any, year: string | any): void {
-  //   this.averiaService.getAveriasByServiceId(serviceId, year)
-  //     .subscribe(result => this._averiaList = result);
-  // }
-  //
-  // // cargar averia por id.
-  // getAveriaById(id: string): void {
-  //   this.averiaService.getAveria(id)
-  //     .subscribe(result => this._currentAveria = result);
-  // }
-  //
-  // // establecer valor por defecto averia actual.
-  // setDefaultValueAveria(): void {
-  //   this._currentAveria = this.averiaService.defaultValues();
-  // }
-  //
-  // // registrar averia.
-  // async createAveria(data: Averia) {
-  //   this.averiaService.create(data)
-  //     .subscribe(result => this._currentAveria = result);
-  // }
-  //
-  // // actualizar averia.
-  // async updateAveria(data: Averia) {
-  //   this.averiaService.update(data)
-  //     .subscribe(result => this._currentAveria = result);
-  // }
-  //
-  // // borra averia.
-  // deleteAveria(id: string): Observable<Averia> {
-  //   return this.averiaService.delete(id);
-  // }
-
-  // ============================================================
-
-  // // Lista de pagos.
-  // getPaymentList(serviceId: string | any, year: string | any): void {
-  //   this.paymentService.getPaymentList(serviceId, year)
-  //     .subscribe(result => this._paymentList = result);
-  // }
-  //
-  // // borrar pago.
-  // deletePayment(id: string | any): Observable<Payment> {
-  //   return this.paymentService.deletePayment(id);
-  // }
 
 }

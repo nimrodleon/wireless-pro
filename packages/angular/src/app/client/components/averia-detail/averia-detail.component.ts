@@ -1,14 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import * as moment from 'moment';
 
 declare var bootstrap: any;
-import {Client, Service} from '../../interfaces';
-import {ClientService, ServiceDetailService, ServiceService} from '../../services';
-import {Sweetalert2} from '../../../global/interfaces';
-import {Averia} from '../../../averia/interfaces/averia';
-import {AveriaService} from '../../../averia/services/averia.service';
-import {AuthService} from '../../../user/services';
+import {ServiceDetailService} from '../../services';
+import {AveriaService} from 'src/app/averia/services/averia.service';
+import {Averia} from 'src/app/averia/interfaces/averia';
+import {Sweetalert2} from 'src/app/global/interfaces';
 
 @Component({
   selector: 'app-averia-detail',
@@ -16,108 +14,110 @@ import {AuthService} from '../../../user/services';
   styleUrls: ['./averia-detail.component.scss']
 })
 export class AveriaDetailComponent implements OnInit {
-  @Input()
-  currentService: Service;
-  @Input()
-  currentClient: Client;
-  @Input()
-  currentAveria: Averia;
   averiaYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   titleAveria: string = '';
   averiaModal: any;
   attendAveriaModal: any;
-  currentRole: string = '';
+  averias: Array<Averia> = new Array<Averia>();
+  currentAveria: Averia;
 
   constructor(
     private fb: FormBuilder,
     private serviceDetailService: ServiceDetailService,
-    private serviceService: ServiceService,
-    private clientService: ClientService,
-    private averiaService: AveriaService,
-    private authService: AuthService,) {
-    this.currentService = this.serviceService.defaultValues();
-    this.currentClient = this.clientService.defaultValues();
+    private averiaService: AveriaService,) {
     this.currentAveria = this.averiaService.defaultValues();
   }
 
   ngOnInit(): void {
-    // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
     // vincular modal averia.
-    this.averiaModal = new bootstrap.Modal(
-      document.querySelector('#app-averia-modal'));
+    this.averiaModal = new bootstrap.Modal(document.querySelector('#app-averia-modal'));
     // vincular modal atender averia.
-    this.attendAveriaModal = new bootstrap.Modal(
-      document.querySelector('#app-averia-attend'));
+    this.attendAveriaModal = new bootstrap.Modal(document.querySelector('#app-averia-attend'));
   }
 
-  // Lista de permisos.
-  get roles() {
-    return this.authService.roles;
+  // es rol admin.
+  get roleIsAdmin() {
+    return this.serviceDetailService.roleIsAdmin;
   }
 
-  // // Lista de averias.
-  // get averiaList() {
-  //   return this.serviceDetailService.averiaList;
-  // }
-  //
-  // // cargar lista de averias.
-  // averiaListLoad(): void {
-  //   this.serviceDetailService.getAveriaList(this.currentService._id, this.averiaYearInput.value);
-  // }
-  //
-  // // agregar averia.
-  // addAveriaClick(): void {
-  //   this.titleAveria = 'Agregar Averia';
-  //   this.serviceDetailService.setDefaultValueAveria();
-  //   this.averiaModal.show();
-  // }
-  //
-  // // editar averia.
-  // editAveriaClick(id: string): void {
-  //   this.titleAveria = 'Editar Averia';
-  //   this.serviceDetailService.getAveriaById(id);
-  //   this.averiaModal.show();
-  // }
-  //
-  // // atender averia.
-  // attendAveriaClick(id: string): void {
-  //   this.serviceDetailService.getAveriaById(id);
-  //   this.attendAveriaModal.show();
-  // }
-  //
-  // // guardar cambios averia.
-  // async saveChangeAveria(data: any) {
-  //   if (data._id === undefined) {
-  //     // registrar averia.
-  //     data.client = this.currentClient._id;
-  //     data.serviceId = this.currentService._id;
-  //     await this.serviceDetailService.createAveria(data);
-  //     this.averiaModal.hide();
-  //     this.averiaListLoad();
-  //   } else {
-  //     // actualizar averia.
-  //     await this.serviceDetailService.updateAveria(data);
-  //     this.averiaModal.hide();
-  //     this.attendAveriaModal.hide();
-  //     this.averiaListLoad();
-  //   }
-  // }
-  //
-  // // borrar averia.
-  // async deleteAveriaClick(id: string) {
-  //   if (this.currentRole !== this.roles.ROLE_ADMIN) {
-  //     await Sweetalert2.accessDenied();
-  //   } else {
-  //     Sweetalert2.deleteConfirm().then(result => {
-  //       if (result.isConfirmed) {
-  //         this.serviceDetailService.deleteAveria(id).subscribe(() => {
-  //           this.averiaListLoad();
-  //           Sweetalert2.deleteSuccess();
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
+  // servicio actual.
+  get currentService() {
+    return this.serviceDetailService.currentService;
+  }
+
+  // cliente actual.
+  get currentClient() {
+    return this.serviceDetailService.currentClient;
+  }
+
+  // Lista de averias.
+  public getAverias(): void {
+    this.averiaService.getAveriasByServiceId(this.currentService._id, this.averiaYearInput.value)
+      .subscribe(result => this.averias = result);
+  }
+
+  // agregar averia.
+  addAveriaClick(): void {
+    this.titleAveria = 'Agregar Averia';
+    this.currentAveria = this.averiaService.defaultValues();
+    this.averiaModal.show();
+  }
+
+  // editar averia.
+  editAveriaClick(id: string): void {
+    this.titleAveria = 'Editar Averia';
+    this.averiaService.getAveria(id)
+      .subscribe(result => {
+        this.currentAveria = result;
+        this.averiaModal.show();
+      });
+  }
+
+  // atender averia.
+  attendAveriaClick(id: string): void {
+    this.averiaService.getAveria(id)
+      .subscribe(result => {
+        this.currentAveria = result;
+        this.attendAveriaModal.show();
+      });
+  }
+
+  // guardar cambios averia.
+  async saveChangeAveria(data: any) {
+    if (data._id === undefined) {
+      // registrar averia.
+      data.client = this.currentClient._id;
+      data.serviceId = this.currentService._id;
+      this.averiaService.create(data).subscribe(() => {
+        this.averiaModal.hide();
+        this.getAverias();
+      });
+    } else {
+      // actualizar averia.
+      this.averiaService.update(data).subscribe(() => {
+        this.averiaModal.hide();
+        this.attendAveriaModal.hide();
+        this.getAverias();
+      });
+    }
+  }
+
+  // borrar averia.
+  async deleteAveriaClick(id: string) {
+    this.roleIsAdmin.subscribe(result => {
+      if (!result) {
+        Sweetalert2.accessDenied();
+      } else {
+        Sweetalert2.deleteConfirm().then(result => {
+          if (result.isConfirmed) {
+            this.averiaService.delete(id).subscribe(() => {
+              this.getAverias();
+              Sweetalert2.deleteSuccess();
+            });
+          }
+        });
+      }
+    });
+  }
 
 }
