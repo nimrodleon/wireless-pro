@@ -24,8 +24,8 @@ export class ServiceDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      this.serviceDetailService.getCurrentService(params.get('id'))
-        .subscribe(result => console.log(result));
+      this.serviceDetailService.serviceId = params.get('id') || '';
+      this.serviceDetailService.getCurrentService(params.get('id')).subscribe(result => console.log(result));
     });
     // vincular modal servicios.
     this.serviceModal = new bootstrap.Modal(document.querySelector('#service-modal'));

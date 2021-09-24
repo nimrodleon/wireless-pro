@@ -30,10 +30,17 @@ export class PaymentDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // TODO: log id averia.
+    console.log('averia', this.serviceId);
     // cargar lista de pagos.
     this.getPayments();
     // vincular modal pagos.
     this.paymentModal = new bootstrap.Modal(document.querySelector('#payment-modal'));
+  }
+
+  // id del servicio actual.
+  get serviceId() {
+    return this.serviceDetailService.serviceId;
   }
 
   // es rol admin.
@@ -58,7 +65,7 @@ export class PaymentDetailComponent implements OnInit {
 
   // cargar lista de pagos del año actual.
   public getPayments(): void {
-    this.paymentService.getPaymentList(this.currentService._id, this.paymentYearInput.value)
+    this.paymentService.getPaymentList(this.serviceId, this.paymentYearInput.value)
       .subscribe(result => this.payments = result);
   }
 

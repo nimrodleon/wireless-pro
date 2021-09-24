@@ -12,6 +12,7 @@ import {AuthService} from '../../user/services';
   providedIn: 'root'
 })
 export class ServiceDetailService {
+  private _serviceId: string = '';
   private _currentService: Service;
   private _currentClient: Client;
   private _currentServicePlan: ServicePlan;
@@ -25,6 +26,16 @@ export class ServiceDetailService {
     this._currentService = this.serviceService.defaultValues();
     this._currentClient = this.clientService.defaultValues();
     this._currentServicePlan = this.servicePlanService.defaultValues();
+  }
+
+  // obtener id del servicio.
+  get serviceId() {
+    return this._serviceId;
+  }
+
+  // establecer el id del servicio.
+  set serviceId(value: string) {
+    this._serviceId = value;
   }
 
   // rol administrador.
