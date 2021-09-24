@@ -59,16 +59,12 @@
       </div>
       <div class="tab-pane fade" id="nav-averias" role="tabpanel">
         <!-- ##(Begin) Averias -->
-        <app-averia-detail
-          [currentService]="currentService"
-          [currentClient]="currentClient"
-          [currentAveria]="currentAveria">
-        </app-averia-detail>
+        <app-averia-detail></app-averia-detail>
         <!-- ##(End) Averias -->
       </div>
       <div class="tab-pane fade" id="nav-status-change" role="tabpanel">
         <!-- ##(Begin) Estado de cambios -->
-        <app-change-status [currentService]="currentService"></app-change-status>
+        <app-change-status></app-change-status>
         <!-- ##(End) Estado de cambios -->
       </div>
     </div>
@@ -78,7 +74,6 @@
       [currentService]="currentService"
       (hideModal)="hideServiceModal($event)">
     </app-service-modal>
-
 
     <hr>
     <h4>currentService</h4>

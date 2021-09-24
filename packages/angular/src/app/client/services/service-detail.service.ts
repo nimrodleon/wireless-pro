@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {Sweetalert2} from 'src/app/global/interfaces';
-import {Client, Payment, Service} from '../interfaces';
+import {Client, Service} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
 import {ServiceService} from './service.service';
 import {ClientService} from './client.service';
 import {ServicePlanService} from '../../system/services';
-import {Averia} from '../../averia/interfaces/averia';
-import {AveriaService} from '../../averia/services/averia.service';
-import {PaymentService} from './payment.service';
 import {AuthService} from '../../user/services';
 
 @Injectable({
@@ -18,13 +15,6 @@ export class ServiceDetailService {
   private _currentService: Service;
   private _currentClient: Client;
   private _currentServicePlan: ServicePlan;
-  // ============================================================
-
-  // // ============================================================
-  // private _averiaList: Array<Averia> = new Array<Averia>();
-  // private _currentAveria: Averia;
-  // // ============================================================
-  // private _paymentList: Array<Payment> = new Array<Payment>();
 
   constructor(
     private authService: AuthService,
@@ -35,6 +25,20 @@ export class ServiceDetailService {
     this._currentService = this.serviceService.defaultValues();
     this._currentClient = this.clientService.defaultValues();
     this._currentServicePlan = this.servicePlanService.defaultValues();
+  }
+
+  // rol administrador.
+  get roleIsAdmin() {
+    return this.authService.roleIsAdmin();
+  }
+
+  // rol de redes.
+  get roleIsNetwork() {
+    return this.authService.roleIsNetwork();
+  }
+
+  get roleIsCash() {
+    return this.authService.roleIsCash();
   }
 
   // servicio actual.
