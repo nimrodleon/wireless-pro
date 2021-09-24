@@ -5,7 +5,7 @@
         <input type="number" [formControl]="paymentYearInput" class="form-control" placeholder="Year">
       </div>
       <div class="col-auto">
-        <button type="button" (click)="getPaymentList()" class="btn btn-primary">
+        <button type="button" (click)="getPayments()" class="btn btn-primary">
           <i class="fas fa-sync"></i><span class="text-uppercase ms-1">Cargar</span>
         </button>
       </div>
@@ -40,7 +40,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let payment of paymentList">
+        <tr *ngFor="let payment of payments">
           <td>
             <div class="form-check">
               <input type="checkbox" id="chkDel" [value]="payment._id" class="form-check-input">
@@ -70,4 +70,4 @@
   (hideModal)="hidePaymentModal($event)">
 </app-payment-modal>
 
-<pre>{{paymentList|json}}</pre>
+<pre>{{payments|json}}</pre>

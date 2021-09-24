@@ -56,21 +56,6 @@ export class ServiceDetailService {
     return {...this._currentServicePlan};
   }
 
-  // // Lista de averias.
-  // get averiaList(): Array<Averia> {
-  //   return this._averiaList;
-  // }
-  //
-  // // averia actual.
-  // get currentAveria(): Averia {
-  //   return this._currentAveria;
-  // }
-  //
-  // // lista de pagos.
-  // get paymentList(): Array<Payment> {
-  //   return this._paymentList;
-  // }
-
   // ============================================================
 
   // cargar valores por defecto.

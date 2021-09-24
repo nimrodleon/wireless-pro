@@ -22,7 +22,7 @@ export class PaymentService {
   }
 
   // Obtener pago por id.
-  getPaymentById(id: string|any): Observable<Payment> {
+  getPaymentById(id: string | any): Observable<Payment> {
     return this.http.get<Payment>(`${this.baseURL}/${id}`);
   }
 

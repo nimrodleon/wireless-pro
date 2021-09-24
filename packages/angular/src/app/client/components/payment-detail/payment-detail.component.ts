@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import * as moment from 'moment';
@@ -6,9 +6,8 @@ import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
 import {Sweetalert2} from 'src/app/global/interfaces';
-import {PrintPayment, Service} from '../../interfaces';
-import {ServiceDetailService, ServiceService} from '../../services';
-import {AuthService} from 'src/app/user/services';
+import {Payment, PrintPayment} from '../../interfaces';
+import {PaymentService, ServiceDetailService} from '../../services';
 
 @Component({
   selector: 'app-payment-detail',
@@ -16,32 +15,40 @@ import {AuthService} from 'src/app/user/services';
   styleUrls: ['./payment-detail.component.scss']
 })
 export class PaymentDetailComponent implements OnInit {
-  @Input()
-  currentService: Service;
   paymentYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   paymentModal: any;
   titlePayment: string = '';
   currentRole: string = '';
+  // Lista de pagos del año actual.
+  payments: Array<Payment> = new Array<Payment>();
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthService,
-    private serviceService: ServiceService,
+    private paymentService: PaymentService,
     private serviceDetailService: ServiceDetailService,) {
-    this.currentService = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {
+    // cargar lista de pagos.
+    this.getPayments();
     // vincular modal pagos.
     this.paymentModal = new bootstrap.Modal(document.querySelector('#payment-modal'));
-    // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
   }
 
-  // Lista de permisos.
-  get roles() {
-    return this.authService.roles;
+  // es rol admin.
+  get roleIsAdmin() {
+    return this.serviceDetailService.roleIsAdmin;
+  }
+
+  // rol de caja.
+  get roleIsCash() {
+    return this.serviceDetailService.roleIsCash;
+  }
+
+  // servicio actual.
+  get currentService() {
+    return this.serviceDetailService.currentService;
   }
 
   // plan de servicio actual.
@@ -49,103 +56,90 @@ export class PaymentDetailComponent implements OnInit {
     return this.serviceDetailService.currentServicePlan;
   }
 
-  // // lista de averias.
-  // get paymentList() {
-  //   return this.serviceDetailService.paymentList;
-  // }
-  //
-  // // cargar lista de pagos.
-  // getPaymentList(): void {
-  //   this.serviceDetailService.getPaymentList(this.currentService._id, this.paymentYearInput.value);
-  // }
+  // cargar lista de pagos del año actual.
+  public getPayments(): void {
+    this.paymentService.getPaymentList(this.currentService._id, this.paymentYearInput.value)
+      .subscribe(result => this.payments = result);
+  }
 
   // obtener nombre del mes.
-  // @ts-ignore
-  getMonthName(value: string) {
-    switch (value) {
-      case '01':
-        return 'ENERO';
-      case '02':
-        return 'FEBRERO';
-      case '03':
-        return 'MARZO';
-      case '04':
-        return 'ABRIL';
-      case '05':
-        return 'MAYO';
-      case '06':
-        return 'JUNIO';
-      case '07':
-        return 'JULIO';
-      case '08':
-        return 'AGOSTO';
-      case '09':
-        return 'SEPTIEMBRE';
-      case '10':
-        return 'OCTUBRE';
-      case '11':
-        return 'NOVIEMBRE';
-      case '12':
-        return 'DICIEMBRE';
-    }
+  public getMonthName(value: string) {
+    const month = {
+      '01': 'ENERO',
+      '02': 'FEBRERO',
+      '03': 'MARZO',
+      '04': 'ABRIL',
+      '05': 'MAYO',
+      '06': 'JUNIO',
+      '07': 'JULIO',
+      '08': 'AGOSTO',
+      '09': 'SEPTIEMBRE',
+      '10': 'OCTUBRE',
+      '11': 'NOVIEMBRE',
+      '12': 'DICIEMBRE'
+    };
+    // @ts-ignore
+    return month[value];
   }
 
   // agregar pago.
-  async addPaymentClick() {
-    if (this.currentRole !== this.roles.ROLE_CASH) {
-      await Sweetalert2.accessDeniedGeneric();
-    } else {
-      this.titlePayment = 'Agregar Pago de Servicio';
-      this.paymentModal.show();
-    }
+  public addPaymentClick(): void {
+    this.roleIsCash.subscribe(async (result) => {
+      if (!result) {
+        await Sweetalert2.accessDeniedGeneric();
+      } else {
+        this.titlePayment = 'Agregar Pago de Servicio';
+        this.paymentModal.show();
+      }
+    });
   }
 
   // cerrar modal de pagos.
-  // hidePaymentModal(print: PrintPayment): void {
-  //   if (print.hideModal) {
-  //     this.paymentModal.hide();
-  //   }
-  //   if (!print.printReceipt) {
-  //     this.serviceDetailService.getCurrentService(this.currentService._id)
-  //       .subscribe(() => this.getPaymentList());
-  //   } else {
-  //     this.router.navigate(['/client/ticket', print.paymentId])
-  //       .then(() => console.info('Imprimir Ticket'));
-  //   }
-  // }
+  public hidePaymentModal(print: PrintPayment): void {
+    if (print.hideModal) {
+      this.paymentModal.hide();
+    }
+    if (!print.printReceipt) {
+      this.serviceDetailService.getCurrentService(this.currentService._id)
+        .subscribe(() => this.getPayments());
+    } else {
+      this.router.navigate(['/client/ticket', print.paymentId])
+        .then(() => console.info('Imprimir Ticket'));
+    }
+  }
 
   // borrar pago de servicio.
-  // @ts-ignore
-  // async deletePayment() {
-  //   let chkDel = document.querySelectorAll('#chkDel:checked');
-  //   if (chkDel.length <= 0) {
-  //     return Swal.fire({
-  //       icon: 'error',
-  //       title: 'Seleccione un Pago!',
-  //       showConfirmButton: true,
-  //     });
-  //   }
-  //   if (chkDel.length > 1) {
-  //     return Swal.fire({
-  //       icon: 'info',
-  //       title: 'Seleccione solo un Pago!',
-  //       showConfirmButton: true,
-  //     });
-  //   }
-  //   if (this.currentRole !== this.roles.ROLE_ADMIN) {
-  //     await Sweetalert2.accessDenied();
-  //   } else {
-  //     Sweetalert2.deleteConfirm().then(result => {
-  //       if (result.isConfirmed) {
-  //         let paymentId = chkDel[0].getAttribute('value');
-  //         this.serviceDetailService.deletePayment(paymentId)
-  //           .subscribe(() => {
-  //             this.getPaymentList();
-  //             Sweetalert2.deleteSuccess();
-  //           });
-  //       }
-  //     });
-  //   }
-  // }
+  public async deletePayment() {
+    let chkDel = document.querySelectorAll('#chkDel:checked');
+    if (chkDel.length <= 0) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Seleccione un Pago!',
+        showConfirmButton: true,
+      });
+    }
+    if (chkDel.length > 1) {
+      await Swal.fire({
+        icon: 'info',
+        title: 'Seleccione solo un Pago!',
+        showConfirmButton: true,
+      });
+    }
+    this.roleIsAdmin.subscribe(result => {
+      if (!result) {
+        Sweetalert2.accessDenied();
+      } else {
+        Sweetalert2.deleteConfirm().then(result => {
+          if (result.isConfirmed) {
+            const paymentId: string = chkDel[0].getAttribute('value') || '';
+            this.paymentService.deletePayment(paymentId).subscribe(() => {
+              this.getPayments();
+              Sweetalert2.deleteSuccess();
+            });
+          }
+        });
+      }
+    });
+  }
 
 }
