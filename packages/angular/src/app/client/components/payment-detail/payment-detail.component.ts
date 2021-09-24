@@ -30,8 +30,6 @@ export class PaymentDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // TODO: log id averia.
-    console.log('averia', this.serviceId);
     // cargar lista de pagos.
     this.getPayments();
     // vincular modal pagos.

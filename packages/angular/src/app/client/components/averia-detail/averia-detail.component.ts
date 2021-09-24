@@ -29,10 +29,16 @@ export class AveriaDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAverias();
     // vincular modal averia.
     this.averiaModal = new bootstrap.Modal(document.querySelector('#app-averia-modal'));
     // vincular modal atender averia.
     this.attendAveriaModal = new bootstrap.Modal(document.querySelector('#app-averia-attend'));
+  }
+
+  // id del servicio actual.
+  get serviceId() {
+    return this.serviceDetailService.serviceId;
   }
 
   // es rol admin.
@@ -52,7 +58,7 @@ export class AveriaDetailComponent implements OnInit {
 
   // Lista de averias.
   public getAverias(): void {
-    this.averiaService.getAveriasByServiceId(this.currentService._id, this.averiaYearInput.value)
+    this.averiaService.getAveriasByServiceId(this.serviceId, this.averiaYearInput.value)
       .subscribe(result => this.averias = result);
   }
 
