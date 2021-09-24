@@ -49,15 +49,15 @@ export class PaymentDetailComponent implements OnInit {
     return this.serviceDetailService.currentServicePlan;
   }
 
-  // lista de averias.
-  get paymentList() {
-    return this.serviceDetailService.paymentList;
-  }
-
-  // cargar lista de pagos.
-  getPaymentList(): void {
-    this.serviceDetailService.getPaymentList(this.currentService._id, this.paymentYearInput.value);
-  }
+  // // lista de averias.
+  // get paymentList() {
+  //   return this.serviceDetailService.paymentList;
+  // }
+  //
+  // // cargar lista de pagos.
+  // getPaymentList(): void {
+  //   this.serviceDetailService.getPaymentList(this.currentService._id, this.paymentYearInput.value);
+  // }
 
   // obtener nombre del mes.
   // @ts-ignore
@@ -101,51 +101,51 @@ export class PaymentDetailComponent implements OnInit {
   }
 
   // cerrar modal de pagos.
-  hidePaymentModal(print: PrintPayment): void {
-    if (print.hideModal) {
-      this.paymentModal.hide();
-    }
-    if (!print.printReceipt) {
-      this.serviceDetailService.getCurrentService(this.currentService._id)
-        .subscribe(() => this.getPaymentList());
-    } else {
-      this.router.navigate(['/client/ticket', print.paymentId])
-        .then(() => console.info('Imprimir Ticket'));
-    }
-  }
+  // hidePaymentModal(print: PrintPayment): void {
+  //   if (print.hideModal) {
+  //     this.paymentModal.hide();
+  //   }
+  //   if (!print.printReceipt) {
+  //     this.serviceDetailService.getCurrentService(this.currentService._id)
+  //       .subscribe(() => this.getPaymentList());
+  //   } else {
+  //     this.router.navigate(['/client/ticket', print.paymentId])
+  //       .then(() => console.info('Imprimir Ticket'));
+  //   }
+  // }
 
   // borrar pago de servicio.
   // @ts-ignore
-  async deletePayment() {
-    let chkDel = document.querySelectorAll('#chkDel:checked');
-    if (chkDel.length <= 0) {
-      return Swal.fire({
-        icon: 'error',
-        title: 'Seleccione un Pago!',
-        showConfirmButton: true,
-      });
-    }
-    if (chkDel.length > 1) {
-      return Swal.fire({
-        icon: 'info',
-        title: 'Seleccione solo un Pago!',
-        showConfirmButton: true,
-      });
-    }
-    if (this.currentRole !== this.roles.ROLE_ADMIN) {
-      await Sweetalert2.accessDenied();
-    } else {
-      Sweetalert2.deleteConfirm().then(result => {
-        if (result.isConfirmed) {
-          let paymentId = chkDel[0].getAttribute('value');
-          this.serviceDetailService.deletePayment(paymentId)
-            .subscribe(() => {
-              this.getPaymentList();
-              Sweetalert2.deleteSuccess();
-            });
-        }
-      });
-    }
-  }
+  // async deletePayment() {
+  //   let chkDel = document.querySelectorAll('#chkDel:checked');
+  //   if (chkDel.length <= 0) {
+  //     return Swal.fire({
+  //       icon: 'error',
+  //       title: 'Seleccione un Pago!',
+  //       showConfirmButton: true,
+  //     });
+  //   }
+  //   if (chkDel.length > 1) {
+  //     return Swal.fire({
+  //       icon: 'info',
+  //       title: 'Seleccione solo un Pago!',
+  //       showConfirmButton: true,
+  //     });
+  //   }
+  //   if (this.currentRole !== this.roles.ROLE_ADMIN) {
+  //     await Sweetalert2.accessDenied();
+  //   } else {
+  //     Sweetalert2.deleteConfirm().then(result => {
+  //       if (result.isConfirmed) {
+  //         let paymentId = chkDel[0].getAttribute('value');
+  //         this.serviceDetailService.deletePayment(paymentId)
+  //           .subscribe(() => {
+  //             this.getPaymentList();
+  //             Sweetalert2.deleteSuccess();
+  //           });
+  //       }
+  //     });
+  //   }
+  // }
 
 }

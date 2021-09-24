@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {Observable, Subject} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Roles} from '../interfaces';
 
@@ -43,6 +44,33 @@ export class AuthService {
     this.router.navigate(['/login']).then(() => {
       console.info('[logout]');
     });
+  }
+
+  // es un rol administrador.
+  roleIsAdmin(): Observable<boolean> {
+    let subject = new Subject<boolean>();
+    this.getRoles().subscribe((currentRole: string) => {
+      subject.next(currentRole === this.roles.ROLE_ADMIN);
+    });
+    return subject.asObservable();
+  }
+
+  // es un rol red.
+  roleIsNetwork(): Observable<boolean> {
+    let subject = new Subject<boolean>();
+    this.getRoles().subscribe((currentRole: string) => {
+      subject.next(currentRole === this.roles.ROLE_NETWORK);
+    });
+    return subject.asObservable();
+  }
+
+  // es un rol de caja.
+  roleIsCash(): Observable<boolean> {
+    let subject = new Subject<boolean>();
+    this.getRoles().subscribe((currentRole: string) => {
+      subject.next(currentRole === this.roles.ROLE_CASH);
+    });
+    return subject.asObservable();
   }
 
 }

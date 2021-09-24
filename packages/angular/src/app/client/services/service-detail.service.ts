@@ -9,6 +9,7 @@ import {ServicePlanService} from '../../system/services';
 import {Averia} from '../../averia/interfaces/averia';
 import {AveriaService} from '../../averia/services/averia.service';
 import {PaymentService} from './payment.service';
+import {AuthService} from '../../user/services';
 
 @Injectable({
   providedIn: 'root'
@@ -18,27 +19,27 @@ export class ServiceDetailService {
   private _currentClient: Client;
   private _currentServicePlan: ServicePlan;
   // ============================================================
-  private _averiaList: Array<Averia> = new Array<Averia>();
-  private _currentAveria: Averia;
-  // ============================================================
-  private _paymentList: Array<Payment> = new Array<Payment>();
+
+  // // ============================================================
+  // private _averiaList: Array<Averia> = new Array<Averia>();
+  // private _currentAveria: Averia;
+  // // ============================================================
+  // private _paymentList: Array<Payment> = new Array<Payment>();
 
   constructor(
+    private authService: AuthService,
     private serviceService: ServiceService,
     private clientService: ClientService,
-    private servicePlanService: ServicePlanService,
-    private averiaService: AveriaService,
-    private paymentService: PaymentService) {
+    private servicePlanService: ServicePlanService,) {
     // establecer valores por defecto.
     this._currentService = this.serviceService.defaultValues();
     this._currentClient = this.clientService.defaultValues();
     this._currentServicePlan = this.servicePlanService.defaultValues();
-    this._currentAveria = this.averiaService.defaultValues();
   }
 
   // servicio actual.
   get currentService(): Service {
-    return this._currentService;
+    return {...this._currentService};
   }
 
   // cliente actual.
@@ -51,20 +52,20 @@ export class ServiceDetailService {
     return {...this._currentServicePlan};
   }
 
-  // Lista de averias.
-  get averiaList(): Array<Averia> {
-    return this._averiaList;
-  }
-
-  // averia actual.
-  get currentAveria(): Averia {
-    return this._currentAveria;
-  }
-
-  // lista de pagos.
-  get paymentList(): Array<Payment> {
-    return this._paymentList;
-  }
+  // // Lista de averias.
+  // get averiaList(): Array<Averia> {
+  //   return this._averiaList;
+  // }
+  //
+  // // averia actual.
+  // get currentAveria(): Averia {
+  //   return this._currentAveria;
+  // }
+  //
+  // // lista de pagos.
+  // get paymentList(): Array<Payment> {
+  //   return this._paymentList;
+  // }
 
   // ============================================================
 
@@ -101,51 +102,51 @@ export class ServiceDetailService {
 
   // ============================================================
 
-  // cargar lista de averias.
-  getAveriaList(serviceId: string | any, year: string | any): void {
-    this.averiaService.getAveriasByServiceId(serviceId, year)
-      .subscribe(result => this._averiaList = result);
-  }
-
-  // cargar averia por id.
-  getAveriaById(id: string): void {
-    this.averiaService.getAveria(id)
-      .subscribe(result => this._currentAveria = result);
-  }
-
-  // establecer valor por defecto averia actual.
-  setDefaultValueAveria(): void {
-    this._currentAveria = this.averiaService.defaultValues();
-  }
-
-  // registrar averia.
-  async createAveria(data: Averia) {
-    this.averiaService.create(data)
-      .subscribe(result => this._currentAveria = result);
-  }
-
-  // actualizar averia.
-  async updateAveria(data: Averia) {
-    this.averiaService.update(data)
-      .subscribe(result => this._currentAveria = result);
-  }
-
-  // borra averia.
-  deleteAveria(id: string): Observable<Averia> {
-    return this.averiaService.delete(id);
-  }
+  // // cargar lista de averias.
+  // getAveriaList(serviceId: string | any, year: string | any): void {
+  //   this.averiaService.getAveriasByServiceId(serviceId, year)
+  //     .subscribe(result => this._averiaList = result);
+  // }
+  //
+  // // cargar averia por id.
+  // getAveriaById(id: string): void {
+  //   this.averiaService.getAveria(id)
+  //     .subscribe(result => this._currentAveria = result);
+  // }
+  //
+  // // establecer valor por defecto averia actual.
+  // setDefaultValueAveria(): void {
+  //   this._currentAveria = this.averiaService.defaultValues();
+  // }
+  //
+  // // registrar averia.
+  // async createAveria(data: Averia) {
+  //   this.averiaService.create(data)
+  //     .subscribe(result => this._currentAveria = result);
+  // }
+  //
+  // // actualizar averia.
+  // async updateAveria(data: Averia) {
+  //   this.averiaService.update(data)
+  //     .subscribe(result => this._currentAveria = result);
+  // }
+  //
+  // // borra averia.
+  // deleteAveria(id: string): Observable<Averia> {
+  //   return this.averiaService.delete(id);
+  // }
 
   // ============================================================
 
-  // Lista de pagos.
-  getPaymentList(serviceId: string | any, year: string | any): void {
-    this.paymentService.getPaymentList(serviceId, year)
-      .subscribe(result => this._paymentList = result);
-  }
-
-  // borrar pago.
-  deletePayment(id: string | any): Observable<Payment> {
-    return this.paymentService.deletePayment(id);
-  }
+  // // Lista de pagos.
+  // getPaymentList(serviceId: string | any, year: string | any): void {
+  //   this.paymentService.getPaymentList(serviceId, year)
+  //     .subscribe(result => this._paymentList = result);
+  // }
+  //
+  // // borrar pago.
+  // deletePayment(id: string | any): Observable<Payment> {
+  //   return this.paymentService.deletePayment(id);
+  // }
 
 }

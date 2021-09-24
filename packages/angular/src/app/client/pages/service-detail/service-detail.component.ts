@@ -65,15 +65,15 @@ export class ServiceDetailComponent implements OnInit {
     return this.serviceDetailService.currentServicePlan;
   }
 
-  // averia actual.
-  get currentAveria() {
-    return this.serviceDetailService.currentAveria;
-  }
+  // // averia actual.
+  // get currentAveria() {
+  //   return this.serviceDetailService.currentAveria;
+  // }
 
-  // lista de averias.
-  get paymentList() {
-    return this.serviceDetailService.paymentList;
-  }
+  // // lista de averias.
+  // get paymentList() {
+  //   return this.serviceDetailService.paymentList;
+  // }
 
   // editar servicio modal.
   async editServiceModal() {

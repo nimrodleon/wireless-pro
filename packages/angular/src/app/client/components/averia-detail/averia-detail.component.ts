@@ -56,68 +56,68 @@ export class AveriaDetailComponent implements OnInit {
     return this.authService.roles;
   }
 
-  // Lista de averias.
-  get averiaList() {
-    return this.serviceDetailService.averiaList;
-  }
-
-  // cargar lista de averias.
-  averiaListLoad(): void {
-    this.serviceDetailService.getAveriaList(this.currentService._id, this.averiaYearInput.value);
-  }
-
-  // agregar averia.
-  addAveriaClick(): void {
-    this.titleAveria = 'Agregar Averia';
-    this.serviceDetailService.setDefaultValueAveria();
-    this.averiaModal.show();
-  }
-
-  // editar averia.
-  editAveriaClick(id: string): void {
-    this.titleAveria = 'Editar Averia';
-    this.serviceDetailService.getAveriaById(id);
-    this.averiaModal.show();
-  }
-
-  // atender averia.
-  attendAveriaClick(id: string): void {
-    this.serviceDetailService.getAveriaById(id);
-    this.attendAveriaModal.show();
-  }
-
-  // guardar cambios averia.
-  async saveChangeAveria(data: any) {
-    if (data._id === undefined) {
-      // registrar averia.
-      data.client = this.currentClient._id;
-      data.serviceId = this.currentService._id;
-      await this.serviceDetailService.createAveria(data);
-      this.averiaModal.hide();
-      this.averiaListLoad();
-    } else {
-      // actualizar averia.
-      await this.serviceDetailService.updateAveria(data);
-      this.averiaModal.hide();
-      this.attendAveriaModal.hide();
-      this.averiaListLoad();
-    }
-  }
-
-  // borrar averia.
-  async deleteAveriaClick(id: string) {
-    if (this.currentRole !== this.roles.ROLE_ADMIN) {
-      await Sweetalert2.accessDenied();
-    } else {
-      Sweetalert2.deleteConfirm().then(result => {
-        if (result.isConfirmed) {
-          this.serviceDetailService.deleteAveria(id).subscribe(() => {
-            this.averiaListLoad();
-            Sweetalert2.deleteSuccess();
-          });
-        }
-      });
-    }
-  }
+  // // Lista de averias.
+  // get averiaList() {
+  //   return this.serviceDetailService.averiaList;
+  // }
+  //
+  // // cargar lista de averias.
+  // averiaListLoad(): void {
+  //   this.serviceDetailService.getAveriaList(this.currentService._id, this.averiaYearInput.value);
+  // }
+  //
+  // // agregar averia.
+  // addAveriaClick(): void {
+  //   this.titleAveria = 'Agregar Averia';
+  //   this.serviceDetailService.setDefaultValueAveria();
+  //   this.averiaModal.show();
+  // }
+  //
+  // // editar averia.
+  // editAveriaClick(id: string): void {
+  //   this.titleAveria = 'Editar Averia';
+  //   this.serviceDetailService.getAveriaById(id);
+  //   this.averiaModal.show();
+  // }
+  //
+  // // atender averia.
+  // attendAveriaClick(id: string): void {
+  //   this.serviceDetailService.getAveriaById(id);
+  //   this.attendAveriaModal.show();
+  // }
+  //
+  // // guardar cambios averia.
+  // async saveChangeAveria(data: any) {
+  //   if (data._id === undefined) {
+  //     // registrar averia.
+  //     data.client = this.currentClient._id;
+  //     data.serviceId = this.currentService._id;
+  //     await this.serviceDetailService.createAveria(data);
+  //     this.averiaModal.hide();
+  //     this.averiaListLoad();
+  //   } else {
+  //     // actualizar averia.
+  //     await this.serviceDetailService.updateAveria(data);
+  //     this.averiaModal.hide();
+  //     this.attendAveriaModal.hide();
+  //     this.averiaListLoad();
+  //   }
+  // }
+  //
+  // // borrar averia.
+  // async deleteAveriaClick(id: string) {
+  //   if (this.currentRole !== this.roles.ROLE_ADMIN) {
+  //     await Sweetalert2.accessDenied();
+  //   } else {
+  //     Sweetalert2.deleteConfirm().then(result => {
+  //       if (result.isConfirmed) {
+  //         this.serviceDetailService.deleteAveria(id).subscribe(() => {
+  //           this.averiaListLoad();
+  //           Sweetalert2.deleteSuccess();
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
 }
