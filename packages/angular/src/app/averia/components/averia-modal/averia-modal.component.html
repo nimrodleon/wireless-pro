@@ -5,12 +5,13 @@
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body pt-1">
         <form [formGroup]="averiaForm">
-          <div class="pb-3">
-            <textarea class="form-control" formControlName="averia"
-                      placeholder="Describe la averia..."></textarea>
+          <div class="pb-1">
+            <label class="col-form-label-sm text-uppercase">Descripción averia</label>
+            <textarea class="form-control" formControlName="averia"></textarea>
           </div>
+          <label class="col-form-label-sm text-uppercase">Prioridad</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-running"></i></span>
             <select class="form-select" formControlName="priority">

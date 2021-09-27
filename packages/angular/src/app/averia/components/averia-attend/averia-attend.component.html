@@ -5,9 +5,10 @@
         <h5 class="modal-title text-uppercase">Atender Averia</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body pt-1">
         <form [formGroup]="averiaForm">
-          <div class="pb-3">
+          <div class="pb-1">
+            <label class="col-form-label-sm text-uppercase">Origen del problema</label>
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-exclamation-triangle"></i></span>
               <select class="form-select" formControlName="origin">
@@ -16,11 +17,12 @@
               </select>
             </div>
           </div>
-          <div class="pb-3">
-            <textarea class="form-control" formControlName="solution"
-                      placeholder="Que Trabajo se realizó?"></textarea>
+          <div class="pb-1">
+            <label class="col-form-label-sm text-uppercase">Que Trabajo se realizó?</label>
+            <textarea class="form-control" formControlName="solution"></textarea>
           </div>
-          <div class="pb-3">
+          <div class="pb-1">
+            <label class="col-form-label-sm text-uppercase">Técnico responsable</label>
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
               <select class="form-select text-uppercase" formControlName="user">
@@ -28,6 +30,7 @@
               </select>
             </div>
           </div>
+          <label class="col-form-label-sm text-uppercase">Estado averia</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-satellite"></i></span>
             <select class="form-select" formControlName="status">
