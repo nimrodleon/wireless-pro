@@ -5,10 +5,11 @@
         <h5 class="modal-title text-uppercase">{{ title }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body pt-1">
         <form [formGroup]="paymentForm">
           <div class="row">
             <div class="col-6 mb-3">
+              <label class="col-form-label-sm text-uppercase">Mes correspondiente</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                 <select formControlName="month" class="form-select"
@@ -30,6 +31,7 @@
               </div>
             </div>
             <div class="col-6 mb-3">
+              <label class="col-form-label-sm text-uppercase">Año correspondiente</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                 <input type="number" formControlName="year" class="form-control"
@@ -40,6 +42,7 @@
           </div>
           <div class="row">
             <div class="col-6 mb-3">
+              <label class="col-form-label-sm text-uppercase">Monto</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-money-bill"></i></span>
                 <input type="number" formControlName="amount" step="0.01" placeholder="S/ 0.00"
@@ -48,6 +51,7 @@
               </div>
             </div>
             <div class="col-6 mb-3">
+              <label class="col-form-label-sm text-uppercase">Tipo de pago</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="far fa-credit-card"></i></span>
                 <select formControlName="paymentMethod" class="form-select"
@@ -61,6 +65,7 @@
           </div>
           <div class="row">
             <div class="col-6 mb-3">
+              <label class="col-form-label-sm text-uppercase">Fecha desde</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                 <input type="date" formControlName="payFrom" class="form-control"
@@ -69,6 +74,7 @@
               </div>
             </div>
             <div class="col-6 mb-3">
+              <label class="col-form-label-sm text-uppercase">Fecha hasta</label>
               <div class="input-group has-validation">
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                 <input type="date" formControlName="payUp" class="form-control"
@@ -78,6 +84,7 @@
             </div>
           </div>
           <div class="mb-3">
+            <label class="col-form-label-sm text-uppercase">Nota/Observación</label>
             <textarea formControlName="note" class="form-control"></textarea>
           </div>
           <div class="form-check">
