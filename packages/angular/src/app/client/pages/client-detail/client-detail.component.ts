@@ -66,7 +66,7 @@ export class ClientDetailComponent implements OnInit {
   }
 
   // Agregar Servicio Modal.
-  async addServiceModalClick() {
+  public async addServiceModalClick() {
     if (this.currentRole !== this.roles.ROLE_NETWORK) {
       await Sweetalert2.accessDeniedGeneric();
     } else {
@@ -78,7 +78,7 @@ export class ClientDetailComponent implements OnInit {
   }
 
   // borrar cliente actual.
-  async deleteClientClick() {
+  public async deleteClientClick() {
     if (this.currentRole !== this.roles.ROLE_ADMIN) {
       await Sweetalert2.accessDenied();
     } else {
@@ -91,7 +91,7 @@ export class ClientDetailComponent implements OnInit {
   }
 
   // editar servicio modal.
-  async editServiceModalClick(id: string) {
+  public async editServiceModalClick(id: string) {
     if (this.currentRole !== this.roles.ROLE_NETWORK) {
       await Sweetalert2.accessDeniedGeneric();
     } else {
@@ -105,22 +105,22 @@ export class ClientDetailComponent implements OnInit {
   }
 
   // cerrar venta modal servicios.
-  hideServiceModal(value: boolean): void {
-    if (value === true) {
+  public hideServiceModal(value: boolean): void {
+    if (value) {
       this.clientDetailService.getServiceList(this.currentClient._id);
       this.serviceModal.hide();
     }
   }
 
   // abrir modal editar cliente.
-  editClientModalClick(e: any): void {
+  public editClientModalClick(e: any): void {
     e.preventDefault();
     this.titleClient = 'Editar Cliente';
     this.clientModal.show();
   }
 
   // actualizar datos del cliente.
-  updateClient(client: Client): void {
+  public updateClient(client: Client): void {
     this.clientModal.hide();
     this.clientDetailService.updateClient(client);
   }

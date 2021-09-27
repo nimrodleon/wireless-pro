@@ -31,6 +31,11 @@ export class ServiceDetailComponent implements OnInit {
     this.serviceModal = new bootstrap.Modal(document.querySelector('#service-modal'));
   }
 
+  // id del servicio actual.
+  get serviceId() {
+    return this.serviceDetailService.serviceId;
+  }
+
   // servicio actual.
   get currentService() {
     return this.serviceDetailService.currentService;
@@ -59,13 +64,13 @@ export class ServiceDetailComponent implements OnInit {
   // ====================================================================================================
 
   // editar servicio modal.
-  async editServiceModal() {
+  public async editServiceModal() {
     this.roleIsNetwork.subscribe(result => {
       if (!result) {
         Sweetalert2.accessDeniedGeneric();
       } else {
         this.titleService = 'Editar Servicio';
-        this.serviceDetailService.getCurrentService(this.currentService._id)
+        this.serviceDetailService.getCurrentService(this.serviceId)
           .subscribe(() => {
             this.serviceModal.show();
           });
@@ -74,7 +79,7 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // borrar servicio actual.
-  async deleteServiceClick(event: any) {
+  public async deleteServiceClick(event: any) {
     event.preventDefault();
     this.roleIsAdmin.subscribe(result => {
       if (!result) {
@@ -82,7 +87,7 @@ export class ServiceDetailComponent implements OnInit {
       } else {
         Sweetalert2.deleteConfirm().then(result => {
           if (result.isConfirmed) {
-            this.serviceDetailService.deleteService(this.currentService._id);
+            this.serviceDetailService.deleteService(this.serviceId);
           }
         });
       }
@@ -90,9 +95,9 @@ export class ServiceDetailComponent implements OnInit {
   }
 
   // cerrar modal servicios.
-  hideServiceModal(value: boolean): void {
+  public hideServiceModal(value: boolean): void {
     if (value) {
-      this.serviceDetailService.getCurrentService(this.currentService._id)
+      this.serviceDetailService.getCurrentService(this.serviceId)
         .subscribe(() => this.serviceModal.hide());
     }
   }

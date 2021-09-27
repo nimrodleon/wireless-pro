@@ -55,7 +55,7 @@ export class ServiceDetailService {
 
   // servicio actual.
   get currentService(): Service {
-    return {...this._currentService};
+    return this._currentService;
   }
 
   // cliente actual.
@@ -71,7 +71,7 @@ export class ServiceDetailService {
   // ============================================================
 
   // cargar valores por defecto.
-  getCurrentService(serviceId: string | any): Observable<boolean> {
+  public getCurrentService(serviceId: string | any): Observable<boolean> {
     let subject = new Subject<boolean>();
     this.serviceService.getServiceById(serviceId)
       .subscribe(service => {
@@ -90,14 +90,14 @@ export class ServiceDetailService {
   }
 
   // borrar servicio actual.
-  async deleteService(serviceId: string) {
+  public async deleteService(serviceId: string) {
     this.serviceService.deleteService(serviceId).subscribe(() => {
       Sweetalert2.deleteSuccess();
     });
   }
 
   // cambiar estado del servicio.
-  changeStatusService(id: string, status: string): Observable<Service> {
+  public changeStatusService(id: string, status: string): Observable<Service> {
     return this.serviceService.changeStatusService(id, status);
   }
 
