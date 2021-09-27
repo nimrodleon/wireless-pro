@@ -18,7 +18,6 @@ export class PaymentDetailComponent implements OnInit {
   paymentYearInput: FormControl = this.fb.control(moment().format('YYYY'));
   paymentModal: any;
   titlePayment: string = '';
-  currentRole: string = '';
   // Lista de pagos del año actual.
   payments: Array<Payment> = new Array<Payment>();
 
@@ -100,39 +99,38 @@ export class PaymentDetailComponent implements OnInit {
   }
 
   // cerrar modal de pagos.
-  public hidePaymentModal(print: PrintPayment): void {
+  public async hidePaymentModal(print: PrintPayment) {
     if (print.hideModal) {
       this.paymentModal.hide();
     }
     if (!print.printReceipt) {
-      this.serviceDetailService.getCurrentService(this.currentService._id)
+      this.serviceDetailService.getCurrentService(this.serviceId)
         .subscribe(() => this.getPayments());
     } else {
-      this.router.navigate(['/client/ticket', print.paymentId])
-        .then(() => console.info('Imprimir Ticket'));
+      await this.router.navigate(['/client/ticket', print.paymentId]);
     }
   }
 
   // borrar pago de servicio.
-  public async deletePayment() {
+  public deletePayment(): any {
     let chkDel = document.querySelectorAll('#chkDel:checked');
     if (chkDel.length <= 0) {
-      await Swal.fire({
+      return Swal.fire({
         icon: 'error',
         title: 'Seleccione un Pago!',
         showConfirmButton: true,
       });
     }
     if (chkDel.length > 1) {
-      await Swal.fire({
+      return Swal.fire({
         icon: 'info',
         title: 'Seleccione solo un Pago!',
         showConfirmButton: true,
       });
     }
-    this.roleIsAdmin.subscribe(result => {
+    this.roleIsAdmin.subscribe(async (result) => {
       if (!result) {
-        Sweetalert2.accessDenied();
+        await Sweetalert2.accessDenied();
       } else {
         Sweetalert2.deleteConfirm().then(result => {
           if (result.isConfirmed) {
