@@ -3,10 +3,10 @@ import {FormBuilder, FormControl} from '@angular/forms';
 import * as moment from 'moment';
 
 declare var bootstrap: any;
+import {Sweetalert2} from 'src/app/global/interfaces';
 import {ServiceDetailService} from '../../services';
 import {AveriaService} from 'src/app/averia/services/averia.service';
 import {Averia} from 'src/app/averia/interfaces/averia';
-import {Sweetalert2} from 'src/app/global/interfaces';
 
 @Component({
   selector: 'app-averia-detail',
@@ -63,33 +63,31 @@ export class AveriaDetailComponent implements OnInit {
   }
 
   // agregar averia.
-  addAveriaClick(): void {
+  public addAveriaClick(): void {
     this.titleAveria = 'Agregar Averia';
     this.currentAveria = this.averiaService.defaultValues();
     this.averiaModal.show();
   }
 
   // editar averia.
-  editAveriaClick(id: string): void {
+  public editAveriaClick(id: string): void {
     this.titleAveria = 'Editar Averia';
-    this.averiaService.getAveria(id)
-      .subscribe(result => {
-        this.currentAveria = result;
-        this.averiaModal.show();
-      });
+    this.averiaService.getAveria(id).subscribe(result => {
+      this.currentAveria = result;
+      this.averiaModal.show();
+    });
   }
 
   // atender averia.
-  attendAveriaClick(id: string): void {
-    this.averiaService.getAveria(id)
-      .subscribe(result => {
-        this.currentAveria = result;
-        this.attendAveriaModal.show();
-      });
+  public attendAveriaClick(id: string): void {
+    this.averiaService.getAveria(id).subscribe(result => {
+      this.currentAveria = result;
+      this.attendAveriaModal.show();
+    });
   }
 
   // guardar cambios averia.
-  async saveChangeAveria(data: any) {
+  public async saveChangeAveria(data: any) {
     if (data._id === undefined) {
       // registrar averia.
       data.client = this.currentClient._id;
@@ -109,7 +107,7 @@ export class AveriaDetailComponent implements OnInit {
   }
 
   // borrar averia.
-  async deleteAveriaClick(id: string) {
+  public async deleteAveriaClick(id: string) {
     this.roleIsAdmin.subscribe(result => {
       if (!result) {
         Sweetalert2.accessDenied();
