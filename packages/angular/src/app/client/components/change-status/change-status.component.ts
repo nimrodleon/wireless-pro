@@ -82,21 +82,18 @@ export class ChangeStatusComponent implements OnInit {
   }
 
   // cambiar estado del servicio.
-  private changeStatusService(status: string): Observable<any> {
-    return this.serviceDetailService.changeStatusService(this.serviceId, status);
-  }
-
-  // obtener nota de operación.
-  getOperationDescription(id: string) {
-    let remarkStatusChange = {
-      'HST': 'HABILITAR SERVICIO TEMPORAL',
-      'N01': 'ACTIVACIÓN POR REGISTRO DE PAGO',
-      'N02': 'ACTIVACIÓN A SOLICITUD DEL CLIENTE',
-      'N03': 'CORTE POR FALTA DE PAGO',
-      'N04': 'SUSPENSIÓN A SOLICITUD DEL CLIENTE'
-    };
-    // @ts-ignore
-    return remarkStatusChange[id];
+  private changeStatusService(option: string): void {
+    this.bitWorkerService.changeStatusService(this.serviceId, option)
+      .subscribe(async (result) => {
+        if (!result.ok) {
+          await Sweetalert2.errorMessage();
+        } else {
+          this.getWorkerActivityListClick();
+          this.serviceDetailService.getCurrentService(this.serviceId)
+            .subscribe(result => console.log(result));
+          await Sweetalert2.messageSuccess();
+        }
+      });
   }
 
   // Habilitar servicio.
@@ -119,28 +116,7 @@ export class ChangeStatusComponent implements OnInit {
           cancelButtonText: 'Cancelar'
         });
         if (option) {
-          const status = option === 'HST' ? 'HST' : 'HABILITADO';
-          this.changeStatusService(status)
-            .subscribe(() => {
-              this.bitWorkerService.updateService(this.serviceId)
-                .subscribe(async (result) => {
-                  if (!result.ok) {
-                    await Sweetalert2.errorMessage();
-                  } else {
-                    this.bitWorkerService.createWorkerActivity({
-                      serviceId: this.serviceId,
-                      task: 'HABILITAR SERVICIO',
-                      typeOperation: option,
-                      remark: this.getOperationDescription(option)
-                    }).subscribe(() => {
-                      this.getWorkerActivityListClick();
-                    });
-                    this.serviceDetailService.getCurrentService(this.serviceId)
-                      .subscribe(result => console.log(result));
-                    await Sweetalert2.messageSuccess();
-                  }
-                });
-            });
+          this.changeStatusService(option);
         }
       }
     });
@@ -165,27 +141,7 @@ export class ChangeStatusComponent implements OnInit {
           cancelButtonText: 'Cancelar'
         });
         if (option) {
-          this.changeStatusService('SUSPENDIDO')
-            .subscribe(() => {
-              this.bitWorkerService.updateService(this.serviceId)
-                .subscribe(async (result) => {
-                  if (!result.ok) {
-                    await Sweetalert2.errorMessage();
-                  } else {
-                    this.bitWorkerService.createWorkerActivity({
-                      serviceId: this.serviceId,
-                      task: 'SUSPENDER SERVICIO',
-                      typeOperation: option,
-                      remark: this.getOperationDescription(option)
-                    }).subscribe(() => {
-                      this.getWorkerActivityListClick();
-                    });
-                    this.serviceDetailService.getCurrentService(this.serviceId)
-                      .subscribe(result => console.log(result));
-                    await Sweetalert2.messageSuccess();
-                  }
-                });
-            });
+          this.changeStatusService(option);
         }
       }
     });

@@ -3,6 +3,14 @@ import {WorkerStore} from './store'
 
 // Lógica bitWorker.
 export class WorkerController {
+  // Cambiar estado del servicio.
+  static async changeStatusService(serviceId, status) {
+    const URL = process.env.URL_BIT_WORKER
+    const token = process.env.TOKEN_BIT_WORKER
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    return axios.post(`${URL}/api/Service/ChangeStatusService/${serviceId}/${status}`)
+  }
+
   // Cambiar plan de servicio.
   static async changeServicePlan(serviceId, servicePlanId) {
     const URL = process.env.URL_BIT_WORKER

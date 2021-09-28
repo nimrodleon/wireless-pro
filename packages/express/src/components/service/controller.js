@@ -57,17 +57,6 @@ export class ServiceController {
     })
   }
 
-  // cambiar estado del servicio.
-  static changeStatusService(id, status) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(ServiceStore.changeStatusService(id, status))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
   // Lista de servicios temporales.
   static getTemporalServices() {
     return new Promise((resolve, reject) => {
@@ -100,16 +89,5 @@ export class ServiceController {
       }
     })
   }
-
-  // // servicios por campo status.
-  // static getServicesByStatus(status) {
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       resolve(ServiceStore.getServicesByStatus(status))
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
 
 }

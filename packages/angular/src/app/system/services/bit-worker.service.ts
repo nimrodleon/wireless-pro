@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {InterfaceService} from './interface.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +9,12 @@ import {InterfaceService} from './interface.service';
 export class BitWorkerService {
   private baseURL: string = environment.baseUrl + 'bitWorker';
 
-  constructor(
-    private http: HttpClient,
-    private interfaceService: InterfaceService) {
+  constructor(private http: HttpClient) {
+  }
+
+  // cambiar estado del servicio.
+  changeStatusService(serviceId: string, status: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${serviceId}/changeStatusService/${status}`);
   }
 
   // Cambiar plan de servicio.
@@ -45,15 +47,6 @@ export class BitWorkerService {
   // registrar cambios de estado.
   createWorkerActivity(data: any): Observable<any> {
     return this.http.post(`${this.baseURL}/createWorkerActivity`, data);
-  }
-
-  // Obtener nombre de la interfaz mikrotik.
-  getInterfaceNameById(interfaceId: string): Observable<string> {
-    let subject = new Subject<string>();
-    this.interfaceService.getInterfaceById(interfaceId).subscribe(result => {
-      subject.next(result.name);
-    });
-    return subject.asObservable();
   }
 
 }

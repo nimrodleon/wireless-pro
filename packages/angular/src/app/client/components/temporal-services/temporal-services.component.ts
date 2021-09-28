@@ -76,45 +76,27 @@ export class TemporalServicesComponent implements OnInit {
 
   // habilitar servicio.
   private enableService(serviceId: string): void {
-    this.serviceService.changeStatusService(serviceId, 'HABILITADO')
-      .subscribe(() => {
-        this.bitWorkerService.updateService(serviceId).subscribe(async (result) => {
-          if (!result.ok) {
-            await Sweetalert2.errorMessage();
-          } else {
-            this.bitWorkerService.createWorkerActivity({
-              serviceId: serviceId,
-              task: 'HABILITAR SERVICIO',
-              typeOperation: 'OPT1',
-              remark: '-'
-            }).subscribe(() => {
-              this.serviceService.getTemporalServices()
-                .subscribe(result => this.servicesList = result);
-            });
-          }
-        });
+    this.bitWorkerService.changeStatusService(serviceId, 'N01')
+      .subscribe(async (result) => {
+        if (!result.ok) {
+          await Sweetalert2.errorMessage();
+        } else {
+          this.serviceService.getTemporalServices()
+            .subscribe(result => this.servicesList = result);
+        }
       });
   }
 
   // suspender servicio.
   private suspendService(serviceId: string): void {
-    this.serviceService.changeStatusService(serviceId, 'SUSPENDIDO')
-      .subscribe(() => {
-        this.bitWorkerService.updateService(serviceId).subscribe(async (result) => {
-          if (!result.ok) {
-            await Sweetalert2.errorMessage();
-          } else {
-            this.bitWorkerService.createWorkerActivity({
-              serviceId: serviceId,
-              task: 'SUSPENDER SERVICIO',
-              typeOperation: 'OPT2',
-              remark: '-'
-            }).subscribe(() => {
-              this.serviceService.getTemporalServices()
-                .subscribe(result => this.servicesList = result);
-            });
-          }
-        });
+    this.bitWorkerService.changeStatusService(serviceId, 'N03')
+      .subscribe(async (result) => {
+        if (!result.ok) {
+          await Sweetalert2.errorMessage();
+        } else {
+          this.serviceService.getTemporalServices()
+            .subscribe(result => this.servicesList = result);
+        }
       });
   }
 

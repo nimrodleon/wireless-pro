@@ -115,21 +115,6 @@ function deleteService(req, res = response) {
   })
 }
 
-// http://<HOST>/api/services/:id/changeStatusService
-router.put('/:id/changeStatusService', [
-  verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
-  validate
-], changeStatusService)
-
-// cambiar estado del servicio.
-function changeStatusService(req, res = response) {
-  let {status} = req.body
-  ServiceController.changeStatusService(req.params.id, status).then(result => {
-    res.json(result)
-  })
-}
-
 // http://<HOST>/api/services/reporte/getTemporalServices
 router.get('/reporte/getTemporalServices', [verifyToken], getTemporalServices)
 
@@ -174,38 +159,5 @@ function reporteServicioSinRegistroDePago(req, res = response) {
     })
   })
 }
-
-// // http://<HOST>/api/services/reporte/serviciosPorEstado
-// router.get('/reporte/serviciosPorEstado', [verifyToken], reporteServiciosPorEstado)
-//
-// // reporte servicios por estado.
-// async function reporteServiciosPorEstado(req, res = response) {
-//   let workbook = new excel.Workbook()
-//   const servicesHab = await ServiceController.getServicesByStatus('HABILITADO')
-//   let worksheetHab = workbook.addWorksheet('HABILITADOS')
-//   let serviceHeader = [
-//     {header: 'NOMBRES Y APELLIDOS', key: 'fullName', width: 60},
-//     {header: 'DIRECCIÓN IP', key: 'ipAddress', width: 20},
-//   ]
-//   worksheetHab.columns = serviceHeader
-//   let arrDataHab = []
-//   Array.from(servicesHab).forEach(obj => {
-//     arrDataHab.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
-//   })
-//   worksheetHab.addRows(arrDataHab)
-//   const servicesSus = await ServiceController.getServicesByStatus('SUSPENDIDO')
-//   let worksheetSus = workbook.addWorksheet('SUSPENDIDOS')
-//   worksheetSus.columns = serviceHeader
-//   let arrDataSus = []
-//   Array.from(servicesSus).forEach(obj => {
-//     arrDataSus.push({fullName: obj.clientId.fullName, ipAddress: obj.ipAddress})
-//   })
-//   worksheetSus.addRows(arrDataSus)
-//   res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-//   res.setHeader('Content-Disposition', 'attachment; filename=servicios-por-estado.xlsx')
-//   return workbook.xlsx.write(res).then(() => {
-//     res.status(200).end()
-//   })
-// }
 
 export const serviceRouter = router

@@ -31,18 +31,6 @@ export class ServiceStore {
     return this.updateService(id, _service)
   }
 
-  // cambiar estado del servicio.
-  static async changeStatusService(id, status) {
-    let _service = await this.getService(id)
-    _service.status = status
-    _service.temporal = false
-    if (status === 'HST') {
-      _service.status = 'HABILITADO'
-      _service.temporal = true
-    }
-    return this.updateService(id, _service)
-  }
-
   // lista de servicios temporales.
   static async getTemporalServices() {
     return Service.find({temporal: true, isDeleted: false})
@@ -61,11 +49,5 @@ export class ServiceStore {
     return Service.find({status: 'HABILITADO', lastPayment: {$exists: false}, isDeleted: false})
       .populate({path: 'clientId', select: 'fullName'})
   }
-
-  // // servicios por campo status.
-  // static async getServicesByStatus(status) {
-  //   return Service.find({status: status, isDeleted: false})
-  //     .populate({path: 'clientId', select: 'fullName'})
-  // }
 
 }

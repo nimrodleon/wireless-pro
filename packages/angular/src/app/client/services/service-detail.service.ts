@@ -96,9 +96,4 @@ export class ServiceDetailService {
     });
   }
 
-  // cambiar estado del servicio.
-  public changeStatusService(id: string, status: string): Observable<Service> {
-    return this.serviceService.changeStatusService(id, status);
-  }
-
 }

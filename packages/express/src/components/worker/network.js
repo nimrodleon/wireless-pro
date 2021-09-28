@@ -4,6 +4,17 @@ import {WorkerController} from './controller'
 
 const router = express.Router()
 
+// http://<HOST>/api/bitWorker/:id/changeStatusService/:status
+router.get('/:id/changeStatusService/:status', [verifyToken], changeStatusService)
+
+// Cambiar plan de servicio.
+function changeStatusService(req, res = response) {
+  WorkerController.changeStatusService(req.params.id, req.params.status)
+    .then(({data}) => {
+      res.json(data)
+    })
+}
+
 // http://<HOST>/api/bitWorker/:id/changeServicePlan/:servicePlanId
 router.get('/:id/changeServicePlan/:servicePlanId', [verifyToken], changeServicePlan)
 

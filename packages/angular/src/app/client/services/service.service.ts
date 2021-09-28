@@ -33,11 +33,6 @@ export class ServiceService {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
-  // cambiar estado del servicio.
-  changeStatusService(id: string, status: string): Observable<Service> {
-    return this.http.put<Service>(`${this.baseURL}/${id}/changeStatusService`, {status});
-  }
-
   // lista de servicios temporales.
   getTemporalServices(): Observable<any> {
     return this.http.get(`${this.baseURL}/reporte/getTemporalServices`);
@@ -47,11 +42,6 @@ export class ServiceService {
   reporteClientesPorCobrar(date: string, type: string): Observable<any> {
     return this.http.get(`${this.baseURL}/reporte/clientesPorCobrar/${date}/${type}`);
   }
-
-  // reporte servicios por estado.
-  // reporteServiciosPorEstado(): Observable<Blob> {
-  //   return this.http.get(`${this.baseURL}/reporte/serviciosPorEstado`, {responseType: 'blob'});
-  // }
 
   // reporte servicios sin registro de pago.
   reporteServicioSinRegistroDePago(): Observable<Blob> {
