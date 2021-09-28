@@ -200,7 +200,7 @@ export class ChangeStatusComponent implements OnInit {
       } else {
         this.getServicePlan()
           .subscribe(async (result) => {
-            const {value: option} = await Swal.fire({
+            const {value: tarifa} = await Swal.fire({
               title: 'PLANES DE SERVICIO',
               input: 'select',
               inputOptions: {...result},
@@ -208,31 +208,16 @@ export class ChangeStatusComponent implements OnInit {
               showCancelButton: true,
               cancelButtonText: 'Cancelar'
             });
-            if (option) {
-              this.bitWorkerService.changeServicePlan(this.serviceId, option)
-                .subscribe(result => {
-                  if (result.ok) {
-                    this.bitWorkerService.updateService(this.serviceId)
-                      .subscribe(async (result) => {
-                        if (!result.ok) {
-                          await Sweetalert2.errorMessage();
-                        } else {
-                          this.servicePlanService.getServicePlan(option)
-                            .subscribe(result => {
-                              this.bitWorkerService.createWorkerActivity({
-                                serviceId: this.serviceId,
-                                task: 'CAMBIAR PLAN DE SERVICIO',
-                                typeOperation: '-',
-                                remark: result.name,
-                              }).subscribe(() => {
-                                this.getWorkerActivityListClick();
-                              });
-                            });
-                          this.serviceDetailService.getCurrentService(this.serviceId)
-                            .subscribe(result => console.log(result));
-                          await Sweetalert2.messageSuccess();
-                        }
-                      });
+            if (tarifa) {
+              this.bitWorkerService.changeServicePlan(this.serviceId, tarifa)
+                .subscribe(async (result) => {
+                  if (!result.ok) {
+                    await Sweetalert2.errorMessage();
+                  } else {
+                    this.getWorkerActivityListClick();
+                    this.serviceDetailService.getCurrentService(this.serviceId)
+                      .subscribe(result => console.info(result));
+                    await Sweetalert2.messageSuccess();
                   }
                 });
             }
