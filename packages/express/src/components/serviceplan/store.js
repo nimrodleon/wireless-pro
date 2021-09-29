@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import {ServicePlan} from './model'
 import {ServiceStore} from '../service/store'
+import {Service} from '../service/model'
 
 // CRUD - Tarifa de internet.
 export class ServicePlanStore {
@@ -44,6 +45,11 @@ export class ServicePlanStore {
       idArrServicePlan.push(value.servicePlan)
     })
     return ServicePlan.find({_id: {$in: idArrServicePlan}})
+  }
+
+  // total servicios del plan de servicio.
+  static async totalStatusServices(id, status) {
+    return Service.find({servicePlanId: id, status: status, isDeleted: false}).countDocuments()
   }
 
 }

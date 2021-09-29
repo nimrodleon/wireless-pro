@@ -67,4 +67,29 @@ export class ServicePlanController {
       }
     })
   }
+
+  // ============================================================
+
+  // total servicios activos.
+  static totalEnabledServices(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServicePlanStore.totalStatusServices(id, 'HABILITADO'))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  // total servicios suspendidos.
+  static totalSuspendedServices(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServicePlanStore.totalStatusServices(id, 'SUSPENDIDO'))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
 }

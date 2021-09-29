@@ -101,4 +101,20 @@ function getActiveServicePlan(req, res = response) {
   })
 }
 
+// ============================================================
+
+// http://<HOST>/api/service-plans/:id/totalStatusServices
+router.get('/:id/totalStatusServices', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], totalStatusServices)
+
+// total planes de servicio.
+async function totalStatusServices(req, res = response) {
+  const enabled = await ServicePlanController.totalEnabledServices(req.params.id)
+  const suspended = await ServicePlanController.totalSuspendedServices(req.params.id)
+  res.json({enabled, suspended})
+}
+
 export const servicePlanRouter = router
