@@ -59,6 +59,30 @@ export class MikrotikController {
 
   // ============================================================
 
+  // total servicios activos.
+  static totalEnabledServices(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(MikrotikStore.totalStatusServices(id, 'HABILITADO'))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  // total servicios suspendidos.
+  static totalSuspendedServices(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(MikrotikStore.totalStatusServices(id, 'SUSPENDIDO'))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  // ============================================================
+
   // Lista de interfaces.
   static getInterfaceList(id) {
     return new Promise((resolve, reject) => {

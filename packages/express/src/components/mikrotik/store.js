@@ -1,4 +1,5 @@
 import {Interface, Mikrotik} from './model'
+import {Service} from '../service/model'
 
 // CRUD - Mikrotik.
 export class MikrotikStore {
@@ -29,6 +30,13 @@ export class MikrotikStore {
     let _mikrotik = await this.getMikrotikById(id)
     _mikrotik.isDeleted = true
     return this.updateMikrotik(id, _mikrotik)
+  }
+
+  // ============================================================
+
+  // total servicios de mikrotik.
+  static async totalStatusServices(id, status) {
+    return Service.find({mikrotikId: id, status: status, isDeleted: false}).countDocuments()
   }
 
   // ============================================================

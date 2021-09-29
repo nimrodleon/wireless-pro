@@ -79,6 +79,22 @@ function deleteMikrotik(req, res = response) {
 
 // ============================================================
 
+// http://<HOST>/api/mikrotik/:id/totalStatusServices
+router.get('/:id/totalStatusServices', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], totalStatusServices)
+
+// total servicios mikrotik.
+async function totalStatusServices(req, res = response) {
+  const enabled = await MikrotikController.totalEnabledServices(req.params.id)
+  const suspended = await MikrotikController.totalSuspendedServices(req.params.id)
+  res.json({enabled, suspended})
+}
+
+// ============================================================
+
 // http://<HOST>/api/mikrotik/:id/interface
 router.get('/:id/interface', [verifyToken], getInterfaceList)
 
