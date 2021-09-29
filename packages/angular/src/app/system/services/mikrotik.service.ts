@@ -39,6 +39,11 @@ export class MikrotikService {
     return this.http.delete<Mikrotik>(`${this.baseURL}/${id}`);
   }
 
+  // total servicios habilitados/suspendidos del mikrotik.
+  totalStatusServices(id: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${id}/totalStatusServices`);
+  }
+
   // valores por defecto.
   defaultValues(): Mikrotik {
     return {

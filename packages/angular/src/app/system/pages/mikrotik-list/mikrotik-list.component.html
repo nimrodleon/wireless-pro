@@ -27,9 +27,7 @@
               (click)="loadCurrentMikrotik(item._id)">
               <td>{{item.name}}</td>
               <td>
-                <span class="badge bg-success">200</span>
-                <span class="mx-1">/</span>
-                <span class="badge bg-secondary">10</span>
+                <app-mikrotik-badge [mikrotik]="item"></app-mikrotik-badge>
               </td>
             </tr>
             </tbody>

@@ -3,8 +3,8 @@ import {Router} from '@angular/router';
 
 declare var bootstrap: any;
 import {MikrotikService} from '../../services';
-import {Mikrotik} from '../../interfaces';
 import {AuthService} from 'src/app/user/services';
+import {Mikrotik} from '../../interfaces';
 
 @Component({
   selector: 'app-mikrotik-list',
@@ -82,7 +82,7 @@ export class MikrotikListComponent implements OnInit {
 
   // Cerrar modal mikrotik form.
   hideMikrotik(value: boolean): void {
-    if (value === true) {
+    if (value) {
       this.getMikrotikList();
       this.mikrotikModal.hide();
     }
