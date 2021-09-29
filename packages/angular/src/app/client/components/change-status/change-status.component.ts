@@ -196,14 +196,7 @@ export class ChangeStatusComponent implements OnInit {
                 if (!result.ok) {
                   await Sweetalert2.errorMessage();
                 } else {
-                  this.bitWorkerService.createWorkerActivity({
-                    serviceId: this.serviceId,
-                    task: 'REGISTRAR SERVICIO',
-                    typeOperation: '-',
-                    remark: '-'
-                  }).subscribe(() => {
-                    this.getWorkerActivityListClick();
-                  });
+                  this.getWorkerActivityListClick();
                   await Sweetalert2.messageSuccess();
                 }
               });
@@ -227,14 +220,7 @@ export class ChangeStatusComponent implements OnInit {
                 if (!result.ok) {
                   await Sweetalert2.errorMessage();
                 } else {
-                  this.bitWorkerService.createWorkerActivity({
-                    serviceId: this.serviceId,
-                    task: 'ACTUALIZAR SERVICIO',
-                    typeOperation: '-',
-                    remark: '-'
-                  }).subscribe(() => {
-                    this.getWorkerActivityListClick();
-                  });
+                  this.getWorkerActivityListClick();
                   await Sweetalert2.messageSuccess();
                 }
               });
@@ -258,14 +244,7 @@ export class ChangeStatusComponent implements OnInit {
                 if (!result.ok) {
                   await Sweetalert2.errorMessage();
                 } else {
-                  this.bitWorkerService.createWorkerActivity({
-                    serviceId: this.serviceId,
-                    task: 'BORRAR SERVICIO',
-                    typeOperation: '-',
-                    remark: '-'
-                  }).subscribe(() => {
-                    this.getWorkerActivityListClick();
-                  });
+                  this.getWorkerActivityListClick();
                   await Sweetalert2.deleteSuccess();
                 }
               });

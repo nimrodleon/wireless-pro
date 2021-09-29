@@ -71,21 +71,15 @@
     <tr class="text-uppercase">
       <th>Tarea Realizada</th>
       <th>Fecha</th>
-      <th>Responsable</th>
-      <th>Nota</th>
+      <th>Observación</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of workerActivityList">
       <td>{{item.task}}</td>
       <td>{{item.createdAt|date}}</td>
-      <td>{{item.user}}</td>
       <td>{{item.remark}}</td>
     </tr>
     </tbody>
   </table>
 </div>
-
-<hr>
-<h4>workerActivity</h4>
-<pre>{{workerActivityList|json}}</pre>
