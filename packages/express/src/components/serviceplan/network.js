@@ -117,4 +117,18 @@ async function totalStatusServices(req, res = response) {
   res.json({enabled, suspended})
 }
 
+// http://<HOST>/api/service-plans/:id/getServicesList
+router.get('/:id/getServicesList', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], getServicesList)
+
+// total servicios por tarifa.
+async function getServicesList(req, res = response) {
+  ServicePlanController.getServicesList(req.params.id).then(result => {
+    res.json(result)
+  })
+}
+
 export const servicePlanRouter = router

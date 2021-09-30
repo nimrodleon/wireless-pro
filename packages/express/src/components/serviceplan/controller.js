@@ -92,4 +92,15 @@ export class ServicePlanController {
     })
   }
 
+  // total servicios por tarifa.
+  static getServicesList(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(ServicePlanStore.getServicesList(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
 }

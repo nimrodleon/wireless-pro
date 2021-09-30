@@ -52,4 +52,9 @@ export class ServicePlanStore {
     return Service.find({servicePlanId: id, status: status, isDeleted: false}).countDocuments()
   }
 
+  // Lista de servicios por tarifa.
+  static async getServicesList(id) {
+    return Service.find({servicePlanId: id, status: {$in: ['HABILITADO', 'SUSPENDIDO']}, isDeleted: false})
+  }
+
 }
