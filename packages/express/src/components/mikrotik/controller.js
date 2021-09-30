@@ -81,6 +81,17 @@ export class MikrotikController {
     })
   }
 
+  // lista de servicios por mikrotik.
+  static getServicesList(id) {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(MikrotikStore.getServicesList(id))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   // ============================================================
 
   // Lista de interfaces.

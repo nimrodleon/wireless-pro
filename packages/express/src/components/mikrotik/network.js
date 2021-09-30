@@ -93,6 +93,20 @@ async function totalStatusServices(req, res = response) {
   res.json({enabled, suspended})
 }
 
+// http://<HOST>/api/mikrotik/:id/getServicesList
+router.get('/:id/getServicesList', [
+  verifyToken,
+  check('id', 'No es un ID válido').isMongoId(),
+  validate
+], getServicesList)
+
+// total servicios mikrotik.
+async function getServicesList(req, res = response) {
+  MikrotikController.getServicesList(req.params.id).then(result => {
+    res.json(result)
+  })
+}
+
 // ============================================================
 
 // http://<HOST>/api/mikrotik/:id/interface

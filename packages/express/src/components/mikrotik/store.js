@@ -39,6 +39,11 @@ export class MikrotikStore {
     return Service.find({mikrotikId: id, status: status, isDeleted: false}).countDocuments()
   }
 
+  // Lista de servicios por mikrotik.
+  static async getServicesList(id) {
+    return Service.find({mikrotikId: id, status: {$in: ['HABILITADO', 'SUSPENDIDO']}, isDeleted: false})
+  }
+
   // ============================================================
 
   // lista de interfaces.
