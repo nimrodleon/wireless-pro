@@ -14,7 +14,6 @@ import {Mikrotik} from '../../interfaces';
 export class MikrotikListComponent implements OnInit {
   mikrotikModal: any;
   currentMikrotik: Mikrotik;
-  mikrotikFormData: Mikrotik;
   mikrotikList: Array<Mikrotik> = new Array<Mikrotik>();
   editMode: boolean = false;
   title: string = '';
@@ -24,7 +23,6 @@ export class MikrotikListComponent implements OnInit {
     private authService: AuthService,
     private mikrotikService: MikrotikService) {
     this.currentMikrotik = this.mikrotikService.defaultValues();
-    this.mikrotikFormData = this.mikrotikService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -50,34 +48,25 @@ export class MikrotikListComponent implements OnInit {
     this.mikrotikService.getMikrotikList()
       .subscribe(result => {
         this.mikrotikList = result;
-        // cargar primer elemento de la lista.
-        if (result.length > 0) {
-          this.loadCurrentMikrotik(result[0]._id);
-        }
       });
-  }
-
-  // cargar mikrotik actual.
-  loadCurrentMikrotik(id: string): void {
-    this.mikrotikService.getMikrotikById(id).subscribe(result => {
-      this.currentMikrotik = result;
-    });
   }
 
   // Agregar Mikrotik.
   addMikrotikClick(): void {
     this.editMode = false;
     this.title = 'Agregar Mikrotik';
-    this.mikrotikFormData = this.mikrotikService.defaultValues();
+    this.currentMikrotik = this.mikrotikService.defaultValues();
     this.mikrotikModal.show();
   }
 
   // Editar mikrotik.
-  editMikrotik(): void {
+  editMikrotik(id: string): void {
     this.editMode = true;
     this.title = 'Editar Mikrotik';
-    this.mikrotikFormData = this.currentMikrotik;
-    this.mikrotikModal.show();
+    this.mikrotikService.getMikrotikById(id).subscribe(result => {
+      this.currentMikrotik = result;
+      this.mikrotikModal.show();
+    });
   }
 
   // Cerrar modal mikrotik form.
