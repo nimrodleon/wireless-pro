@@ -3,9 +3,9 @@ import {Component, OnInit} from '@angular/core';
 declare var jQuery: any;
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
-import {AuthService} from 'src/app/user/services/auth.service';
 import {ServicePlan} from '../../interfaces';
-import {ServicePlanService} from '../../services';
+import {MkMigrateService, ServicePlanService} from '../../services';
+import {Sweetalert2} from '../../../global/interfaces';
 
 @Component({
   selector: 'app-service-plan',
@@ -14,18 +14,14 @@ import {ServicePlanService} from '../../services';
 })
 export class ServicePlanComponent implements OnInit {
   servicePlanList: Array<ServicePlan> = new Array<ServicePlan>();
-  servicePlan: ServicePlan = {
-    _id: undefined,
-    name: '',
-    priceMonthly: 0,
-    downloadSpeed: '',
-    uploadSpeed: '',
-  };
+  servicePlan: ServicePlan;
   titleModal: string = '';
   query: string = '';
 
-  constructor(private servicePlanService: ServicePlanService,
-              private authService: AuthService) {
+  constructor(
+    private mkMigrateService: MkMigrateService,
+    private servicePlanService: ServicePlanService,) {
+    this.servicePlan = this.servicePlanService.defaultValues();
   }
 
   ngOnInit(): void {
@@ -39,13 +35,7 @@ export class ServicePlanComponent implements OnInit {
 
   addServicePlan(): void {
     this.titleModal = 'Agregar Plan de Servicio';
-    this.servicePlan = {
-      _id: undefined,
-      name: '',
-      priceMonthly: 0,
-      downloadSpeed: '',
-      uploadSpeed: '',
-    };
+    this.servicePlan = this.servicePlanService.defaultValues();
     jQuery('#app-service-plan-modal').modal('show');
   }
 
@@ -56,17 +46,6 @@ export class ServicePlanComponent implements OnInit {
       jQuery('#app-service-plan-modal').modal('show');
     });
   }
-
-  // // Ordenar servicePlanList.
-  // private orderName: string = 'asc';
-
-  // onOrderName(event: any): void {
-  //   event.preventDefault();
-  //   this.orderName = this.orderName == 'asc' ? 'desc' : 'asc';
-  //   // @ts-ignore
-  //   let objTmp = _.orderBy(this.servicePlanList, ['name'], [this.orderName]);
-  //   this.servicePlanList = objTmp;
-  // }
 
   setServicePlan(servicePlan: ServicePlan): void {
     if (servicePlan._id === undefined) {
@@ -112,5 +91,15 @@ export class ServicePlanComponent implements OnInit {
   onSearch(): void {
     this.getServicePlanList();
   }
+
+  // migrar servicios del mikrotik.
+  servicesMigrate(id: string): void {
+    Sweetalert2.messageConfirm().then(result => {
+      if (result.isConfirmed) {
+        this.mkMigrateService.servicePlanMigrate(id);
+      }
+    });
+  }
+
 
 }
