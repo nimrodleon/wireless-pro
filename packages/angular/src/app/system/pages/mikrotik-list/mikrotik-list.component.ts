@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 declare var bootstrap: any;
-import {MikrotikService} from '../../services';
 import {AuthService} from 'src/app/user/services';
+import {MikrotikService, MkMigrateService} from '../../services';
 import {Mikrotik} from '../../interfaces';
+import {Sweetalert2} from '../../../global/interfaces';
 
 @Component({
   selector: 'app-mikrotik-list',
@@ -21,6 +22,7 @@ export class MikrotikListComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private mkMigrateService: MkMigrateService,
     private mikrotikService: MikrotikService) {
     this.currentMikrotik = this.mikrotikService.defaultValues();
   }
@@ -37,6 +39,11 @@ export class MikrotikListComponent implements OnInit {
     });
     this.getMikrotikList();
   }
+
+  // // lista de servicios.
+  // get servicesList() {
+  //   return this.mkMigrateService.servicesList;
+  // }
 
   // Lista de permisos.
   get roles() {
@@ -75,6 +82,15 @@ export class MikrotikListComponent implements OnInit {
       this.getMikrotikList();
       this.mikrotikModal.hide();
     }
+  }
+
+  // migrar servicios del mikrotik.
+  servicesMigrate(id: string): void {
+    Sweetalert2.messageConfirm().then(result => {
+      if (result.isConfirmed) {
+        this.mkMigrateService.mikrotikMigrate(id);
+      }
+    })
   }
 
 }

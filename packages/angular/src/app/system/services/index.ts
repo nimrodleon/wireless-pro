@@ -7,3 +7,4 @@ export * from './tramo.service';
 export * from './mikrotik.service';
 export * from './interface.service';
 export * from './bit-worker.service';
+export * from './mk-migrate.service';
