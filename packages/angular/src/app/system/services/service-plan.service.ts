@@ -2,6 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
+import {Service} from '../../client/interfaces';
 import {ServicePlan} from '../interfaces';
 
 @Injectable({
@@ -44,13 +45,10 @@ export class ServicePlanService {
     return this.http.get(`${this.baseURL}/${id}/totalStatusServices`);
   }
 
-  // countServices(id: string): Observable<any> {
-  //   return this.http.get(this.baseURL + '/' + id + '/count/services');
-  // }
-  //
-  // totalClients(): Observable<any> {
-  //   return this.http.get(this.baseURL + '/report/total');
-  // }
+  // lista de servicios del mikrotik.
+  getServicesList(id: string): Observable<Service[]> {
+    return this.http.get<Service[]>(`${this.baseURL}/${id}/getServicesList`);
+  }
 
   // Valores por defecto.
   defaultValues(): ServicePlan {
