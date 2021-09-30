@@ -22,6 +22,7 @@ import {TramoModalComponent} from './components/tramo-modal/tramo-modal.componen
 import {MikrotikListComponent} from './pages/mikrotik-list/mikrotik-list.component';
 import {MikrotikFormComponent} from './components/mikrotik-form/mikrotik-form.component';
 import {MikrotikBadgeComponent} from './components/mikrotik-badge/mikrotik-badge.component';
+import {ServicePlanBadgeComponent} from './components/service-plan-badge/service-plan-badge.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MikrotikBadgeComponent} from './components/mikrotik-badge/mikrotik-badge
     TramoModalComponent,
     MikrotikListComponent,
     MikrotikFormComponent,
-    MikrotikBadgeComponent
+    MikrotikBadgeComponent,
+    ServicePlanBadgeComponent
   ],
   imports: [
     CommonModule,

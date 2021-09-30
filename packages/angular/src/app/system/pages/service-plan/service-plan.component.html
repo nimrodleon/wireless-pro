@@ -40,6 +40,7 @@
                   </a>
                 </div>
               </th>
+              <th>Total</th>
               <th>Precio</th>
               <th>Descarga</th>
               <th>Subida</th>
@@ -49,6 +50,9 @@
             <tbody>
             <tr *ngFor="let service of servicePlanList">
               <td>{{ service.name }}</td>
+              <td>
+                <app-service-plan-badge [servicePlan]="service"></app-service-plan-badge>
+              </td>
               <td>{{ service.priceMonthly }}</td>
               <td>{{ service.downloadSpeed }}</td>
               <td>{{ service.uploadSpeed }}</td>

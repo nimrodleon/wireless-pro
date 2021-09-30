@@ -39,13 +39,18 @@ export class ServicePlanService {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
-  countServices(id: string): Observable<any> {
-    return this.http.get(this.baseURL + '/' + id + '/count/services');
+  // total servicios habilitados/suspendidos del mikrotik.
+  totalStatusServices(id: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${id}/totalStatusServices`);
   }
 
-  totalClients(): Observable<any> {
-    return this.http.get(this.baseURL + '/report/total');
-  }
+  // countServices(id: string): Observable<any> {
+  //   return this.http.get(this.baseURL + '/' + id + '/count/services');
+  // }
+  //
+  // totalClients(): Observable<any> {
+  //   return this.http.get(this.baseURL + '/report/total');
+  // }
 
   // Valores por defecto.
   defaultValues(): ServicePlan {
