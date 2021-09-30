@@ -32,14 +32,9 @@
           <table class="table table-striped">
             <thead>
             <tr class="text-uppercase">
-              <th>
-                <div class="d-flex justify-content-between">
-                  <span>Nombre</span>
-                  <a href="#" (click)="onOrderName($event)">
-                    <i class="fas fa-sort"></i>
-                  </a>
-                </div>
-              </th>
+              <th>Nombre</th>
+              <th>Clientes</th>
+              <th>Mikrotik</th>
               <th>Total</th>
               <th>Precio</th>
               <th>Descarga</th>
@@ -50,6 +45,16 @@
             <tbody>
             <tr *ngFor="let service of servicePlanList">
               <td>{{ service.name }}</td>
+              <td>
+                <button class="btn btn-info btn-sm">
+                  <span class="text-uppercase">Descargar</span>
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm">
+                  <span class="text-uppercase">Actualizar</span>
+                </button>
+              </td>
               <td>
                 <app-service-plan-badge [servicePlan]="service"></app-service-plan-badge>
               </td>

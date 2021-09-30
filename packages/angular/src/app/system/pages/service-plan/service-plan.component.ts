@@ -57,16 +57,16 @@ export class ServicePlanComponent implements OnInit {
     });
   }
 
-  // Ordenar servicePlanList.
-  private orderName: string = 'asc';
+  // // Ordenar servicePlanList.
+  // private orderName: string = 'asc';
 
-  onOrderName(event: any): void {
-    event.preventDefault();
-    this.orderName = this.orderName == 'asc' ? 'desc' : 'asc';
-    // @ts-ignore
-    let objTmp = _.orderBy(this.servicePlanList, ['name'], [this.orderName]);
-    this.servicePlanList = objTmp;
-  }
+  // onOrderName(event: any): void {
+  //   event.preventDefault();
+  //   this.orderName = this.orderName == 'asc' ? 'desc' : 'asc';
+  //   // @ts-ignore
+  //   let objTmp = _.orderBy(this.servicePlanList, ['name'], [this.orderName]);
+  //   this.servicePlanList = objTmp;
+  // }
 
   setServicePlan(servicePlan: ServicePlan): void {
     if (servicePlan._id === undefined) {

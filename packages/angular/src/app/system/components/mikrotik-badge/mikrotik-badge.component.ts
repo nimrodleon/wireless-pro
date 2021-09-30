@@ -9,8 +9,8 @@ import {MikrotikService} from '../../services';
 export class MikrotikBadgeComponent implements OnInit {
   @Input()
   mikrotik: Mikrotik;
-  enabled: string = '';
-  suspended: string = '';
+  enabled: string = '0';
+  suspended: string = '0';
 
   constructor(private mikrotikService: MikrotikService) {
     this.mikrotik = this.mikrotikService.defaultValues();

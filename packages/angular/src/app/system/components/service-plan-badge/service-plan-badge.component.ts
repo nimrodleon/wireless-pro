@@ -9,8 +9,8 @@ import {ServicePlan} from '../../interfaces';
 export class ServicePlanBadgeComponent implements OnInit {
   @Input()
   servicePlan: ServicePlan;
-  enabled: string = '';
-  suspended: string = '';
+  enabled: string = '0';
+  suspended: string = '0';
 
   constructor(private servicePlanService: ServicePlanService) {
     this.servicePlan = this.servicePlanService.defaultValues();
