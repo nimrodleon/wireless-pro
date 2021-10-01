@@ -7,15 +7,25 @@ import {ServicePlanService} from './service-plan.service';
   providedIn: 'root'
 })
 export class MkMigrateService {
+  private _servicesLength: number = -1;
+
   constructor(
     private mikrotikService: MikrotikService,
     private servicePlanService: ServicePlanService,
     private bitWorkerService: BitWorkerService) {
   }
 
+  // tamaño del array servicios.
+  get servicesLength(): number {
+    return this._servicesLength;
+  }
+
   // migrar servicios del mikrotik.
-  public mikrotikMigrate(id: string): void {
+  public mikrotikMigrate(id: string, modal: any): void {
+    this._servicesLength = -1;
     this.mikrotikService.getServicesList(id).subscribe(result => {
+      modal.show();
+      console.log('iniciando actualización');
       const services = Array.from(result);
       const timer = setInterval(async () => {
         if (services.length > 0) {
@@ -23,44 +33,52 @@ export class MkMigrateService {
           this.bitWorkerService.addService(currentService._id)
             .subscribe(result => {
               if (result.ok) {
-                console.log(`migración exitosa #${services.length}`);
+                this._servicesLength = services.length;
+                console.log(`migración #${services.length} exitosa`);
               } else {
-                console.log(`migración errónea #${services.length}`);
+                this._servicesLength = services.length;
+                console.log(`migración #${services.length} errónea`);
               }
             });
         }
         if (services.length === 0) {
           console.log('migración completada!');
+          modal.hide();
           clearInterval(timer);
         }
         services.shift();
-      }, 4000);
+      }, 5000);
     });
   }
 
   // migrar servicios por tarifa.
-  public servicePlanMigrate(id: string): void {
+  public servicePlanMigrate(id: string, modal: any): void {
+    this._servicesLength = -1;
     this.servicePlanService.getServicesList(id).subscribe(result => {
-      const services = Array.from(result);
+      modal.show();
       console.log('iniciando actualización');
+      const services = Array.from(result);
       const timer = setInterval(async () => {
         if (services.length > 0) {
           const currentService = services[0];
           this.bitWorkerService.changeServicePlan(currentService._id, id)
             .subscribe(result => {
               if (result.ok) {
-                console.log(`actualización exitosa #${services.length}`);
+                this._servicesLength = services.length;
+                console.log(`actualización #${services.length} exitosa`);
               } else {
-                console.log(`actualización errónea #${services.length}`);
+                this._servicesLength = services.length;
+                console.log(`actualización #${services.length} errónea`);
               }
             });
         }
         if (services.length === 0) {
           console.log('actualización completada!');
+          modal.hide();
           clearInterval(timer);
         }
         services.shift();
-      }, 4000);
+      }, 10000);
     });
   }
 

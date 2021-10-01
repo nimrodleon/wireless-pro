@@ -14,6 +14,7 @@ import {Sweetalert2} from '../../../global/interfaces';
 })
 export class MikrotikListComponent implements OnInit {
   mikrotikModal: any;
+  staticBackdrop: any;
   currentMikrotik: Mikrotik;
   mikrotikList: Array<Mikrotik> = new Array<Mikrotik>();
   editMode: boolean = false;
@@ -29,8 +30,8 @@ export class MikrotikListComponent implements OnInit {
 
   ngOnInit(): void {
     // Establecer modal mikrotik form.
-    this.mikrotikModal = new bootstrap.Modal(
-      document.querySelector('#mikrotik-form'));
+    this.mikrotikModal = new bootstrap.Modal(document.querySelector('#mikrotik-form'));
+    this.staticBackdrop = new bootstrap.Modal(document.querySelector('#staticBackdrop'));
     // obtener rol del usuario autentificado.
     this.authService.getRoles().subscribe(async (result: any) => {
       if (result !== this.roles.ROLE_ADMIN) {
@@ -40,10 +41,10 @@ export class MikrotikListComponent implements OnInit {
     this.getMikrotikList();
   }
 
-  // // lista de servicios.
-  // get servicesList() {
-  //   return this.mkMigrateService.servicesList;
-  // }
+  // tamaño de servicios.
+  get servicesLength() {
+    return this.mkMigrateService.servicesLength;
+  }
 
   // Lista de permisos.
   get roles() {
@@ -88,9 +89,9 @@ export class MikrotikListComponent implements OnInit {
   servicesMigrate(id: string): void {
     Sweetalert2.messageConfirm().then(result => {
       if (result.isConfirmed) {
-        this.mkMigrateService.mikrotikMigrate(id);
+        this.mkMigrateService.mikrotikMigrate(id, this.staticBackdrop);
       }
-    })
+    });
   }
 
 }

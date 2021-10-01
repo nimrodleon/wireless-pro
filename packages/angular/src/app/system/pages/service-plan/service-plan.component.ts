@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 declare var jQuery: any;
+declare var bootstrap: any;
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import {ServicePlan} from '../../interfaces';
@@ -13,6 +14,7 @@ import {Sweetalert2} from '../../../global/interfaces';
   styleUrls: ['./service-plan.component.scss']
 })
 export class ServicePlanComponent implements OnInit {
+  staticBackdrop: any;
   servicePlanList: Array<ServicePlan> = new Array<ServicePlan>();
   servicePlan: ServicePlan;
   titleModal: string = '';
@@ -26,6 +28,13 @@ export class ServicePlanComponent implements OnInit {
 
   ngOnInit(): void {
     this.getServicePlanList();
+    // Establecer modal con bootstrap.
+    this.staticBackdrop = new bootstrap.Modal(document.querySelector('#staticBackdrop'));
+  }
+
+  // tamaño de servicios.
+  get servicesLength() {
+    return this.mkMigrateService.servicesLength;
   }
 
   private getServicePlanList(): void {
@@ -96,10 +105,9 @@ export class ServicePlanComponent implements OnInit {
   servicesMigrate(id: string): void {
     Sweetalert2.messageConfirm().then(result => {
       if (result.isConfirmed) {
-        this.mkMigrateService.servicePlanMigrate(id);
+        this.mkMigrateService.servicePlanMigrate(id, this.staticBackdrop);
       }
     });
   }
-
 
 }

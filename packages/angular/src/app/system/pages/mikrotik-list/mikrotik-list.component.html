@@ -62,3 +62,31 @@
     <!-- ##(End) Content -->
   </div>
 </div>
+
+<!-- ## MODAL -->
+<div class="modal fade" id="staticBackdrop"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <ng-container *ngIf="servicesLength >= 0 else loading">
+          <div class="d-flex justify-content-center">
+            <span class="text-primary fw-bold">El modal se cerrara automáticamente!</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="spinner-grow spinner-grow-sm text-success" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <span class="fw-bold ms-2">Migración #{{servicesLength}}</span>
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <div class="d-flex justify-content-center align-items-center">
+            <strong>Cargando...</strong>
+            <div class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
