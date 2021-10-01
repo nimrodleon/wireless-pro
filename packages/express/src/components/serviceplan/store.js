@@ -54,7 +54,12 @@ export class ServicePlanStore {
 
   // Lista de servicios por tarifa.
   static async getServicesList(id) {
-    return Service.find({servicePlanId: id, status: {$in: ['HABILITADO', 'SUSPENDIDO']}, isDeleted: false})
+    return Service.find({
+      servicePlanId: id, status: {$in: ['HABILITADO', 'SUSPENDIDO']},
+      mikrotikId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
+      ipAddress: {$exists: true}, macAddress: {$exists: true}, paymentType: {$exists: true},
+      arpId: {$exists: true}, simpleQueueId: {$exists: true}, isDeleted: false
+    })
   }
 
 }

@@ -34,7 +34,7 @@ export class MkMigrateService {
           clearInterval(timer);
         }
         services.shift();
-      }, 5000);
+      }, 4000);
     });
   }
 
@@ -42,6 +42,7 @@ export class MkMigrateService {
   public servicePlanMigrate(id: string): void {
     this.servicePlanService.getServicesList(id).subscribe(result => {
       const services = Array.from(result);
+      console.log('iniciando actualización');
       const timer = setInterval(async () => {
         if (services.length > 0) {
           const currentService = services[0];
@@ -59,7 +60,7 @@ export class MkMigrateService {
           clearInterval(timer);
         }
         services.shift();
-      }, 5000);
+      }, 4000);
     });
   }
 
