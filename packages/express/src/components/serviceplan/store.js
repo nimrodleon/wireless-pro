@@ -49,7 +49,12 @@ export class ServicePlanStore {
 
   // total servicios del plan de servicio.
   static async totalStatusServices(id, status) {
-    return Service.find({servicePlanId: id, status: status, isDeleted: false}).countDocuments()
+    return Service.find({
+      servicePlanId: id, status: status, isDeleted: false,
+      mikrotikId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
+      ipAddress: {$exists: true}, macAddress: {$exists: true}, paymentType: {$exists: true},
+      arpId: {$exists: true}, simpleQueueId: {$exists: true},
+    }).countDocuments()
   }
 
   // Lista de servicios por tarifa.

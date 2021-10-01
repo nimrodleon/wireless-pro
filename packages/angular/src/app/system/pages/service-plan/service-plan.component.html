@@ -33,7 +33,6 @@
             <thead>
             <tr class="text-uppercase">
               <th>Nombre</th>
-              <th>Clientes</th>
               <th>Mikrotik</th>
               <th>Total</th>
               <th>Precio</th>
@@ -45,11 +44,6 @@
             <tbody>
             <tr *ngFor="let service of servicePlanList">
               <td>{{ service.name }}</td>
-              <td>
-                <button class="btn btn-info btn-sm">
-                  <span class="text-uppercase">Descargar</span>
-                </button>
-              </td>
               <td>
                 <button (click)="servicesMigrate(service._id)" class="btn btn-primary btn-sm">
                   <span class="text-uppercase">Actualizar</span>
