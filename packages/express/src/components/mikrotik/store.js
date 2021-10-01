@@ -36,12 +36,20 @@ export class MikrotikStore {
 
   // total servicios de mikrotik.
   static async totalStatusServices(id, status) {
-    return Service.find({mikrotikId: id, status: status, isDeleted: false}).countDocuments()
+    return Service.find({
+      mikrotikId: id, status: status, isDeleted: false,
+      servicePlanId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
+      ipAddress: {$exists: true}, macAddress: {$exists: true}, paymentType: {$exists: true},
+    }).countDocuments()
   }
 
   // Lista de servicios por mikrotik.
   static async getServicesList(id) {
-    return Service.find({mikrotikId: id, status: {$in: ['HABILITADO', 'SUSPENDIDO']}, isDeleted: false})
+    return Service.find({
+      mikrotikId: id, status: {$in: ['HABILITADO', 'SUSPENDIDO']}, isDeleted: false,
+      servicePlanId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
+      ipAddress: {$exists: true}, macAddress: {$exists: true}, paymentType: {$exists: true},
+    })
   }
 
   // ============================================================
