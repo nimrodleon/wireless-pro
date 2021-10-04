@@ -54,7 +54,9 @@ export class PaymentModalComponent implements OnInit {
         // siempre que estado del servicio sea habilitado,
         // calcular automáticamente la fecha de pago a realizar.
         // @ts-ignore
-        if (this.currentService['lastPayment']) {
+        if (!this.currentService['lastPayment']) {
+          this.paymentForm.reset(this.payment);
+        } else {
           // @ts-ignore
           if (this.currentService['lastPayment'].length > 0) {
             // @ts-ignore
