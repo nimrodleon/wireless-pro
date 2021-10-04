@@ -87,7 +87,12 @@ export class ServiceDetailComponent implements OnInit {
       } else {
         Sweetalert2.deleteConfirm().then(result => {
           if (result.isConfirmed) {
-            this.serviceDetailService.deleteService(this.serviceId);
+            this.serviceDetailService.deleteService(this.serviceId)
+              .subscribe(result => {
+                if (result) {
+                  this.router.navigate(['/client/detail', this.currentService.clientId]);
+                }
+              });
           }
         });
       }

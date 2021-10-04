@@ -90,10 +90,12 @@ export class ServiceDetailService {
   }
 
   // borrar servicio actual.
-  public async deleteService(serviceId: string) {
+  public deleteService(serviceId: string): Observable<boolean> {
+    let subject = new Subject<boolean>();
     this.serviceService.deleteService(serviceId).subscribe(() => {
-      Sweetalert2.deleteSuccess();
+      subject.next(true);
     });
+    return subject.asObservable();
   }
 
 }
