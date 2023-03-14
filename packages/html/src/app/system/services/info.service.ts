@@ -1,0 +1,37 @@
+import {HttpClient} from '@html/common/http';
+import {Injectable} from '@html/core';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Info} from '../interfaces';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class InfoService {
+  private baseURL: string = environment.baseUrl + 'info';
+
+  constructor(private http: HttpClient) {
+  }
+
+  getInfo(): Observable<Info> {
+    return this.http.get<Info>(this.baseURL);
+  }
+
+  update(info: Info): Observable<Info> {
+    return this.http.patch<Info>(`${this.baseURL}/${info._id}`, info);
+  }
+
+  // Valores por defecto.
+  defaultValues(): Info {
+    return {
+      _id: undefined,
+      ruc: '',
+      company: '',
+      fullAddress: '',
+      phone: '',
+      legendTicket: '',
+      paperWidth: 0,
+      googleMap: ''
+    };
+  }
+}

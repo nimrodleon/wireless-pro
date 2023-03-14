@@ -1,0 +1,94 @@
+import {Injectable} from '@html/core';
+import {HttpClient, HttpParams} from '@html/common/http';
+import {FormBuilder, FormGroup} from '@html/forms';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Averia} from '../interfaces/averia';
+import {ClientService} from '../../client/services';
+import {Client} from '../../client/interfaces';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AveriaService {
+  private baseURL: string = environment.baseUrl + 'averias';
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private clientService: ClientService) {
+  }
+
+  getAverias(search: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('search', search);
+    return this.http.get(this.baseURL, {params: params});
+  }
+
+  // Lista de averias.
+  getAveria(id: string): Observable<any> {
+    return this.http.get(this.baseURL + '/' + id);
+  }
+
+  // Lista de averias por servicio.
+  getAveriasByServiceId(serviceId: string, year: string): Observable<Averia[]> {
+    return this.http.get<Averia[]>(`${this.baseURL}/${serviceId}/${year}/service`);
+  }
+
+  // registrar averia.
+  create(averia: Averia): Observable<Averia> {
+    return this.http.post<Averia>(this.baseURL, averia);
+  }
+
+  // actualizar averia.
+  update(averia: Averia): Observable<Averia> {
+    return this.http.patch<Averia>(this.baseURL + '/' + averia._id, averia);
+  }
+
+  // borrar averia.
+  delete(id: string): Observable<any> {
+    return this.http.delete(this.baseURL + '/' + id);
+  }
+
+  // obtener cliente por id.
+  getClientById(clientId: string): Observable<Client> {
+    return this.clientService.getClientById(clientId);
+  }
+
+  // averia form group.
+  formGroup(): FormGroup {
+    return this.fb.group({
+      _id: [null],
+      averia: [''],
+      client: [''],
+      serviceId: [''],
+      user: [''],
+      status: [''],
+      priority: [''],
+      archived: [false],
+      origin: [''],
+      solution: [''],
+      year: [null],
+      createdAt: [null],
+    });
+  }
+
+  // Valor por defecto.
+  defaultValues(): Averia {
+    return {
+      _id: undefined,
+      averia: '',
+      client: '',
+      serviceId: '',
+      user: '',
+      status: '',
+      priority: '',
+      archived: false,
+      origin: '',
+      solution: '',
+      year: '',
+      createdAt: '',
+    };
+  }
+
+}
