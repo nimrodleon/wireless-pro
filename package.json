@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/api",
+    "packages/html"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
