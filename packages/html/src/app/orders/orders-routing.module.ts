@@ -1,5 +1,5 @@
-import {NgModule} from '@html/core';
-import {Routes, RouterModule} from '@html/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {WorkOrdersComponent} from './pages/work-orders/work-orders.component';
 import {WorkFormComponent} from './pages/work-form/work-form.component';
 import {WorkDetailComponent} from './pages/work-detail/work-detail.component';

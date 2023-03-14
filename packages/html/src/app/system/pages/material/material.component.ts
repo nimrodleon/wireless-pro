@@ -1,15 +1,13 @@
-import {Component, OnInit} from '@html/core';
-
-declare var jQuery: any;
+import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
 import {Material} from '../../interfaces';
 import {MaterialService} from '../../services';
 import {AuthService} from '../../../user/services';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-material',
-  templateUrl: './material.component.html',
-  styleUrls: ['./material.component.scss']
+  templateUrl: './material.component.html'
 })
 export class MaterialComponent implements OnInit {
   titleModal: string = '';

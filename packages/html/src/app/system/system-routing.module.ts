@@ -1,5 +1,5 @@
-import {NgModule} from '@html/core';
-import {Routes, RouterModule} from '@html/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {SystemListComponent} from './pages/system-list/system-list.component';
 import {GeneralComponent} from './pages/general/general.component';
 import {ServicePlanComponent} from './pages/service-plan/service-plan.component';

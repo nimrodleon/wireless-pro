@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormGroup, Validators} from '@html/forms';
-import {ActivatedRoute, Router} from '@html/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
-
-declare var jQuery: any;
-declare var bootstrap: any;
 import {environment} from 'src/environments/environment';
 import {WorkOrderService} from '../../services';
 import {ServicePlan} from 'src/app/system/interfaces';
 import {Client} from 'src/app/client/interfaces';
 import {WorkOrder} from '../../interfaces';
+
+declare var jQuery: any;
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-work-form',

@@ -1,16 +1,15 @@
-import {Component, EventEmitter, OnInit, Output} from '@html/core';
-import {FormBuilder, FormControl, Validators} from '@html/forms';
-
-declare var jQuery: any;
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {environment} from 'src/environments/environment';
 import {MaterialService} from 'src/app/system/services';
 import {WorkOrderDetailService, OrderMaterialService} from '../../services';
 import {OrderMaterial} from '../../interfaces';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-add-material',
-  templateUrl: './add-material.component.html',
-  styleUrls: ['./add-material.component.scss']
+  templateUrl: './add-material.component.html'
 })
 export class AddMaterialComponent implements OnInit {
   private baseURL = environment.baseUrl + 'material';

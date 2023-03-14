@@ -1,8 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
-import {FormBuilder, FormGroup, Validators} from '@html/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
-
-declare var jQuery: any;
 import {ServiceService} from '../../services';
 import {Service} from '../../interfaces';
 import {environment} from 'src/environments/environment';
@@ -10,6 +8,8 @@ import {CoverageService, InterfaceService, MikrotikService, ServicePlanService} 
 import {Coverage, Interface, Mikrotik, ServicePlan} from 'src/app/system/interfaces';
 import {DeviceService} from 'src/app/devices/services';
 import {Sweetalert2} from 'src/app/global/interfaces';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-service-modal',

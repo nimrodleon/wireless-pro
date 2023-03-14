@@ -1,6 +1,6 @@
-import {Injectable} from '@html/core';
-import {HttpClient} from '@html/common/http';
-import {Router} from '@html/router';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 import {Observable, Subject} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Roles} from '../interfaces';

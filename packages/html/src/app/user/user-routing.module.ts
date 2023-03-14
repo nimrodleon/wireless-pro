@@ -1,5 +1,5 @@
-import {NgModule} from '@html/core';
-import {Routes, RouterModule} from '@html/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {UserListComponent} from './pages/user-list/user-list.component';
 

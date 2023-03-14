@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormGroup, Validators} from '@html/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
-
-declare var bootstrap: any;
 import {User} from '../../interfaces';
 import {UserService} from '../../services';
+
+declare var bootstrap: any;
 
 interface UserModel {
   fullName: string;
@@ -13,8 +13,7 @@ interface UserModel {
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
   currentUser: User;

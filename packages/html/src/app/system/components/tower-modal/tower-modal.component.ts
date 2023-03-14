@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@html/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Coverage} from 'src/app/system/interfaces/coverage';
 import {CoverageService} from 'src/app/system/services/coverage.service';
 import {Tower} from '../../interfaces';
@@ -8,8 +8,7 @@ declare var jQuery: any;
 
 @Component({
   selector: 'app-tower-modal',
-  templateUrl: './tower-modal.component.html',
-  styleUrls: ['./tower-modal.component.scss']
+  templateUrl: './tower-modal.component.html'
 })
 export class TowerModalComponent implements OnInit {
   @Input() title: string = '';

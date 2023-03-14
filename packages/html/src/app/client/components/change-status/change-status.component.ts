@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormControl} from '@html/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
@@ -10,8 +10,7 @@ import {AuthService} from 'src/app/user/services';
 
 @Component({
   selector: 'app-change-status',
-  templateUrl: './change-status.component.html',
-  styleUrls: ['./change-status.component.scss']
+  templateUrl: './change-status.component.html'
 })
 export class ChangeStatusComponent implements OnInit {
   workerActivityList: Array<any> = new Array<any>();

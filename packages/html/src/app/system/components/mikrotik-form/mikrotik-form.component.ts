@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
-
-declare var bootstrap: any;
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {InterfaceService, MikrotikService} from '../../services';
 import {Interface} from '../../interfaces';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-mikrotik-form',
-  templateUrl: './mikrotik-form.component.html',
-  styleUrls: ['./mikrotik-form.component.scss']
+  templateUrl: './mikrotik-form.component.html'
 })
 export class MikrotikFormComponent implements OnInit {
   @Input()

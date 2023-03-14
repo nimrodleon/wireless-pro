@@ -1,15 +1,13 @@
-import {Component, OnInit} from '@html/core';
+import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
-
-declare var bootstrap: any;
 import {User} from '../../interfaces';
 import {UserService} from '../../services';
 import {Sweetalert2} from 'src/app/global/interfaces';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  templateUrl: './user-list.component.html'
 })
 export class UserListComponent implements OnInit {
   users: Array<User> = new Array<User>();

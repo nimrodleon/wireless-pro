@@ -1,5 +1,5 @@
-import {Injectable} from '@html/core';
-import {Router} from '@html/router';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {Client, Service} from '../interfaces';

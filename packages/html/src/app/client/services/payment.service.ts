@@ -1,6 +1,6 @@
-import {HttpClient} from '@html/common/http';
-import {FormBuilder, FormGroup, Validators} from '@html/forms';
-import {Injectable} from '@html/core';
+import {HttpClient} from '@angular/common/http';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Payment} from '../interfaces';

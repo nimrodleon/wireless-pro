@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormControl} from '@html/forms';
-import {Router} from '@html/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Sweetalert2} from 'src/app/global/interfaces';
+import {Payment, PrintPayment} from '../../interfaces';
+import {PaymentService, ServiceDetailService} from '../../services';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
-import {Sweetalert2} from 'src/app/global/interfaces';
-import {Payment, PrintPayment} from '../../interfaces';
-import {PaymentService, ServiceDetailService} from '../../services';
 
 @Component({
   selector: 'app-payment-detail',

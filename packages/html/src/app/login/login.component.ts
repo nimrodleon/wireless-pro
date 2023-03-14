@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@html/core';
-import {Router} from '@html/router';
-
-import Swal from 'sweetalert2';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthService} from '../user/services';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',

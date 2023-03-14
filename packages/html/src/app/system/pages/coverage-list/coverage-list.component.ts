@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@html/core';
-
-declare var jQuery: any;
+import {Component, OnInit} from '@angular/core';
 import * as _ from 'lodash';
 import {AuthService} from 'src/app/user/services/auth.service';
 import Swal from 'sweetalert2';
 import {Coverage} from '../../interfaces';
 import {CoverageService} from '../../services';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-coverage-list',

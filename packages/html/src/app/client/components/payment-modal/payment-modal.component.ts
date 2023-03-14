@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
-import {FormBuilder, FormControl, FormGroup} from '@html/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import * as moment from 'moment';
 import {Payment, PrintPayment, Service} from '../../interfaces';
 import {PaymentService, ServiceService} from '../../services';
@@ -8,8 +8,7 @@ import {ServicePlanService} from 'src/app/system/services';
 
 @Component({
   selector: 'app-payment-modal',
-  templateUrl: './payment-modal.component.html',
-  styleUrls: ['./payment-modal.component.scss']
+  templateUrl: './payment-modal.component.html'
 })
 export class PaymentModalComponent implements OnInit {
   @Input()

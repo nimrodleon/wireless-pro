@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@html/core';
-
-declare var jQuery: any;
+import {Component, OnInit} from '@angular/core';
 import {Device} from '../../interfaces';
 import {DeviceListService, DeviceService} from '../../services';
 import {environment} from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-device-modal',
-  templateUrl: './device-modal.component.html',
-  styleUrls: ['./device-modal.component.scss']
+  templateUrl: './device-modal.component.html'
 })
 export class DeviceModalComponent implements OnInit {
   // title: string;

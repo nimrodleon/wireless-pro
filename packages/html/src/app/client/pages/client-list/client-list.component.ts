@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormControl} from '@html/forms';
-import {Router} from '@html/router';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-
-declare var bootstrap: any;
 import {Client} from '../../interfaces';
 import {ClientService, ServiceService} from '../../services';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-client-list',
-  templateUrl: './client-list.component.html',
-  styleUrls: ['./client-list.component.scss']
+  templateUrl: './client-list.component.html'
 })
 export class ClientListComponent implements OnInit {
   clientList: Array<Client> = new Array<Client>();

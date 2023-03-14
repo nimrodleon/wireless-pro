@@ -1,5 +1,5 @@
-import {Injectable} from '@html/core';
-import {HttpClient} from '@html/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {DeviceTramoService} from './device-tramo.service';
 import {DeviceService} from './device.service';

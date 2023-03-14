@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormGroup} from '@html/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import {WorkOrderService} from '../../services';
@@ -13,8 +13,7 @@ interface IQueryForm {
 
 @Component({
   selector: 'app-work-report',
-  templateUrl: './work-report.component.html',
-  styleUrls: ['./work-report.component.scss']
+  templateUrl: './work-report.component.html'
 })
 export class WorkReportComponent implements OnInit {
   workOrders: Array<any> = new Array<any>();

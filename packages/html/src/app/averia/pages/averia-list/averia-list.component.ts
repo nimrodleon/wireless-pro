@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormControl} from '@html/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import Swal from 'sweetalert2';
-
-declare var bootstrap: any;
 import {AuthService} from 'src/app/user/services';
 import {AveriaService} from '../../services/averia.service';
 import {Averia} from '../../interfaces/averia';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-averia-list',

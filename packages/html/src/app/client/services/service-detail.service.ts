@@ -1,6 +1,5 @@
-import {Injectable} from '@html/core';
+import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {Sweetalert2} from 'src/app/global/interfaces';
 import {Client, Service} from '../interfaces';
 import {ServicePlan} from '../../system/interfaces';
 import {ServiceService} from './service.service';

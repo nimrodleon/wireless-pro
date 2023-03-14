@@ -1,13 +1,12 @@
-import {Component, OnInit, EventEmitter, Input, Output} from '@html/core';
-// Local Imports.
-declare var jQuery: any;
+import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 import {Material} from '../../interfaces';
 import {MaterialService} from '../../services';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-material-modal',
-  templateUrl: './material-modal.component.html',
-  styleUrls: ['./material-modal.component.scss']
+  templateUrl: './material-modal.component.html'
 })
 export class MaterialModalComponent implements OnInit {
   @Input()

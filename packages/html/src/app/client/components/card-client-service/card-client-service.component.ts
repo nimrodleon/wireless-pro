@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import * as ClipboardJS from 'clipboard';
 import Swal from 'sweetalert2';
 import {DeviceService} from 'src/app/devices/services';

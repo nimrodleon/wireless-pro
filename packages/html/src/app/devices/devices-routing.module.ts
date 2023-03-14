@@ -1,5 +1,5 @@
-import {NgModule} from '@html/core';
-import {Routes, RouterModule} from '@html/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {DevicesListComponent} from './pages/devices-list/devices-list.component';
 
 const routes: Routes = [

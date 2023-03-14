@@ -1,15 +1,13 @@
-import {Component, OnInit} from '@html/core';
+import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
-
-declare var jQuery: any;
 import {AuthService} from 'src/app/user/services';
 import {TramoService} from '../../services';
 import {Tramo} from '../../interfaces';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-tramo-list',
-  templateUrl: './tramo-list.component.html',
-  styleUrls: ['./tramo-list.component.scss']
+  templateUrl: './tramo-list.component.html'
 })
 export class TramoListComponent implements OnInit {
   tramos: Array<any>;

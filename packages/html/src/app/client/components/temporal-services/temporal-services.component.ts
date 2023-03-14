@@ -1,5 +1,5 @@
-import {Component, OnInit, EventEmitter, Output} from '@html/core';
-import {Router} from '@html/router';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {BitWorkerService, ServicePlanService} from 'src/app/system/services';
 import {ClientService, ServiceService} from '../../services';
@@ -8,8 +8,7 @@ import {AuthService} from 'src/app/user/services';
 
 @Component({
   selector: 'app-temporal-services',
-  templateUrl: './temporal-services.component.html',
-  styleUrls: ['./temporal-services.component.scss']
+  templateUrl: './temporal-services.component.html'
 })
 export class TemporalServicesComponent implements OnInit {
   servicesList: any;

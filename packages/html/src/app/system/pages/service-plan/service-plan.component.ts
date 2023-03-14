@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@html/core';
-
-declare var jQuery: any;
-declare var bootstrap: any;
+import {Component, OnInit} from '@angular/core';
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
 import {ServicePlan} from '../../interfaces';
 import {MkMigrateService, ServicePlanService} from '../../services';
 import {Sweetalert2} from '../../../global/interfaces';
 
+declare var jQuery: any;
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-service-plan',
-  templateUrl: './service-plan.component.html',
-  styleUrls: ['./service-plan.component.scss']
+  templateUrl: './service-plan.component.html'
 })
 export class ServicePlanComponent implements OnInit {
   staticBackdrop: any;

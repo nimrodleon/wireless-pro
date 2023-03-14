@@ -1,4 +1,4 @@
-import {Injectable} from '@html/core';
+import {Injectable} from '@angular/core';
 import {WorkOrderService} from './work-order.service';
 import {OrderMaterialService} from './order-material.service';
 import {WorkOrder, OrderMaterial} from '../interfaces';

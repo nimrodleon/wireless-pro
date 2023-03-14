@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
-
-declare var jQuery: any;
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ServicePlan} from '../../interfaces';
 import {ServicePlanService} from '../../services';
+
+declare var jQuery: any;
 
 @Component({
   selector: 'app-service-plan-modal',

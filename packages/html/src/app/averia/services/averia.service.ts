@@ -1,6 +1,6 @@
-import {Injectable} from '@html/core';
-import {HttpClient, HttpParams} from '@html/common/http';
-import {FormBuilder, FormGroup} from '@html/forms';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Averia} from '../interfaces/averia';

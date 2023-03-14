@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
-
-declare var jQuery: any;
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Coverage} from '../../interfaces';
 import {CoverageService} from '../../services';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-coverage-modal',
-  templateUrl: './coverage-modal.component.html',
-  styleUrls: ['./coverage-modal.component.scss']
+  templateUrl: './coverage-modal.component.html'
 })
 export class CoverageModalComponent implements OnInit {
   @Input()

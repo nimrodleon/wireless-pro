@@ -1,4 +1,4 @@
-import {Injectable} from '@html/core';
+import {Injectable} from '@angular/core';
 import {BitWorkerService} from './bit-worker.service';
 import {MikrotikService} from './mikrotik.service';
 import {ServicePlanService} from './service-plan.service';

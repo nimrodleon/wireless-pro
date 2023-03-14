@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@html/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Mikrotik} from '../../interfaces';
 import {MikrotikService} from '../../services';
 

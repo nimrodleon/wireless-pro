@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@html/core';
-import {ActivatedRoute, Router} from '@html/router';
-
-declare var bootstrap: any;
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {WorkOrderDetailService, OrderMaterialService} from '../../services';
 import {OrderMaterial} from '../../interfaces';
 import {Service} from 'src/app/client/interfaces';
@@ -9,10 +7,11 @@ import {ServiceService} from 'src/app/client/services';
 import {AuthService} from '../../../user/services';
 import {Sweetalert2} from '../../../global/interfaces';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-work-detail',
-  templateUrl: './work-detail.component.html',
-  styleUrls: ['./work-detail.component.scss']
+  templateUrl: './work-detail.component.html'
 })
 export class WorkDetailComponent implements OnInit {
   userModal: any;

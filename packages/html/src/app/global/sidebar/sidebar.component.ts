@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@html/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',

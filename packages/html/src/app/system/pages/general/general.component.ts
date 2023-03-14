@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@html/core';
+import {Component, OnInit} from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
 import {Info} from '../../interfaces';
@@ -6,8 +6,7 @@ import {InfoService} from '../../services';
 
 @Component({
   selector: 'app-general',
-  templateUrl: './general.component.html',
-  styleUrls: ['./general.component.css']
+  templateUrl: './general.component.html'
 })
 export class GeneralComponent implements OnInit {
   info: Info;

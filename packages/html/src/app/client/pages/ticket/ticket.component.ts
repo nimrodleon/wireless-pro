@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@html/core';
-import {Router, ActivatedRoute} from '@html/router';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Client, Payment} from '../../interfaces';
 import {ClientService, PaymentService, ServiceService} from '../../services';
 import {ServicePlan, Info} from '../../../system/interfaces';

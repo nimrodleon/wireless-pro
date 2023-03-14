@@ -1,7 +1,7 @@
-import {BrowserModule} from '@html/platform-browser';
-import {NgModule} from '@html/core';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@html/common/http';
-import {FormsModule} from '@html/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 import {GlobalModule} from './global/global.module';
 import {AveriaModule} from './averia/averia.module';
 import {DevicesModule} from './devices/devices.module';

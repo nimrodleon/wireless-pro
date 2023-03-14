@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormControl} from '@html/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {WorkOrderService} from '../../services';
 import {AuthService} from 'src/app/user/services';
 
 @Component({
   selector: 'app-work-orders',
-  templateUrl: './work-orders.component.html',
-  styleUrls: ['./work-orders.component.scss']
+  templateUrl: './work-orders.component.html'
 })
 export class WorkOrdersComponent implements OnInit {
   workOrders: Array<any> = new Array<any>();

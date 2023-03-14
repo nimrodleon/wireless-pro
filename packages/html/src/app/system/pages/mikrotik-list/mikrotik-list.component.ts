@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@html/core';
-import {Router} from '@html/router';
-
-declare var bootstrap: any;
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthService} from 'src/app/user/services';
 import {MikrotikService, MkMigrateService} from '../../services';
 import {Mikrotik} from '../../interfaces';
 import {Sweetalert2} from '../../../global/interfaces';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-mikrotik-list',

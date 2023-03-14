@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@html/core';
-
-declare var jQuery: any;
+import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
 import {Tower} from '../../interfaces';
 import {TowerService} from '../../services';
 import {AuthService} from '../../../user/services';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-tower-list',
-  templateUrl: './tower-list.component.html',
-  styleUrls: ['./tower-list.component.scss']
+  templateUrl: './tower-list.component.html'
 })
 export class TowerListComponent implements OnInit {
   titleModal: string = '';

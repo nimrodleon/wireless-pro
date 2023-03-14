@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormControl} from '@html/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import * as moment from 'moment';
 import {PaymentService} from '../../services';
 
 @Component({
   selector: 'app-payment-daily',
-  templateUrl: './payment-daily.component.html',
-  styleUrls: ['./payment-daily.component.scss']
+  templateUrl: './payment-daily.component.html'
 })
 export class PaymentDailyComponent implements OnInit {
   paymentList: Array<any> = new Array<any>();

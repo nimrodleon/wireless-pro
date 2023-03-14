@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
-import {FormBuilder, FormGroup, Validators} from '@html/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Client} from '../../interfaces';
 import {ClientService} from '../../services';
 
 @Component({
   selector: 'app-client-form-modal',
-  templateUrl: './client-form-modal.component.html',
-  styleUrls: ['./client-form-modal.component.scss']
+  templateUrl: './client-form-modal.component.html'
 })
 export class ClientFormModalComponent implements OnInit {
   @Input()

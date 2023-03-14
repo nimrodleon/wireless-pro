@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@html/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from 'src/app/user/services';
 
 @Component({
   selector: 'app-system-list',
-  templateUrl: './system-list.component.html',
-  styleUrls: ['./system-list.component.scss']
+  templateUrl: './system-list.component.html'
 })
 export class SystemListComponent implements OnInit {
   currentRole: string = '';

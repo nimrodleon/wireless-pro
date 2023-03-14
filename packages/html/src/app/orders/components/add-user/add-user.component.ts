@@ -1,13 +1,12 @@
-import {Component, OnInit, Output, EventEmitter} from '@html/core';
-import {FormBuilder, FormControl} from '@html/forms';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import {UserService} from 'src/app/user/services';
 import {WorkOrderDetailService} from '../../services';
 import {Select2} from 'src/app/global/interfaces';
 
 @Component({
   selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss']
+  templateUrl: './add-user.component.html'
 })
 export class AddUserComponent implements OnInit {
   userList: Select2 = {results: []};

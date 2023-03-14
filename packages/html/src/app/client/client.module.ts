@@ -1,6 +1,6 @@
-import {NgModule} from '@html/core';
-import {CommonModule} from '@html/common';
-import {FormsModule, ReactiveFormsModule} from '@html/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ClientRoutingModule} from './client-routing.module';
 import {GlobalModule} from '../global/global.module';
 import {AveriaModule} from '../averia/averia.module';
@@ -27,7 +27,7 @@ import {ServiceModalComponent} from './components/service-modal/service-modal.co
 import {TemporalServicesComponent} from './components/temporal-services/temporal-services.component';
 import {ChangeStatusComponent} from './components/change-status/change-status.component';
 import {AveriaDetailComponent} from './components/averia-detail/averia-detail.component';
-import { PaymentDetailComponent } from './components/payment-detail/payment-detail.component';
+import {PaymentDetailComponent} from './components/payment-detail/payment-detail.component';
 
 @NgModule({
   declarations: [

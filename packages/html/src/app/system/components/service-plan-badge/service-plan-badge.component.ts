@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@html/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ServicePlanService} from '../../services';
 import {ServicePlan} from '../../interfaces';
 

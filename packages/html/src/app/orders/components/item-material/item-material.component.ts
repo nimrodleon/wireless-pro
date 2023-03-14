@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
-import {FormBuilder, FormGroup, Validators} from '@html/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OrderMaterial} from '../../interfaces';
 import {OrderMaterialService} from '../../services';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-item-material',
-  templateUrl: './item-material.component.html',
-  styleUrls: ['./item-material.component.scss']
+  templateUrl: './item-material.component.html'
 })
 export class ItemMaterialComponent implements OnInit {
   @Input()

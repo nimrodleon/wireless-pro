@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder} from '@html/forms';
-import {ActivatedRoute, Router} from '@html/router';
-
-declare var bootstrap: any;
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {ServiceDetailService} from '../../services';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-service-detail',
-  templateUrl: './service-detail.component.html',
-  styleUrls: ['./service-detail.component.scss']
+  templateUrl: './service-detail.component.html'
 })
 export class ServiceDetailComponent implements OnInit {
   titleService: string = '';

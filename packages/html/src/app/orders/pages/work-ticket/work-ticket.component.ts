@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@html/core';
-import {ActivatedRoute} from '@html/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {InfoService, ServicePlanService} from 'src/app/system/services';
 import {WorkOrderService} from '../../services';
 import {Info, ServicePlan} from 'src/app/system/interfaces';

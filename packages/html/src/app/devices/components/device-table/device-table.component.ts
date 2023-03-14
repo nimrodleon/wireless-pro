@@ -1,14 +1,12 @@
-import {Component, OnInit} from '@html/core';
-
-declare var jQuery: any;
+import {Component, OnInit} from '@angular/core';
 import * as ClipboardJS from 'clipboard';
 import {DeviceListService} from '../../services';
 import Swal from 'sweetalert2';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-device-table',
-  templateUrl: './device-table.component.html',
-  styleUrls: ['./device-table.component.scss']
+  templateUrl: './device-table.component.html'
 })
 export class DeviceTableComponent implements OnInit {
 

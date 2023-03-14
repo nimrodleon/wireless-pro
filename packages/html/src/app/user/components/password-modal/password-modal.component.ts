@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@html/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@html/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {UserService} from '../../services';
 
@@ -10,8 +10,7 @@ interface PasswordModel {
 
 @Component({
   selector: 'app-password-modal',
-  templateUrl: './password-modal.component.html',
-  styleUrls: ['./password-modal.component.scss']
+  templateUrl: './password-modal.component.html'
 })
 export class PasswordModalComponent implements OnInit {
   @Input()

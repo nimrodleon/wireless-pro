@@ -1,7 +1,6 @@
-import {NgModule} from '@html/core';
-import {CommonModule} from '@html/common';
-import {ReactiveFormsModule} from '@html/forms';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ReactiveFormsModule} from '@angular/forms';
 import {OrdersRoutingModule} from './orders-routing.module';
 import {GlobalModule} from '../global/global.module';
 import {ClientModule} from '../client/client.module';

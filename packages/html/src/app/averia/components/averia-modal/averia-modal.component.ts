@@ -1,12 +1,11 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@html/core';
-import {FormGroup} from '@html/forms';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {Averia} from '../../interfaces/averia';
 import {AveriaService} from '../../services/averia.service';
 
 @Component({
   selector: 'app-averia-modal',
-  templateUrl: './averia-modal.component.html',
-  styleUrls: ['./averia-modal.component.scss']
+  templateUrl: './averia-modal.component.html'
 })
 export class AveriaModalComponent implements OnInit {
   @Input()

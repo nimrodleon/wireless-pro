@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@html/core';
-import {FormBuilder, FormControl} from '@html/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
 import * as moment from 'moment';
 import {ServiceService} from '../../services';
 
 @Component({
   selector: 'app-receivable',
-  templateUrl: './receivable.component.html',
-  styleUrls: ['./receivable.component.scss']
+  templateUrl: './receivable.component.html'
 })
 export class ReceivableComponent implements OnInit {
   serviceList: Array<any> = new Array<any>();

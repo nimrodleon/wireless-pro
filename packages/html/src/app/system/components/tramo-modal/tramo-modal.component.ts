@@ -1,15 +1,14 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@html/core';
-
-declare var jQuery: any;
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Tramo} from '../../interfaces';
 import {Coverage} from 'src/app/system/interfaces/coverage';
 import {CoverageService} from 'src/app/system/services/coverage.service';
 import {TramoService} from '../../services';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-tramo-modal',
-  templateUrl: './tramo-modal.component.html',
-  styleUrls: ['./tramo-modal.component.scss']
+  templateUrl: './tramo-modal.component.html'
 })
 export class TramoModalComponent implements OnInit {
   @Input()

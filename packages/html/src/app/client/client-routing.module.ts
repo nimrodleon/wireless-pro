@@ -1,5 +1,5 @@
-import {NgModule} from '@html/core';
-import {Routes, RouterModule} from '@html/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {ClientDetailComponent} from './pages/client-detail/client-detail.component';
 import {ClientListComponent} from './pages/client-list/client-list.component';
 import {ServiceDetailComponent} from './pages/service-detail/service-detail.component';
