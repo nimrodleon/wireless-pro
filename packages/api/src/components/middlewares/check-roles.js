@@ -1,4 +1,4 @@
-import {response} from 'api'
+import {response} from 'express'
 
 // Verificar si el Rol del usuario es Admin.
 // este Rol solo puede Eliminar registros y crear nuevos usuarios.

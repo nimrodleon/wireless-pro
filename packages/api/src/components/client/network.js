@@ -1,6 +1,6 @@
-import express, {response} from 'api'
+import express, {response} from 'express'
 // import excel from 'exceljs'
-import {check} from 'api-validator'
+import {check} from 'express-validator'
 import {checkRolAdmin, validate, verifyToken} from '../middlewares'
 import {ClientController} from './controller'
 

@@ -1,7 +1,7 @@
-import express, {response} from 'api'
+import express, {response} from 'express'
 import {checkRolAdmin, validate, verifyToken} from '../middlewares'
 import {ServicePlanController} from './controller'
-import {check} from 'api-validator'
+import {check} from 'express-validator'
 
 const router = express.Router()
 

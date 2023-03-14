@@ -1,5 +1,5 @@
-import express, {response} from 'api'
-import {check} from 'api-validator'
+import express, {response} from 'express'
+import {check} from 'express-validator'
 import excel from 'exceljs'
 import {checkRolAdmin, checkRolNetwork, validate, verifyToken} from '../middlewares'
 import {ServiceController} from './controller'

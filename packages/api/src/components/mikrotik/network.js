@@ -1,5 +1,5 @@
-import express, {response} from 'api'
-import {check} from 'api-validator'
+import express, {response} from 'express'
+import {check} from 'express-validator'
 import {checkRolAdmin, validate, verifyToken} from '../middlewares'
 import {MikrotikController} from './controller'
 

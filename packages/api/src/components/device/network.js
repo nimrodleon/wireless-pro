@@ -1,4 +1,4 @@
-import express, {response} from 'api'
+import express, {response} from 'express'
 import {checkRolAdmin, checkRolNetwork, verifyToken} from '../middlewares'
 import {DeviceController} from './controller'
 

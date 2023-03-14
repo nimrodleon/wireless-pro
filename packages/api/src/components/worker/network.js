@@ -1,4 +1,4 @@
-import express, {response} from 'api'
+import express, {response} from 'express'
 import {verifyToken} from '../middlewares'
 import {WorkerController} from './controller'
 

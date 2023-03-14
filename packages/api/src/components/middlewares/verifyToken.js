@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import {UserStore} from '../auth/store'
-import {response} from 'api'
+import {response} from 'express'
 
 // Middleware para verificar el Token de acceso.
 export const verifyToken = (req, res = response, next) => {

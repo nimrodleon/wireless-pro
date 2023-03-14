@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import express from 'api'
+import express from 'express'
 import path from 'path'
 import http from 'http'
 import mongoose from 'mongoose'

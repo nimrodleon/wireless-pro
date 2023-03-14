@@ -1,5 +1,5 @@
-import {response} from 'api'
-import {validationResult} from 'api-validator'
+import {response} from 'express'
+import {validationResult} from 'express-validator'
 
 // middleware validar campos.
 export const validate = (req, res = response, next) => {
