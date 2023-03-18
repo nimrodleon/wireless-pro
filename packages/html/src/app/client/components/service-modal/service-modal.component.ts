@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {ServiceService} from '../../services';
 import {Service} from '../../interfaces';
@@ -25,7 +25,7 @@ export class ServiceModalComponent implements OnInit {
   hideModal = new EventEmitter<boolean>();
   // ============================================================
   baseURL: string = environment.baseUrl + 'devices';
-  serviceForm: FormGroup = this.fb.group({
+  serviceForm: UntypedFormGroup = this.fb.group({
     _id: [null],
     clientId: [''],
     ipAddress: ['', [Validators.required,
@@ -56,7 +56,7 @@ export class ServiceModalComponent implements OnInit {
   coverageList: Array<Coverage> = new Array<Coverage>();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private serviceService: ServiceService,
     private servicePlanService: ServicePlanService,
     private mikrotikService: MikrotikService,

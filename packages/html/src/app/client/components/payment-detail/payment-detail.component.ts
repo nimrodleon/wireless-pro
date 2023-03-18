@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {Payment, PrintPayment} from '../../interfaces';
@@ -15,7 +15,7 @@ declare var bootstrap: any;
   styleUrls: ['./payment-detail.component.scss']
 })
 export class PaymentDetailComponent implements OnInit {
-  paymentYearInput: FormControl = this.fb.control(moment().format('YYYY'));
+  paymentYearInput: UntypedFormControl = this.fb.control(moment().format('YYYY'));
   paymentModal: any;
   titlePayment: string = '';
   // Lista de pagos del año actual.
@@ -23,7 +23,7 @@ export class PaymentDetailComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private paymentService: PaymentService,
     private serviceDetailService: ServiceDetailService,) {
   }

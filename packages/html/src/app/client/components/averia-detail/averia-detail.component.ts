@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
 import * as moment from 'moment';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {ServiceDetailService} from '../../services';
@@ -14,7 +14,7 @@ declare var bootstrap: any;
   styleUrls: ['./averia-detail.component.scss']
 })
 export class AveriaDetailComponent implements OnInit {
-  averiaYearInput: FormControl = this.fb.control(moment().format('YYYY'));
+  averiaYearInput: UntypedFormControl = this.fb.control(moment().format('YYYY'));
   titleAveria: string = '';
   averiaModal: any;
   attendAveriaModal: any;
@@ -22,7 +22,7 @@ export class AveriaDetailComponent implements OnInit {
   currentAveria: Averia;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private serviceDetailService: ServiceDetailService,
     private averiaService: AveriaService,) {
     this.currentAveria = this.averiaService.defaultValues();

@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
@@ -12,7 +12,7 @@ export class PaymentService {
   private baseURL: string = environment.baseUrl + 'payments';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private http: HttpClient) {
   }
 
@@ -37,7 +37,7 @@ export class PaymentService {
   }
 
   // pago formGroup.
-  formGroup(): FormGroup {
+  formGroup(): UntypedFormGroup {
     return this.fb.group({
       _id: [null],
       clientId: ['', [Validators.required]],

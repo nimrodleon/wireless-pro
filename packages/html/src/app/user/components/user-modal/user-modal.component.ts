@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {User} from '../../interfaces';
 import {UserService} from '../../services';
 
@@ -17,7 +17,7 @@ export class UserModalComponent implements OnInit {
   @Output()
   hideModal = new EventEmitter<boolean>();
   // ============================================================
-  userForm: FormGroup = this.userService.formGroup();
+  userForm: UntypedFormGroup = this.userService.formGroup();
   errors: any = [];
 
   constructor(

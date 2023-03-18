@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Averia} from '../interfaces/averia';
@@ -14,7 +14,7 @@ export class AveriaService {
   private baseURL: string = environment.baseUrl + 'averias';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private http: HttpClient,
     private clientService: ClientService) {
   }
@@ -56,7 +56,7 @@ export class AveriaService {
   }
 
   // averia form group.
-  formGroup(): FormGroup {
+  formGroup(): UntypedFormGroup {
     return this.fb.group({
       _id: [null],
       averia: [''],

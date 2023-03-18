@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {AuthService} from 'src/app/user/services';
 import {AveriaService} from '../../services/averia.service';
@@ -18,12 +18,12 @@ export class AveriaListComponent implements OnInit {
   currentAveria: Averia;
   currentRole: string = '';
   // ============================================================
-  queryInput: FormControl = this.fb.control('');
+  queryInput: UntypedFormControl = this.fb.control('');
   averiaModal: any;
   attendAveriaModal: any;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private averiaService: AveriaService) {
     this.averias = new Array<Averia>();

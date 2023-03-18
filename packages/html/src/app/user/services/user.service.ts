@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
@@ -12,7 +12,7 @@ export class UserService {
   private baseURL: string = environment.baseUrl + 'users';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private http: HttpClient) {
   }
 
@@ -68,7 +68,7 @@ export class UserService {
   }
 
   // configuración del formulario.
-  formGroup(): FormGroup {
+  formGroup(): UntypedFormGroup {
     return this.fb.group({
       _id: [null],
       fullName: ['', [Validators.required]],

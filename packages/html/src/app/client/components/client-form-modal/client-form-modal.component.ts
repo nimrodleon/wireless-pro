@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Client} from '../../interfaces';
 import {ClientService} from '../../services';
 
@@ -15,7 +15,7 @@ export class ClientFormModalComponent implements OnInit {
   @Output()
   hideModal = new EventEmitter<Client>();
 
-  clientForm: FormGroup = this.fb.group({
+  clientForm: UntypedFormGroup = this.fb.group({
     _id: [null],
     dni: ['', [Validators.required]],
     type: ['D.N.I', [Validators.required]],
@@ -28,7 +28,7 @@ export class ClientFormModalComponent implements OnInit {
   });
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private clientService: ClientService) {
     this.currentClient = this.clientService.defaultValues();
   }

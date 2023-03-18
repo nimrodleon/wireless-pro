@@ -1,5 +1,5 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
 import {UserService} from 'src/app/user/services';
 import {WorkOrderDetailService} from '../../services';
 import {Select2} from 'src/app/global/interfaces';
@@ -10,12 +10,12 @@ import {Select2} from 'src/app/global/interfaces';
 })
 export class AddUserComponent implements OnInit {
   userList: Select2 = {results: []};
-  userId: FormControl = this.fb.control('');
+  userId: UntypedFormControl = this.fb.control('');
   @Output()
   hideModal = new EventEmitter<boolean>();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private userService: UserService,
     private workOrderDetailService: WorkOrderDetailService) {
   }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {WorkOrderService} from '../../services';
 import {AuthService} from 'src/app/user/services';
@@ -10,11 +10,11 @@ import {AuthService} from 'src/app/user/services';
 })
 export class WorkOrdersComponent implements OnInit {
   workOrders: Array<any> = new Array<any>();
-  query: FormControl = this.fb.control('');
+  query: UntypedFormControl = this.fb.control('');
   currentRole: string = '';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private workOrderService: WorkOrderService,
     private authService: AuthService) {
   }

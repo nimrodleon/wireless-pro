@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import {WorkOrderService} from '../../services';
@@ -22,7 +22,7 @@ export class WorkReportComponent implements OnInit {
     month: moment().format('MM'),
     search: ''
   };
-  queryForm: FormGroup = this.fb.group({
+  queryForm: UntypedFormGroup = this.fb.group({
     year: [moment().format('YYYY')],
     month: [moment().format('MM')],
     search: ['']
@@ -30,7 +30,7 @@ export class WorkReportComponent implements OnInit {
   currentRole: string = '';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private workOrderService: WorkOrderService,
     private authService: AuthService) {
   }

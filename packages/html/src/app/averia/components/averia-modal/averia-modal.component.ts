@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {Averia} from '../../interfaces/averia';
 import {AveriaService} from '../../services/averia.service';
 
@@ -15,7 +15,7 @@ export class AveriaModalComponent implements OnInit {
   @Output()
   sendModel = new EventEmitter<Averia>();
   // ============================================================
-  averiaForm: FormGroup = this.averiaService.formGroup();
+  averiaForm: UntypedFormGroup = this.averiaService.formGroup();
 
   constructor(
     private averiaService: AveriaService) {

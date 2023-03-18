@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {UntypedFormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Sweetalert2} from 'src/app/global/interfaces';
 import {ServiceDetailService} from '../../services';
@@ -16,7 +16,7 @@ export class ServiceDetailComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private activatedRoute: ActivatedRoute,
     private serviceDetailService: ServiceDetailService,) {
   }

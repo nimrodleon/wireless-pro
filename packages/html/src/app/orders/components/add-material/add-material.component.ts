@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, Validators} from '@angular/forms';
 import {environment} from 'src/environments/environment';
 import {MaterialService} from 'src/app/system/services';
 import {WorkOrderDetailService, OrderMaterialService} from '../../services';
@@ -14,7 +14,7 @@ declare var jQuery: any;
 export class AddMaterialComponent implements OnInit {
   private baseURL = environment.baseUrl + 'material';
   private orderMaterial: OrderMaterial;
-  quantity1: FormControl = this.fb.control(0, [
+  quantity1: UntypedFormControl = this.fb.control(0, [
     Validators.required, Validators.min(0)
   ]);
   invalidMaterialId: boolean = false;
@@ -22,7 +22,7 @@ export class AddMaterialComponent implements OnInit {
   hideModal = new EventEmitter<boolean>();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private orderMaterialService: OrderMaterialService,
     private workOrderDetailService: WorkOrderDetailService,
     private materialService: MaterialService) {

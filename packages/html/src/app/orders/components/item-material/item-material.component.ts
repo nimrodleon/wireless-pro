@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {OrderMaterial} from '../../interfaces';
 import {OrderMaterialService} from '../../services';
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 export class ItemMaterialComponent implements OnInit {
   @Input()
   orderMaterial: OrderMaterial;
-  orderMaterialFg: FormGroup = this.fb.group({
+  orderMaterialFg: UntypedFormGroup = this.fb.group({
     _id: [null],
     orderId: [''],
     materialId: [''],
@@ -26,7 +26,7 @@ export class ItemMaterialComponent implements OnInit {
   hideModal = new EventEmitter<boolean>();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private orderMaterialService: OrderMaterialService) {
     this.orderMaterial = this.orderMaterialService.defaultValues();
   }

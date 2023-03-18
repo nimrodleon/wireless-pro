@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {environment} from 'src/environments/environment';
@@ -19,7 +19,7 @@ declare var bootstrap: any;
 export class WorkFormComponent implements OnInit {
   private baseURL: string = environment.baseUrl;
   workOrder: WorkOrder;
-  workOrderForm: FormGroup = this.fb.group({
+  workOrderForm: UntypedFormGroup = this.fb.group({
     _id: [null],
     clientId: [''],
     description: [''],
@@ -38,7 +38,7 @@ export class WorkFormComponent implements OnInit {
   addClientModal: any;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private workOrderService: WorkOrderService) {

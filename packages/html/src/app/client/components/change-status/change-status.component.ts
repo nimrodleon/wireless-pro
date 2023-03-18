@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
@@ -14,11 +14,11 @@ import {AuthService} from 'src/app/user/services';
 })
 export class ChangeStatusComponent implements OnInit {
   workerActivityList: Array<any> = new Array<any>();
-  workerActivityYear: FormControl = this.fb.control(moment().format('YYYY'));
+  workerActivityYear: UntypedFormControl = this.fb.control(moment().format('YYYY'));
   currentRole: string = '';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private bitWorkerService: BitWorkerService,
     private servicePlanService: ServicePlanService,

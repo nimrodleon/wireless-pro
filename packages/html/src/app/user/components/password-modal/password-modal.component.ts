@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {UserService} from '../../services';
 
@@ -26,13 +26,13 @@ export class PasswordModalComponent implements OnInit {
     let confirmPass = group.get('confirmPassword').value;
     return pass === confirmPass ? null : {notSame: true};
   };
-  passwordForm: FormGroup = this.fb.group({
+  passwordForm: UntypedFormGroup = this.fb.group({
     password: ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
   }, {validators: this.checkPasswords});
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private userService: UserService) {
     this.passwordModel = {
       password: '',

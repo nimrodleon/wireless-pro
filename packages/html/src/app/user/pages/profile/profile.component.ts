@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {User} from '../../interfaces';
 import {UserService} from '../../services';
@@ -19,13 +19,13 @@ export class ProfileComponent implements OnInit {
   currentUser: User;
   userModel: UserModel;
   passwordChangeModal: any;
-  userForm: FormGroup = this.fb.group({
+  userForm: UntypedFormGroup = this.fb.group({
     fullName: ['', [Validators.required]],
     userName: ['', [Validators.required]],
   });
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private userService: UserService) {
     this.currentUser = this.userService.defaultValues();
     this.userModel = {

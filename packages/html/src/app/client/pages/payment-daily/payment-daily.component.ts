@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
 import * as moment from 'moment';
 import {PaymentService} from '../../services';
 
@@ -9,11 +9,11 @@ import {PaymentService} from '../../services';
 })
 export class PaymentDailyComponent implements OnInit {
   paymentList: Array<any> = new Array<any>();
-  queryInput: FormControl = this.fb.control(moment().format('YYYY-MM-DD'));
-  paymentMethodInput: FormControl = this.fb.control('CAJA');
+  queryInput: UntypedFormControl = this.fb.control(moment().format('YYYY-MM-DD'));
+  paymentMethodInput: UntypedFormControl = this.fb.control('CAJA');
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private paymentService: PaymentService) {
   }
 

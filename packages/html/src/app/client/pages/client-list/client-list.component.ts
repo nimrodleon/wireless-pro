@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {Client} from '../../interfaces';
@@ -15,12 +15,12 @@ export class ClientListComponent implements OnInit {
   clientList: Array<Client> = new Array<Client>();
   currentClient: Client;
   titleModal: string = '';
-  queryInput: FormControl = this.fb.control('');
+  queryInput: UntypedFormControl = this.fb.control('');
   clientModal: any;
   temporalServicesModal: any;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private clientService: ClientService,
     private serviceService: ServiceService) {
