@@ -6,8 +6,7 @@ declare var jQuery: any;
 
 @Component({
   selector: 'app-service-plan-modal',
-  templateUrl: './service-plan-modal.component.html',
-  styleUrls: ['./service-plan-modal.component.scss']
+  templateUrl: './service-plan-modal.component.html'
 })
 export class ServicePlanModalComponent implements OnInit {
   @Input() title: string = '';

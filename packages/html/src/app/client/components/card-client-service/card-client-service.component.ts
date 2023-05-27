@@ -7,8 +7,7 @@ import {ServiceService} from '../../services';
 
 @Component({
   selector: 'app-card-client-service',
-  templateUrl: './card-client-service.component.html',
-  styleUrls: ['./card-client-service.component.scss']
+  templateUrl: './card-client-service.component.html'
 })
 export class CardClientServiceComponent implements OnInit {
   @Input()

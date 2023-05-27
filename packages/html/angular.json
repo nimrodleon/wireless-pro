@@ -33,14 +33,17 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.js",
-              "node_modules/@popperjs/core/dist/umd/popper.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js",
-              "node_modules/select2/dist/js/select2.js",
-              "node_modules/chart.js/dist/Chart.js"
+              "../../node_modules/jquery/dist/jquery.js",
+              "../../node_modules/@popperjs/core/dist/umd/popper.js",
+              "../../node_modules/bootstrap/dist/js/bootstrap.js",
+              "../../node_modules/select2/dist/js/select2.js",
+              "../../node_modules/chart.js/dist/Chart.js"
             ],
             "allowedCommonJsDependencies": [
-              "lodash"
+              "lodash",
+              "moment",
+              "sweetalert2",
+              "clipboard"
             ]
           },
           "configurations": {

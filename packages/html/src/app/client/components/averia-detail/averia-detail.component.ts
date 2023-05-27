@@ -10,8 +10,7 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-averia-detail',
-  templateUrl: './averia-detail.component.html',
-  styleUrls: ['./averia-detail.component.scss']
+  templateUrl: './averia-detail.component.html'
 })
 export class AveriaDetailComponent implements OnInit {
   averiaYearInput: UntypedFormControl = this.fb.control(moment().format('YYYY'));

@@ -9,8 +9,7 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-averia-list',
-  templateUrl: './averia-list.component.html',
-  styleUrls: ['./averia-list.component.scss']
+  templateUrl: './averia-list.component.html'
 })
 export class AveriaListComponent implements OnInit {
   averias: Array<Averia>;

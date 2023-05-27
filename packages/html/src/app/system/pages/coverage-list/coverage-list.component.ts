@@ -9,8 +9,7 @@ declare var jQuery: any;
 
 @Component({
   selector: 'app-coverage-list',
-  templateUrl: './coverage-list.component.html',
-  styleUrls: ['./coverage-list.component.scss']
+  templateUrl: './coverage-list.component.html'
 })
 export class CoverageListComponent implements OnInit {
   coverages: Array<Coverage> = new Array<Coverage>();

@@ -1,14 +1,13 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ReactiveFormsModule} from '@angular/forms';
-import {CKEditorModule} from '@ckeditor/ckeditor5-html';
-import {AveriaRoutingModule} from './averia-routing.module';
-import {GlobalModule} from '../global/global.module';
-import {UserService, AuthService} from '../user/services';
-import {AveriaService} from './services/averia.service';
-import {AveriaListComponent} from './pages/averia-list/averia-list.component';
-import {AveriaModalComponent} from './components/averia-modal/averia-modal.component';
-import {AveriaAttendComponent} from './components/averia-attend/averia-attend.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AveriaRoutingModule } from './averia-routing.module';
+import { GlobalModule } from '../global/global.module';
+import { UserService, AuthService } from '../user/services';
+import { AveriaService } from './services/averia.service';
+import { AveriaListComponent } from './pages/averia-list/averia-list.component';
+import { AveriaModalComponent } from './components/averia-modal/averia-modal.component';
+import { AveriaAttendComponent } from './components/averia-attend/averia-attend.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import {AveriaAttendComponent} from './components/averia-attend/averia-attend.co
     CommonModule,
     ReactiveFormsModule,
     AveriaRoutingModule,
-    CKEditorModule,
     GlobalModule
   ],
   exports: [

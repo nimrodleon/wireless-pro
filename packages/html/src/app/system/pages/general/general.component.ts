@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Swal from 'sweetalert2';
 import {Info} from '../../interfaces';
 import {InfoService} from '../../services';
@@ -10,7 +9,6 @@ import {InfoService} from '../../services';
 })
 export class GeneralComponent implements OnInit {
   info: Info;
-  Editor: any = ClassicEditor;
 
   constructor(
     private infoService: InfoService) {

@@ -11,8 +11,7 @@ declare var bootstrap: any;
 
 @Component({
   selector: 'app-payment-detail',
-  templateUrl: './payment-detail.component.html',
-  styleUrls: ['./payment-detail.component.scss']
+  templateUrl: './payment-detail.component.html'
 })
 export class PaymentDetailComponent implements OnInit {
   paymentYearInput: UntypedFormControl = this.fb.control(moment().format('YYYY'));

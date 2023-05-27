@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from 'src/app/user/services';
-import {MikrotikService, MkMigrateService} from '../../services';
-import {Mikrotik} from '../../interfaces';
-import {Sweetalert2} from '../../../global/interfaces';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/user/services';
+import { MikrotikService, MkMigrateService } from '../../services';
+import { Mikrotik } from '../../interfaces';
+import { Sweetalert2 } from '../../../global/interfaces';
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-mikrotik-list',
-  templateUrl: './mikrotik-list.component.html',
-  styleUrls: ['./mikrotik-list.component.scss']
+  templateUrl: './mikrotik-list.component.html'
 })
 export class MikrotikListComponent implements OnInit {
   mikrotikModal: any;

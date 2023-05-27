@@ -5,8 +5,8 @@
     <!-- ##(Begin) Content -->
     <nav class="mt-2">
       <div class="nav nav-tabs" role="tablist">
-        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-general"
-                type="button" role="tab" aria-selected="true">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-general" type="button" role="tab"
+          aria-selected="true">
           <i class="fas fa-info-circle"></i><span class="text-uppercase ms-1">Información general</span>
         </button>
       </div>
@@ -67,12 +67,7 @@
               </div>
               <div class="card mt-2">
                 <div class="card-body">
-                  <ckeditor [editor]="Editor" name="legendTicket"
-                            [config]="{toolbar: [
-                            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
-                            'outdent', 'indent', '|',
-                            'blockQuote', 'insertTable', 'undo', 'redo']}"
-                            [(ngModel)]="info.legendTicket"></ckeditor>
+                  <textarea class="form-control" [(ngModel)]="info.legendTicket"></textarea>
                 </div>
               </div>
               <div class="card border-0 my-2">
