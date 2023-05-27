@@ -6,7 +6,7 @@
     "packages/html"
   ],
   "scripts": {
-    "api:start:dev": "npm run start:dev --workspace=packages/api",
-    "html:watch": "npm run watch --workspace=packages/html"
+    "api:start": "npm run start:dev --workspace=packages/api",
+    "html:start": "npm run start --workspace=packages/html"
   }
 }
