@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {InterfaceService, MikrotikService} from '../../services';
-import {Interface} from '../../interfaces';
-
-declare var bootstrap: any;
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { InterfaceService, MikrotikService } from '../../services';
+import { Interface } from '../../interfaces';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-mikrotik-form',
@@ -36,8 +35,7 @@ export class MikrotikFormComponent implements OnInit {
         this.getInterfaceList(this.currentMikrotik._id);
       }
     });
-    let basicTab = new bootstrap.Tab(
-      document.querySelector('#basic-tab'));
+    let basicTab = new bootstrap.Tab('#basic-tab');
     myModal.addEventListener('hide.bs.modal', () => {
       this.etherEditMode = false;
       this.currentInterface = this.interfaceService.defaultValues();
