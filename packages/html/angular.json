@@ -39,6 +39,7 @@
               "../../node_modules/select2/dist/js/select2.js"
             ],
             "allowedCommonJsDependencies": [
+              "jquery",
               "lodash",
               "moment",
               "sweetalert2",
