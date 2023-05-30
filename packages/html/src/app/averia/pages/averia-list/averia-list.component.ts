@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
+import * as bootstrap from 'bootstrap';
 import Swal from 'sweetalert2';
-import {AuthService} from 'src/app/user/services';
-import {AveriaService} from '../../services/averia.service';
-import {Averia} from '../../interfaces/averia';
-
-declare var bootstrap: any;
+import { AuthService } from 'src/app/user/services';
+import { AveriaService } from '../../services/averia.service';
+import { Averia } from '../../interfaces/averia';
 
 @Component({
   selector: 'app-averia-list',
@@ -34,11 +33,9 @@ export class AveriaListComponent implements OnInit {
     // Obtener rol del usuario autentificado.
     this.authService.getRoles().subscribe((res: string) => this.currentRole = res);
     // vincular averia modal.
-    this.averiaModal = new bootstrap.Modal(
-      document.querySelector('#app-averia-modal'));
+    this.averiaModal = new bootstrap.Modal('#app-averia-modal');
     // vincular modal atender averia.
-    this.attendAveriaModal = new bootstrap.Modal(
-      document.querySelector('#app-averia-attend'));
+    this.attendAveriaModal = new bootstrap.Modal('#app-averia-attend');
   }
 
   get roles() {
