@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import * as bootstrap from 'bootstrap';
 import Swal from 'sweetalert2';
-import {ServicePlan} from '../../interfaces';
-import {MkMigrateService, ServicePlanService} from '../../services';
-import {Sweetalert2} from '../../../global/interfaces';
+import { ServicePlan } from '../../interfaces';
+import { MkMigrateService, ServicePlanService } from '../../services';
+import { Sweetalert2 } from '../../../global/interfaces';
 
-declare var jQuery: any;
-declare var bootstrap: any;
+declare const jQuery: any;
 
 @Component({
   selector: 'app-service-plan',
@@ -28,7 +28,7 @@ export class ServicePlanComponent implements OnInit {
   ngOnInit(): void {
     this.getServicePlanList();
     // Establecer modal con bootstrap.
-    this.staticBackdrop = new bootstrap.Modal(document.querySelector('#staticBackdrop'));
+    this.staticBackdrop = new bootstrap.Modal('#staticBackdrop');
   }
 
   // tamaño de servicios.

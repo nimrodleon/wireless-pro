@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
+import * as bootstrap from 'bootstrap';
 import * as moment from 'moment';
-import {Sweetalert2} from 'src/app/global/interfaces';
-import {ServiceDetailService} from '../../services';
-import {AveriaService} from 'src/app/averia/services/averia.service';
-import {Averia} from 'src/app/averia/interfaces/averia';
-
-declare var bootstrap: any;
+import { Sweetalert2 } from 'src/app/global/interfaces';
+import { ServiceDetailService } from '../../services';
+import { AveriaService } from 'src/app/averia/services/averia.service';
+import { Averia } from 'src/app/averia/interfaces/averia';
 
 @Component({
   selector: 'app-averia-detail',
@@ -30,9 +29,9 @@ export class AveriaDetailComponent implements OnInit {
   ngOnInit(): void {
     this.getAverias();
     // vincular modal averia.
-    this.averiaModal = new bootstrap.Modal(document.querySelector('#app-averia-modal'));
+    this.averiaModal = new bootstrap.Modal('#app-averia-modal');
     // vincular modal atender averia.
-    this.attendAveriaModal = new bootstrap.Modal(document.querySelector('#app-averia-attend'));
+    this.attendAveriaModal = new bootstrap.Modal('#app-averia-attend');
   }
 
   // id del servicio actual.

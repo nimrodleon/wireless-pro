@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {ClientDetailService} from '../../services';
-import {Client, Service} from '../../interfaces';
-import {WorkOrderService} from 'src/app/orders/services';
-import {WorkOrder} from 'src/app/orders/interfaces';
-import {AuthService} from 'src/app/user/services';
-import {Sweetalert2} from 'src/app/global/interfaces';
-
-declare var bootstrap: any;
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ClientDetailService } from '../../services';
+import { Client, Service } from '../../interfaces';
+import { WorkOrderService } from 'src/app/orders/services';
+import { WorkOrder } from 'src/app/orders/interfaces';
+import { AuthService } from 'src/app/user/services';
+import { Sweetalert2 } from 'src/app/global/interfaces';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-client-detail',
@@ -42,11 +41,9 @@ export class ClientDetailComponent implements OnInit {
     // Obtener rol del usuario autentificado.
     this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
     // vincular modal servicio.
-    this.serviceModal = new bootstrap.Modal(
-      document.querySelector('#service-modal'));
+    this.serviceModal = new bootstrap.Modal('#service-modal');
     // vincular modal cliente.
-    this.clientModal = new bootstrap.Modal(
-      document.querySelector('#client-form-modal'));
+    this.clientModal = new bootstrap.Modal('#client-form-modal');
   }
 
   // Lista de permisos.

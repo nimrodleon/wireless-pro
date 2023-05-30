@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Sweetalert2} from 'src/app/global/interfaces';
-import {ServiceDetailService} from '../../services';
-
-declare var bootstrap: any;
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Sweetalert2 } from 'src/app/global/interfaces';
+import { ServiceDetailService } from '../../services';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-service-detail',
@@ -27,7 +26,7 @@ export class ServiceDetailComponent implements OnInit {
       this.serviceDetailService.getCurrentService(params.get('id')).subscribe(result => console.log(result));
     });
     // vincular modal servicios.
-    this.serviceModal = new bootstrap.Modal(document.querySelector('#service-modal'));
+    this.serviceModal = new bootstrap.Modal('#service-modal');
   }
 
   // id del servicio actual.

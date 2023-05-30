@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
 import Swal from 'sweetalert2';
-import {Client} from '../../interfaces';
-import {ClientService, ServiceService} from '../../services';
-
-declare var bootstrap: any;
+import { Client } from '../../interfaces';
+import { ClientService, ServiceService } from '../../services';
 
 @Component({
   selector: 'app-client-list',
@@ -30,11 +29,9 @@ export class ClientListComponent implements OnInit {
   ngOnInit(): void {
     this.getClientList(this.queryInput.value);
     // vincular modal cliente.
-    this.clientModal = new bootstrap.Modal(
-      document.querySelector('#client-form-modal'));
+    this.clientModal = new bootstrap.Modal('#client-form-modal');
     // vincular modal servicios temporales.
-    this.temporalServicesModal = new bootstrap.Modal(
-      document.querySelector('#temporal-services'));
+    this.temporalServicesModal = new bootstrap.Modal('#temporal-services');
   }
 
   // Se Ejecuta desde el Buscador.
@@ -87,7 +84,7 @@ export class ClientListComponent implements OnInit {
 
   // exportar datos.
   async exportDataClick() {
-    const {value: option} = await Swal.fire({
+    const { value: option } = await Swal.fire({
       title: 'EXPORTAR DATOS',
       input: 'select',
       inputOptions: {

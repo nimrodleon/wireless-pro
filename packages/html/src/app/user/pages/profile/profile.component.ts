@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import {User} from '../../interfaces';
-import {UserService} from '../../services';
-
-declare var bootstrap: any;
+import * as bootstrap from 'bootstrap';
+import { User } from '../../interfaces';
+import { UserService } from '../../services';
 
 interface UserModel {
   fullName: string;
@@ -37,8 +36,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     // Vincular modal del componente.
-    this.passwordChangeModal = new bootstrap.Modal(
-      document.querySelector('#app-password-modal'));
+    this.passwordChangeModal = new bootstrap.Modal('#app-password-modal');
     // vincular cambios del formulario.
     this.userForm.valueChanges.subscribe(value => this.userModel = value);
   }
@@ -71,7 +69,7 @@ export class ProfileComponent implements OnInit {
       Swal.fire('Su Información ha sido guardado!').then(() => {
         console.info('Datos guardados!');
       });
-    }, ({error}) => {
+    }, ({ error }) => {
       Swal.fire(error.errors[0].msg).then(() => {
         console.info('No se pudo actualizar el registro!');
       });

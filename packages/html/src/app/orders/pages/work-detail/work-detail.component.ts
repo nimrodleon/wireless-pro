@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {WorkOrderDetailService, OrderMaterialService} from '../../services';
-import {OrderMaterial} from '../../interfaces';
-import {Service} from 'src/app/client/interfaces';
-import {ServiceService} from 'src/app/client/services';
-import {AuthService} from '../../../user/services';
-import {Sweetalert2} from '../../../global/interfaces';
-
-declare var bootstrap: any;
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
+import { WorkOrderDetailService, OrderMaterialService } from '../../services';
+import { Service } from 'src/app/client/interfaces';
+import { ServiceService } from 'src/app/client/services';
+import { AuthService } from 'src/app/user/services';
+import { Sweetalert2 } from 'src/app/global/interfaces';
+import { OrderMaterial } from '../../interfaces';
 
 @Component({
   selector: 'app-work-detail',
@@ -44,14 +43,10 @@ export class WorkDetailComponent implements OnInit {
     // Obtener rol del usuario autentificado.
     this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
     // establecer formularios modales.
-    this.userModal = new bootstrap.Modal(
-      document.querySelector('#add-user-modal'));
-    this.materialModal = new bootstrap.Modal(
-      document.querySelector('#add-material-modal'));
-    this.itemMaterialModal = new bootstrap.Modal(
-      document.querySelector('#item-material-modal'));
-    this.serviceModal = new bootstrap.Modal(
-      document.querySelector('#service-modal'));
+    this.userModal = new bootstrap.Modal('#add-user-modal');
+    this.materialModal = new bootstrap.Modal('#add-material-modal');
+    this.itemMaterialModal = new bootstrap.Modal('#item-material-modal');
+    this.serviceModal = new bootstrap.Modal('#service-modal');
   }
 
   // Lista de permisos.
@@ -169,8 +164,8 @@ export class WorkDetailComponent implements OnInit {
       this.serviceModal.hide();
       this.router.navigate(['/client/detail',
         this.currentClient._id]).then(() => {
-        console.info('Service added!');
-      });
+          console.info('Service added!');
+        });
     }
   }
 

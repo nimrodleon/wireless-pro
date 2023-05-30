@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import {User} from '../../interfaces';
-import {UserService} from '../../services';
-import {Sweetalert2} from 'src/app/global/interfaces';
-declare var bootstrap: any;
+import * as bootstrap from 'bootstrap';
+import { User } from '../../interfaces';
+import { UserService } from '../../services';
+import { Sweetalert2 } from 'src/app/global/interfaces';
 
 @Component({
   selector: 'app-user-list',
@@ -27,10 +27,8 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     // vincular modal del componente.
-    this.userModal = new bootstrap.Modal(
-      document.querySelector('#app-user-modal'));
-    this.passwordChangeModal = new bootstrap.Modal(
-      document.querySelector('#app-password-modal'));
+    this.userModal = new bootstrap.Modal('#app-user-modal');
+    this.passwordChangeModal = new bootstrap.Modal('#app-password-modal');
   }
 
   // Obtener lista de usuarios.

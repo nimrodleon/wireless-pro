@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {environment} from 'src/environments/environment';
-import {WorkOrderService} from '../../services';
-import {ServicePlan} from 'src/app/system/interfaces';
-import {Client} from 'src/app/client/interfaces';
-import {WorkOrder} from '../../interfaces';
+import * as bootstrap from 'bootstrap';
+import { environment } from 'src/environments/environment';
+import { WorkOrderService } from '../../services';
+import { ServicePlan } from 'src/app/system/interfaces';
+import { Client } from 'src/app/client/interfaces';
+import { WorkOrder } from '../../interfaces';
 
-declare var jQuery: any;
-declare var bootstrap: any;
+declare const jQuery: any;
 
 @Component({
   selector: 'app-work-form',
@@ -53,7 +53,7 @@ export class WorkFormComponent implements OnInit {
       if (params.get('id')) {
         this.workOrderService.getWorkOrderById(params.get('id'))
           .subscribe(result => {
-            this.workOrderForm.reset({...result});
+            this.workOrderForm.reset({ ...result });
             this.workOrderService.getClientById(result.clientId)
               .subscribe(result => this.currentClientSelected = result);
           });
@@ -80,11 +80,9 @@ export class WorkFormComponent implements OnInit {
         this.servicePlanList = result;
       });
     // Modal buscar clientes.
-    this.selectClientModal = new bootstrap.Modal(
-      document.querySelector('#selectClientModal'));
+    this.selectClientModal = new bootstrap.Modal('#selectClientModal');
     // Modal agregar cliente.
-    this.addClientModal = new bootstrap.Modal(
-      document.querySelector('#client-form-modal'));
+    this.addClientModal = new bootstrap.Modal('#client-form-modal');
   }
 
   // Verificar campo invalido.

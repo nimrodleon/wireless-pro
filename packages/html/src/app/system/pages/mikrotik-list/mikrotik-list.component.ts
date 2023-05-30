@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
 import { AuthService } from 'src/app/user/services';
 import { MikrotikService, MkMigrateService } from '../../services';
 import { Mikrotik } from '../../interfaces';
 import { Sweetalert2 } from '../../../global/interfaces';
-
-declare var bootstrap: any;
 
 @Component({
   selector: 'app-mikrotik-list',
@@ -29,8 +28,8 @@ export class MikrotikListComponent implements OnInit {
 
   ngOnInit(): void {
     // Establecer modal mikrotik form.
-    this.mikrotikModal = new bootstrap.Modal(document.querySelector('#mikrotik-form'));
-    this.staticBackdrop = new bootstrap.Modal(document.querySelector('#staticBackdrop'));
+    this.mikrotikModal = new bootstrap.Modal('#mikrotik-form');
+    this.staticBackdrop = new bootstrap.Modal('#staticBackdrop');
     // obtener rol del usuario autentificado.
     this.authService.getRoles().subscribe(async (result: any) => {
       if (result !== this.roles.ROLE_ADMIN) {
