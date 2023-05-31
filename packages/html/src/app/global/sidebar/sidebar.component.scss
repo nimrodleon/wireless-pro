@@ -26,6 +26,14 @@
 
   }
 
+  .active {
+    background-color: #7C8B8F;
+
+    &:hover {
+      color: white;
+    }
+  }
+
   &:hover {
     background-color: #61dafb;
 

@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {AuthGuard} from './auth.guard';
-import {LoginComponent} from './login/login.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent },
   {
     path: 'averia',
     loadChildren: () => import('./averia/averia.module').then(m => m.AveriaModule),
@@ -35,7 +35,7 @@ const routes: Routes = [
     loadChildren: () => import('./user/user.module').then(m => m.UserModule),
     canActivate: [AuthGuard]
   },
-  {path: '', redirectTo: '/averia', pathMatch: 'full'},
+  { path: '', redirectTo: '/averia', pathMatch: 'full' },
 ];
 
 @NgModule({
