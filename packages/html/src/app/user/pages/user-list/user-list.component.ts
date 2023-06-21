@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import * as bootstrap from 'bootstrap';
 import { User } from '../../interfaces';
 import { UserService } from '../../services';
 import { Sweetalert2 } from 'src/app/global/interfaces';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-user-list',

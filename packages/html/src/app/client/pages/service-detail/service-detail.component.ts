@@ -3,7 +3,8 @@ import { UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sweetalert2 } from 'src/app/global/interfaces';
 import { ServiceDetailService } from '../../services';
-import * as bootstrap from 'bootstrap';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-service-detail',

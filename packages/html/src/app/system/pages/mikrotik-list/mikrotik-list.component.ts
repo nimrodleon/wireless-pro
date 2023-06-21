@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as bootstrap from 'bootstrap';
 import { AuthService } from 'src/app/user/services';
 import { MikrotikService, MkMigrateService } from '../../services';
 import { Mikrotik } from '../../interfaces';
 import { Sweetalert2 } from '../../../global/interfaces';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-mikrotik-list',

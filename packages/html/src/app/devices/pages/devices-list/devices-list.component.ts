@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {DeviceListService} from '../../services';
+import { Component, OnInit } from '@angular/core';
+import { DeviceListService } from '../../services';
 import Swal from 'sweetalert2';
-import * as jQuery from 'jquery';
+
+declare const jQuery: any;
 
 @Component({
   selector: 'app-devices-list',

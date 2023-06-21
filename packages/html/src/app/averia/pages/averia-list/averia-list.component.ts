@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
-import * as bootstrap from 'bootstrap';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/user/services';
 import { AveriaService } from '../../services/averia.service';
 import { Averia } from '../../interfaces/averia';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-averia-list',

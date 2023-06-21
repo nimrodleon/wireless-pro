@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import * as bootstrap from 'bootstrap';
 import { environment } from 'src/environments/environment';
 import { WorkOrderService } from '../../services';
 import { ServicePlan } from 'src/app/system/interfaces';
@@ -10,6 +9,7 @@ import { Client } from 'src/app/client/interfaces';
 import { WorkOrder } from '../../interfaces';
 
 declare const jQuery: any;
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-work-form',

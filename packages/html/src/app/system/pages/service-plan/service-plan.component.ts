@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import * as bootstrap from 'bootstrap';
 import Swal from 'sweetalert2';
 import { ServicePlan } from '../../interfaces';
 import { MkMigrateService, ServicePlanService } from '../../services';
 import { Sweetalert2 } from '../../../global/interfaces';
 
 declare const jQuery: any;
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-service-plan',

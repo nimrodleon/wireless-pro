@@ -6,7 +6,8 @@ import { WorkOrderService } from 'src/app/orders/services';
 import { WorkOrder } from 'src/app/orders/interfaces';
 import { AuthService } from 'src/app/user/services';
 import { Sweetalert2 } from 'src/app/global/interfaces';
-import * as bootstrap from 'bootstrap';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-client-detail',

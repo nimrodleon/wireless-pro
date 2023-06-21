@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import * as bootstrap from 'bootstrap';
 import { User } from '../../interfaces';
 import { UserService } from '../../services';
+
+declare const bootstrap: any;
 
 interface UserModel {
   fullName: string;

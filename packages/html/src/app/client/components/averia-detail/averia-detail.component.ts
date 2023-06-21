@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
-import * as bootstrap from 'bootstrap';
 import * as moment from 'moment';
 import { Sweetalert2 } from 'src/app/global/interfaces';
 import { ServiceDetailService } from '../../services';
 import { AveriaService } from 'src/app/averia/services/averia.service';
 import { Averia } from 'src/app/averia/interfaces/averia';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-averia-detail',

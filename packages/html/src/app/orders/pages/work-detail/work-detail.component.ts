@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as bootstrap from 'bootstrap';
 import { WorkOrderDetailService, OrderMaterialService } from '../../services';
 import { Service } from 'src/app/client/interfaces';
 import { ServiceService } from 'src/app/client/services';
 import { AuthService } from 'src/app/user/services';
 import { Sweetalert2 } from 'src/app/global/interfaces';
 import { OrderMaterial } from '../../interfaces';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-work-detail',

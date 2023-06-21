@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as bootstrap from 'bootstrap';
 import Swal from 'sweetalert2';
 import { Client } from '../../interfaces';
 import { ClientService, ServiceService } from '../../services';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-client-list',

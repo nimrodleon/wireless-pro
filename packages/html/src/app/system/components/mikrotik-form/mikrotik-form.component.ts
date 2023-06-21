@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { InterfaceService, MikrotikService } from '../../services';
 import { Interface } from '../../interfaces';
-import * as bootstrap from 'bootstrap';
+
+declare const bootstrap: any;
 
 @Component({
   selector: 'app-mikrotik-form',
