@@ -1,4 +1,4 @@
-import {model, Schema} from 'mongoose'
+import {model, Schema} from "mongoose"
 
 // Schema Usuario.
 const userSchema = new Schema({
@@ -7,8 +7,8 @@ const userSchema = new Schema({
   password: String,
   roles: {
     type: String,
-    default: 'ROLE_USER',
-    enum: ['ROLE_ADMIN', 'ROLE_NETWORK', 'ROLE_CASH', 'ROLE_USER']
+    default: "ROLE_USER",
+    enum: ["ROLE_ADMIN", "ROLE_NETWORK", "ROLE_CASH", "ROLE_USER"]
   },
   email: String,
   avatar: String,
@@ -29,4 +29,4 @@ userSchema.methods.toJSON = function () {
 }
 
 // Exportar modelo Usuario.
-export const User = model('User', userSchema)
+export const User = model("User", userSchema)

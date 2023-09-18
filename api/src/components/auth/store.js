@@ -1,5 +1,5 @@
-import _ from 'lodash'
-import {User} from './model'
+import _ from "lodash"
+import {User} from "./model"
 
 // CRUD - usuarios.
 export class UserStore {

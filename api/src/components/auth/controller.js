@@ -1,6 +1,6 @@
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-import {UserStore} from './store'
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import {UserStore} from "./store"
 
 const saltRounds = 10
 
@@ -93,14 +93,14 @@ export class UserController {
   static userLogin(userName, password) {
     return new Promise(async (resolve, reject) => {
       let _user = await UserStore.getUserByUserName(userName)
-      if (!_user) reject(new Error('El usuario no Existe'))
-      if (_user.suspended) reject(new Error('Cuenta Suspendida'))
+      if (!_user) reject(new Error("El usuario no Existe"))
+      if (_user.suspended) reject(new Error("Cuenta Suspendida"))
       bcrypt.compare(password, _user.password).then(result => {
         if (result === false) {
-          reject(new Error('Contraseña Incorrecta'))
+          reject(new Error("Contraseña Incorrecta"))
         } else {
-          const tokenExp = process.env.TOKEN_EXP_ADMIN || '45m'
-          const exp = _user.roles === 'ROLE_ADMIN' || _user.roles === 'ROLE_NETWORK' ? tokenExp : '12h'
+          const tokenExp = process.env.TOKEN_EXP_ADMIN || "45m"
+          const exp = _user.roles === "ROLE_ADMIN" || _user.roles === "ROLE_NETWORK" ? tokenExp : "12h"
           const token = jwt.sign({
             _id: _user._id,
           }, process.env.JWT_SECRET_KEY, {expiresIn: exp})
@@ -115,7 +115,7 @@ export class UserController {
     return new Promise(async (resolve, reject) => {
       this.getUser(userId).then(currentUser => {
         if (!currentUser) {
-          reject(new Error('El usuario no existe!'))
+          reject(new Error("El usuario no existe!"))
         }
         generatePassword(password).then(hash => {
           currentUser.password = hash
