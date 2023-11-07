@@ -1,4 +1,4 @@
-import {model, Schema} from 'mongoose'
+import {model, Schema} from "mongoose"
 
 // Schema modelo cliente.
 const clientSchema = new Schema({
@@ -6,8 +6,8 @@ const clientSchema = new Schema({
   type: {
     type: String,
     uppercase: true,
-    default: 'D.N.I',
-    enum: ['D.N.I', 'R.U.C']
+    default: "D.N.I",
+    enum: ["D.N.I", "R.U.C"]
   },
   fullName: {
     type: String,
@@ -28,4 +28,4 @@ const clientSchema = new Schema({
 })
 
 // modelo cliente.
-export const Client = model('Client', clientSchema)
+export const Client = model("Client", clientSchema)

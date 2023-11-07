@@ -1,4 +1,4 @@
-import {AveriaStore} from './store'
+import {AveriaStore} from "./store"
 
 // Lógica - averias.
 export class AveriaController {

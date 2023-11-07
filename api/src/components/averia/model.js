@@ -1,20 +1,20 @@
-import {model, Schema} from 'mongoose'
-import moment from 'moment-timezone'
+import {model, Schema} from "mongoose"
+import moment from "moment-timezone"
 
-// Schema averias.
+// Schema averías.
 const averiaSchema = new Schema({
   averia: String,
   client: {
     type: Schema.Types.ObjectId,
-    ref: 'Client'
+    ref: "Client"
   },
   serviceId: {
     type: Schema.Types.ObjectId,
-    ref: 'Service'
+    ref: "Service"
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   status: String,
   priority: String,
@@ -23,7 +23,7 @@ const averiaSchema = new Schema({
   solution: String,
   year: {
     type: String,
-    default: moment().format('YYYY')
+    default: moment().format("YYYY")
   },
   createdAt: {
     type: Date,
@@ -35,6 +35,6 @@ const averiaSchema = new Schema({
   }
 })
 
-// modelo averias.
-// almacena información relacionada a las averias de los clientes.
-export const Averia = model('Averia', averiaSchema)
+// Modelo averías.
+// Almacena información relacionada de las averías de los clientes.
+export const Averia = model("Averia", averiaSchema)

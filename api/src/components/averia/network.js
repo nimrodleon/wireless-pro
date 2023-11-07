@@ -1,17 +1,17 @@
-import express, {response} from 'express'
-import {checkRolAdmin, validate, verifyToken} from '../middlewares'
-import {AveriaController} from './controller'
-import {check} from 'express-validator'
+import express, {response} from "express"
+import {checkRolAdmin, validate, verifyToken} from "../middlewares"
+import {AveriaController} from "./controller"
+import {check} from "express-validator"
 
 const router = express.Router()
 
 // http://<HOST>/api/averias
-router.get('/', [verifyToken], getAverias)
+router.get("/", [verifyToken], getAverias)
 
 // Lista de averias.
 function getAverias(req, res = response) {
-  let {search = ''} = req.query
-  AveriaController.getAverias(search).then(result => {
+  let {search = ""} = req.query
+  AveriaController.getAverias(search.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -19,7 +19,7 @@ function getAverias(req, res = response) {
 }
 
 // http://<HOST>/api/averias/:id/:year/service
-router.get('/:id/:year/service', [verifyToken], getAveriasByServiceId)
+router.get("/:id/:year/service", [verifyToken], getAveriasByServiceId)
 
 // Lista de averias por servicios.
 function getAveriasByServiceId(req, res = response) {
@@ -30,9 +30,9 @@ function getAveriasByServiceId(req, res = response) {
 }
 
 // http://<HOST>/api/averias/:id
-router.get('/:id', [
+router.get("/:id", [
   verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate,
 ], getAveria)
 
@@ -46,9 +46,9 @@ function getAveria(req, res = response) {
 }
 
 // http://<HOST>/api/averias
-router.post('/', [
+router.post("/", [
   verifyToken,
-  check('client', 'El cliente es obligatorio').not().isEmpty(),
+  check("client", "El cliente es obligatorio").not().isEmpty(),
   validate,
 ], addAveria)
 
@@ -62,10 +62,10 @@ function addAveria(req, res = response) {
 }
 
 // http://<HOST>/api/averias/:id
-router.patch('/:id', [
+router.patch("/:id", [
   verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
-  check('client', 'El cliente es obligatorio').not().isEmpty(),
+  check("id", "No es un ID válido").isMongoId(),
+  check("client", "El cliente es obligatorio").not().isEmpty(),
   validate,
 ], updateAveria)
 
@@ -79,10 +79,10 @@ function updateAveria(req, res = response) {
 }
 
 // http://<HOST>/api/averias
-router.delete('/:id', [
+router.delete("/:id", [
   verifyToken,
   checkRolAdmin,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate,
 ], deleteAveria)
 

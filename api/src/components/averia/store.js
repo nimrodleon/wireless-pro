@@ -1,5 +1,5 @@
-import _ from 'lodash'
-import {Averia} from './model'
+import _ from "lodash"
+import {Averia} from "./model"
 
 // CRUD - averia.
 export class AveriaStore {
@@ -9,12 +9,12 @@ export class AveriaStore {
       isDeleted: false,
       archived: false,
     }).populate({
-      path: 'client',
-      select: 'fullName phone',
+      path: "client",
+      select: "fullName phone",
       match: {fullName: {$regex: query}}
     }).populate({
-      path: 'user',
-      select: 'fullName'
+      path: "user",
+      select: "fullName"
     }).hint({$natural: -1})
     return _.filter(_averias, obj => obj.client != null)
   }
@@ -22,7 +22,7 @@ export class AveriaStore {
   // Lista de averias por servicio.
   static async getAveriasByServiceId(serviceId, year) {
     return Averia.find({serviceId: serviceId, year: year, isDeleted: false})
-      .populate({path: 'user', select: 'fullName'}).hint({$natural: -1})
+      .populate({path: "user", select: "fullName"}).hint({$natural: -1})
   }
 
   // Devolver averia por id.
@@ -34,7 +34,7 @@ export class AveriaStore {
   static async createAveria(data) {
     const _averia = new Averia(data)
     _averia.archived = false
-    _averia.status = 'P'
+    _averia.status = "P"
     await _averia.save()
     return _averia
   }
