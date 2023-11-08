@@ -4,30 +4,28 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex justify-content-between py-2">
-          <div class="d-flex align-items-center">
-            <h4 class="text-uppercase mb-0 me-2">Materiales y Servicios</h4>
-            <button (click)="addMaterial()" type="button" class="btn btn-success">
-              <i class="fas fa-plus"></i>
-              <span class="text-uppercase ms-1">Material</span>
+        <form (ngSubmit)="onSearch()" class="row row-cols-auto g-2 mt-2">
+          <div class="col-auto">
+            <label class="col-form-label fw-bold">Filtrar por:</label>
+          </div>
+          <div class="col-auto">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-filter"></i></span>
+              <input type="search" [(ngModel)]="query" name="query" class="form-control"
+                     placeholder="MATERIAL...">
+            </div>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-search"></i>
+              <span class="text-uppercase ms-1">Buscar</span>
             </button>
           </div>
-          <form (ngSubmit)="onSearch()" class="row row-cols-auto g-2">
-            <div class="col-auto">
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-filter"></i></span>
-                <input type="search" [(ngModel)]="query" name="query" class="form-control"
-                       placeholder="MATERIAL...">
-              </div>
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i>
-                <span class="text-uppercase ms-1">Buscar</span>
-              </button>
-            </div>
-          </form>
-        </div>
+          <button (click)="addMaterial()" type="button" class="btn btn-success">
+            <i class="fas fa-plus"></i>
+            <span class="text-uppercase ms-1">Material</span>
+          </button>
+        </form>
       </div>
       <div class="col-12">
         <div class="table-responsive">
