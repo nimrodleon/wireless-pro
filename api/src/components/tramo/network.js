@@ -1,17 +1,17 @@
-import express, {response} from 'express'
-import {checkRolAdmin, checkRolNetwork, validate, verifyToken} from '../middlewares'
-import {TramoController} from './controller'
-import {check} from 'express-validator'
+import express, {response} from "express"
+import {checkRolAdmin, checkRolNetwork, validate, verifyToken} from "../middlewares"
+import {TramoController} from "./controller"
+import {check} from "express-validator"
 
 const router = express.Router()
 
 // http://<HOST>/api/tramo
-router.get('/', [verifyToken], getTramos)
+router.get("/", [verifyToken], getTramos)
 
 // Lista de tramos.
 function getTramos(req, res = response) {
-  const query = req.query.search || ''
-  TramoController.getTramos(query).then(result => {
+  const query = req.query.search || ""
+  TramoController.getTramos(query.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -19,7 +19,7 @@ function getTramos(req, res = response) {
 }
 
 // http://<HOST>/api/tramo/v1/all
-router.get('/v1/all', [verifyToken], getTramosV1)
+router.get("/v1/all", [verifyToken], getTramosV1)
 
 // Lista de tramos v1.
 function getTramosV1(req, res = response) {
@@ -29,7 +29,7 @@ function getTramosV1(req, res = response) {
 }
 
 // http://<HOST>/api/tramo/:id
-router.get('/:id', [verifyToken], getTramo)
+router.get("/:id", [verifyToken], getTramo)
 
 // devolver un tramo por id.
 function getTramo(req, res = response) {
@@ -41,7 +41,7 @@ function getTramo(req, res = response) {
 }
 
 // http://<HOST>/api/tramo/coverages/all
-router.get('/coverages/all', [verifyToken], getCoveragesByTramos)
+router.get("/coverages/all", [verifyToken], getCoveragesByTramos)
 
 // Lista de areas cobertura.
 function getCoveragesByTramos(req, res = response) {
@@ -53,9 +53,9 @@ function getCoveragesByTramos(req, res = response) {
 }
 
 // http://<HOST>/api/tramo/coverage/id
-router.get('/coverage/:id', [
+router.get("/coverage/:id", [
   verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate,
 ], getTramosByCoverage)
 
@@ -67,11 +67,11 @@ function getTramosByCoverage(req, res = response) {
 }
 
 // http://<HOST>/api/tramo
-router.post('/', [
+router.post("/", [
   verifyToken,
   checkRolNetwork,
-  check('tramo', 'El nombre es obligatorio').not().isEmpty(),
-  check('coverage', 'La area cobertura es obligatorio').not().isEmpty(),
+  check("tramo", "El nombre es obligatorio").not().isEmpty(),
+  check("coverage", "La area cobertura es obligatorio").not().isEmpty(),
   validate
 ], addTramo)
 
@@ -85,11 +85,11 @@ function addTramo(req, res = response) {
 }
 
 // http://<HOST>/api/tramo/:id
-router.patch('/:id', [
+router.patch("/:id", [
   verifyToken,
   checkRolNetwork,
-  check('tramo', 'El nombre es obligatorio').not().isEmpty(),
-  check('coverage', 'La area cobertura es obligatorio').not().isEmpty(),
+  check("tramo", "El nombre es obligatorio").not().isEmpty(),
+  check("coverage", "La area cobertura es obligatorio").not().isEmpty(),
   validate
 ], updateTramo)
 
@@ -103,7 +103,7 @@ function updateTramo(req, res = response) {
 }
 
 // http://<HOST>/api/tramo/:id
-router.delete('/:id', [
+router.delete("/:id", [
   verifyToken,
   checkRolAdmin,
 ], deleteTramo)
