@@ -5,9 +5,23 @@
     <!-- ##(Begin) Content -->
     <div class="row">
       <div class="col-12">
-        <div class="d-flex my-2 justify-content-between">
-          <div class="d-flex align-items-center">
-            <h4 class="text-uppercase m-0 me-2">Órdenes de Trabajo</h4>
+        <form (submit)="workOrdersLoad($event)" class="row row-cols-auto g-2 mt-2">
+          <div class="col-auto">
+            <label class="col-form-label fw-bold">Filtrar por:</label>
+          </div>
+          <div class="col-auto">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-filter"></i></span>
+              <input type="text" [formControl]="query"
+                     class="form-control" placeholder="CLIENTE...">
+            </div>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-search"></i><span class="text-uppercase ms-1">Buscar</span>
+            </button>
+          </div>
+          <div class="col-auto">
             <div class="btn-group">
               <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                 <i class="fas fa-cog"></i>
@@ -26,22 +40,8 @@
                 </li>
               </ul>
             </div>
-          </div><!-- //.d-flex -->
-          <form (submit)="workOrdersLoad($event)" class="row row-cols-auto g-2">
-            <div class="col-auto">
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-filter"></i></span>
-                <input type="text" [formControl]="query"
-                       class="form-control" placeholder="CLIENTE...">
-              </div>
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i><span class="text-uppercase ms-1">Buscar</span>
-              </button>
-            </div>
-          </form><!-- //.form-inline -->
-        </div><!-- //.d-flex -->
+          </div>
+        </form>
       </div><!-- //.col-12 -->
       <div class="col-12">
         <div class="table-responsive">
@@ -54,7 +54,7 @@
               <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="table-group-divider">
             <tr *ngFor="let item of workOrders">
               <td>
                 <a [routerLink]="['/work_orders/detail', item.WorkOrder._id]"
