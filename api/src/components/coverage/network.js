@@ -1,17 +1,17 @@
-import express, {response} from 'express'
-import {checkRolAdmin, validate, verifyToken} from '../middlewares'
-import {CoverageController} from './controller'
-import {check} from 'express-validator'
+import express, {response} from "express"
+import {checkRolAdmin, validate, verifyToken} from "../middlewares"
+import {CoverageController} from "./controller"
+import {check} from "express-validator"
 
 const router = express.Router()
 
 // http://<HOST>/api/coverages
-router.get('/', [verifyToken], getCoverages)
+router.get("/", [verifyToken], getCoverages)
 
 // Lista areas de cobertura.
 function getCoverages(req, res = response) {
-  let query = req.query.search || ''
-  CoverageController.getCoverages(query).then(result => {
+  let query = req.query.search || ""
+  CoverageController.getCoverages(query.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -19,7 +19,7 @@ function getCoverages(req, res = response) {
 }
 
 // http://<HOST>/api/coverages/:id
-router.get('/:id', [verifyToken], getCoverage)
+router.get("/:id", [verifyToken], getCoverage)
 
 // Obtener area cobertura por id.
 function getCoverage(req, res = response) {
@@ -31,9 +31,9 @@ function getCoverage(req, res = response) {
 }
 
 // http://<HOST>/api/coverages
-router.post('/', [
+router.post("/", [
   verifyToken,
-  check('name', 'El nombre es obligatorio').not().isEmpty(),
+  check("name", "El nombre es obligatorio").not().isEmpty(),
   validate
 ], addCoverage)
 
@@ -47,9 +47,9 @@ function addCoverage(req, res = response) {
 }
 
 // http://<HOST>/api/coverages/:id
-router.patch('/:id', [
+router.patch("/:id", [
   verifyToken,
-  check('name', 'El nombre es obligatorio').not().isEmpty(),
+  check("name", "El nombre es obligatorio").not().isEmpty(),
   validate
 ], updateCoverage)
 
@@ -63,7 +63,7 @@ function updateCoverage(req, res = response) {
 }
 
 // http://<HOST>/api/coverages/:id
-router.delete('/:id', [
+router.delete("/:id", [
   verifyToken,
   checkRolAdmin,
 ], deleteCoverage)

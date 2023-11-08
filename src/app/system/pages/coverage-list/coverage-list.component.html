@@ -4,28 +4,28 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex justify-content-between my-2">
-          <div class="d-flex align-items-center">
-            <h4 class="text-uppercase mb-0 me-2">Areas cobertura</h4>
+        <form (ngSubmit)="onSearch()" class="row row-cols-auto g-2 mt-2">
+          <div class="col-auto">
+            <label class="col-form-label fw-bold">Filtrar por:</label>
+          </div>
+          <div class="col-auto">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-filter"></i></span>
+              <input type="search" [(ngModel)]="query" name="query"
+                     class="form-control mr-2" placeholder="COBERTURA...">
+            </div>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-search"></i><span class="text-uppercase"> Buscar</span>
+            </button>
+          </div>
+          <div class="col-auto">
             <button type="button" (click)="onCreate()" class="btn btn-success">
               <i class="fas fa-plus"></i><span class="text-uppercase"> Cobertura</span>
             </button>
           </div>
-          <form (ngSubmit)="onSearch()" class="row row-cols-auto g-2">
-            <div class="col-auto">
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-filter"></i></span>
-                <input type="search" [(ngModel)]="query" name="query"
-                       class="form-control mr-2" placeholder="COBERTURA...">
-              </div>
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i><span class="text-uppercase"> Buscar</span>
-              </button>
-            </div>
-          </form>
-        </div>
+        </form>
       </div><!-- //.col-12 -->
       <div class="col-12">
         <div class="table-responsive">
