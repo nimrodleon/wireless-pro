@@ -1,18 +1,17 @@
-import express, {response} from 'express'
-// import excel from 'exceljs'
-import {check} from 'express-validator'
-import {checkRolAdmin, validate, verifyToken} from '../middlewares'
-import {ClientController} from './controller'
+import express, {response} from "express"
+import {check} from "express-validator"
+import {checkRolAdmin, validate, verifyToken} from "../middlewares"
+import {ClientController} from "./controller"
 
 const router = express.Router()
 
 // http://<HOST>/api/clients
-router.get('/', [verifyToken], getClients)
+router.get("/", [verifyToken], getClients)
 
 // Lista de clientes.
 function getClients(req, res = response) {
-  const {search = ''} = req.query
-  ClientController.getClients(search).then(result => {
+  const {search = ""} = req.query
+  ClientController.getClients(search.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -20,11 +19,11 @@ function getClients(req, res = response) {
 }
 
 // http://<HOST>/api/clients/select2/:q?
-router.get('/select2/:q?', [verifyToken], getClientsS2)
+router.get("/select2/:q?", [verifyToken], getClientsS2)
 
 // Buscador de clientes => select2.
 function getClientsS2(req, res = response) {
-  let {term = ''} = req.query
+  let {term = ""} = req.query
   ClientController.getClientsS2(term).then(result => {
     res.json(result)
   }).catch(err => {
@@ -33,9 +32,9 @@ function getClientsS2(req, res = response) {
 }
 
 // http://<HOST>/api/clients/:id
-router.get('/:id', [
+router.get("/:id", [
   verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate
 ], getClient)
 
@@ -49,12 +48,12 @@ function getClient(req, res = response) {
 }
 
 // http://<HOST>/api/clients
-router.post('/', [
+router.post("/", [
   verifyToken,
-  check('dni', 'El D.N.I. es obligatorio').not().isEmpty(),
-  check('fullName', 'El nombre es obligatorio').not().isEmpty(),
-  check('fullAddress', 'La dirección es obligatorio').not().isEmpty(),
-  check('phone', 'El teléfono es obligatorio').not().isEmpty(),
+  check("dni", "El D.N.I. es obligatorio").not().isEmpty(),
+  check("fullName", "El nombre es obligatorio").not().isEmpty(),
+  check("fullAddress", "La dirección es obligatorio").not().isEmpty(),
+  check("phone", "El teléfono es obligatorio").not().isEmpty(),
   validate
 ], addClient)
 
@@ -68,13 +67,13 @@ function addClient(req, res = response) {
 }
 
 // http://<HOST>/api/clients/:id
-router.patch('/:id', [
+router.patch("/:id", [
   verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
-  check('dni', 'El D.N.I. es obligatorio').not().isEmpty(),
-  check('fullName', 'El nombre es obligatorio').not().isEmpty(),
-  check('fullAddress', 'La dirección es obligatorio').not().isEmpty(),
-  check('phone', 'El teléfono es obligatorio').not().isEmpty(),
+  check("id", "No es un ID válido").isMongoId(),
+  check("dni", "El D.N.I. es obligatorio").not().isEmpty(),
+  check("fullName", "El nombre es obligatorio").not().isEmpty(),
+  check("fullAddress", "La dirección es obligatorio").not().isEmpty(),
+  check("phone", "El teléfono es obligatorio").not().isEmpty(),
   validate
 ], updateClient)
 
@@ -88,10 +87,10 @@ function updateClient(req, res = response) {
 }
 
 // http://<HOST>/api/clients
-router.delete('/:id', [
+router.delete("/:id", [
   verifyToken,
   checkRolAdmin,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate
 ], deleteClient)
 

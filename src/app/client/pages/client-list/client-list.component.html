@@ -4,69 +4,64 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex mt-2 justify-content-between">
-          <div class="row row-cols-auto g-2">
-            <div class="col-auto">
-              <h4 class="text-uppercase m-0 mt-1">Lista de Clientes</h4>
+        <form (submit)="searchClient()" class="row row-cols-auto g-2 mt-2">
+          <div class="col-auto">
+            <label class="col-form-label fw-bold">Filtrar por:</label>
+          </div>
+          <div class="col-auto">
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-filter"></i></span>
+              <input type="text" [formControl]="queryInput"
+                     class="form-control" placeholder="D.N.I/Nombre/Dirección/Teléfono">
             </div>
-            <div class="col-auto">
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                  <i class="fas fa-cog"></i>
-                  <span class="text-uppercase ms-1">Opciones</span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="#" (click)="addClientModal($event)">
-                      <span class="text-uppercase">Registrar Cliente</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#" (click)="temporalServicesClick($event)">
-                      <span class="text-uppercase">Servicios Temporal</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item" routerLink="/client/payment-daily">
-                      <span class="text-uppercase">Diario de pagos</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" routerLink="/client/receivable">
-                      <span class="text-uppercase">Clientes por Cobrar</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-auto">
-              <button type="button" (click)="exportDataClick()" class="btn btn-success">
-                <i class="fas fa-download"></i><span class="text-uppercase ms-1">Exportar</span>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-search"></i> BUSCAR
+            </button>
+          </div>
+          <div class="col-auto">
+            <button type="button" (click)="addClientModal($event)" class="btn btn-success">
+              <i class="fa-solid fa-circle-plus"></i> AGREGAR
+            </button>
+          </div>
+          <div class="col-auto">
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-cog"></i>
+                <span class="text-uppercase ms-1">Opciones</span>
               </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#" (click)="temporalServicesClick($event)">
+                    <span class="text-uppercase">Servicios Temporal</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item" routerLink="/client/payment-daily">
+                    <span class="text-uppercase">Diario de pagos</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" routerLink="/client/receivable">
+                    <span class="text-uppercase">Clientes por Cobrar</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="exportDataClick($event)" href="#">
+                    <span class="text-uppercase">Exportar Datos</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </div><!-- //.d-flex -->
-          <form (submit)="searchClient()"
-                class="row row-cols-auto g-2">
-            <div class="col-auto">
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-filter"></i></span>
-                <input type="text" [formControl]="queryInput"
-                       class="form-control" placeholder="D.N.I/Nombre/Dirección/Teléfono">
-              </div>
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i> BUSCAR
-              </button>
-            </div>
-          </form><!-- //.form-inline -->
-        </div><!-- //.d-flex -->
+          </div>
+        </form>
       </div><!-- //.col-12 -->
       <div class="col-12">
         <div class="table-responsive">
@@ -80,7 +75,7 @@
               <th>Teléfono</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="table-group-divider">
             <tr *ngFor="let client of clientList" [id]="client._id">
               <td>{{client.type}}</td>
               <td>{{client.dni}}</td>

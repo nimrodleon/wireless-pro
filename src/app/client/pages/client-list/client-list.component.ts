@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { Client } from '../../interfaces';
-import { ClientService, ServiceService } from '../../services';
+import {Component, OnInit} from "@angular/core";
+import {UntypedFormBuilder, UntypedFormControl} from "@angular/forms";
+import {Router} from "@angular/router";
+import Swal from "sweetalert2";
+import {Client} from "../../interfaces";
+import {ClientService, ServiceService} from "../../services";
 
 declare const bootstrap: any;
 
 @Component({
-  selector: 'app-client-list',
-  templateUrl: './client-list.component.html'
+  selector: "app-client-list",
+  templateUrl: "./client-list.component.html"
 })
 export class ClientListComponent implements OnInit {
   clientList: Array<Client> = new Array<Client>();
   currentClient: Client;
-  titleModal: string = '';
-  queryInput: UntypedFormControl = this.fb.control('');
+  titleModal: string = "";
+  queryInput: UntypedFormControl = this.fb.control("");
   clientModal: any;
   temporalServicesModal: any;
 
@@ -30,9 +30,9 @@ export class ClientListComponent implements OnInit {
   ngOnInit(): void {
     this.getClientList(this.queryInput.value);
     // vincular modal cliente.
-    this.clientModal = new bootstrap.Modal('#client-form-modal');
+    this.clientModal = new bootstrap.Modal("#client-form-modal");
     // vincular modal servicios temporales.
-    this.temporalServicesModal = new bootstrap.Modal('#temporal-services');
+    this.temporalServicesModal = new bootstrap.Modal("#temporal-services");
   }
 
   // Se Ejecuta desde el Buscador.
@@ -51,7 +51,7 @@ export class ClientListComponent implements OnInit {
   // Agregar cliente.
   addClientModal(event: any): void {
     event.preventDefault();
-    this.titleModal = 'Agregar Cliente';
+    this.titleModal = "Agregar Cliente";
     this.currentClient = this.clientService.defaultValues();
     this.clientModal.show();
   }
@@ -64,8 +64,8 @@ export class ClientListComponent implements OnInit {
       this.clientService.createClient(client)
         .subscribe(result => {
           this.clientModal.hide();
-          this.router.navigate(['/client/detail', result._id])
-            .then(() => console.info('Cliente Guardado!'));
+          this.router.navigate(["/client/detail", result._id])
+            .then(() => console.info("Cliente Guardado!"));
         });
     }
   }
@@ -84,18 +84,19 @@ export class ClientListComponent implements OnInit {
   }
 
   // exportar datos.
-  async exportDataClick() {
-    const { value: option } = await Swal.fire({
-      title: 'EXPORTAR DATOS',
-      input: 'select',
+  async exportDataClick(e: Event) {
+    e.preventDefault();
+    const {value: option} = await Swal.fire({
+      title: "EXPORTAR DATOS",
+      input: "select",
       inputOptions: {
         // 'E01': 'LISTADO DE CLIENTES',
         // 'E02': 'SERVICIOS POR ESTADO',
-        'E03': 'SERVICIOS SIN REGISTRO DE PAGO',
+        "E03": "SERVICIOS SIN REGISTRO DE PAGO",
       },
-      inputPlaceholder: 'Seleccione una opción',
+      inputPlaceholder: "Seleccione una opción",
       showCancelButton: true,
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: "Cancelar"
     });
 
     // Lista de clientes.
@@ -119,12 +120,12 @@ export class ClientListComponent implements OnInit {
     //   });
     // }
     // Lista de servicios sin registro de pago.
-    if (option && option === 'E03') {
+    if (option && option === "E03") {
       this.serviceService.reporteServicioSinRegistroDePago().subscribe(result => {
         let downloadURL = window.URL.createObjectURL(result);
-        let link = document.createElement('a');
+        let link = document.createElement("a");
         link.href = downloadURL;
-        link.download = 'servicios-sin-registro-de-pago.xlsx';
+        link.download = "servicios-sin-registro-de-pago.xlsx";
         link.click();
       });
     }
