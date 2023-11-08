@@ -22,9 +22,9 @@
     <div class="table-responsive">
       <table class="table m-0">
         <tr class="bg-warning">
-          <th><i class="fas fa-user"></i> User</th>
+          <th><i class="fas fa-user bg-warning"></i> User</th>
           <td>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between bg-warning">
               {{currentService.userName}}
               <a href="#" [attr.data-clipboard-text]="currentService.userName"
                  (click)="$event.preventDefault()" class="text-secondary">
@@ -32,9 +32,9 @@
               </a>
             </div>
           </td>
-          <th><i class="fas fa-unlock-alt"></i> Password</th>
+          <th><i class="fas fa-unlock-alt bg-warning"></i> Password</th>
           <td>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between bg-warning">
               {{currentService.password}}
               <a href="#" [attr.data-clipboard-text]="currentService.password"
                  (click)="$event.preventDefault()" class="text-secondary">
@@ -56,9 +56,13 @@
     <p *ngIf="currentService.paymentNote" class="card-text">{{currentService.paymentNote}}</p>
   </div>
   <div class="card-footer">
-    <button (click)="editServiceClick()" class="btn btn-primary">
+    <button (click)="editServiceClick()" class="btn btn-primary me-2">
       <i class="fas fa-edit"></i>
       <span class="text-uppercase ms-1">Editar</span>
     </button>
+    <a class="btn btn-secondary" [routerLink]="['/client/service-detail', currentService._id]">
+      <i class="fa-solid fa-eye"></i>
+      <span class="text-uppercase ms-1">Mostrar</span>
+    </a>
   </div>
 </div>
