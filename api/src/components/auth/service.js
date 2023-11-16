@@ -2,7 +2,7 @@ import _ from "lodash"
 import {User} from "./model"
 
 // CRUD - usuarios.
-export class UserStore {
+export class UserService {
   // Listar usuarios.
   static async getUsers(suspended = false) {
     return User.find({suspended: suspended, isDeleted: false})

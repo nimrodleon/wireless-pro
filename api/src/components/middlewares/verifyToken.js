@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import {UserStore} from '../auth/store'
+import {UserService} from '../auth/service'
 import {response} from 'express'
 
 // Middleware para verificar el Token de acceso.
@@ -17,7 +17,7 @@ export const verifyToken = (req, res = response, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
-    UserStore.getUser(decoded._id).then(currentUser => {
+    UserService.getUser(decoded._id).then(currentUser => {
       if (!currentUser) {
         return res.status(401).json({
           msg: 'Token invalido'

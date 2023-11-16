@@ -7,8 +7,8 @@ const userSchema = new Schema({
   password: String,
   roles: {
     type: String,
-    default: "ROLE_USER",
-    enum: ["ROLE_ADMIN", "ROLE_NETWORK", "ROLE_CASH", "ROLE_USER"]
+    default: "ROL_REDES",
+    enum: ["ROL_ADMIN", "ROL_REDES", "ROL_CAJA"]
   },
   email: String,
   avatar: String,

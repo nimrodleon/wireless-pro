@@ -10,6 +10,8 @@ import {
   editUserNameExist, editUserEmailExist
 } from "../middlewares"
 import {UserController} from "./controller"
+import {UserService} from "./service"
+import {result} from "lodash"
 
 const router = express.Router()
 
@@ -19,7 +21,7 @@ router.get("/", [verifyToken], getUsers)
 // Lista de usuarios.
 function getUsers(req, res = response) {
   const status = req.query.status || false
-  UserController.getUsers(status).then(result => {
+  UserService.getUsers(status).then(result => {
     res.json(result)
   })
 }
@@ -29,7 +31,7 @@ router.get("/:id", [verifyToken], getUser)
 
 // retornar usuario para editar.
 function getUser(req, res = response) {
-  UserController.getUser(req.params.id).then(result => {
+  UserService.getUser(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -66,7 +68,7 @@ router.post("/", [
 
 // registrar usuario.
 function addUser(req, res = response) {
-  UserController.createUser(req.body).then(result => {
+  UserService.createUser(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json({
@@ -93,7 +95,7 @@ router.patch("/:id", [
 
 // actualizar datos del usuario.
 function updateUser(req, res = response) {
-  UserController.updateUser(req.params.id, req.body).then(result => {
+  UserService.updateUser(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     console.error("[updateUser]", err)
@@ -113,7 +115,7 @@ router.delete("/:id", [
 
 // borrar usuarios.
 function deleteUser(req, res = response) {
-  UserController.deleteUser(req.params.id).then(result => {
+  UserService.deleteUser(req.params.id).then(result => {
     if (!result) {
       res.status(404).send("No item found")
     }
@@ -178,7 +180,7 @@ router.put("/:id", [
 
 // actualizar datos del usuario.
 function updateUserProfile(req, res = response) {
-  UserController.updateUserProfile(req.params.id, req.body)
+  UserService.updateUserProfile(req.params.id, req.body)
     .then(result => {
       res.json(result)
     }).catch(err => {
@@ -196,7 +198,7 @@ router.get("/select2/:q?", [verifyToken], getUsersWithSelect2)
 // Buscar usuarios con select2.
 function getUsersWithSelect2(req, res = response) {
   let {term = ""} = req.query
-  UserController.getUsersWithSelect2(term).then(result => {
+  UserService.getUsersWithSelect2(term).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)

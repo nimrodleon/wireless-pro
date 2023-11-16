@@ -1,8 +1,8 @@
-import {User} from '../auth/model'
+import {User} from "../auth/model"
 
 // validar rol del usuario.
-export function isValidRole(rol = '') {
-  const roles = ['ROLE_ADMIN', 'ROLE_NETWORK', 'ROLE_CASH', 'ROLE_USER']
+export function isValidRole(rol = "") {
+  const roles = ["ROLE_ADMIN", "ROLE_NETWORK", "ROLE_CASH", "ROLE_USER"]
   if (!roles.includes(rol)) {
     throw new Error(`${rol}, no es un rol válido`)
   }

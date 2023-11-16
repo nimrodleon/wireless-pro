@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import {UserStore} from "./store"
+import {UserService} from "./service"
 
 const saltRounds = 10
 
@@ -20,69 +20,11 @@ export function generatePassword(myTextPassword) {
 
 // Lógica - usuarios.
 export class UserController {
-  // Lista de usuarios.
-  static getUsers(status) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(UserStore.getUsers(status))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
   // devolver usuario por id.
   static getUser(userId) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(UserStore.getUser(userId))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
-  // registrar usuario.
-  static createUser(data) {
-    return new Promise((resolve, reject) => {
-      generatePassword(data.password).then(hash => {
-        data.password = hash
-        try {
-          resolve(UserStore.createUser(data))
-        } catch (err) {
-          reject(err)
-        }
-      }).catch(err => reject(err))
-    })
-  }
-
-  // actualizar usuario.
-  static updateUser(id, data) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(UserStore.updateUser(id, data))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
-  // actualizar usuario.
-  static updateUserProfile(id, data) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(UserStore.updateUserProfile(id, data))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
-  // borrar usuario.
-  static deleteUser(id) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(UserStore.deleteUser(id))
+        resolve(UserService.getUser(userId))
       } catch (err) {
         reject(err)
       }
@@ -92,7 +34,7 @@ export class UserController {
   // Login de acceso => retorna un [token].
   static userLogin(userName, password) {
     return new Promise(async (resolve, reject) => {
-      let _user = await UserStore.getUserByUserName(userName)
+      let _user = await UserService.getUserByUserName(userName)
       if (!_user) reject(new Error("El usuario no Existe"))
       if (_user.suspended) reject(new Error("Cuenta Suspendida"))
       bcrypt.compare(password, _user.password).then(result => {
@@ -120,7 +62,7 @@ export class UserController {
         generatePassword(password).then(hash => {
           currentUser.password = hash
           try {
-            resolve(UserStore.updateUser(userId, currentUser))
+            resolve(UserService.updateUser(userId, currentUser))
           } catch (err) {
             reject(err)
           }
@@ -129,14 +71,4 @@ export class UserController {
     })
   }
 
-  // Buscar usuarios con select2.
-  static getUsersWithSelect2(term) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(UserStore.getUsersWithSelect2(term))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
 }

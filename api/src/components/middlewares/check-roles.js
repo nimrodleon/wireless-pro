@@ -1,7 +1,7 @@
 import {response} from 'express'
 
 // Verificar si el Rol del usuario es Admin.
-// este Rol solo puede Eliminar registros y crear nuevos usuarios.
+// Este Rol solo puede Eliminar registros y crear nuevos usuarios.
 export function checkRolAdmin(req, res = response, next) {
   const {userName, roles} = req.currentUser
   if (roles !== 'ROLE_ADMIN') {
@@ -25,7 +25,7 @@ export function checkRolNetwork(req, res = response, next) {
 }
 
 // Verificar rol Administrador de caja.
-// este rol se utiliza para registrar pagos y administrar las finanzas.
+// Este rol se utiliza para registrar pagos y administrar las finanzas.
 export function checkRolCash(req, res = response, next) {
   const {userName, roles} = req.currentUser
   if (roles !== 'ROLE_CASH') {
