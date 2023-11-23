@@ -1,11 +1,11 @@
-import dotenv from "dotenv"
-import express from "express"
-import path from "path"
-import http from "http"
-import mongoose from "mongoose"
-import router from "./network/routes"
-import logger from "morgan"
-import cors from "cors"
+const dotenv = require("dotenv")
+const express = require("express")
+const path = require("path")
+const http = require("http")
+const mongoose = require("mongoose")
+const router = require("./network/routes")
+const logger = require("morgan")
+const cors = require("cors")
 
 dotenv.config()
 const app = express()
