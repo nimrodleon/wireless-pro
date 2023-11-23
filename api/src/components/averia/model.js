@@ -1,5 +1,5 @@
-import {model, Schema} from "mongoose"
-import moment from "moment-timezone"
+const {model, Schema} = require("mongoose")
+const moment = require("moment-timezone")
 
 // Schema averías.
 const averiaSchema = new Schema({
@@ -37,4 +37,7 @@ const averiaSchema = new Schema({
 
 // Modelo averías.
 // Almacena información relacionada de las averías de los clientes.
-export const Averia = model("Averia", averiaSchema)
+const Averia = model("Averia", averiaSchema)
+module.exports = {
+  Averia
+}

@@ -1,7 +1,8 @@
-import express, {response} from "express"
-import {checkRolAdmin, validate, verifyToken} from "../middlewares"
-import {AveriaController} from "./controller"
-import {check} from "express-validator"
+const express = require("express")
+const {response} = require("express")
+const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
+const {AveriaController} = require("./controller")
+const {check} = require("express-validator")
 
 const router = express.Router()
 
@@ -95,4 +96,4 @@ function deleteAveria(req, res = response) {
   })
 }
 
-export const averiaRouter = router
+module.exports = {averiaRouter: router}

@@ -1,8 +1,8 @@
-import _ from "lodash"
-import {Averia} from "./model"
+const _ = require("lodash")
+const {Averia} = require("./model")
 
 // CRUD - averia.
-export class AveriaStore {
+class AveriaStore {
   // Lista de averias.
   static async getAverias(query) {
     let _averias = await Averia.find({
@@ -51,3 +51,5 @@ export class AveriaStore {
     return this.updateAveria(id, _averia)
   }
 }
+
+module.exports = {AveriaStore}

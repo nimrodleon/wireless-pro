@@ -1,4 +1,4 @@
-export * from "../components/auth/network"
+/*export * from "../components/auth/network"
 export * from "../components/averia/network"
 export * from "../components/client/network"
 export * from "../components/coverage/network"
@@ -13,4 +13,10 @@ export * from "../components/tower/network"
 export * from "../components/tramo/network"
 export * from "../components/orders/network"
 export * from "../components/mikrotik/network"
-export * from "../components/worker/network"
+export * from "../components/worker/network"*/
+
+const {averiaRouter} = require("../components/averia/network")
+
+module.exports = {
+  averiaRouter
+}

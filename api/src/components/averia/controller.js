@@ -1,4 +1,4 @@
-import {AveriaStore} from "./store"
+const {AveriaStore} = require("./store")
 
 // Lógica - averias.
 export class AveriaController {
@@ -68,3 +68,5 @@ export class AveriaController {
     })
   }
 }
+
+module.exports = {AveriaController}

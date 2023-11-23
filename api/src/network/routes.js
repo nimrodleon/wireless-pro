@@ -1,4 +1,4 @@
-import * as network from "./network"
+const network = require("./network")
 
 const routes = (server) => {
   server.use("/api/info", network.infoRouter)
@@ -19,4 +19,4 @@ const routes = (server) => {
   server.use("/api/bitWorker", network.bitWorkerRouter)
 }
 
-export default routes
+module.exports = routes
