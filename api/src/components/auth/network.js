@@ -10,7 +10,7 @@ import {
   editUserNameExist, editUserEmailExist
 } from "../middlewares"
 import {UserController} from "./controller"
-import {UserService} from "./service"
+import {UserService} from "./user.service"
 import {result} from "lodash"
 
 const router = express.Router()

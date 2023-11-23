@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import {UserService} from '../auth/service'
+import {UserService} from '../auth/user.service'
 import {response} from 'express'
 
 // Middleware para verificar el Token de acceso.

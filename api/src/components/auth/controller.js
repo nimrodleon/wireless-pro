@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import {UserService} from "./service"
+import {UserService} from "./user.service"
 
 const saltRounds = 10
 
