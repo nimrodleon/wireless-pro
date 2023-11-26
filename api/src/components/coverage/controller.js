@@ -1,7 +1,7 @@
-import {CoverageStore} from './store'
+const {CoverageStore} = require("./store")
 
 // Lógica - area cobertura.
-export class CoverageController {
+class CoverageController {
   // Lista de areas cobertura.
   static getCoverages(query) {
     return new Promise((resolve, reject) => {
@@ -56,4 +56,8 @@ export class CoverageController {
       }
     })
   }
+}
+
+module.exports = {
+  CoverageController
 }

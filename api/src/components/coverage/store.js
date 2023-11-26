@@ -1,13 +1,13 @@
-import {Coverage} from './model'
+const {Coverage} = require("./model")
 
 // CRUD - areas cobertura.
-export class CoverageStore {
+class CoverageStore {
   // Listar areas cobertura.
   static async getCoverages(query) {
     return Coverage.find({
       isDeleted: false,
       $or: [{name: {$regex: query}}]
-    }).sort({'name': 1})
+    }).sort({"name": 1})
   }
 
   // devolver cobertura por id.
@@ -39,4 +39,8 @@ export class CoverageStore {
   static async getCoveragesByTramosOrTowers(ids) {
     return Coverage.find({_id: {$in: ids}})
   }
+}
+
+module.exports = {
+  CoverageStore
 }

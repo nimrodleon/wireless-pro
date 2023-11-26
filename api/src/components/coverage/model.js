@@ -1,6 +1,6 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
-export const Coverage = model('Coverage',
+const Coverage = model("Coverage",
   new Schema({
     name: {
       type: String,
@@ -11,3 +11,7 @@ export const Coverage = model('Coverage',
       default: false
     }
   }))
+
+module.exports = {
+  Coverage
+}

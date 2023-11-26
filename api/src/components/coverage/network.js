@@ -1,7 +1,8 @@
-import express, {response} from "express"
-import {checkRolAdmin, validate, verifyToken} from "../middlewares"
-import {CoverageController} from "./controller"
-import {check} from "express-validator"
+const express = require("express")
+const {response} = require("express")
+const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
+const {CoverageController} = require("./controller")
+const {check} = require("express-validator")
 
 const router = express.Router()
 
@@ -77,4 +78,6 @@ function deleteCoverage(req, res = response) {
   })
 }
 
-export const coverageRouter = router
+module.exports = {
+  coverageRouter: router
+}
