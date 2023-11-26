@@ -16,7 +16,9 @@ export * from "../components/mikrotik/network"
 export * from "../components/worker/network"*/
 
 const {averiaRouter} = require("../components/averia/network")
+const {clientRouter} = require("../components/client/network")
 
 module.exports = {
-  averiaRouter
+  averiaRouter,
+  clientRouter,
 }

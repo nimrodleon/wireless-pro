@@ -1,4 +1,4 @@
-import {model, Schema} from "mongoose"
+const {model, Schema} = require("mongoose")
 
 // Schema modelo cliente.
 const clientSchema = new Schema({
@@ -28,4 +28,5 @@ const clientSchema = new Schema({
 })
 
 // modelo cliente.
-export const Client = model("Client", clientSchema)
+const Client = model("Client", clientSchema)
+module.exports = {Client}

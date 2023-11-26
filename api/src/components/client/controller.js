@@ -1,7 +1,7 @@
-import {ClientStore} from './store'
+const {ClientStore} = require("./store")
 
 // Lógica - clientes.
-export class ClientController {
+class ClientController {
   // Lista de clientes.
   static getClients(query) {
     return new Promise((resolve, reject) => {
@@ -79,4 +79,8 @@ export class ClientController {
     })
   }
 
+}
+
+module.exports = {
+  ClientController
 }

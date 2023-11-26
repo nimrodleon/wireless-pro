@@ -1,8 +1,8 @@
-import _ from 'lodash'
-import {Client} from './model'
+const _ = require("lodash")
+const {Client} = require("./model")
 
 // CRUD - clientes.
-export class ClientStore {
+class ClientStore {
   // Listar clientes.
   static async getClients(query) {
     return Client.find({
@@ -62,4 +62,8 @@ export class ClientStore {
     return Client.find({isDeleted: false})
   }
 
+}
+
+module.exports = {
+  ClientStore
 }

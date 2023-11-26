@@ -1,7 +1,8 @@
-import express, {response} from "express"
-import {check} from "express-validator"
-import {checkRolAdmin, validate, verifyToken} from "../middlewares"
-import {ClientController} from "./controller"
+const express = require("express")
+const {response} = require("express")
+const {check} = require("express-validator")
+const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
+const {ClientController} = require("./controller")
 
 const router = express.Router()
 
@@ -130,4 +131,6 @@ function deleteClient(req, res = response) {
 //   })
 // }
 
-export const clientRouter = router
+module.exports = {
+  clientRouter: router
+}
