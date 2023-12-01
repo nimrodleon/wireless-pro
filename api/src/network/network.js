@@ -10,6 +10,7 @@ const {outageRouter} = require("../components/outage/network")
 const {paymentRouter} = require("../components/payment/network")
 const {serviceRouter} = require("../components/service/network")
 const {servicePlanRouter} = require("../components/serviceplan/network")
+const {towerRouter} = require("../components/tower/network")
 
 module.exports = {
   averiaRouter,
@@ -24,4 +25,5 @@ module.exports = {
   paymentRouter,
   serviceRouter,
   servicePlanRouter,
+  towerRouter,
 }

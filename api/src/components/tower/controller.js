@@ -1,10 +1,10 @@
-import {TowerStore} from './store'
-import {DeviceStore} from '../device/store'
+const {TowerStore} = require("./store")
+const {DeviceStore} = require("../device/store")
 
 // Lógica - Tower.
-export class TowerController {
+class TowerController {
   // Lista de torres.
-  static getTowers(query = '') {
+  static getTowers(query = "") {
     return new Promise((resolve, reject) => {
       try {
         resolve(TowerStore.getTowers(query))
@@ -101,4 +101,8 @@ export class TowerController {
       }
     })
   }
+}
+
+module.exports = {
+  TowerController
 }

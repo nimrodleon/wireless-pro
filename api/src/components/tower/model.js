@@ -1,6 +1,6 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
-export const Tower = model('Tower',
+const Tower = model("Tower",
   new Schema({
     tower: {
       type: String,
@@ -8,10 +8,14 @@ export const Tower = model('Tower',
     },
     coverage: {
       type: Schema.Types.ObjectId,
-      ref: 'Coverage'
+      ref: "Coverage"
     },
     isDeleted: {
       type: Boolean,
       default: false
     }
   }))
+
+module.exports = {
+  Tower
+}

@@ -1,16 +1,16 @@
-import {Tower} from './model'
-import {CoverageStore} from '../coverage/store'
+const {Tower} = require("./model")
+const {CoverageStore} = require("../coverage/store")
 
 // CRUD - tower.
-export class TowerStore {
+class TowerStore {
   // Listar torres.
-  static async getTowers(query = '') {
+  static async getTowers(query = "") {
     return Tower.find({
       isDeleted: false,
       tower: {
         $regex: query
       }
-    }).populate('coverage')
+    }).populate("coverage")
   }
 
   // Lista de torres v1.
@@ -44,11 +44,15 @@ export class TowerStore {
 
   // torres por area cobertura.
   static async getTowerByDistinctCoverage() {
-    return Tower.find().distinct('coverage')
+    return Tower.find().distinct("coverage")
   }
 
   // areas de cobertura x torres.
   static async getCoveragesByTowers() {
     return CoverageStore.getCoveragesByTramosOrTowers(this.getTowerByDistinctCoverage())
   }
+}
+
+module.exports = {
+  TowerStore
 }

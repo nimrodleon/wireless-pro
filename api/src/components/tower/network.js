@@ -1,7 +1,8 @@
-import express, {response} from "express"
-import {checkRolAdmin, checkRolNetwork, validate, verifyToken} from "../middlewares"
-import {TowerController} from "./controller"
-import {check} from "express-validator"
+const express = require("express")
+const {response} = express
+const {checkRolAdmin, checkRolNetwork, validate, verifyToken} = require("../middlewares")
+const {TowerController} = require("./controller")
+const {check} = require("express-validator")
 
 const router = express.Router()
 
@@ -115,4 +116,6 @@ function deleteTower(req, res = response) {
   })
 }
 
-export const towerRouter = router
+module.exports = {
+  towerRouter: router
+}
