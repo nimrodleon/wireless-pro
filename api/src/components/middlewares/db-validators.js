@@ -50,5 +50,6 @@ module.exports = {
   isValidRole,
   userNameExist,
   editUserNameExist,
+  userEmailExist,
   editUserEmailExist,
 }

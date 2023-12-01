@@ -1,3 +1,4 @@
+const {authRouter} = require("../components/auth/network")
 const {averiaRouter} = require("../components/averia/network")
 const {clientRouter} = require("../components/client/network")
 const {coverageRouter} = require("../components/coverage/network")
@@ -15,6 +16,7 @@ const {tramoRouter} = require("../components/tramo/network")
 const {bitWorkerRouter} = require("../components/worker/network")
 
 module.exports = {
+  authRouter,
   averiaRouter,
   clientRouter,
   coverageRouter,

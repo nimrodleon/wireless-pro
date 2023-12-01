@@ -1,4 +1,4 @@
-import {model, Schema} from "mongoose"
+const {model, Schema} = require("mongoose")
 
 // Schema Usuario.
 const userSchema = new Schema({
@@ -29,4 +29,8 @@ userSchema.methods.toJSON = function () {
 }
 
 // Exportar modelo Usuario.
-export const User = model("User", userSchema)
+const User = model("User", userSchema)
+
+module.exports = {
+  User
+}

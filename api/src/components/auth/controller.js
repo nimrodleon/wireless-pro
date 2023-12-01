@@ -1,11 +1,11 @@
-import bcrypt from "bcryptjs"
-import jwt from "jsonwebtoken"
-import {UserService} from "./user.service"
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const {UserService} = require("./user.service")
 
 const saltRounds = 10
 
 // generate Password.
-export function generatePassword(myTextPassword) {
+function generatePassword(myTextPassword) {
   return new Promise((resolve, reject) => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
       bcrypt.hash(myTextPassword, salt, (err, hash) => {
@@ -19,7 +19,7 @@ export function generatePassword(myTextPassword) {
 }
 
 // Lógica - usuarios.
-export class UserController {
+class UserController {
   // devolver usuario por id.
   static getUser(userId) {
     return new Promise((resolve, reject) => {
@@ -71,4 +71,9 @@ export class UserController {
     })
   }
 
+}
+
+module.exports = {
+  generatePassword,
+  UserController,
 }

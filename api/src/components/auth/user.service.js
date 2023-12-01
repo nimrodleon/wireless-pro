@@ -1,8 +1,8 @@
-import _ from "lodash"
-import {User} from "./model"
+const _ = require("lodash")
+const {User} = require("./model")
 
 // CRUD - usuarios.
-export class UserService {
+class UserService {
   // Listar usuarios.
   static async getUsers(suspended = false) {
     return User.find({suspended: suspended, isDeleted: false})
@@ -63,4 +63,8 @@ export class UserService {
     })
     return data
   }
+}
+
+module.exports = {
+  UserService
 }

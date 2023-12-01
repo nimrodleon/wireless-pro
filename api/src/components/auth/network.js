@@ -1,6 +1,7 @@
-import express, {response} from "express"
-import {check} from "express-validator"
-import {
+const express = require("express")
+const {response} = express
+const {check} = require("express-validator")
+const {
   verifyToken,
   validate,
   userNameExist,
@@ -8,10 +9,9 @@ import {
   isValidRole,
   checkRolAdmin,
   editUserNameExist, editUserEmailExist
-} from "../middlewares"
-import {UserController} from "./controller"
-import {UserService} from "./user.service"
-import {result} from "lodash"
+} = require("../middlewares")
+const {UserController} = require("./controller")
+const {UserService} = require("./user.service")
 
 const router = express.Router()
 
@@ -205,4 +205,6 @@ function getUsersWithSelect2(req, res = response) {
   })
 }
 
-export const authRouter = router
+module.exports = {
+  authRouter: router
+}
