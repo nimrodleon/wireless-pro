@@ -1,7 +1,8 @@
-import express, {response} from "express"
-import {checkRolAdmin, validate, verifyToken} from "../middlewares"
-import {ServicePlanController} from "./controller"
-import {check} from "express-validator"
+const express = require("express")
+const {response} = express
+const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
+const {ServicePlanController} = require("./controller")
+const {check} = require("express-validator")
 
 const router = express.Router()
 
@@ -129,4 +130,6 @@ async function getServicesList(req, res = response) {
   })
 }
 
-export const servicePlanRouter = router
+module.exports = {
+  servicePlanRouter: router
+}

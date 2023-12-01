@@ -1,9 +1,9 @@
-import {ServicePlanStore} from './store'
+const {ServicePlanStore} = require("./store")
 
 // Lógica - Tarifa de internet.
-export class ServicePlanController {
+class ServicePlanController {
   // Lista de planes de servicio.
-  static getServicePlans(query = '') {
+  static getServicePlans(query = "") {
     return new Promise((resolve, reject) => {
       try {
         resolve(ServicePlanStore.getServicePlans(query))
@@ -74,7 +74,7 @@ export class ServicePlanController {
   static totalEnabledServices(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(ServicePlanStore.totalStatusServices(id, 'HABILITADO'))
+        resolve(ServicePlanStore.totalStatusServices(id, "HABILITADO"))
       } catch (err) {
         reject(err)
       }
@@ -85,7 +85,7 @@ export class ServicePlanController {
   static totalSuspendedServices(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(ServicePlanStore.totalStatusServices(id, 'SUSPENDIDO'))
+        resolve(ServicePlanStore.totalStatusServices(id, "SUSPENDIDO"))
       } catch (err) {
         reject(err)
       }
@@ -103,4 +103,8 @@ export class ServicePlanController {
     })
   }
 
+}
+
+module.exports = {
+  ServicePlanController
 }

@@ -1,6 +1,6 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
-export const ServicePlan = model('ServicePlan',
+export const ServicePlan = model("ServicePlan",
   new Schema({
     name: {
       type: String,
@@ -14,3 +14,7 @@ export const ServicePlan = model('ServicePlan',
       default: false
     }
   }))
+
+module.exports = {
+  ServicePlan
+}

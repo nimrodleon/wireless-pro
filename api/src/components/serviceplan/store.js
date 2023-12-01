@@ -1,16 +1,16 @@
-import _ from 'lodash'
-import {ServicePlan} from './model'
-import {ServiceStore} from '../service/store'
-import {Service} from '../service/model'
+const _ = require("lodash")
+const {ServicePlan} = require("./model")
+const {ServiceStore} = require("../service/store")
+const {Service} = require("../service/model")
 
 // CRUD - Tarifa de internet.
-export class ServicePlanStore {
+class ServicePlanStore {
   // Listar planes de servicios.
-  static async getServicePlans(query = '') {
+  static async getServicePlans(query = "") {
     return ServicePlan.find({
       isDeleted: false,
       $or: [{name: {$regex: query}}]
-    }).sort({'name': 1})
+    }).sort({"name": 1})
   }
 
   // devolver plan de servicio por id.
@@ -60,11 +60,15 @@ export class ServicePlanStore {
   // Lista de servicios por tarifa.
   static async getServicesList(id) {
     return Service.find({
-      servicePlanId: id, status: {$in: ['HABILITADO', 'SUSPENDIDO']},
+      servicePlanId: id, status: {$in: ["HABILITADO", "SUSPENDIDO"]},
       mikrotikId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
       ipAddress: {$exists: true}, macAddress: {$exists: true}, paymentType: {$exists: true},
       arpId: {$exists: true}, simpleQueueId: {$exists: true}, isDeleted: false
     })
   }
 
+}
+
+module.exports = {
+  ServicePlanStore
 }
