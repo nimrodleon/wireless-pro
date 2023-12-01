@@ -3,7 +3,7 @@ const express = require("express")
 const path = require("path")
 const http = require("http")
 const mongoose = require("mongoose")
-const router = require("./network/routes")
+const router = require("./routes")
 const logger = require("morgan")
 const cors = require("cors")
 
