@@ -1,6 +1,7 @@
-import express, {response} from "express"
-import {checkRolAdmin, verifyToken} from "../middlewares"
-import {OrderController} from "./controller"
+const express = require("express")
+const {response} = express
+const {checkRolAdmin, verifyToken} = require("../middlewares")
+const {OrderController} = require("./controller")
 
 const router = express.Router()
 
@@ -129,4 +130,6 @@ function deleteMaterial(req, res = response) {
   })
 }
 
-export const workOrderRouter = router
+module.exports = {
+  workOrderRouter: router
+}

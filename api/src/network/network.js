@@ -5,6 +5,7 @@ const {deviceRouter} = require("../components/device/network")
 const {infoRouter} = require("../components/info/network")
 const {materialRouter} = require("../components/material/network")
 const {mikrotikRouter} = require("../components/mikrotik/network")
+const {workOrderRouter} = require("../components/orders/network")
 
 module.exports = {
   averiaRouter,
@@ -14,5 +15,6 @@ module.exports = {
   infoRouter,
   materialRouter,
   mikrotikRouter,
+  workOrderRouter,
 
 }

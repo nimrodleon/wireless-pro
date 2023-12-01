@@ -1,15 +1,15 @@
-import {model, Schema} from 'mongoose'
-import moment from 'moment-timezone'
+const {model, Schema} = require("mongoose")
+const moment = require("moment-timezone")
 
 // schema orden de instalación.
 const orderSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   clientId: {
     type: Schema.Types.ObjectId,
-    ref: 'Client'
+    ref: "Client"
   },
   description: {
     type: String,
@@ -21,22 +21,22 @@ const orderSchema = new Schema({
   typeTask: String,
   servicePlanId: {
     type: Schema.Types.ObjectId,
-    ref: 'ServicePlan'
+    ref: "ServicePlan"
   },
   total: Number,
   amount: Number,
   statusOrder: {
     type: String,
-    default: 'PENDIENTE',
-    enum: ['PENDIENTE', 'EN PROCESO', 'FINALIZADO']
+    default: "PENDIENTE",
+    enum: ["PENDIENTE", "EN PROCESO", "FINALIZADO"]
   },
   year: {
     type: String,
-    default: moment().format('YYYY')
+    default: moment().format("YYYY")
   },
   month: {
     type: String,
-    default: moment().format('MM')
+    default: moment().format("MM")
   },
   createdAt: {
     type: Date,
@@ -49,13 +49,13 @@ const orderSchema = new Schema({
 })
 
 // modelo orden de instalación.
-export const Order = model('Order', orderSchema)
+const Order = model("Order", orderSchema)
 
-// schema materiales de ordenes de instalación.
+// schema materiales de órdenes de instalación.
 const orderMaterialSchema = new Schema({
   orderId: {
     type: Schema.Types.ObjectId,
-    ref: 'Order'
+    ref: "Order"
   },
   materialId: String,
   description: String,
@@ -66,5 +66,10 @@ const orderMaterialSchema = new Schema({
   total: Number,
 })
 
-// modelo materiales de las ordenes de instalación.
-export const OrderMaterial = model('OrderMaterial', orderMaterialSchema)
+// modelo materiales de órdenes de instalación.
+const OrderMaterial = model("OrderMaterial", orderMaterialSchema)
+
+module.exports = {
+  Order,
+  OrderMaterial,
+}

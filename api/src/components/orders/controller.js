@@ -1,7 +1,7 @@
-import {OrderStore} from './store'
+const {OrderStore} = require("./store")
 
 // Lógica - Orden de Trabajo.
-export class OrderController {
+class OrderController {
   // Lista de ordenes de instalación.
   static async getOrderList(query) {
     return new Promise((resolve, reject) => {
@@ -136,4 +136,8 @@ export class OrderController {
     })
   }
 
+}
+
+module.exports = {
+  OrderController
 }

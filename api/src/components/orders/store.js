@@ -1,8 +1,8 @@
-import {Order, OrderMaterial} from './model'
-import {Client} from '../client/model'
+const {Order, OrderMaterial} = require("./model")
+const {Client} = require("../client/model")
 
-// CRUD - Ordenes de Trabajo.
-export class OrderStore {
+// CRUD - órdenes de Trabajo.
+class OrderStore {
   // Lista de ordenes de trabajo.
   static async getOrderList(query) {
     return Client.aggregate([
@@ -13,10 +13,10 @@ export class OrderStore {
       },
       {
         $lookup: {
-          from: 'orders',
-          localField: '_id',
-          foreignField: 'clientId',
-          as: 'WorkOrder'
+          from: "orders",
+          localField: "_id",
+          foreignField: "clientId",
+          as: "WorkOrder"
         }
       },
       {
@@ -25,12 +25,12 @@ export class OrderStore {
           phone: true,
           WorkOrder: {
             $filter: {
-              input: '$WorkOrder',
-              as: 'ord',
+              input: "$WorkOrder",
+              as: "ord",
               cond: {
                 $and: [
-                  {$in: ['$$ord.statusOrder', ['PENDIENTE', 'EN PROCESO']]},
-                  {$eq: ['$$ord.isDeleted', false]},
+                  {$in: ["$$ord.statusOrder", ["PENDIENTE", "EN PROCESO"]]},
+                  {$eq: ["$$ord.isDeleted", false]},
                 ]
               }
             }
@@ -38,12 +38,12 @@ export class OrderStore {
         }
       },
       {
-        $unwind: '$WorkOrder'
+        $unwind: "$WorkOrder"
       }
     ])
   }
 
-  // Lista de ordenes filtrado por mes y año.
+  // Lista de órdenes y filtrado por mes y año.
   static async getOrderListByYearMonth(year, month, query) {
     return Client.aggregate([
       {
@@ -53,10 +53,10 @@ export class OrderStore {
       },
       {
         $lookup: {
-          from: 'orders',
-          localField: '_id',
-          foreignField: 'clientId',
-          as: 'WorkOrder'
+          from: "orders",
+          localField: "_id",
+          foreignField: "clientId",
+          as: "WorkOrder"
         }
       },
       {
@@ -65,13 +65,13 @@ export class OrderStore {
           phone: true,
           WorkOrder: {
             $filter: {
-              input: '$WorkOrder',
-              as: 'ord',
+              input: "$WorkOrder",
+              as: "ord",
               cond: {
                 $and: [
-                  {$eq: ['$$ord.year', year]},
-                  {$eq: ['$$ord.month', month]},
-                  {$eq: ['$$ord.isDeleted', false]}
+                  {$eq: ["$$ord.year", year]},
+                  {$eq: ["$$ord.month", month]},
+                  {$eq: ["$$ord.isDeleted", false]}
                 ]
               }
             }
@@ -79,17 +79,17 @@ export class OrderStore {
         }
       },
       {
-        $unwind: '$WorkOrder'
+        $unwind: "$WorkOrder"
       }
     ])
   }
 
-  // Obtener orden de instalación por id.
+  // Obtener orden de instalación por ID.
   static async getOrderById(id) {
     return Order.findById(id)
   }
 
-  // Obtener orden de instalación por id cliente.
+  // Obtener orden de instalación por ID cliente.
   static async getOrderByClientId(id) {
     return Order.find({clientId: id, isDeleted: false})
   }
@@ -142,4 +142,8 @@ export class OrderStore {
     return OrderMaterial.findByIdAndDelete(id)
   }
 
+}
+
+module.exports = {
+  OrderStore
 }
