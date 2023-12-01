@@ -1,7 +1,7 @@
-import {OutageStore} from './store'
+const {OutageStore} = require("./store")
 
 // Lógica - cortes de  internet.
-export class OutageController {
+class OutageController {
   // Lista de cortes.
   static getOutages(idService) {
     return new Promise((resolve, reject) => {
@@ -35,4 +35,8 @@ export class OutageController {
   //   })
   // }
 
+}
+
+module.exports = {
+  OutageController
 }

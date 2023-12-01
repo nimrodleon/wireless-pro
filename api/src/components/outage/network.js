@@ -1,11 +1,12 @@
-import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
-import {OutageController} from './controller'
+const express = require("express")
+const {response} = express
+const {verifyToken} = require("../middlewares")
+const {OutageController} = require("./controller")
 
 const router = express.Router()
 
 // http://<HOST>/api/outages/:id/service
-router.get('/:id/service', [verifyToken], getOutages)
+router.get("/:id/service", [verifyToken], getOutages)
 
 // Lista de cortes.
 function getOutages(req, res = response) {
@@ -40,4 +41,7 @@ function getOutages(req, res = response) {
 //   })
 // }
 
-export const outageRouter = router
+module.exports = {
+  outageRouter: router
+}
+

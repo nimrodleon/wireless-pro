@@ -1,7 +1,7 @@
-import {Outage} from './model'
+const {Outage} = require("./model")
 
 // CRUD - cortes de internet.
-export class OutageStore {
+class OutageStore {
   // Listar outages.
   static async getOutages(idService) {
     return Outage.find({service: idService}).hint({$natural: -1}).limit(12)
@@ -30,4 +30,8 @@ export class OutageStore {
   //   _outage.isDeleted = true
   //   return this.updateOutage(id, _outage)
   // }
+}
+
+module.exports = {
+  OutageStore
 }

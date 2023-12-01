@@ -1,10 +1,10 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
-export const Outage = model('Outage',
+const Outage = model("Outage",
   new Schema({
     service: {
       type: Schema.Types.ObjectId,
-      ref: 'Service'
+      ref: "Service"
     },
     description: String,
     status: String,
@@ -14,3 +14,7 @@ export const Outage = model('Outage',
       default: false
     }
   }))
+
+module.exports = {
+  Outage
+}
