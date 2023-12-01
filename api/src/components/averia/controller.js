@@ -1,7 +1,7 @@
 const {AveriaStore} = require("./store")
 
 // Lógica - averias.
-export class AveriaController {
+class AveriaController {
   // Lista de averias.
   static getAverias(query) {
     return new Promise((resolve, reject) => {

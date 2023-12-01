@@ -1,6 +1,6 @@
 const {model, Schema} = require("mongoose")
 
-export const ServicePlan = model("ServicePlan",
+const ServicePlan = model("ServicePlan",
   new Schema({
     name: {
       type: String,
