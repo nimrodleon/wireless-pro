@@ -1,7 +1,7 @@
-import {Service} from './model'
+const {Service} = require("./model")
 
 // CRUD - services.
-export class ServiceStore {
+class ServiceStore {
   // Listar servicios.
   static async getServices(clientId) {
     return Service.find({clientId: clientId, isDeleted: false})
@@ -34,20 +34,24 @@ export class ServiceStore {
   // lista de servicios temporales.
   static async getTemporalServices() {
     return Service.find({temporal: true, isDeleted: false})
-      .populate({path: 'clientId', select: 'fullName'})
+      .populate({path: "clientId", select: "fullName"})
   }
 
   // reporte clientes por cobrar.
   static async reporteClientesPorCobrar(date, type) {
     return Service.find({
-      status: 'HABILITADO', paymentType: type, lastPayment: {$exists: true}, paidUpTo: {$lt: date}, isDeleted: false
-    }).populate({path: 'clientId', select: 'fullName'})
+      status: "HABILITADO", paymentType: type, lastPayment: {$exists: true}, paidUpTo: {$lt: date}, isDeleted: false
+    }).populate({path: "clientId", select: "fullName"})
   }
 
   // reporte servicios sin registro de pago.
   static async reporteServicioSinRegistroDePago() {
-    return Service.find({status: 'HABILITADO', lastPayment: {$exists: false}, isDeleted: false})
-      .populate({path: 'clientId', select: 'fullName'})
+    return Service.find({status: "HABILITADO", lastPayment: {$exists: false}, isDeleted: false})
+      .populate({path: "clientId", select: "fullName"})
   }
 
+}
+
+module.exports = {
+  ServiceStore
 }

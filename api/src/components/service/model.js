@@ -1,17 +1,17 @@
-import {model, Schema} from 'mongoose'
-import moment from 'moment-timezone'
+const {model, Schema} = require("mongoose")
+const moment = require("moment-timezone")
 
 // Schema de servicio.
 const serviceSchema = new Schema({
   clientId: {
     type: Schema.Types.ObjectId,
-    ref: 'Client'
+    ref: "Client"
   },
   ipAddress: String,
   status: {
     type: String,
-    default: 'HABILITADO',
-    enum: ['HABILITADO', 'DESHABILITADO', 'SUSPENDIDO']
+    default: "HABILITADO",
+    enum: ["HABILITADO", "DESHABILITADO", "SUSPENDIDO"]
   },
   temporal: {
     type: Boolean,
@@ -19,23 +19,23 @@ const serviceSchema = new Schema({
   },
   servicePlanId: {
     type: Schema.Types.ObjectId,
-    ref: 'ServicePlan'
+    ref: "ServicePlan"
   },
   initialDate: String,
   mikrotikId: {
     type: Schema.Types.ObjectId,
-    ref: 'Mikrotik'
+    ref: "Mikrotik"
   },
   interfaceId: {
     type: Schema.Types.ObjectId,
-    ref: 'Interface'
+    ref: "Interface"
   },
   userName: String,
   password: String,
   // basicNote: String,
   accessPoint: {
     type: Schema.Types.ObjectId,
-    ref: 'Device'
+    ref: "Device"
   },
   macAddress: String,
   // ============================================================
@@ -44,13 +44,13 @@ const serviceSchema = new Schema({
   region: String,
   coverageId: {
     type: Schema.Types.ObjectId,
-    ref: 'Coverage'
+    ref: "Coverage"
   },
   // ============================================================
   paymentType: {
     type: String,
-    default: 'PRE',
-    enum: ['PRE', 'POS', 'CONVENIO', 'EMPRESA']
+    default: "PRE",
+    enum: ["PRE", "POS", "CONVENIO", "EMPRESA"]
   },
   defPrice: {
     type: Boolean,
@@ -59,14 +59,14 @@ const serviceSchema = new Schema({
   price: Number,
   commonPayment: {
     type: String,
-    default: 'MENSUAL',
-    enum: ['MENSUAL', 'BIMESTRAL', 'TRIMESTRAL', 'SEMESTRAL', 'ANUAL']
+    default: "MENSUAL",
+    enum: ["MENSUAL", "BIMESTRAL", "TRIMESTRAL", "SEMESTRAL", "ANUAL"]
   },
   paymentNote: String,
   // ============================================================
   lastPayment: {
     type: Schema.Types.ObjectId,
-    ref: 'Payment'
+    ref: "Payment"
   },
   paidUpTo: String,
   // ============================================================
@@ -82,4 +82,8 @@ const serviceSchema = new Schema({
 
 // exportar modelo servicio.
 // almacena la información del servicio contratado.
-export const Service = model('Service', serviceSchema)
+const Service = model("Service", serviceSchema)
+
+module.exports = {
+  Service
+}

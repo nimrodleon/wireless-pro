@@ -8,6 +8,7 @@ const {mikrotikRouter} = require("../components/mikrotik/network")
 const {workOrderRouter} = require("../components/orders/network")
 const {outageRouter} = require("../components/outage/network")
 const {paymentRouter} = require("../components/payment/network")
+const {serviceRouter} = require("../components/service/network")
 
 module.exports = {
   averiaRouter,
@@ -20,4 +21,5 @@ module.exports = {
   workOrderRouter,
   outageRouter,
   paymentRouter,
+  serviceRouter,
 }
