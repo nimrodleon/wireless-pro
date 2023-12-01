@@ -1,4 +1,4 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
 // Schema Mikrotik.
 const mikrotikSchema = new Schema({
@@ -14,14 +14,14 @@ const mikrotikSchema = new Schema({
 })
 
 // exportar modelo mikrotik.
-export const Mikrotik = model('Mikrotik', mikrotikSchema)
+const Mikrotik = model("Mikrotik", mikrotikSchema)
 
 // Schema interface mikrotik.
 const interfaceSchema = new Schema({
   name: String,
   mikrotikId: {
     type: Schema.Types.ObjectId,
-    ref: 'Mikrotik'
+    ref: "Mikrotik"
   },
   isDeleted: {
     type: Boolean,
@@ -30,4 +30,9 @@ const interfaceSchema = new Schema({
 })
 
 // exportar modelo interface.
-export const Interface = model('Interface', interfaceSchema)
+const Interface = model("Interface", interfaceSchema)
+
+module.exports = {
+  Mikrotik,
+  Interface,
+}

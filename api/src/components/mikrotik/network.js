@@ -1,12 +1,13 @@
-import express, {response} from 'express'
-import {check} from 'express-validator'
-import {checkRolAdmin, validate, verifyToken} from '../middlewares'
-import {MikrotikController} from './controller'
+const express = require("express")
+const {response} = express
+const {check} = require("express-validator")
+const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
+const {MikrotikController} = require("./controller")
 
 const router = express.Router()
 
 // http://<HOST>/api/mikrotik
-router.get('/', [verifyToken], getMikrotikList)
+router.get("/", [verifyToken], getMikrotikList)
 
 // Lista de router mikrotik.
 function getMikrotikList(req, res = response) {
@@ -16,7 +17,7 @@ function getMikrotikList(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/:id
-router.get('/:id', [verifyToken], getMikrotikById)
+router.get("/:id", [verifyToken], getMikrotikById)
 
 // Obtener mikrotik por id.
 function getMikrotikById(req, res = response) {
@@ -26,13 +27,13 @@ function getMikrotikById(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik
-router.post('/', [
+router.post("/", [
   verifyToken,
   checkRolAdmin,
-  check('name', 'El nombre es obligatorio').not().isEmpty(),
-  check('host', 'La dirección IP es obligatorio').not().isEmpty(),
-  check('port', 'El puerto es obligatorio').not().isEmpty(),
-  check('userName', 'El nombre de usuario es obligatorio').not().isEmpty(),
+  check("name", "El nombre es obligatorio").not().isEmpty(),
+  check("host", "La dirección IP es obligatorio").not().isEmpty(),
+  check("port", "El puerto es obligatorio").not().isEmpty(),
+  check("userName", "El nombre de usuario es obligatorio").not().isEmpty(),
   validate
 ], createMikrotik)
 
@@ -44,14 +45,14 @@ function createMikrotik(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/:id
-router.patch('/:id', [
+router.patch("/:id", [
   verifyToken,
   checkRolAdmin,
-  check('id', 'No es un ID válido').isMongoId(),
-  check('name', 'El nombre es obligatorio').not().isEmpty(),
-  check('host', 'La dirección IP es obligatorio').not().isEmpty(),
-  check('port', 'El puerto es obligatorio').not().isEmpty(),
-  check('userName', 'El nombre de usuario es obligatorio').not().isEmpty(),
+  check("id", "No es un ID válido").isMongoId(),
+  check("name", "El nombre es obligatorio").not().isEmpty(),
+  check("host", "La dirección IP es obligatorio").not().isEmpty(),
+  check("port", "El puerto es obligatorio").not().isEmpty(),
+  check("userName", "El nombre de usuario es obligatorio").not().isEmpty(),
   validate
 ], updateMikrotik)
 
@@ -63,10 +64,10 @@ function updateMikrotik(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/:id
-router.delete('/:id', [
+router.delete("/:id", [
   verifyToken,
   checkRolAdmin,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate
 ], deleteMikrotik)
 
@@ -80,9 +81,9 @@ function deleteMikrotik(req, res = response) {
 // ============================================================
 
 // http://<HOST>/api/mikrotik/:id/totalStatusServices
-router.get('/:id/totalStatusServices', [
+router.get("/:id/totalStatusServices", [
   verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate
 ], totalStatusServices)
 
@@ -94,9 +95,9 @@ async function totalStatusServices(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/:id/getServicesList
-router.get('/:id/getServicesList', [
+router.get("/:id/getServicesList", [
   verifyToken,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate
 ], getServicesList)
 
@@ -110,7 +111,7 @@ async function getServicesList(req, res = response) {
 // ============================================================
 
 // http://<HOST>/api/mikrotik/:id/interface
-router.get('/:id/interface', [verifyToken], getInterfaceList)
+router.get("/:id/interface", [verifyToken], getInterfaceList)
 
 // Lista de interfaces.
 function getInterfaceList(req, res = response) {
@@ -120,7 +121,7 @@ function getInterfaceList(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/show/interface/:id
-router.get('/show/interface/:id', [verifyToken], getInterfaceById)
+router.get("/show/interface/:id", [verifyToken], getInterfaceById)
 
 // obtener interfaz por id.
 function getInterfaceById(req, res = response) {
@@ -130,11 +131,11 @@ function getInterfaceById(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/add/interface
-router.post('/add/interface', [
+router.post("/add/interface", [
   verifyToken,
   checkRolAdmin,
-  check('name', 'El nombre es obligatorio').not().isEmpty(),
-  check('mikrotikId', 'El ID del mikrotik es obligatorio').not().isEmpty(),
+  check("name", "El nombre es obligatorio").not().isEmpty(),
+  check("mikrotikId", "El ID del mikrotik es obligatorio").not().isEmpty(),
   validate
 ], createInterface)
 
@@ -146,12 +147,12 @@ function createInterface(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/update/interface/:id
-router.patch('/update/interface/:id', [
+router.patch("/update/interface/:id", [
   verifyToken,
   checkRolAdmin,
-  check('id', 'No es un ID válido').isMongoId(),
-  check('name', 'El nombre es obligatorio').not().isEmpty(),
-  check('mikrotikId', 'El ID del mikrotik es obligatorio').not().isEmpty(),
+  check("id", "No es un ID válido").isMongoId(),
+  check("name", "El nombre es obligatorio").not().isEmpty(),
+  check("mikrotikId", "El ID del mikrotik es obligatorio").not().isEmpty(),
   validate
 ], updateInterface)
 
@@ -163,10 +164,10 @@ function updateInterface(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/delete/interface/:id
-router.delete('/delete/interface/:id', [
+router.delete("/delete/interface/:id", [
   verifyToken,
   checkRolAdmin,
-  check('id', 'No es un ID válido').isMongoId(),
+  check("id", "No es un ID válido").isMongoId(),
   validate
 ], deleteInterface)
 
@@ -177,4 +178,6 @@ function deleteInterface(req, res = response) {
   })
 }
 
-export const mikrotikRouter = router
+module.exports = {
+  mikrotikRouter: router
+}

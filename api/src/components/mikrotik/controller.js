@@ -1,7 +1,7 @@
-import {MikrotikStore} from './store'
+const {MikrotikStore} = require("./store")
 
 // Lógica - Mikrotik.
-export class MikrotikController {
+class MikrotikController {
   // Lista de mikrotik.
   static getMikrotikList() {
     return new Promise((resolve, reject) => {
@@ -63,7 +63,7 @@ export class MikrotikController {
   static totalEnabledServices(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.totalStatusServices(id, 'HABILITADO'))
+        resolve(MikrotikStore.totalStatusServices(id, "HABILITADO"))
       } catch (err) {
         reject(err)
       }
@@ -74,7 +74,7 @@ export class MikrotikController {
   static totalSuspendedServices(id) {
     return new Promise((resolve, reject) => {
       try {
-        resolve(MikrotikStore.totalStatusServices(id, 'SUSPENDIDO'))
+        resolve(MikrotikStore.totalStatusServices(id, "SUSPENDIDO"))
       } catch (err) {
         reject(err)
       }
@@ -149,4 +149,8 @@ export class MikrotikController {
     })
   }
 
+}
+
+module.exports = {
+  MikrotikController
 }

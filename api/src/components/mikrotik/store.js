@@ -1,14 +1,14 @@
-import {Interface, Mikrotik} from './model'
-import {Service} from '../service/model'
+const {Interface, Mikrotik} = require("./model")
+const {Service} = require("../service/model")
 
 // CRUD - Mikrotik.
-export class MikrotikStore {
+class MikrotikStore {
   // Lista de mikrotik.
   static async getMikrotikList() {
     return Mikrotik.find({isDeleted: false})
   }
 
-  // Obtener por id.
+  // Obtener por ID.
   static async getMikrotikById(id) {
     return Mikrotik.findById(id)
   }
@@ -46,7 +46,7 @@ export class MikrotikStore {
   // Lista de servicios por mikrotik.
   static async getServicesList(id) {
     return Service.find({
-      mikrotikId: id, status: {$in: ['HABILITADO', 'SUSPENDIDO']}, isDeleted: false,
+      mikrotikId: id, status: {$in: ["HABILITADO", "SUSPENDIDO"]}, isDeleted: false,
       servicePlanId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
       ipAddress: {$exists: true}, macAddress: {$exists: true}, paymentType: {$exists: true},
     })
@@ -83,4 +83,8 @@ export class MikrotikStore {
     return this.updateInterface(id, _interface)
   }
 
+}
+
+module.exports = {
+  MikrotikStore
 }

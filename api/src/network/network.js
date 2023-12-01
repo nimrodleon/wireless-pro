@@ -4,6 +4,7 @@ const {coverageRouter} = require("../components/coverage/network")
 const {deviceRouter} = require("../components/device/network")
 const {infoRouter} = require("../components/info/network")
 const {materialRouter} = require("../components/material/network")
+const {mikrotikRouter} = require("../components/mikrotik/network")
 
 module.exports = {
   averiaRouter,
@@ -12,4 +13,6 @@ module.exports = {
   deviceRouter,
   infoRouter,
   materialRouter,
+  mikrotikRouter,
+
 }
