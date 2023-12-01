@@ -1,11 +1,12 @@
-import express, {response} from 'express'
-import {checkRolAdmin, verifyToken} from '../middlewares'
-import {InfoController} from './controller'
+const express = require("express")
+const {response} = require("express")
+const {checkRolAdmin, verifyToken} = require("../middlewares")
+const {InfoController} = require("./controller")
 
 const router = express.Router()
 
 // http://<HOST>/api/info
-router.get('/', [
+router.get("/", [
   verifyToken,
 ], getInfoCompany)
 
@@ -19,7 +20,7 @@ function getInfoCompany(req, res = response) {
 }
 
 // http://<HOST>/api/info/:id
-router.patch('/:id', [
+router.patch("/:id", [
   verifyToken,
   checkRolAdmin,
 ], updateInfoCompany)
@@ -33,4 +34,6 @@ function updateInfoCompany(req, res = response) {
   })
 }
 
-export const infoRouter = router
+module.exports = {
+  infoRouter: router
+}

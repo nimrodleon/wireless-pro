@@ -1,7 +1,7 @@
-import {InfoStore} from './store'
+const {InfoStore} = require("./store")
 
 // Lógica - Info.
-export class InfoController {
+class InfoController {
   // obtener la info empresa.
   static getInfo() {
     return new Promise((resolve, reject) => {
@@ -23,4 +23,8 @@ export class InfoController {
       }
     })
   }
+}
+
+module.exports = {
+  InfoController
 }

@@ -1,4 +1,4 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
 // Schema info model.
 const infoSchema = new Schema({
@@ -18,5 +18,9 @@ const infoSchema = new Schema({
 })
 
 // Model info.
-// almacena información general.
-export const Info = model('Info', infoSchema)
+// Almacena información general.
+const Info = model("Info", infoSchema)
+
+module.exports = {
+  Info
+}
