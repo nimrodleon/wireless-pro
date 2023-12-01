@@ -1,11 +1,11 @@
-import {model, Schema} from 'mongoose'
-import moment from 'moment'
+const {model, Schema} = require("mongoose")
+const moment = require("moment")
 
 // Schema worker activity.
 const workerActivitySchema = new Schema({
   serviceId: {
     type: Schema.Types.ObjectId,
-    ref: 'Service'
+    ref: "Service"
   },
   task: String,
   user: String,
@@ -13,13 +13,17 @@ const workerActivitySchema = new Schema({
   remark: String,
   year: {
     type: String,
-    default: moment().format('YYYY')
+    default: moment().format("YYYY")
   },
   createdAt: {
     type: String,
-    default: moment().format('YYYY-MM-DD')
+    default: moment().format("YYYY-MM-DD")
   }
 })
 
 // modelo worker activity guardar la información de cambios de estado.
-export const WorkerActivity = model('WorkerActivity', workerActivitySchema)
+const WorkerActivity = model("WorkerActivity", workerActivitySchema)
+
+module.exports = {
+  WorkerActivity
+}

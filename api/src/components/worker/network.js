@@ -1,11 +1,12 @@
-import express, {response} from 'express'
-import {verifyToken} from '../middlewares'
-import {WorkerController} from './controller'
+const express = require("express")
+const {response} = express
+const {verifyToken} = require("../middlewares")
+const {WorkerController} = require("./controller")
 
 const router = express.Router()
 
 // http://<HOST>/api/bitWorker/:id/changeStatusService/:status
-router.get('/:id/changeStatusService/:status', [verifyToken], changeStatusService)
+router.get("/:id/changeStatusService/:status", [verifyToken], changeStatusService)
 
 // Cambiar plan de servicio.
 function changeStatusService(req, res = response) {
@@ -16,7 +17,7 @@ function changeStatusService(req, res = response) {
 }
 
 // http://<HOST>/api/bitWorker/:id/changeServicePlan/:servicePlanId
-router.get('/:id/changeServicePlan/:servicePlanId', [verifyToken], changeServicePlan)
+router.get("/:id/changeServicePlan/:servicePlanId", [verifyToken], changeServicePlan)
 
 // Cambiar plan de servicio.
 function changeServicePlan(req, res = response) {
@@ -27,7 +28,7 @@ function changeServicePlan(req, res = response) {
 }
 
 // http://<HOST>/api/bitWorker/:id/addService
-router.get('/:id/addService', [verifyToken], addService)
+router.get("/:id/addService", [verifyToken], addService)
 
 // registrar servicio.
 function addService(req, res = response) {
@@ -37,7 +38,7 @@ function addService(req, res = response) {
 }
 
 // http://<HOST>/api/bitWorker/:id/updateService
-router.get('/:id/updateService', [verifyToken], updateService)
+router.get("/:id/updateService", [verifyToken], updateService)
 
 // actualizar servicio.
 function updateService(req, res = response) {
@@ -47,7 +48,7 @@ function updateService(req, res = response) {
 }
 
 // http://<HOST>/api/bitWorker/:id/deleteService
-router.get('/:id/deleteService', [verifyToken], deleteService)
+router.get("/:id/deleteService", [verifyToken], deleteService)
 
 // borrar servicio.
 function deleteService(req, res = response) {
@@ -59,7 +60,7 @@ function deleteService(req, res = response) {
 // ====================================================================================================
 
 // http://<HOST>/api/bitWorker/:id/getWorkerActivities/:year
-router.get('/:id/getWorkerActivities/:year', [verifyToken], getWorkerActivities)
+router.get("/:id/getWorkerActivities/:year", [verifyToken], getWorkerActivities)
 
 // cargar lista de estado de cambios.
 function getWorkerActivities(req, res = response) {
@@ -70,7 +71,7 @@ function getWorkerActivities(req, res = response) {
 }
 
 // http://<HOST>/api/bitWorker/createWorkerActivity
-router.post('/createWorkerActivity', [verifyToken], createWorkerActivity)
+router.post("/createWorkerActivity", [verifyToken], createWorkerActivity)
 
 // registrar estado de cambio.
 function createWorkerActivity(req, res = response) {
@@ -80,4 +81,6 @@ function createWorkerActivity(req, res = response) {
   })
 }
 
-export const bitWorkerRouter = router
+module.exports = {
+  bitWorkerRouter: router
+}

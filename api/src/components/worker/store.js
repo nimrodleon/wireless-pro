@@ -1,6 +1,6 @@
-import {WorkerActivity} from './model'
+const {WorkerActivity} = require("./model")
 
-export class WorkerStore {
+class WorkerStore {
   // lista de actividades.
   static async getWorkerActivities(serviceId, year) {
     return WorkerActivity.find({serviceId: serviceId, year: year}).hint({$natural: -1})
@@ -14,4 +14,8 @@ export class WorkerStore {
     return _workerActivity
   }
 
+}
+
+module.exports = {
+  WorkerStore
 }

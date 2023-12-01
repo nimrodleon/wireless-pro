@@ -12,6 +12,7 @@ const {serviceRouter} = require("../components/service/network")
 const {servicePlanRouter} = require("../components/serviceplan/network")
 const {towerRouter} = require("../components/tower/network")
 const {tramoRouter} = require("../components/tramo/network")
+const {bitWorkerRouter} = require("../components/worker/network")
 
 module.exports = {
   averiaRouter,
@@ -28,4 +29,5 @@ module.exports = {
   servicePlanRouter,
   towerRouter,
   tramoRouter,
+  bitWorkerRouter,
 }
