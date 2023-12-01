@@ -1,7 +1,7 @@
-import {PaymentStore} from './store'
+const {PaymentStore} = require("./store")
 
 // Lógica - payment.
-export class PaymentController {
+class PaymentController {
   // Listar pagos.
   static getPayments(serviceId, year) {
     return new Promise((resolve, reject) => {
@@ -13,7 +13,7 @@ export class PaymentController {
     })
   }
 
-  // obtener pago por id.
+  // obtener pago por ID.
   static getPayment(id) {
     return new Promise((resolve, reject) => {
       try {
@@ -57,4 +57,8 @@ export class PaymentController {
     })
   }
 
+}
+
+module.exports = {
+  PaymentController
 }

@@ -1,12 +1,12 @@
-import {Payment} from './model'
-import {ServiceStore} from '../service/store'
+const {Payment} = require("./model")
+const {ServiceStore} = require("../service/store")
 
 // CRUD - payment.
-export class PaymentStore {
+class PaymentStore {
   // Listar pagos.
   static async getPayments(serviceId, year) {
     return Payment.find({serviceId: serviceId, year: year, isDeleted: false})
-      .populate({path: 'user', select: 'fullName'})
+      .populate({path: "user", select: "fullName"})
   }
 
   // devolver pago por id.
@@ -36,8 +36,12 @@ export class PaymentStore {
   // reporte pago diario.
   static async reportePagosDiario(date, method) {
     return Payment.find({createdAt: date, paymentMethod: method, isDeleted: false})
-      .populate({path: 'clientId', select: 'fullName'})
-      .populate({path: 'serviceId', select: 'ipAddress'})
+      .populate({path: "clientId", select: "fullName"})
+      .populate({path: "serviceId", select: "ipAddress"})
   }
 
+}
+
+module.exports = {
+  PaymentStore
 }

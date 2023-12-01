@@ -1,15 +1,15 @@
-import {model, Schema} from 'mongoose'
-import moment from 'moment'
+const {model, Schema} = require("mongoose")
+const moment = require("moment")
 
 // Schema de pagos.
 const paymentSchema = new Schema({
   clientId: {
     type: Schema.Types.ObjectId,
-    ref: 'Client'
+    ref: "Client"
   },
   serviceId: {
     type: Schema.Types.ObjectId,
-    ref: 'Service'
+    ref: "Service"
   },
   year: String,
   month: String,
@@ -20,11 +20,11 @@ const paymentSchema = new Schema({
   note: String,
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   createdAt: {
     type: String,
-    default: moment().format('YYYY-MM-DD')
+    default: moment().format("YYYY-MM-DD")
   },
   isDeleted: {
     type: Boolean,
@@ -40,4 +40,8 @@ const paymentSchema = new Schema({
 // }
 
 // Almacena información de los pagos.
-export const Payment = model('Payment', paymentSchema)
+const Payment = model("Payment", paymentSchema)
+
+module.exports = {
+  Payment
+}
