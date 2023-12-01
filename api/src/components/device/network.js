@@ -1,6 +1,7 @@
-import express, {response} from 'express'
-import {checkRolAdmin, checkRolNetwork, verifyToken} from '../middlewares'
-import {DeviceController} from './controller'
+const express = require("express")
+const {response} = require("express")
+const {checkRolAdmin, checkRolNetwork, verifyToken} = require("../middlewares")
+const {DeviceController} = require("./controller")
 
 const router = express.Router()
 
@@ -17,7 +18,7 @@ const router = express.Router()
 // }
 
 // http://<HOST>/api/devices/tramo/:id
-router.get('/tramo/:id', [verifyToken], getDevicesByTramo)
+router.get("/tramo/:id", [verifyToken], getDevicesByTramo)
 
 // Obtener equipos por tramos de red.
 function getDevicesByTramo(req, res = response) {
@@ -27,9 +28,9 @@ function getDevicesByTramo(req, res = response) {
 }
 
 // http://<HOST>/api/devices/:id
-router.get('/:id', [verifyToken], getDevice)
+router.get("/:id", [verifyToken], getDevice)
 
-// obtener equipo por id.
+// obtener equipo por ID.
 function getDevice(req, res = response) {
   DeviceController.getDevice(req.params.id).then(result => {
     res.json(result)
@@ -39,11 +40,11 @@ function getDevice(req, res = response) {
 }
 
 // http://<HOST>/api/devices/v1/select2/:q?
-router.get('/v1/select2/:q?', [verifyToken], getDevicesS2)
+router.get("/v1/select2/:q?", [verifyToken], getDevicesS2)
 
 // buscador select2.
 function getDevicesS2(req, res = response) {
-  const {term = ''} = req.query
+  const {term = ""} = req.query
   DeviceController.getDevicesS2(term).then(result => {
     res.json(result)
   }).catch(err => {
@@ -52,7 +53,7 @@ function getDevicesS2(req, res = response) {
 }
 
 // http://<HOST>/api/devices
-router.post('/', [
+router.post("/", [
   verifyToken,
   checkRolNetwork,
 ], addDevice)
@@ -67,7 +68,7 @@ function addDevice(req, res = response) {
 }
 
 // http://<HOST>/api/devices/:id
-router.patch('/:id', [
+router.patch("/:id", [
   verifyToken,
   checkRolNetwork,
 ], updateDevice)
@@ -82,7 +83,7 @@ function updateDevice(req, res = response) {
 }
 
 // http://<HOST>/api/devices/:id
-router.delete('/:id', [
+router.delete("/:id", [
   verifyToken,
   checkRolAdmin,
 ], deleteDevice)
@@ -96,4 +97,6 @@ function deleteDevice(req, res = response) {
   })
 }
 
-export const deviceRouter = router
+module.exports = {
+  deviceRouter: router
+}

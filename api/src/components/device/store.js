@@ -1,8 +1,8 @@
-import _ from 'lodash'
-import {Device} from './model'
+const _ = require("lodash")
+const {Device} = require("./model")
 
 // CRUD - equipos.
-export class DeviceStore {
+class DeviceStore {
   // Listar dispositivos.
   // static async getDevices(id, type = 'T0') {
   //   if (type === 'T0') {
@@ -22,8 +22,8 @@ export class DeviceStore {
     return Device.findById(id)
   }
 
-  // registrar dispositivo.
-  // excluir el (_id) del objeto para registrar el equipo.
+  // Registrar dispositivo.
+  // Excluir (_id) del objeto para registrar el equipo.
   static async createDevice({_id, ...data}) {
     let _device = new Device(data)
     await _device.save()
@@ -55,7 +55,7 @@ export class DeviceStore {
   // Buscador select2.
   static async getDevicesS2(term) {
     let _devices = await Device.find({
-      mode: 'P', $or: [
+      mode: "P", $or: [
         {ipAddress: {$regex: term}},
         {name: {$regex: term}}
       ]
@@ -66,4 +66,8 @@ export class DeviceStore {
     })
     return data
   }
+}
+
+module.exports = {
+  DeviceStore
 }

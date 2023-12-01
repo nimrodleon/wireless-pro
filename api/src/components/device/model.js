@@ -1,6 +1,6 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
-export const Device = model('Device',
+const Device = model("Device",
   new Schema({
     ipAddress: String,
     mode: String,
@@ -23,3 +23,7 @@ export const Device = model('Device',
       default: false
     }
   }))
+
+module.exports = {
+  Device
+}

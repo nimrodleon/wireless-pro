@@ -1,7 +1,7 @@
-import {DeviceStore} from './store'
+const {DeviceStore} = require("./store")
 
 // Lógica - Equipos.
-export class DeviceController {
+class DeviceController {
   // Listar equipos.
   // static getDevices(id, type = 'T0') {
   //   return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ export class DeviceController {
     })
   }
 
-  // devolver equipo por id.
+  // devolver equipo por ID.
   static getDevice(id) {
     return new Promise((resolve, reject) => {
       try {
@@ -78,4 +78,8 @@ export class DeviceController {
       }
     })
   }
+}
+
+module.exports = {
+  DeviceController
 }
