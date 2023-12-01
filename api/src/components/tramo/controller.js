@@ -1,7 +1,7 @@
-import {TramoStore} from './store'
+const {TramoStore} = require( './store')
 
 // Lógica - Tramos.
-export class TramoController {
+ class TramoController {
   // Lista de tramos.
   static getTramos(query) {
     return new Promise((resolve, reject) => {
@@ -90,4 +90,8 @@ export class TramoController {
     })
   }
 
+}
+
+module.exports = {
+  TramoController
 }

@@ -1,6 +1,6 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
-export const Tramo = model('Tramo',
+const Tramo = model("Tramo",
   new Schema({
     tramo: {
       type: String,
@@ -8,10 +8,14 @@ export const Tramo = model('Tramo',
     },
     coverage: {
       type: Schema.Types.ObjectId,
-      ref: 'Coverage'
+      ref: "Coverage"
     },
     isDeleted: {
       type: Boolean,
       default: false
     }
   }))
+
+module.exports = {
+  Tramo
+}

@@ -1,16 +1,16 @@
-import {Tramo} from './model'
-import {CoverageStore} from '../coverage/store'
+const {Tramo} = require("./model")
+const {CoverageStore} = require("../coverage/store")
 
 // CRUD - Tramos.
-export class TramoStore {
+class TramoStore {
   // Listar tramos.
-  static async getTramos(query = '') {
+  static async getTramos(query = "") {
     return Tramo.find({
       isDeleted: false,
       tramo: {
         $regex: query
       }
-    }).populate('coverage')
+    }).populate("coverage")
   }
 
   // Lista de tramos v1.
@@ -44,7 +44,7 @@ export class TramoStore {
 
   // areas de cobertura de los tramos.
   static async getTramosByDistinctCoverage() {
-    return Tramo.find({isDeleted: false}).distinct('coverage')
+    return Tramo.find({isDeleted: false}).distinct("coverage")
   }
 
   // areas de cobertura x tramos.
@@ -56,4 +56,8 @@ export class TramoStore {
   static async getTramosByCoverage(id) {
     return Tramo.find({coverage: id})
   }
+}
+
+module.exports = {
+  TramoStore
 }

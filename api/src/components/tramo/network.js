@@ -1,7 +1,8 @@
-import express, {response} from "express"
-import {checkRolAdmin, checkRolNetwork, validate, verifyToken} from "../middlewares"
-import {TramoController} from "./controller"
-import {check} from "express-validator"
+const express = require("express")
+const {response} = express
+const {checkRolAdmin, checkRolNetwork, validate, verifyToken} = require("../middlewares")
+const {TramoController} = require("./controller")
+const {check} = require("express-validator")
 
 const router = express.Router()
 
@@ -117,4 +118,6 @@ function deleteTramo(req, res = response) {
   })
 }
 
-export const tramoRouter = router
+module.exports = {
+  tramoRouter: router
+}
