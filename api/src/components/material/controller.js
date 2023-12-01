@@ -1,9 +1,9 @@
-import {MaterialStore} from './store'
+const {MaterialStore} = require("./store")
 
 // Lógica - materiales.
-export class MaterialController {
+class MaterialController {
   // Listar materiales.
-  static getMaterials(query = '') {
+  static getMaterials(query = "") {
     return new Promise((resolve, reject) => {
       try {
         resolve(MaterialStore.getMaterials(query))
@@ -68,4 +68,8 @@ export class MaterialController {
     })
   }
 
+}
+
+module.exports = {
+  MaterialController
 }

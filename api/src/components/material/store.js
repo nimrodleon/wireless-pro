@@ -1,10 +1,10 @@
-import {Material} from './model'
-import _ from 'lodash'
+const {Material} = require("./model")
+const _ = require("lodash")
 
 // CRUD - materiales.
-export class MaterialStore {
+class MaterialStore {
   // Listar materiales.
-  static async getMaterials(query = '') {
+  static async getMaterials(query = "") {
     return Material.find({
       isDeleted: false,
       $or: [
@@ -48,4 +48,8 @@ export class MaterialStore {
     })
     return data
   }
+}
+
+module.exports = {
+  MaterialStore
 }

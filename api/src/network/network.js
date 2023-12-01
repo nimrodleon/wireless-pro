@@ -1,25 +1,9 @@
-/*export * from "../components/auth/network"
-export * from "../components/averia/network"
-export * from "../components/client/network"
-export * from "../components/coverage/network"
-export * from "../components/device/network"
-export * from "../components/info/network"
-export * from "../components/material/network"
-export * from "../components/outage/network"
-export * from "../components/service/network"
-export * from "../components/payment/network"
-export * from "../components/serviceplan/network"
-export * from "../components/tower/network"
-export * from "../components/tramo/network"
-export * from "../components/orders/network"
-export * from "../components/mikrotik/network"
-export * from "../components/worker/network"*/
-
 const {averiaRouter} = require("../components/averia/network")
 const {clientRouter} = require("../components/client/network")
 const {coverageRouter} = require("../components/coverage/network")
 const {deviceRouter} = require("../components/device/network")
 const {infoRouter} = require("../components/info/network")
+const {materialRouter} = require("../components/material/network")
 
 module.exports = {
   averiaRouter,
@@ -27,4 +11,5 @@ module.exports = {
   coverageRouter,
   deviceRouter,
   infoRouter,
+  materialRouter,
 }

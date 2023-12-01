@@ -1,7 +1,8 @@
-import express, {response} from "express"
-import {checkRolAdmin, validate, verifyToken} from "../middlewares"
-import {MaterialController} from "./controller"
-import {check} from "express-validator"
+const express = require("express")
+const {response} = express
+const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
+const {MaterialController} = require("./controller")
+const {check} = require("express-validator")
 
 const router = express.Router()
 
@@ -94,4 +95,6 @@ function getMaterialWithSelect2(req, res = response) {
   })
 }
 
-export const materialRouter = router
+module.exports = {
+  materialRouter: router
+}

@@ -1,6 +1,6 @@
-import {model, Schema} from 'mongoose'
+const {model, Schema} = require("mongoose")
 
-export const Material = model('Material',
+const Material = model("Material",
   new Schema({
     und: {
       type: String,
@@ -16,3 +16,7 @@ export const Material = model('Material',
       default: false
     }
   }))
+
+module.exports = {
+  Material
+}
