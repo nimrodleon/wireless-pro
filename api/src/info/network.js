@@ -1,9 +1,10 @@
 const express = require("express")
-const {response} = require("express")
+const {response} = express
 const {checkRolAdmin, verifyToken} = require("../middlewares")
-const {InfoController} = require("./controller")
+const {InfoService} = require("./info.service")
 
 const router = express.Router()
+const infoService = new InfoService()
 
 // http://<HOST>/api/info
 router.get("/", [
@@ -12,7 +13,7 @@ router.get("/", [
 
 // obtener info empresa.
 function getInfoCompany(req, res = response) {
-  InfoController.getInfo().then(result => {
+  infoService.getInfo().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
@@ -27,7 +28,7 @@ router.patch("/:id", [
 
 // actualizar info empresa.
 function updateInfoCompany(req, res = response) {
-  InfoController.updateInfo(req.params.id, req.body).then(result => {
+  infoService.updateInfo(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
