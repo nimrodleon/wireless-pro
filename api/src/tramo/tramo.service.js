@@ -1,10 +1,12 @@
-const {Tramo} = require("./model")
-const {CoverageStore} = require("../coverage/coverage.service")
+const {Tramo} = require("./tramo.model")
+const {CoverageService} = require("../coverage/coverage.service")
+
+const coverageService = new CoverageService()
 
 // CRUD - Tramos.
-class TramoStore {
+class TramoService {
   // Listar tramos.
-  static async getTramos(query = "") {
+  async getTramos(query = "") {
     return Tramo.find({
       isDeleted: false,
       tramo: {
@@ -14,50 +16,50 @@ class TramoStore {
   }
 
   // Lista de tramos v1.
-  static async getTramosV1() {
+  async getTramosV1() {
     return Tramo.find({isDeleted: false})
   }
 
   // devolver tramo por id.
-  static async getTramo(id) {
+  async getTramo(id) {
     return Tramo.findById(id)
   }
 
   // registrar tramo.
-  static async createTramo({_id, ...data}) {
+  async createTramo({_id, ...data}) {
     let _tramo = new Tramo(data)
     await _tramo.save()
     return _tramo
   }
 
   // actualizar tramo.
-  static async updateTramo(id, data) {
+  async updateTramo(id, data) {
     return Tramo.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar tramo.
-  static async deleteTramo(id) {
+  async deleteTramo(id) {
     let _tramo = await this.getTramo(id)
     _tramo.isDeleted = true
     return this.updateTramo(id, _tramo)
   }
 
   // areas de cobertura de los tramos.
-  static async getTramosByDistinctCoverage() {
+  async getTramosByDistinctCoverage() {
     return Tramo.find({isDeleted: false}).distinct("coverage")
   }
 
   // areas de cobertura x tramos.
-  static async getCoveragesByTramos() {
-    return CoverageStore.getCoveragesByTramosOrTowers(await this.getTramosByDistinctCoverage())
+  async getCoveragesByTramos() {
+    return coverageService.getCoveragesByTramosOrTowers(await this.getTramosByDistinctCoverage())
   }
 
   // obtener tramos por area cobertura.
-  static async getTramosByCoverage(id) {
+  async getTramosByCoverage(id) {
     return Tramo.find({coverage: id})
   }
 }
 
 module.exports = {
-  TramoStore
+  TramoService
 }

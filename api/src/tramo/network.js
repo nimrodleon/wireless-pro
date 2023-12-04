@@ -1,10 +1,11 @@
 const express = require("express")
 const {response} = express
 const {checkRolAdmin, checkRolNetwork, validate, verifyToken} = require("../middlewares")
-const {TramoController} = require("./controller")
 const {check} = require("express-validator")
+const {TramoService} = require("./tramo.service")
 
 const router = express.Router()
+const tramoService = new TramoService()
 
 // http://<HOST>/api/tramo
 router.get("/", [verifyToken], getTramos)
@@ -12,7 +13,7 @@ router.get("/", [verifyToken], getTramos)
 // Lista de tramos.
 function getTramos(req, res = response) {
   const query = req.query.search || ""
-  TramoController.getTramos(query.toUpperCase()).then(result => {
+  tramoService.getTramos(query.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -24,7 +25,7 @@ router.get("/v1/all", [verifyToken], getTramosV1)
 
 // Lista de tramos v1.
 function getTramosV1(req, res = response) {
-  TramoController.getTramosV1().then(result => {
+  tramoService.getTramosV1().then(result => {
     res.json(result)
   })
 }
@@ -34,7 +35,7 @@ router.get("/:id", [verifyToken], getTramo)
 
 // devolver un tramo por id.
 function getTramo(req, res = response) {
-  TramoController.getTramo(req.params.id).then(result => {
+  tramoService.getTramo(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -46,7 +47,7 @@ router.get("/coverages/all", [verifyToken], getCoveragesByTramos)
 
 // Lista de areas cobertura.
 function getCoveragesByTramos(req, res = response) {
-  TramoController.getCoveragesByTramos().then(result => {
+  tramoService.getCoveragesByTramos().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -62,7 +63,7 @@ router.get("/coverage/:id", [
 
 // Obtener tramos por areas cobertura.
 function getTramosByCoverage(req, res = response) {
-  TramoController.getTramosByCoverage(req.params.id).then(result => {
+  tramoService.getTramosByCoverage(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -78,7 +79,7 @@ router.post("/", [
 
 // registrar tramo.
 function addTramo(req, res = response) {
-  TramoController.createTramo(req.body).then(result => {
+  tramoService.createTramo(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -96,7 +97,7 @@ router.patch("/:id", [
 
 // actualizar tramo.
 function updateTramo(req, res = response) {
-  TramoController.updateTramo(req.params.id, req.body).then(result => {
+  tramoService.updateTramo(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -111,7 +112,7 @@ router.delete("/:id", [
 
 // borrar tramo.
 function deleteTramo(req, res = response) {
-  TramoController.deleteTramo(req.params.id).then(result => {
+  tramoService.deleteTramo(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(400).json(err)
