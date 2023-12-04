@@ -1,5 +1,5 @@
 const express = require("express")
-const {response} = require("express")
+const {response} = express
 const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
 const {check} = require("express-validator")
 const {CoverageService} = require("./coverage.service")

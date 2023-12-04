@@ -1,5 +1,5 @@
 const {TowerStore} = require("./store")
-const {DeviceStore} = require("../device/store")
+const {DeviceStore} = require("../device/device.service")
 
 // Lógica - Tower.
 class TowerController {

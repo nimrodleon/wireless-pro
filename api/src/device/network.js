@@ -1,9 +1,10 @@
 const express = require("express")
-const {response} = require("express")
+const {response} = express
 const {checkRolAdmin, checkRolNetwork, verifyToken} = require("../middlewares")
-const {DeviceController} = require("./controller")
+const {DeviceService} = require("./device.service")
 
 const router = express.Router()
+const deviceService = new DeviceService()
 
 // http://<HOST>/api/devices/:id/:type
 // router.get('/:id/:type', [verifyToken], getDevices)
@@ -22,7 +23,7 @@ router.get("/tramo/:id", [verifyToken], getDevicesByTramo)
 
 // Obtener equipos por tramos de red.
 function getDevicesByTramo(req, res = response) {
-  DeviceController.getDevicesByTramo(req.params.id).then(result => {
+  deviceService.getDevicesByTramo(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -32,7 +33,7 @@ router.get("/:id", [verifyToken], getDevice)
 
 // obtener equipo por ID.
 function getDevice(req, res = response) {
-  DeviceController.getDevice(req.params.id).then(result => {
+  deviceService.getDevice(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
@@ -45,7 +46,7 @@ router.get("/v1/select2/:q?", [verifyToken], getDevicesS2)
 // buscador select2.
 function getDevicesS2(req, res = response) {
   const {term = ""} = req.query
-  DeviceController.getDevicesS2(term).then(result => {
+  deviceService.getDevicesS2(term).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
@@ -60,7 +61,7 @@ router.post("/", [
 
 // registrar equipo.
 function addDevice(req, res = response) {
-  DeviceController.createDevice(req.body).then(result => {
+  deviceService.createDevice(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
@@ -75,7 +76,7 @@ router.patch("/:id", [
 
 // actualizar equipo.
 function updateDevice(req, res = response) {
-  DeviceController.updateDevice(req.params.id, req.body).then(result => {
+  deviceService.updateDevice(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
@@ -90,7 +91,7 @@ router.delete("/:id", [
 
 // borrar equipo.
 function deleteDevice(req, res = response) {
-  DeviceController.deleteDevice(req.params.id).then(result => {
+  deviceService.deleteDevice(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(500).json(err)

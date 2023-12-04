@@ -1,8 +1,8 @@
 const _ = require("lodash")
-const {Device} = require("./model")
+const {Device} = require("./device.model")
 
 // CRUD - equipos.
-class DeviceStore {
+class DeviceService {
   // Listar dispositivos.
   // static async getDevices(id, type = 'T0') {
   //   if (type === 'T0') {
@@ -13,47 +13,47 @@ class DeviceStore {
   // }
 
   // obtener dispositivos por tramos.
-  static async getDevicesByTramo(id) {
+  async getDevicesByTramo(id) {
     return Device.find({tramo: id, isDeleted: false})
   }
 
   // devolver dispositivo por id.
-  static async getDevice(id) {
+  async getDevice(id) {
     return Device.findById(id)
   }
 
   // Registrar dispositivo.
   // Excluir (_id) del objeto para registrar el equipo.
-  static async createDevice({_id, ...data}) {
+  async createDevice({_id, ...data}) {
     let _device = new Device(data)
     await _device.save()
     return _device
   }
 
   //  actualizar dispositivo.
-  static async updateDevice(id, data) {
+  async updateDevice(id, data) {
     return Device.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar dispositivo.
-  static async deleteDevice(id) {
+  async deleteDevice(id) {
     let _device = await this.getDevice(id)
     _device.isDeleted = true
     return this.updateDevice(id, _device)
   }
 
   // total de equipos para el tramo {id}.
-  static async countDevicesByTramo(tramoId) {
+  async countDevicesByTramo(tramoId) {
     return Device.find({tramo: tramoId}).countDocuments()
   }
 
   // total de equipos por torre.
-  static async countDevicesByTower(towerId) {
+  async countDevicesByTower(towerId) {
     return Device.find({tower: towerId}).countDocuments()
   }
 
   // Buscador select2.
-  static async getDevicesS2(term) {
+  async getDevicesS2(term) {
     let _devices = await Device.find({
       mode: "P", $or: [
         {ipAddress: {$regex: term}},
@@ -69,5 +69,5 @@ class DeviceStore {
 }
 
 module.exports = {
-  DeviceStore
+  DeviceService
 }
