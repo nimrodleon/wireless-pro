@@ -1,9 +1,9 @@
-const {Outage} = require("./model")
+const {Outage} = require("./outage.model")
 
 // CRUD - cortes de internet.
-class OutageStore {
+class OutageService {
   // Listar outages.
-  static async getOutages(idService) {
+  async getOutages(idService) {
     return Outage.find({service: idService}).hint({$natural: -1}).limit(12)
   }
 
@@ -33,5 +33,5 @@ class OutageStore {
 }
 
 module.exports = {
-  OutageStore
+  OutageService
 }

@@ -1,16 +1,17 @@
 const express = require("express")
 const {response} = express
 const {verifyToken} = require("../middlewares")
-const {OutageController} = require("./controller")
+const {OutageService} = require("./outage.service")
 
 const router = express.Router()
+const outageService = new OutageService()
 
 // http://<HOST>/api/outages/:id/service
 router.get("/:id/service", [verifyToken], getOutages)
 
 // Lista de cortes.
 function getOutages(req, res = response) {
-  OutageController.getOutages(req.params.id).then(result => {
+  outageService.getOutages(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)
