@@ -1,18 +1,19 @@
 const express = require("express")
 const {response} = express
 const {checkRolAdmin, checkRolNetwork, validate, verifyToken} = require("../middlewares")
-const {TowerController} = require("./controller")
 const {check} = require("express-validator")
+const {TowerService} = require("./tower.service")
 
 const router = express.Router()
+const towerService = new TowerService()
 
 // http://<HOST>/api/tower
 router.get("/", [verifyToken], getTowers)
 
 // Lista de torres.
 function getTowers(req, res = response) {
-  let query = req.query.search || ""
-  TowerController.getTowers(query.toUpperCase()).then(result => {
+  const query = req.query.search || ""
+  towerService.getTowers(query.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -24,7 +25,7 @@ router.get("/v1/all", [verifyToken], getTowersV1)
 
 // Lista de torres.
 function getTowersV1(req, res = response) {
-  TowerController.getTowersV1().then(result => {
+  towerService.getTowersV1().then(result => {
     res.json(result)
   })
 }
@@ -34,7 +35,7 @@ router.get("/:id", [verifyToken], getTower)
 
 // devolver torre por id.
 function getTower(req, res = response) {
-  TowerController.getTower(req.params.id).then(result => {
+  towerService.getTower(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -46,7 +47,7 @@ router.get("/coverages/all", [verifyToken], getCoveragesByTower)
 
 // areas cobertura por torre.
 function getCoveragesByTower(req, res = response) {
-  TowerController.getCoveragesByTowers().then(result => {
+  towerService.getCoveragesByTowers().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -58,7 +59,7 @@ router.get("/v1/all", [verifyToken], getAllTowers)
 
 // Todas las torres.
 function getAllTowers(req, res = response) {
-  TowerController.getTowers().then(result => {
+  towerService.getTowers().then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -76,7 +77,7 @@ router.post("/", [
 
 // registrar torre.
 function addTower(req, res = response) {
-  TowerController.createTower(req.body).then(result => {
+  towerService.createTower(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -94,7 +95,7 @@ router.patch("/:id", [
 
 // actualizar torre.
 function updateTower(req, res = response) {
-  TowerController.updateTower(req.params.id, req.body).then(result => {
+  towerService.updateTower(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -109,7 +110,7 @@ router.delete("/:id", [
 
 // borrar torre.
 function deleteTower(req, res = response) {
-  TowerController.deleteTower(req.params.id).then(result => {
+  towerService.deleteTower(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(400).json(err)
