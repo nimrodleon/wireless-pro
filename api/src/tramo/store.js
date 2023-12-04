@@ -1,5 +1,5 @@
 const {Tramo} = require("./model")
-const {CoverageStore} = require("../coverage/store")
+const {CoverageStore} = require("../coverage/coverage.service")
 
 // CRUD - Tramos.
 class TramoStore {

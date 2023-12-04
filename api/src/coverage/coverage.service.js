@@ -1,9 +1,9 @@
-const {Coverage} = require("./model")
+const {Coverage} = require("./coverage.model")
 
 // CRUD - areas cobertura.
-class CoverageStore {
-  // Listar areas cobertura.
-  static async getCoverages(query) {
+class CoverageService {
+  // Listar áreas cobertura.
+  async getCoverages(query) {
     return Coverage.find({
       isDeleted: false,
       $or: [{name: {$regex: query}}]
@@ -11,24 +11,24 @@ class CoverageStore {
   }
 
   // devolver cobertura por id.
-  static async getCoverage(id) {
+  async getCoverage(id) {
     return Coverage.findById(id)
   }
 
   // registrar cobertura.
-  static async createCoverage({_id, ...data}) {
+  async createCoverage({_id, ...data}) {
     const _coverage = new Coverage(data)
     await _coverage.save()
     return _coverage
   }
 
   // actualizar cobertura.
-  static async updateCoverage(id, data) {
+  async updateCoverage(id, data) {
     return Coverage.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar cobertura.
-  static async deleteCoverage(id) {
+  async deleteCoverage(id) {
     let _coverage = await this.getCoverage(id)
     _coverage.isDeleted = true
     return this.updateCoverage(id, _coverage)
@@ -36,11 +36,11 @@ class CoverageStore {
 
   // areas de cobertura x => tramos/torres.
   // recibe un array de ids; x cada tramo de red o torre.
-  static async getCoveragesByTramosOrTowers(ids) {
+  async getCoveragesByTramosOrTowers(ids) {
     return Coverage.find({_id: {$in: ids}})
   }
 }
 
 module.exports = {
-  CoverageStore
+  CoverageService
 }

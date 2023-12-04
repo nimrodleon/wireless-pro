@@ -1,18 +1,19 @@
 const express = require("express")
 const {response} = require("express")
 const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
-const {CoverageController} = require("./controller")
 const {check} = require("express-validator")
+const {CoverageService} = require("./coverage.service")
 
 const router = express.Router()
+const coverageService = new CoverageService()
 
 // http://<HOST>/api/coverages
 router.get("/", [verifyToken], getCoverages)
 
-// Lista areas de cobertura.
+// Lista áreas de cobertura.
 function getCoverages(req, res = response) {
-  let query = req.query.search || ""
-  CoverageController.getCoverages(query.toUpperCase()).then(result => {
+  const query = req.query.search || ""
+  coverageService.getCoverages(query.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -24,7 +25,7 @@ router.get("/:id", [verifyToken], getCoverage)
 
 // Obtener area cobertura por id.
 function getCoverage(req, res = response) {
-  CoverageController.getCoverage(req.params.id).then(result => {
+  coverageService.getCoverage(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -40,7 +41,7 @@ router.post("/", [
 
 // registrar area cobertura.
 function addCoverage(req, res = response) {
-  CoverageController.createCoverage(req.body).then(result => {
+  coverageService.createCoverage(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -56,7 +57,7 @@ router.patch("/:id", [
 
 // actualizar area cobertura.
 function updateCoverage(req, res = response) {
-  CoverageController.updateCoverage(req.params.id, req.body).then(result => {
+  coverageService.updateCoverage(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -71,7 +72,7 @@ router.delete("/:id", [
 
 // borrar area cobertura.
 function deleteCoverage(req, res = response) {
-  CoverageController.deleteCoverage(req.params.id).then(result => {
+  coverageService.deleteCoverage(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(400).json(err)

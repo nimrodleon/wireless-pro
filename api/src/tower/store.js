@@ -1,5 +1,5 @@
 const {Tower} = require("./model")
-const {CoverageStore} = require("../coverage/store")
+const {CoverageStore} = require("../coverage/coverage.service")
 
 // CRUD - tower.
 class TowerStore {
