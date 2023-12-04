@@ -2,16 +2,17 @@ const express = require("express")
 const {response} = express
 const {check} = require("express-validator")
 const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
-const {MikrotikController} = require("./controller")
+const {MikrotikService} = require("./mikrotik.service")
 
 const router = express.Router()
+const mikrotikService = new MikrotikService()
 
 // http://<HOST>/api/mikrotik
 router.get("/", [verifyToken], getMikrotikList)
 
 // Lista de router mikrotik.
 function getMikrotikList(req, res = response) {
-  MikrotikController.getMikrotikList().then(result => {
+  mikrotikService.getMikrotikList().then(result => {
     res.json(result)
   })
 }
@@ -21,7 +22,7 @@ router.get("/:id", [verifyToken], getMikrotikById)
 
 // Obtener mikrotik por id.
 function getMikrotikById(req, res = response) {
-  MikrotikController.getMikrotikById(req.params.id).then(result => {
+  mikrotikService.getMikrotikById(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -39,7 +40,7 @@ router.post("/", [
 
 // registrar mikrotik.
 function createMikrotik(req, res = response) {
-  MikrotikController.createMikrotik(req.body).then(result => {
+  mikrotikService.createMikrotik(req.body).then(result => {
     res.json(result)
   })
 }
@@ -58,7 +59,7 @@ router.patch("/:id", [
 
 // actualizar mikrotik.
 function updateMikrotik(req, res = response) {
-  MikrotikController.updateMikrotik(req.params.id, req.body).then(result => {
+  mikrotikService.updateMikrotik(req.params.id, req.body).then(result => {
     res.json(result)
   })
 }
@@ -73,7 +74,7 @@ router.delete("/:id", [
 
 // borrar mikrotik.
 function deleteMikrotik(req, res = response) {
-  MikrotikController.deleteMikrotik(req.params.id).then(result => {
+  mikrotikService.deleteMikrotik(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -89,8 +90,8 @@ router.get("/:id/totalStatusServices", [
 
 // total servicios mikrotik.
 async function totalStatusServices(req, res = response) {
-  const enabled = await MikrotikController.totalEnabledServices(req.params.id)
-  const suspended = await MikrotikController.totalSuspendedServices(req.params.id)
+  const enabled = await mikrotikService.totalStatusServices(req.params.id, "HABILITADO")
+  const suspended = await mikrotikService.totalStatusServices(req.params.id, "SUSPENDIDO")
   res.json({enabled, suspended})
 }
 
@@ -103,7 +104,7 @@ router.get("/:id/getServicesList", [
 
 // total servicios mikrotik.
 async function getServicesList(req, res = response) {
-  MikrotikController.getServicesList(req.params.id).then(result => {
+  mikrotikService.getServicesList(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -115,7 +116,7 @@ router.get("/:id/interface", [verifyToken], getInterfaceList)
 
 // Lista de interfaces.
 function getInterfaceList(req, res = response) {
-  MikrotikController.getInterfaceList(req.params.id).then(result => {
+  mikrotikService.getInterfaceList(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -125,7 +126,7 @@ router.get("/show/interface/:id", [verifyToken], getInterfaceById)
 
 // obtener interfaz por id.
 function getInterfaceById(req, res = response) {
-  MikrotikController.getInterfaceById(req.params.id).then(result => {
+  mikrotikService.getInterfaceById(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -141,7 +142,7 @@ router.post("/add/interface", [
 
 // registrar interfaz.
 function createInterface(req, res = response) {
-  MikrotikController.createInterface(req.body).then(result => {
+  mikrotikService.createInterface(req.body).then(result => {
     res.json(result)
   })
 }
@@ -158,7 +159,7 @@ router.patch("/update/interface/:id", [
 
 // actualizar interfaz.
 function updateInterface(req, res = response) {
-  MikrotikController.updateInterface(req.params.id, req.body).then(result => {
+  mikrotikService.updateInterface(req.params.id, req.body).then(result => {
     res.json(result)
   })
 }
@@ -173,7 +174,7 @@ router.delete("/delete/interface/:id", [
 
 // borrar interfaz.
 function deleteInterface(req, res = response) {
-  MikrotikController.deleteInterface(req.params.id).then(result => {
+  mikrotikService.deleteInterface(req.params.id).then(result => {
     res.json(result)
   })
 }

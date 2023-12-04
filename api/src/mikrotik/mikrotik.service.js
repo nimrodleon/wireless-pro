@@ -1,32 +1,32 @@
-const {Interface, Mikrotik} = require("./model")
+const {Interface, Mikrotik} = require("./mikrotik.model")
 const {Service} = require("../service/model")
 
 // CRUD - Mikrotik.
-class MikrotikStore {
+class MikrotikService {
   // Lista de mikrotik.
-  static async getMikrotikList() {
+  async getMikrotikList() {
     return Mikrotik.find({isDeleted: false})
   }
 
   // Obtener por ID.
-  static async getMikrotikById(id) {
+  async getMikrotikById(id) {
     return Mikrotik.findById(id)
   }
 
   // registrar.
-  static async createMikrotik(data) {
+  async createMikrotik(data) {
     let _mikrotik = new Mikrotik(data)
     await _mikrotik.save()
     return _mikrotik
   }
 
   // actualizar.
-  static async updateMikrotik(id, data) {
+  async updateMikrotik(id, data) {
     return Mikrotik.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar.
-  static async deleteMikrotik(id) {
+  async deleteMikrotik(id) {
     let _mikrotik = await this.getMikrotikById(id)
     _mikrotik.isDeleted = true
     return this.updateMikrotik(id, _mikrotik)
@@ -35,7 +35,7 @@ class MikrotikStore {
   // ============================================================
 
   // total servicios de mikrotik.
-  static async totalStatusServices(id, status) {
+  async totalStatusServices(id, status) {
     return Service.find({
       mikrotikId: id, status: status, isDeleted: false,
       servicePlanId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
@@ -44,7 +44,7 @@ class MikrotikStore {
   }
 
   // Lista de servicios por mikrotik.
-  static async getServicesList(id) {
+  async getServicesList(id) {
     return Service.find({
       mikrotikId: id, status: {$in: ["HABILITADO", "SUSPENDIDO"]}, isDeleted: false,
       servicePlanId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
@@ -55,29 +55,29 @@ class MikrotikStore {
   // ============================================================
 
   // lista de interfaces.
-  static async getInterfaceList(id) {
+  async getInterfaceList(id) {
     return Interface.find({mikrotikId: id, isDeleted: false})
   }
 
   // obtener interfaz por id.
-  static async getInterfaceById(id) {
+  async getInterfaceById(id) {
     return Interface.findById(id)
   }
 
   // registrar interfaz.
-  static async createInterface(data) {
+  async createInterface(data) {
     let _interface = new Interface(data)
     await _interface.save()
     return _interface
   }
 
   // actualizar interfaz.
-  static async updateInterface(id, data) {
+  async updateInterface(id, data) {
     return Interface.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar interfaz.
-  static async deleteInterface(id) {
+  async deleteInterface(id) {
     let _interface = await this.getInterfaceById(id)
     _interface.isDeleted = true
     return this.updateInterface(id, _interface)
@@ -86,5 +86,5 @@ class MikrotikStore {
 }
 
 module.exports = {
-  MikrotikStore
+  MikrotikService
 }
