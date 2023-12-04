@@ -1,10 +1,11 @@
 const express = require("express")
 const {response} = express
 const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
-const {MaterialController} = require("./controller")
 const {check} = require("express-validator")
+const {MaterialService} = require("./material.service")
 
 const router = express.Router()
+const materialService = new MaterialService()
 
 // http://<HOST>/api/material
 router.get("/", [verifyToken], getMaterials)
@@ -12,7 +13,7 @@ router.get("/", [verifyToken], getMaterials)
 // Listar materiales.
 function getMaterials(req, res = response) {
   let query = req.query.search || ""
-  MaterialController.getMaterials(query.toUpperCase()).then(result => {
+  materialService.getMaterials(query.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -24,7 +25,7 @@ router.get("/:id", [verifyToken], getMaterial)
 
 // obtener material por id.
 function getMaterial(req, res = response) {
-  MaterialController.getMaterial(req.params.id).then(result => {
+  materialService.getMaterial(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -42,7 +43,7 @@ router.post("/", [
 
 // registrar material.
 function addMaterial(req, res = response) {
-  MaterialController.createMaterial(req.body).then(result => {
+  materialService.createMaterial(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -60,7 +61,7 @@ router.patch("/:id", [
 
 // actualizar material.
 function updateMaterial(req, res = response) {
-  MaterialController.updateMaterial(req.params.id, req.body).then(result => {
+  materialService.updateMaterial(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -75,7 +76,7 @@ router.delete("/:id", [
 
 // borrar material.
 function deleteMaterial(req, res = response) {
-  MaterialController.deleteMaterial(req.params.id).then(result => {
+  materialService.deleteMaterial(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -88,7 +89,7 @@ router.get("/select2/:q?", [verifyToken], getMaterialWithSelect2)
 // buscar material con select2.
 function getMaterialWithSelect2(req, res = response) {
   let {term = ""} = req.query
-  MaterialController.getMaterialWithSelect2(term).then(result => {
+  materialService.getMaterialWithSelect2(term).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
