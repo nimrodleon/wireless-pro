@@ -1,10 +1,11 @@
 const express = require("express")
 const {response} = express
 const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
-const {ServicePlanController} = require("./controller")
 const {check} = require("express-validator")
+const {ServicePlanService} = require("./servicePlan.service")
 
 const router = express.Router()
+const servicePlanService = new ServicePlanService()
 
 // http://<HOST>/api/service-plans
 router.get("/", [
@@ -14,7 +15,7 @@ router.get("/", [
 // Lista de planes de servicio.
 function getServicePlans(req, res = response) {
   let query = req.query.search || ""
-  ServicePlanController.getServicePlans(query.toUpperCase()).then(result => {
+  servicePlanService.getServicePlans(query.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -24,9 +25,9 @@ function getServicePlans(req, res = response) {
 // http://<HOST>/api/service-plans/:id
 router.get("/:id", [verifyToken,], getServicePlan)
 
-// obtener plan de servicio por id.
+// obtener plan de servicio por ID.
 function getServicePlan(req, res = response) {
-  ServicePlanController.getServicePlan(req.params.id).then(result => {
+  servicePlanService.getServicePlan(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -46,7 +47,7 @@ router.post("/", [
 
 // registrar plan de servicio.
 function addServicePlan(req, res = response) {
-  ServicePlanController.createServicePlan(req.body).then(result => {
+  servicePlanService.createServicePlan(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -66,7 +67,7 @@ router.patch("/:id", [
 
 // actualizar plan de servicio.
 function updateServicePlan(req, res = response) {
-  ServicePlanController.updateServicePlan(req.params.id, req.body).then(result => {
+  servicePlanService.updateServicePlan(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -81,7 +82,7 @@ router.delete("/:id", [
 
 // borrar plan de servicio.
 function deleteServicePlan(req, res = response) {
-  ServicePlanController.deleteServicePlan(req.params.id).then(result => {
+  servicePlanService.deleteServicePlan(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -93,7 +94,7 @@ router.get("/:client/active", [verifyToken], getActiveServicePlan)
 
 // Lista de planes de servicio activos de un cliente especifico.
 function getActiveServicePlan(req, res = response) {
-  ServicePlanController.getServicePlansActive(req.params.client).then(result => {
+  servicePlanService.getServicePlansActive(req.params.client).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -109,10 +110,10 @@ router.get("/:id/totalStatusServices", [
   validate
 ], totalStatusServices)
 
-// total planes de servicio.
+// Total, planes de servicio.
 async function totalStatusServices(req, res = response) {
-  const enabled = await ServicePlanController.totalEnabledServices(req.params.id)
-  const suspended = await ServicePlanController.totalSuspendedServices(req.params.id)
+  const enabled = await servicePlanService.totalStatusServices(req.params.id, "HABILITADO")
+  const suspended = await servicePlanService.totalStatusServices(req.params.id, "SUSPENDIDO")
   res.json({enabled, suspended})
 }
 
@@ -123,9 +124,9 @@ router.get("/:id/getServicesList", [
   validate
 ], getServicesList)
 
-// total servicios por tarifa.
+// Total, servicios por tarifa.
 async function getServicesList(req, res = response) {
-  ServicePlanController.getServicesList(req.params.id).then(result => {
+  servicePlanService.getServicesList(req.params.id).then(result => {
     res.json(result)
   })
 }

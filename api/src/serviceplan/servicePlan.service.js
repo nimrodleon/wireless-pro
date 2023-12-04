@@ -1,12 +1,14 @@
 const _ = require("lodash")
-const {ServicePlan} = require("./model")
-const {ServiceStore} = require("../service/service.service")
+const {ServicePlan} = require("./servicePlan.model")
+const {ServiceService} = require("../service/service.service")
 const {Service} = require("../service/service.model")
 
+const serviceService = new ServiceService()
+
 // CRUD - Tarifa de internet.
-class ServicePlanStore {
+class ServicePlanService {
   // Listar planes de servicios.
-  static async getServicePlans(query = "") {
+  async getServicePlans(query = "") {
     return ServicePlan.find({
       isDeleted: false,
       $or: [{name: {$regex: query}}]
@@ -14,32 +16,32 @@ class ServicePlanStore {
   }
 
   // devolver plan de servicio por id.
-  static async getServicePlan(id) {
+  async getServicePlan(id) {
     return ServicePlan.findById(id)
   }
 
   // registrar plan de servicio.
-  static async createServicePlan(data) {
+  async createServicePlan(data) {
     let _servicePlan = new ServicePlan(data)
     await _servicePlan.save()
     return _servicePlan
   }
 
   // actualizar plan de servicio.
-  static async updateServicePlan(id, data) {
+   async updateServicePlan(id, data) {
     return ServicePlan.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar plan de servicio.
-  static async deleteServicePlan(id) {
+  async deleteServicePlan(id) {
     let _servicePlan = await this.getServicePlan(id)
     _servicePlan.isDeleted = true
     return this.updateServicePlan(id, _servicePlan)
   }
 
-  // Lista de planes de servicios activos de un cliente en especifico.
-  static async getServicePlansActive(clientId) {
-    let _services = await ServiceStore.getServicesV2(clientId)
+  // Lista de planes de servicios activos de un cliente en espécifico.
+   async getServicePlansActive(clientId) {
+    let _services = await serviceService.getServices(clientId)
     let idArrServicePlan = []
     await _.forEach(_services, value => {
       idArrServicePlan.push(value.servicePlan)
@@ -47,8 +49,8 @@ class ServicePlanStore {
     return ServicePlan.find({_id: {$in: idArrServicePlan}})
   }
 
-  // total servicios del plan de servicio.
-  static async totalStatusServices(id, status) {
+  // Total, servicios del plan de servicio.
+  async totalStatusServices(id, status) {
     return Service.find({
       servicePlanId: id, status: status, isDeleted: false,
       mikrotikId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
@@ -58,7 +60,7 @@ class ServicePlanStore {
   }
 
   // Lista de servicios por tarifa.
-  static async getServicesList(id) {
+  async getServicesList(id) {
     return Service.find({
       servicePlanId: id, status: {$in: ["HABILITADO", "SUSPENDIDO"]},
       mikrotikId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
@@ -70,5 +72,5 @@ class ServicePlanStore {
 }
 
 module.exports = {
-  ServicePlanStore
+  ServicePlanService
 }
