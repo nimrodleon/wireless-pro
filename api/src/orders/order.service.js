@@ -1,10 +1,10 @@
-const {Order, OrderMaterial} = require("./model")
+const {Order, OrderMaterial} = require("./order.model")
 const {Client} = require("../client/client.model")
 
 // CRUD - órdenes de Trabajo.
-class OrderStore {
+class OrderService {
   // Lista de ordenes de trabajo.
-  static async getOrderList(query) {
+  async getOrderList(query) {
     return Client.aggregate([
       {
         $match: {
@@ -44,7 +44,7 @@ class OrderStore {
   }
 
   // Lista de órdenes y filtrado por mes y año.
-  static async getOrderListByYearMonth(year, month, query) {
+  async getOrderListByYearMonth(year, month, query) {
     return Client.aggregate([
       {
         $match: {
@@ -85,29 +85,29 @@ class OrderStore {
   }
 
   // Obtener orden de instalación por ID.
-  static async getOrderById(id) {
+  async getOrderById(id) {
     return Order.findById(id)
   }
 
   // Obtener orden de instalación por ID cliente.
-  static async getOrderByClientId(id) {
+  async getOrderByClientId(id) {
     return Order.find({clientId: id, isDeleted: false})
   }
 
   // Registrar orden de instalación.
-  static async addOrder(data) {
+  async addOrder(data) {
     let _order = new Order(data)
     await _order.save()
     return _order
   }
 
   // actualizar orden de instalación.
-  static async updateOrder(id, data) {
+  async updateOrder(id, data) {
     return Order.findByIdAndUpdate(id, data, {new: true})
   }
 
   // Borrar orden de instalación.
-  static async deleteOrder(id) {
+  async deleteOrder(id) {
     let _order = await this.getOrderById(id)
     _order.isDeleted = true
     return this.updateOrder(id, _order)
@@ -116,34 +116,34 @@ class OrderStore {
   // ====================================================================================================
 
   // Lista de materiales.
-  static async getMaterials(orderId) {
+  async getMaterials(orderId) {
     return OrderMaterial.find({orderId: orderId})
   }
 
   // Obtener material por id.
-  static async getMaterial(id) {
+  async getMaterial(id) {
     return OrderMaterial.findById(id)
   }
 
   // registrar material.
-  static async addMaterial(data) {
+  async addMaterial(data) {
     let _material = new OrderMaterial(data)
     await _material.save()
     return _material
   }
 
   // actualizar material.
-  static async updateMaterial(id, data) {
+  async updateMaterial(id, data) {
     return OrderMaterial.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar material.
-  static async deleteMaterial(id) {
+  async deleteMaterial(id) {
     return OrderMaterial.findByIdAndDelete(id)
   }
 
 }
 
 module.exports = {
-  OrderStore
+  OrderService
 }

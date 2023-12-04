@@ -1,17 +1,18 @@
 const express = require("express")
 const {response} = express
 const {checkRolAdmin, verifyToken} = require("../middlewares")
-const {OrderController} = require("./controller")
+const {OrderService} = require("./order.service")
 
 const router = express.Router()
+const orderService = new OrderService()
 
 // http://<HOST>/api/work_orders
 router.get("/", [verifyToken], getOrderList)
 
 // Lista de ordenes de trabajo.
 function getOrderList(req, res = response) {
-  let {search = ""} = req.query
-  OrderController.getOrderList(search.toUpperCase()).then(result => {
+  const {search = ""} = req.query
+  orderService.getOrderList(search.toUpperCase()).then(result => {
     res.json(result)
   })
 }
@@ -19,11 +20,11 @@ function getOrderList(req, res = response) {
 // http://<HOST>/api/work_orders/:year/:month/report
 router.get("/:year/:month/report", [verifyToken], getOrderListByYearMonth)
 
-// Lista de ordenes filtrado por mes y año.
+// Lista de órdenes, filtrado por mes y año.
 function getOrderListByYearMonth(req, res = response) {
-  let {search = ""} = req.query
-  let {year, month} = req.params
-  OrderController.getOrderListByYearMonth(year, month, search).then(result => {
+  const {search = ""} = req.query
+  const {year, month} = req.params
+  orderService.getOrderListByYearMonth(year, month, search).then(result => {
     res.json(result)
   })
 }
@@ -31,9 +32,9 @@ function getOrderListByYearMonth(req, res = response) {
 // http://<HOST>/api/work_orders/:id
 router.get("/:id", [verifyToken], getOrderById)
 
-// Obtener orden de instalación por id.
+// Obtener orden de instalación por ID.
 function getOrderById(req, res = response) {
-  OrderController.getOrderById(req.params.id).then(result => {
+  orderService.getOrderById(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -41,9 +42,9 @@ function getOrderById(req, res = response) {
 // http://<HOST>/api/work_orders/:id/client
 router.get("/:id/client", [verifyToken], getOrderByClientId)
 
-// Obtener orden de instalación por id del cliente.
+// Obtener orden de instalación por ID del cliente.
 function getOrderByClientId(req, res = response) {
-  OrderController.getOrderByClientId(req.params.id).then(result => {
+  orderService.getOrderByClientId(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -53,7 +54,7 @@ router.post("/", [verifyToken], addOrder)
 
 // Registrar orden de instalación.
 function addOrder(req, res = response) {
-  OrderController.addOrder(req.body).then(result => {
+  orderService.addOrder(req.body).then(result => {
     res.json(result)
   })
 }
@@ -63,7 +64,7 @@ router.patch("/:id", [verifyToken], updateOrder)
 
 // actualizar orden de instalación.
 function updateOrder(req, res = response) {
-  OrderController.updateOrder(req.params.id, req.body).then(result => {
+  orderService.updateOrder(req.params.id, req.body).then(result => {
     res.json(result)
   })
 }
@@ -73,7 +74,7 @@ router.delete("/:id", [verifyToken, checkRolAdmin], deleteOrder)
 
 // Borrar orden de instalación.
 function deleteOrder(req, res = response) {
-  OrderController.deleteOrder(req.params.id).then(result => {
+  orderService.deleteOrder(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -85,7 +86,7 @@ router.get("/:id/material", [verifyToken], getMaterials)
 
 // Lista de materiales.
 function getMaterials(req, res = response) {
-  OrderController.getMaterials(req.params.id).then(result => {
+  orderService.getMaterials(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -95,7 +96,7 @@ router.get("/show/material/:id", [verifyToken], getMaterial)
 
 // Obtener material por id.
 function getMaterial(req, res = response) {
-  OrderController.getMaterial(req.params.id).then(result => {
+  orderService.getMaterial(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -105,7 +106,7 @@ router.post("/add/material", [verifyToken], addMaterial)
 
 // registrar material.
 function addMaterial(req, res = response) {
-  OrderController.addMaterial(req.body).then(result => {
+  orderService.addMaterial(req.body).then(result => {
     res.json(result)
   })
 }
@@ -115,7 +116,7 @@ router.patch("/update/material/:id", [verifyToken], updateMaterial)
 
 // actualizar material.
 function updateMaterial(req, res = response) {
-  OrderController.updateMaterial(req.params.id, req.body).then(result => {
+  orderService.updateMaterial(req.params.id, req.body).then(result => {
     res.json(result)
   })
 }
@@ -125,7 +126,7 @@ router.delete("/delete/material/:id", [verifyToken], deleteMaterial)
 
 // borrar material.
 function deleteMaterial(req, res = response) {
-  OrderController.deleteMaterial(req.params.id).then(result => {
+  orderService.deleteMaterial(req.params.id).then(result => {
     res.json(result)
   })
 }
