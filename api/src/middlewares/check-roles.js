@@ -4,7 +4,7 @@ const {response} = require("express")
 // Este Rol solo puede Eliminar registros y crear nuevos usuarios.
 function checkRolAdmin(req, res = response, next) {
   const {userName, roles} = req.currentUser
-  if (roles !== "ROLE_ADMIN") {
+  if (roles !== "ROL_ADMIN") {
     return res.status(401).json({
       msg: `${userName} no es Administrador - No puede hacer esto`
     })
@@ -14,9 +14,9 @@ function checkRolAdmin(req, res = response, next) {
 
 // Verificar si el Rol del usuario es Network.
 // Solo para funciones de administración de redes.
-function checkRolNetwork(req, res = response, next) {
+function checkRolRedes(req, res = response, next) {
   const {userName, roles} = req.currentUser
-  if (roles !== "ROLE_NETWORK") {
+  if (roles !== "ROL_REDES") {
     return res.status(401).json({
       msg: `${userName} no tiene permiso para administrar la red`
     })
@@ -26,9 +26,9 @@ function checkRolNetwork(req, res = response, next) {
 
 // Verificar rol Administrador de caja.
 // Este rol se utiliza para registrar pagos y administrar las finanzas.
-function checkRolCash(req, res = response, next) {
+function checkRolCajero(req, res = response, next) {
   const {userName, roles} = req.currentUser
-  if (roles !== "ROLE_CASH") {
+  if (roles !== "ROL_CAJERO") {
     return res.status(401).json({
       msg: `${userName} no tiene permiso para administrar la caja`
     })
@@ -38,6 +38,6 @@ function checkRolCash(req, res = response, next) {
 
 module.exports = {
   checkRolAdmin,
-  checkRolNetwork,
-  checkRolCash,
+  checkRolRedes,
+  checkRolCajero,
 }

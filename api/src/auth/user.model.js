@@ -8,7 +8,7 @@ const userSchema = new Schema({
   roles: {
     type: String,
     default: "ROL_REDES",
-    enum: ["ROL_ADMIN", "ROL_REDES", "ROL_CAJA"]
+    enum: ["ROL_ADMIN", "ROL_REDES", "ROL_CAJERO"]
   },
   email: String,
   avatar: String,

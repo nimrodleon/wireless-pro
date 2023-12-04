@@ -1,38 +1,38 @@
 const _ = require("lodash")
-const {User} = require("./model")
+const {User} = require("./user.model")
 
 // CRUD - usuarios.
 class UserService {
   // Listar usuarios.
-  static async getUsers(suspended = false) {
+  async getUsers(suspended = false) {
     return User.find({suspended: suspended, isDeleted: false})
   }
 
   // devolver un usuario por id.
-  static async getUser(id) {
+  async getUser(id) {
     return User.findById(id)
   }
 
   // devolver  usuario por userName.
-  static async getUserByUserName(userName) {
+  async getUserByUserName(userName) {
     return User.findOne({userName: userName})
   }
 
   // registrar usuario.
-  static async createUser(data) {
+  async createUser(data) {
     const _user = new User(data)
     return _user.save()
   }
 
   // actualizar usuario.
-  static async updateUser(id, data) {
+  async updateUser(id, data) {
     // Excluir userName, password y email de la actualización en la base de datos.
     const {password, ...user} = data
     return User.findByIdAndUpdate(id, user, {new: true})
   }
 
   // actualizar usuario profile.
-  static async updateUserProfile(id, data) {
+  async updateUserProfile(id, data) {
     delete data.password
     delete data.roles
     delete data.email
@@ -42,20 +42,16 @@ class UserService {
   }
 
   // borrar usuario.
-  static async deleteUser(id) {
+  async deleteUser(id) {
     let _user = await this.getUser(id)
     _user.isDeleted = true
     return this.updateUser(id, _user)
   }
 
   // Buscar usuarios con select2.
-  static async getUsersWithSelect2(term) {
+  async getUsersWithSelect2(term) {
     let _users = await User.find({
-      isDeleted: false,
-      suspended: false,
-      $or: [
-        {fullName: {$regex: term}}
-      ]
+      isDeleted: false, suspended: false, $or: [{fullName: {$regex: term}}]
     })
     let data = {results: []}
     await _.forEach(_users, value => {

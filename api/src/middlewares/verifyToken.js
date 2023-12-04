@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken")
 const {UserService} = require("../auth/user.service")
 const {response} = require("express")
 
+const userService = new UserService()
+
 // Middleware para verificar el Token de acceso.
 const verifyToken = (req, res = response, next) => {
   if (!req.headers.authorization) {
@@ -17,7 +19,7 @@ const verifyToken = (req, res = response, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
-    UserService.getUser(decoded._id).then(currentUser => {
+    userService.getUser(decoded._id).then(currentUser => {
       if (!currentUser) {
         return res.status(401).json({
           msg: "Token invalido"

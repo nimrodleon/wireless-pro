@@ -10,10 +10,12 @@ const {
   checkRolAdmin,
   editUserNameExist, editUserEmailExist
 } = require("../middlewares")
-const {UserController} = require("./controller")
 const {UserService} = require("./user.service")
+const {AuthService} = require("./auth.service")
 
 const router = express.Router()
+const userService = new UserService()
+const authService = new AuthService()
 
 // http://<HOST>/api/users
 router.get("/", [verifyToken], getUsers)
@@ -21,7 +23,7 @@ router.get("/", [verifyToken], getUsers)
 // Lista de usuarios.
 function getUsers(req, res = response) {
   const status = req.query.status || false
-  UserService.getUsers(status).then(result => {
+  userService.getUsers(status).then(result => {
     res.json(result)
   })
 }
@@ -31,7 +33,7 @@ router.get("/:id", [verifyToken], getUser)
 
 // retornar usuario para editar.
 function getUser(req, res = response) {
-  UserService.getUser(req.params.id).then(result => {
+  userService.getUser(req.params.id).then(result => {
     res.json(result)
   })
 }
@@ -68,7 +70,7 @@ router.post("/", [
 
 // registrar usuario.
 function addUser(req, res = response) {
-  UserService.createUser(req.body).then(result => {
+  userService.createUser(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json({
@@ -95,7 +97,7 @@ router.patch("/:id", [
 
 // actualizar datos del usuario.
 function updateUser(req, res = response) {
-  UserService.updateUser(req.params.id, req.body).then(result => {
+  userService.updateUser(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     console.error("[updateUser]", err)
@@ -115,7 +117,7 @@ router.delete("/:id", [
 
 // borrar usuarios.
 function deleteUser(req, res = response) {
-  UserService.deleteUser(req.params.id).then(result => {
+  userService.deleteUser(req.params.id).then(result => {
     if (!result) {
       res.status(404).send("No item found")
     }
@@ -135,7 +137,7 @@ router.post("/login", [], loginUser)
 // Login de acceso.
 function loginUser(req, res = response) {
   const {userName, password} = req.body
-  UserController.userLogin(userName, password).then(token => {
+  authService.userLogin(userName, password).then(token => {
     res.json({token})
   }).catch(err => {
     console.log("[loginUser]", err)
@@ -157,7 +159,7 @@ router.post("/:id/change-password", [
 // Cambiar contraseña.
 function passwordChange(req, res = response) {
   const {password} = req.body
-  UserController.passwordChange(req.params.id, password).then(() => {
+  authService.passwordChange(req.params.id, password).then(() => {
     res.json({ok: true, _id: req.params.id})
   }).catch(err => {
     console.log("[passwordChange]", err)
@@ -180,7 +182,7 @@ router.put("/:id", [
 
 // actualizar datos del usuario.
 function updateUserProfile(req, res = response) {
-  UserService.updateUserProfile(req.params.id, req.body)
+  userService.updateUserProfile(req.params.id, req.body)
     .then(result => {
       res.json(result)
     }).catch(err => {
@@ -198,7 +200,7 @@ router.get("/select2/:q?", [verifyToken], getUsersWithSelect2)
 // Buscar usuarios con select2.
 function getUsersWithSelect2(req, res = response) {
   let {term = ""} = req.query
-  UserService.getUsersWithSelect2(term).then(result => {
+  userService.getUsersWithSelect2(term).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
