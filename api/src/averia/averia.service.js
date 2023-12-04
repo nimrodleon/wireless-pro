@@ -1,10 +1,10 @@
 const _ = require("lodash")
-const {Averia} = require("./model")
+const {Averia} = require("./averia.model")
 
 // CRUD - averia.
-class AveriaStore {
+class AveriaService {
   // Lista de averias.
-  static async getAverias(query) {
+  async getAverias(query) {
     let _averias = await Averia.find({
       isDeleted: false,
       archived: false,
@@ -20,18 +20,18 @@ class AveriaStore {
   }
 
   // Lista de averias por servicio.
-  static async getAveriasByServiceId(serviceId, year) {
+  async getAveriasByServiceId(serviceId, year) {
     return Averia.find({serviceId: serviceId, year: year, isDeleted: false})
       .populate({path: "user", select: "fullName"}).hint({$natural: -1})
   }
 
   // Devolver averia por id.
-  static async getAveria(id) {
+  async getAveria(id) {
     return Averia.findById(id)
   }
 
   // Crear averia.
-  static async createAveria(data) {
+  async createAveria(data) {
     const _averia = new Averia(data)
     _averia.archived = false
     _averia.status = "P"
@@ -40,16 +40,16 @@ class AveriaStore {
   }
 
   // Actualizar averia.
-  static async updateAveria(id, data) {
+  async updateAveria(id, data) {
     return Averia.findByIdAndUpdate(id, data, {new: true})
   }
 
   // Eliminar averia.
-  static async deleteAveria(id) {
+  async deleteAveria(id) {
     let _averia = await this.getAveria(id)
     _averia.isDeleted = true
     return this.updateAveria(id, _averia)
   }
 }
 
-module.exports = {AveriaStore}
+module.exports = {AveriaService}

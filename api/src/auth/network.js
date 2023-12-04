@@ -21,11 +21,15 @@ const authService = new AuthService()
 router.get("/", [verifyToken], getUsers)
 
 // Lista de usuarios.
-function getUsers(req, res = response) {
-  const status = req.query.status || false
-  userService.getUsers(status).then(result => {
-    res.json(result)
-  })
+ function getUsers(req, res = response, next) {
+  try {
+    const status = req.query.status || false
+    userService.getUsers(status).then(result => {
+      res.json(result)
+    })
+  } catch (error) {
+    next(error)
+  }
 }
 
 // http://<HOST>/api/users/:id

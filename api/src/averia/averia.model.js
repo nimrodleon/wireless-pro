@@ -38,6 +38,7 @@ const averiaSchema = new Schema({
 // Modelo averías.
 // Almacena información relacionada de las averías de los clientes.
 const Averia = model("Averia", averiaSchema)
+
 module.exports = {
   Averia
 }
