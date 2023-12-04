@@ -3,16 +3,17 @@ const {response} = express
 const {check} = require("express-validator")
 const excel = require("exceljs")
 const {checkRolAdmin, checkRolNetwork, validate, verifyToken} = require("../middlewares")
-const {ServiceController} = require("./controller")
+const {ServiceService} = require("./service.service")
 
 const router = express.Router()
+const serviceService = new ServiceService()
 
 // http://<HOST>/api/services/:client/client
 router.get("/:id/client", [verifyToken], getServices)
 
 // Lista de servicio.
 function getServices(req, res = response) {
-  ServiceController.getServices(req.params.id).then(result => {
+  serviceService.getServices(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -26,9 +27,9 @@ router.get("/:id", [
   validate
 ], getService)
 
-// obtener servicio por id.
+// obtener servicio por ID.
 function getService(req, res = response) {
-  ServiceController.getService(req.params.id).then(result => {
+  serviceService.getService(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -60,7 +61,7 @@ router.post("/", [
 
 // registrar servicio.
 function addService(req, res = response) {
-  ServiceController.createService(req.body).then(result => {
+  serviceService.createService(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -92,7 +93,7 @@ router.patch("/:id", [
 
 // actualizar servicio.
 function updateService(req, res = response) {
-  ServiceController.updateService(req.params.id, req.body).then(result => {
+  serviceService.updateService(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -109,7 +110,7 @@ router.delete("/:id", [
 
 // borrar servicio.
 function deleteService(req, res = response) {
-  ServiceController.deleteService(req.params.id).then(result => {
+  serviceService.deleteService(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -121,7 +122,7 @@ router.get("/reporte/getTemporalServices", [verifyToken], getTemporalServices)
 
 // Lista de servicios temporales.
 function getTemporalServices(req, res = response) {
-  ServiceController.getTemporalServices().then(result => {
+  serviceService.getTemporalServices().then(result => {
     res.json(result)
   })
 }
@@ -131,7 +132,7 @@ router.get("/reporte/clientesPorCobrar/:date/:type", [verifyToken], reporteClien
 
 // reporte clientes por cobrar.
 function reporteClientesPorCobrar(req, res = response) {
-  ServiceController.reporteClientesPorCobrar(req.params.date, req.params.type).then(result => {
+  serviceService.reporteClientesPorCobrar(req.params.date, req.params.type).then(result => {
     res.json(result)
   })
 }
@@ -141,7 +142,7 @@ router.get("/reporte/servicioSinRegistroDePago", [verifyToken], reporteServicioS
 
 // lista de servicios sin registro de pago.
 function reporteServicioSinRegistroDePago(req, res = response) {
-  ServiceController.reporteServicioSinRegistroDePago().then(result => {
+  serviceService.reporteServicioSinRegistroDePago().then(result => {
     let workbook = new excel.Workbook()
     let worksheet = workbook.addWorksheet("REPORTE")
     worksheet.columns = [

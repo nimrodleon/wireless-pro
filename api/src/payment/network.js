@@ -2,9 +2,10 @@ const express = require("express")
 const {response} = express
 const {check} = require("express-validator")
 const {checkRolAdmin, checkRolCash, validate, verifyToken} = require("../middlewares")
-const {PaymentController} = require("./controller")
+const {PaymentService} = require("./payment.service")
 
 const router = express.Router()
+const paymentService = new PaymentService()
 
 // http://<HOST>/api/payments/:id/:year
 router.get("/:id/:year", [
@@ -15,8 +16,8 @@ router.get("/:id/:year", [
 
 // Listar pagos.
 function getPayments(req, res = response) {
-  let {id, year} = req.params
-  PaymentController.getPayments(id, year).then(result => {
+  const {id, year} = req.params
+  paymentService.getPayments(id, year).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -30,9 +31,9 @@ router.get("/:id", [
   validate
 ], getPayment)
 
-// obtener pago por id.
+// obtener pago por ID.
 function getPayment(req, res = response) {
-  PaymentController.getPayment(req.params.id).then(result => {
+  paymentService.getPayment(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -57,7 +58,7 @@ router.post("/", [
 
 // crear nuevo pago.
 function addPayment(req, res = response) {
-  PaymentController.createPayment(req.body, req.currentUser._id).then(result => {
+  paymentService.createPayment(req.body, req.currentUser._id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -74,7 +75,7 @@ router.delete("/:id", [
 
 // borrar pago existente.
 function deletePayment(req, res = response) {
-  PaymentController.deletePayment(req.params.id).then(() => {
+  paymentService.deletePayment(req.params.id).then(() => {
     res.status(200).send()
   }).catch(err => {
     res.status(400).json(err)
@@ -86,7 +87,7 @@ router.get("/reporte/pagosDiario/:date/:method", [verifyToken], reportePagosDiar
 
 // reporte de pagos diarios.
 function reportePagosDiario(req, res = response) {
-  PaymentController.reportePagosDiario(req.params.date, req.params.method).then(result => {
+  paymentService.reportePagosDiario(req.params.date, req.params.method).then(result => {
     res.json(result)
   })
 }

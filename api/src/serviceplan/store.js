@@ -1,7 +1,7 @@
 const _ = require("lodash")
 const {ServicePlan} = require("./model")
-const {ServiceStore} = require("../service/store")
-const {Service} = require("../service/model")
+const {ServiceStore} = require("../service/service.service")
+const {Service} = require("../service/service.model")
 
 // CRUD - Tarifa de internet.
 class ServicePlanStore {

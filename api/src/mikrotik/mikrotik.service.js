@@ -1,5 +1,5 @@
 const {Interface, Mikrotik} = require("./mikrotik.model")
-const {Service} = require("../service/model")
+const {Service} = require("../service/service.model")
 
 // CRUD - Mikrotik.
 class MikrotikService {

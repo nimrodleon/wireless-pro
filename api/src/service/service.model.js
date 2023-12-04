@@ -80,8 +80,8 @@ const serviceSchema = new Schema({
   }
 })
 
-// exportar modelo servicio.
-// almacena la información del servicio contratado.
+// Exportar modelo servicio.
+// Almacena la información del servicio contratado.
 const Service = model("Service", serviceSchema)
 
 module.exports = {
