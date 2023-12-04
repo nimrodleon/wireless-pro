@@ -2,9 +2,10 @@ const express = require("express")
 const {response} = require("express")
 const {check} = require("express-validator")
 const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
-const {ClientController} = require("./controller")
+const {ClientService} = require("./client.service")
 
 const router = express.Router()
+const clientService = new ClientService()
 
 // http://<HOST>/api/clients
 router.get("/", [verifyToken], getClients)
@@ -12,7 +13,7 @@ router.get("/", [verifyToken], getClients)
 // Lista de clientes.
 function getClients(req, res = response) {
   const {search = ""} = req.query
-  ClientController.getClients(search.toUpperCase()).then(result => {
+  clientService.getClients(search.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -25,7 +26,7 @@ router.get("/select2/:q?", [verifyToken], getClientsS2)
 // Buscador de clientes => select2.
 function getClientsS2(req, res = response) {
   let {term = ""} = req.query
-  ClientController.getClientsS2(term).then(result => {
+  clientService.getClientsS2(term).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -39,9 +40,9 @@ router.get("/:id", [
   validate
 ], getClient)
 
-// Obtener un cliente por id.
+// Obtener un cliente por ID.
 function getClient(req, res = response) {
-  ClientController.getClient(req.params.id).then(result => {
+  clientService.getClient(req.params.id).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -60,7 +61,7 @@ router.post("/", [
 
 // registrar nuevo cliente.
 function addClient(req, res = response) {
-  ClientController.createClient(req.body).then(result => {
+  clientService.createClient(req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -80,7 +81,7 @@ router.patch("/:id", [
 
 // actualizar cliente.
 function updateClient(req, res = response) {
-  ClientController.updateClient(req.params.id, req.body).then(result => {
+  clientService.updateClient(req.params.id, req.body).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(400).json(err)
@@ -97,7 +98,7 @@ router.delete("/:id", [
 
 // borrar cliente.
 function deleteClient(req, res = response) {
-  ClientController.deleteClient(req.params.id).then(result => {
+  clientService.deleteClient(req.params.id).then(result => {
     res.status(200).send()
   }).catch(err => {
     res.status(400).json(err)

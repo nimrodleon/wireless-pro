@@ -1,10 +1,10 @@
 const _ = require("lodash")
-const {Client} = require("./model")
+const {Client} = require("./client.model")
 
 // CRUD - clientes.
-class ClientStore {
+class ClientService {
   // Listar clientes.
-  static async getClients(query) {
+  async getClients(query) {
     return Client.find({
       isDeleted: false,
       $or: [
@@ -18,31 +18,31 @@ class ClientStore {
   }
 
   // devolver cliente por id.
-  static async getClient(id) {
+  async getClient(id) {
     return Client.findById(id)
   }
 
   // crear cliente.
-  static async createClient({_id, ...data}) {
+  async createClient({_id, ...data}) {
     const _client = new Client(data)
     await _client.save()
     return _client
   }
 
   // actualizar cliente.
-  static async updateClient(id, data) {
+  async updateClient(id, data) {
     return Client.findByIdAndUpdate(id, data, {new: true})
   }
 
   // borrar cliente.
-  static async deleteClient(id) {
+  async deleteClient(id) {
     let _client = await this.getClient(id)
     _client.isDeleted = true
     return this.updateClient(id, _client)
   }
 
   // buscador de select2.
-  static async getClientsS2(term) {
+  async getClientsS2(term) {
     let _clients = await Client.find({
       isDeleted: false,
       $or: [
@@ -58,12 +58,12 @@ class ClientStore {
   }
 
   // Lista de clientes.
-  static async getClientList() {
+  async getClientList() {
     return Client.find({isDeleted: false})
   }
 
 }
 
 module.exports = {
-  ClientStore
+  ClientService
 }

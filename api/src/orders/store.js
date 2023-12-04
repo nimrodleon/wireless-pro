@@ -1,5 +1,5 @@
 const {Order, OrderMaterial} = require("./model")
-const {Client} = require("../client/model")
+const {Client} = require("../client/client.model")
 
 // CRUD - órdenes de Trabajo.
 class OrderStore {
