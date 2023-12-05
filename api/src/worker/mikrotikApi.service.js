@@ -1,10 +1,9 @@
 const axios = require("axios")
-const {WorkerStore} = require("./store")
 
 // Lógica bitWorker.
-class WorkerController {
+class MikrotikApiService {
   // Cambiar estado del servicio.
-  static async changeStatusService(serviceId, status) {
+  async changeStatusService(serviceId, status) {
     const URL = process.env.URL_BIT_WORKER
     const token = process.env.TOKEN_BIT_WORKER
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
@@ -12,7 +11,7 @@ class WorkerController {
   }
 
   // Cambiar plan de servicio.
-  static async changeServicePlan(serviceId, servicePlanId) {
+  async changeServicePlan(serviceId, servicePlanId) {
     const URL = process.env.URL_BIT_WORKER
     const token = process.env.TOKEN_BIT_WORKER
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
@@ -20,7 +19,7 @@ class WorkerController {
   }
 
   // Agregar servicio.
-  static async addService(serviceId) {
+  async addService(serviceId) {
     const URL = process.env.URL_BIT_WORKER
     const token = process.env.TOKEN_BIT_WORKER
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
@@ -28,7 +27,7 @@ class WorkerController {
   }
 
   // Actualizar servicio.
-  static async updateService(serviceId) {
+  async updateService(serviceId) {
     const URL = process.env.URL_BIT_WORKER
     const token = process.env.TOKEN_BIT_WORKER
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
@@ -36,39 +35,15 @@ class WorkerController {
   }
 
   // Borrar servicio.
-  static async deleteService(serviceId) {
+  async deleteService(serviceId) {
     const URL = process.env.URL_BIT_WORKER
     const token = process.env.TOKEN_BIT_WORKER
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
     return axios.delete(`${URL}/api/Service/Delete/${serviceId}`)
   }
 
-  // ====================================================================================================
-
-  // Lista de estado de cambios.
-  static getWorkerActivities(serviceId, year) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(WorkerStore.getWorkerActivities(serviceId, year))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
-  // registra el cambio de estado.
-  static createWorkerActivity(data, user) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(WorkerStore.createWorkerActivity(data, user))
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
 }
 
 module.exports = {
-  WorkerController
+  MikrotikApiService
 }
