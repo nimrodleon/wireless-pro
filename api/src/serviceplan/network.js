@@ -14,10 +14,11 @@ router.get("/", [
 
 // Lista de planes de servicio.
 function getServicePlans(req, res = response) {
-  let query = req.query.search || ""
-  servicePlanService.getServicePlans(query.toUpperCase()).then(result => {
-    res.json(result)
-  }).catch(err => {
+  const query = req.query.search || ""
+  servicePlanService.getServicePlans(query.toUpperCase())
+    .then(result => {
+      res.json(result)
+    }).catch(err => {
     res.status(400).json(err)
   })
 }
@@ -27,9 +28,10 @@ router.get("/:id", [verifyToken,], getServicePlan)
 
 // obtener plan de servicio por ID.
 function getServicePlan(req, res = response) {
-  servicePlanService.getServicePlan(req.params.id).then(result => {
-    res.json(result)
-  }).catch(err => {
+  servicePlanService.getServicePlan(req.params.id)
+    .then(result => {
+      res.json(result)
+    }).catch(err => {
     res.status(400).json(err)
   })
 }
@@ -47,9 +49,10 @@ router.post("/", [
 
 // registrar plan de servicio.
 function addServicePlan(req, res = response) {
-  servicePlanService.createServicePlan(req.body).then(result => {
-    res.json(result)
-  }).catch(err => {
+  servicePlanService.createServicePlan(req.body)
+    .then(result => {
+      res.json(result)
+    }).catch(err => {
     res.status(400).json(err)
   })
 }
@@ -67,9 +70,10 @@ router.patch("/:id", [
 
 // actualizar plan de servicio.
 function updateServicePlan(req, res = response) {
-  servicePlanService.updateServicePlan(req.params.id, req.body).then(result => {
-    res.json(result)
-  }).catch(err => {
+  servicePlanService.updateServicePlan(req.params.id, req.body)
+    .then(result => {
+      res.json(result)
+    }).catch(err => {
     res.status(400).json(err)
   })
 }
@@ -82,9 +86,10 @@ router.delete("/:id", [
 
 // borrar plan de servicio.
 function deleteServicePlan(req, res = response) {
-  servicePlanService.deleteServicePlan(req.params.id).then(result => {
-    res.json(result)
-  }).catch(err => {
+  servicePlanService.deleteServicePlan(req.params.id)
+    .then(result => {
+      res.json(result)
+    }).catch(err => {
     res.status(400).json(err)
   })
 }
@@ -94,9 +99,10 @@ router.get("/:client/active", [verifyToken], getActiveServicePlan)
 
 // Lista de planes de servicio activos de un cliente especifico.
 function getActiveServicePlan(req, res = response) {
-  servicePlanService.getServicePlansActive(req.params.client).then(result => {
-    res.json(result)
-  }).catch(err => {
+  servicePlanService.getServicePlansActive(req.params.client)
+    .then(result => {
+      res.json(result)
+    }).catch(err => {
     res.status(400).json(err)
   })
 }
@@ -126,9 +132,10 @@ router.get("/:id/getServicesList", [
 
 // Total, servicios por tarifa.
 async function getServicesList(req, res = response) {
-  servicePlanService.getServicesList(req.params.id).then(result => {
-    res.json(result)
-  })
+  servicePlanService.getServicesList(req.params.id)
+    .then(result => {
+      res.json(result)
+    })
 }
 
 module.exports = {
