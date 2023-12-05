@@ -1,33 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Sweetalert2 } from 'src/app/global/interfaces';
-import { ServiceDetailService } from '../../services';
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder, UntypedFormBuilder} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Sweetalert2} from "src/app/global/interfaces";
+import {ServiceDetailService} from "../../services";
+import {AuthService} from "../../../user/services";
 
 declare const bootstrap: any;
 
 @Component({
-  selector: 'app-service-detail',
-  templateUrl: './service-detail.component.html'
+  selector: "app-service-detail",
+  templateUrl: "./service-detail.component.html"
 })
 export class ServiceDetailComponent implements OnInit {
-  titleService: string = '';
+  titleService: string = "";
   serviceModal: any;
 
   constructor(
     private router: Router,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
+    private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private serviceDetailService: ServiceDetailService,) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      this.serviceDetailService.serviceId = params.get('id') || '';
-      this.serviceDetailService.getCurrentService(params.get('id')).subscribe(result => console.log(result));
+      this.serviceDetailService.serviceId = params.get("id") || "";
+      this.serviceDetailService.getCurrentService(params.get("id")).subscribe(result => console.log(result));
     });
     // vincular modal servicios.
-    this.serviceModal = new bootstrap.Modal('#service-modal');
+    this.serviceModal = new bootstrap.Modal("#service-modal");
   }
 
   // id del servicio actual.
@@ -64,23 +66,24 @@ export class ServiceDetailComponent implements OnInit {
 
   // editar servicio modal.
   public async editServiceModal() {
-    this.roleIsNetwork.subscribe(result => {
-      if (!result) {
-        Sweetalert2.accessDeniedGeneric();
-      } else {
-        this.titleService = 'Editar Servicio';
-        this.serviceDetailService.getCurrentService(this.serviceId)
-          .subscribe(() => {
-            this.serviceModal.show();
-          });
-      }
-    });
+    this.authService.isRolAdminOrRedes()
+      .subscribe(result => {
+        if (!result) {
+          Sweetalert2.accessDeniedGeneric();
+        } else {
+          this.titleService = "Editar Servicio";
+          this.serviceDetailService.getCurrentService(this.serviceId)
+            .subscribe(() => {
+              this.serviceModal.show();
+            });
+        }
+      });
   }
 
   // borrar servicio actual.
   public async deleteServiceClick(event: any) {
     event.preventDefault();
-    this.roleIsAdmin.subscribe(result => {
+    this.authService.isRolAdmin().subscribe(result => {
       if (!result) {
         Sweetalert2.accessDenied();
       } else {
@@ -89,7 +92,7 @@ export class ServiceDetailComponent implements OnInit {
             this.serviceDetailService.deleteService(this.serviceId)
               .subscribe(result => {
                 if (result) {
-                  this.router.navigate(['/client/detail', this.currentService.clientId]);
+                  this.router.navigate(["/client/detail", this.currentService.clientId]);
                 }
               });
           }

@@ -1,5 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+} from "@angular/forms";
 import * as moment from 'moment';
 import {Payment, PrintPayment, Service} from '../../interfaces';
 import {PaymentService, ServiceService} from '../../services';
@@ -20,13 +24,13 @@ export class PaymentModalComponent implements OnInit {
   @Output()
   hideModal = new EventEmitter<PrintPayment>();
   // ============================================================
-  paymentForm: UntypedFormGroup = this.paymentService.formGroup();
-  printReceipt: UntypedFormControl = this.fb.control(false);
+  paymentForm: FormGroup = this.paymentService.formGroup();
+  printReceipt: FormControl = this.fb.control(false);
   // ============================================================
   payment: Payment = this.paymentService.defaultValues();
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private serviceService: ServiceService,
     private servicePlanService: ServicePlanService,
     private paymentService: PaymentService) {

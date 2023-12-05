@@ -48,6 +48,17 @@ function checkRolCajero(req, res = response, next) {
   next()
 }
 
+// Verifica si el rol es admin o redes.
+function checkRolAdminOrCajero(req, res = response, next) {
+  const {userName, roles} = req.currentUser
+  if (roles === userRoles.admin || roles === userRoles.cajero)
+    next()
+  else
+    return res.status(401).json({
+      msg: `${userName}, No puede hacer esto`
+    })
+}
+
 function checkAnyRole(req, res = response, next) {
   const {userName, roles} = req.currentUser
   if (roles === userRoles.admin
@@ -65,5 +76,6 @@ module.exports = {
   checkRolRedes,
   checkRolAdminOrRedes,
   checkRolCajero,
+  checkRolAdminOrCajero,
   checkAnyRole,
 }

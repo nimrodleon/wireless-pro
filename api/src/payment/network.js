@@ -1,7 +1,7 @@
 const express = require("express")
 const {response} = express
 const {check} = require("express-validator")
-const {checkRolAdmin, validate, verifyToken, checkRolCajero} = require("../middlewares")
+const {checkRolAdmin, validate, verifyToken, checkAnyRole, checkRolAdminOrCajero} = require("../middlewares")
 const {PaymentService} = require("./payment.service")
 
 const router = express.Router()
@@ -10,6 +10,7 @@ const paymentService = new PaymentService()
 // http://<HOST>/api/payments/:id/:year
 router.get("/:id/:year", [
   verifyToken,
+  checkAnyRole,
   check("id", "No es un ID válido").isMongoId(),
   validate
 ], getPayments)
@@ -27,6 +28,7 @@ function getPayments(req, res = response) {
 // http://<HOST>/api/payments/:id
 router.get("/:id", [
   verifyToken,
+  checkAnyRole,
   check("id", "No es un ID válido").isMongoId(),
   validate
 ], getPayment)
@@ -43,7 +45,7 @@ function getPayment(req, res = response) {
 // http://<HOST>/api/payments
 router.post("/", [
   verifyToken,
-  checkRolCajero,
+  checkRolAdminOrCajero,
   check("clientId", "El cliente es obligatorio").not().isEmpty(),
   check("serviceId", "El servicio es obligatorio").not().isEmpty(),
   check("year", "El año es obligatorio").not().isEmpty(),
@@ -83,7 +85,9 @@ function deletePayment(req, res = response) {
 }
 
 // http://<HOST>/api/payments/reporte/pagosDiario/:date/:method
-router.get("/reporte/pagosDiario/:date/:method", [verifyToken], reportePagosDiario)
+router.get("/reporte/pagosDiario/:date/:method", [
+  verifyToken, checkAnyRole
+], reportePagosDiario)
 
 // reporte de pagos diarios.
 function reportePagosDiario(req, res = response) {

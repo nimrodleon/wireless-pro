@@ -18,13 +18,13 @@ class PaymentService {
 
   // registrar pago.
   async createPayment(data, userId) {
-    let _payment = new Payment(data)
+    const _payment = new Payment(data)
     _payment.user = userId
     await _payment.save()
-    let _service = await serviceService.getService(_payment.serviceId)
+    const _service = await serviceService.getService(_payment.serviceId)
     _service.lastPayment = _payment._id
     _service.paidUpTo = _payment.payUp
-    await ServiceStore.updateService(_service._id, _service)
+    await serviceService.updateService(_service._id, _service)
     return _payment
   }
 
