@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormControl} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
-import * as moment from 'moment';
-import Swal from 'sweetalert2';
-import {Sweetalert2} from 'src/app/global/interfaces';
-import {BitWorkerService, ServicePlanService} from 'src/app/system/services';
-import {OutagesService, ServiceDetailService} from '../../services';
-import {AuthService} from 'src/app/user/services';
+import {Component, OnInit} from "@angular/core";
+import {UntypedFormBuilder, UntypedFormControl} from "@angular/forms";
+import {Observable, Subject} from "rxjs";
+import * as moment from "moment";
+import Swal from "sweetalert2";
+import {Sweetalert2} from "src/app/global/interfaces";
+import {BitWorkerService, ServicePlanService} from "src/app/system/services";
+import {OutagesService, ServiceDetailService} from "../../services";
+import {AuthService} from "src/app/user/services";
 
 @Component({
-  selector: 'app-change-status',
-  templateUrl: './change-status.component.html'
+  selector: "app-change-status",
+  templateUrl: "./change-status.component.html"
 })
 export class ChangeStatusComponent implements OnInit {
   workerActivityList: Array<any> = new Array<any>();
-  workerActivityYear: UntypedFormControl = this.fb.control(moment().format('YYYY'));
-  currentRole: string = '';
+  workerActivityYear: UntypedFormControl = this.fb.control(moment().format("YYYY"));
+  currentRole: string = "";
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -103,16 +103,16 @@ export class ChangeStatusComponent implements OnInit {
         await Sweetalert2.accessDeniedGeneric();
       } else {
         const {value: option} = await Swal.fire({
-          title: 'HABILITAR SERVICIO',
-          input: 'select',
+          title: "HABILITAR SERVICIO",
+          input: "select",
           inputOptions: {
-            'HST': 'HABILITAR SERVICIO TEMPORAL',
-            'N01': 'ACTIVACIÓN POR REGISTRO DE PAGO',
-            'N02': 'ACTIVACIÓN A SOLICITUD DEL CLIENTE',
+            "HST": "HABILITAR SERVICIO TEMPORAL",
+            "N01": "ACTIVACIÓN POR REGISTRO DE PAGO",
+            "N02": "ACTIVACIÓN A SOLICITUD DEL CLIENTE",
           },
-          inputPlaceholder: 'Seleccione una opción',
+          inputPlaceholder: "Seleccione una opción",
           showCancelButton: true,
-          cancelButtonText: 'Cancelar'
+          cancelButtonText: "Cancelar"
         });
         if (option) {
           this.changeStatusService(option);
@@ -129,15 +129,15 @@ export class ChangeStatusComponent implements OnInit {
         await Sweetalert2.accessDeniedGeneric();
       } else {
         const {value: option} = await Swal.fire({
-          title: 'SUSPENSIÓN DE SERVICIO',
-          input: 'select',
+          title: "SUSPENSIÓN DE SERVICIO",
+          input: "select",
           inputOptions: {
-            'N03': 'CORTE POR FALTA DE PAGO',
-            'N04': 'SUSPENSIÓN A SOLICITUD DEL CLIENTE'
+            "N03": "CORTE POR FALTA DE PAGO",
+            "N04": "SUSPENSIÓN A SOLICITUD DEL CLIENTE"
           },
-          inputPlaceholder: 'Seleccione una opción',
+          inputPlaceholder: "Seleccione una opción",
           showCancelButton: true,
-          cancelButtonText: 'Cancelar'
+          cancelButtonText: "Cancelar"
         });
         if (option) {
           this.changeStatusService(option);
@@ -156,12 +156,12 @@ export class ChangeStatusComponent implements OnInit {
         this.getServicePlan()
           .subscribe(async (result) => {
             const {value: tarifa} = await Swal.fire({
-              title: 'PLANES DE SERVICIO',
-              input: 'select',
+              title: "PLANES DE SERVICIO",
+              input: "select",
               inputOptions: {...result},
-              inputPlaceholder: 'Seleccione una opción',
+              inputPlaceholder: "Seleccione una opción",
               showCancelButton: true,
-              cancelButtonText: 'Cancelar'
+              cancelButtonText: "Cancelar"
             });
             if (tarifa) {
               this.bitWorkerService.changeServicePlan(this.serviceId, tarifa)
@@ -251,29 +251,6 @@ export class ChangeStatusComponent implements OnInit {
         });
       }
     });
-  }
-
-  // ====================================================================================================
-
-  async cortesAntiguos(event: any) {
-    event.preventDefault();
-    this.outagesService.getOutages(this.serviceId)
-      .subscribe(result => {
-        let content: string = '';
-        Array.from(result).forEach(item => {
-          content += `
-          <tr>
-            <td>${item.description}</td>
-            <td class="text-end">${item.status === 'A' ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>'}</td>
-            <td>${item.createdAt}</td>
-          </tr>
-          `;
-        });
-        return Swal.fire({
-          title: '<strong>LISTA DE CORTES</strong>',
-          html: `<table class="table table-striped mb-0"><tbody>${content}</tbody></table>`
-        });
-      });
   }
 
 }
