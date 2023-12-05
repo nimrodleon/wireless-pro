@@ -1,23 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import Swal from 'sweetalert2';
-import {Tower} from '../../interfaces';
-import {TowerService} from '../../services';
-import {AuthService} from '../../../user/services';
+import {Component, OnInit} from "@angular/core";
+import Swal from "sweetalert2";
+import {Tower} from "../../interfaces";
+import {TowerService} from "../../services";
+import {AuthService} from "../../../user/services";
 
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-tower-list',
-  templateUrl: './tower-list.component.html'
+  selector: "app-tower-list",
+  templateUrl: "./tower-list.component.html"
 })
 export class TowerListComponent implements OnInit {
-  titleModal: string = '';
-  query: string = '';
+  titleModal: string = "";
+  query: string = "";
   currentTower: Tower = {
-    _id: '', tower: '', coverage: '',
+    _id: "", tower: "", coverage: "",
   };
   towers: Array<any> = new Array<any>();
-  currentRole: string = '';
 
   // Constructor de la Clase.
   constructor(
@@ -27,12 +26,9 @@ export class TowerListComponent implements OnInit {
 
   ngOnInit(): void {
     jQuery(() => {
-      jQuery('[data-toggle="tooltip"]').tooltip();
+      jQuery("[data-toggle=\"tooltip\"]").tooltip();
     });
     this.getTowers();
-    // Obtener el rol del usuario autentificado.
-    this.authService.getRoles()
-      .subscribe((res: string) => this.currentRole = res);
   }
 
   get roles() {
@@ -45,39 +41,45 @@ export class TowerListComponent implements OnInit {
   }
 
   addTower(): void {
-    if (this.currentRole !== this.roles.redes) {
-      Swal.fire(
-        'Información',
-        'No tiene permisos para realizar esta tarea!',
-        'error'
-      );
-    } else {
-      this.titleModal = 'Agregar Torre';
-      this.currentTower = {
-        _id: '', tower: '', coverage: '',
-      };
-      jQuery('#app-tower-modal').modal('show');
-    }
+    this.authService.isRolAdminOrRedes()
+      .subscribe(result => {
+        if (!result) {
+          Swal.fire(
+            "Información",
+            "No tiene permisos para realizar esta tarea!",
+            "error"
+          );
+        } else {
+          this.titleModal = "Agregar Torre";
+          this.currentTower = {
+            _id: "", tower: "", coverage: "",
+          };
+          jQuery("#app-tower-modal").modal("show");
+        }
+      });
   }
 
   editTower(id: string): void {
-    if (this.currentRole !== this.roles.redes) {
-      Swal.fire(
-        'Información',
-        'No tiene permisos para realizar esta tarea!',
-        'error'
-      );
-    } else {
-      this.titleModal = 'Editar Torre';
-      this.towerService.getTower(id).subscribe(res => {
-        this.currentTower = res;
-        jQuery('#app-tower-modal').modal('show');
+    this.authService.isRolAdminOrRedes()
+      .subscribe(result => {
+        if (!result) {
+          Swal.fire(
+            "Información",
+            "No tiene permisos para realizar esta tarea!",
+            "error"
+          );
+        } else {
+          this.titleModal = "Editar Torre";
+          this.towerService.getTower(id).subscribe(res => {
+            this.currentTower = res;
+            jQuery("#app-tower-modal").modal("show");
+          });
+        }
       });
-    }
   }
 
   saveChanges(tower: Tower): void {
-    if (tower._id === '') {
+    if (tower._id === "") {
       this.towerService.create(tower)
         .subscribe(res => this.getTowers());
     } else {
@@ -91,35 +93,38 @@ export class TowerListComponent implements OnInit {
   }
 
   deleteTower(id: string): void {
-    if (this.currentRole !== this.roles.admin) {
-      Swal.fire(
-        'Información',
-        'No es admin, no puede hacer esto!',
-        'error'
-      );
-    } else {
-      Swal.fire({
-        title: 'Seguro de borrar la torre?',
-        text: '¡No podrás revertir esto!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!',
-        cancelButtonText: 'Cancelar',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.towerService.delete(id).subscribe(res => {
-            this.getTowers();
-            Swal.fire(
-              'Borrado!',
-              'El registro ha sido borrado.',
-              'success'
-            );
+    this.authService.isRolAdmin()
+      .subscribe(result => {
+        if (!result) {
+          Swal.fire(
+            "Información",
+            "No es admin, no puede hacer esto!",
+            "error"
+          );
+        } else {
+          Swal.fire({
+            title: "Seguro de borrar la torre?",
+            text: "¡No podrás revertir esto!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, bórralo!",
+            cancelButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.towerService.delete(id).subscribe(res => {
+                this.getTowers();
+                Swal.fire(
+                  "Borrado!",
+                  "El registro ha sido borrado.",
+                  "success"
+                );
+              });
+            }
           });
         }
       });
-    }
   }
 
 }

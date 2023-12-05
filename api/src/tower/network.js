@@ -3,6 +3,7 @@ const {response} = express
 const {checkRolAdmin, validate, verifyToken, checkRolRedes} = require("../middlewares")
 const {check} = require("express-validator")
 const {TowerService} = require("./tower.service")
+const {checkRolAdminOrRedes} = require("../middlewares/check-roles")
 
 const router = express.Router()
 const towerService = new TowerService()
@@ -69,7 +70,7 @@ function getAllTowers(req, res = response) {
 // http://<HOST>/api/tower
 router.post("/", [
   verifyToken,
-  checkRolRedes,
+  checkRolAdminOrRedes,
   check("tower", "La torre es obligatorio").not().isEmpty(),
   check("coverage", "La area cobertura es obligatorio").not().isEmpty(),
   validate
@@ -87,7 +88,7 @@ function addTower(req, res = response) {
 // http://<HOST>/api/tower/:id
 router.patch("/:id", [
   verifyToken,
-  checkRolRedes,
+  checkRolAdminOrRedes,
   check("tower", "La torre es obligatorio").not().isEmpty(),
   check("coverage", "La area cobertura es obligatorio").not().isEmpty(),
   validate
