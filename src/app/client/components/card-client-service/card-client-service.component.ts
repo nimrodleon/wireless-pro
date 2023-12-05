@@ -44,7 +44,7 @@ export class CardClientServiceComponent implements OnInit {
             <a href="https://${result.ipAddress}" class="fw-bold" target="_blank">${result.ipAddress}</a>
           </p>
           <table class="table mb-0">
-            <tr class="bg-warning">
+            <tr class="table-secondary">
               <th><i class="fas fa-user"></i> User</th>
               <td>
                 <div class="d-flex justify-content-between">
