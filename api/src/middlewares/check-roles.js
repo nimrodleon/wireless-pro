@@ -25,6 +25,17 @@ function checkRolRedes(req, res = response, next) {
   next()
 }
 
+// Verifica si el rol es admin o redes.
+function checkRolAdminOrRedes(req, res = response, next) {
+  const {userName, roles} = req.currentUser
+  if (roles === userRoles.admin || roles === userRoles.redes)
+    next()
+  else
+    return res.status(401).json({
+      msg: `${userName}, No puede hacer esto`
+    })
+}
+
 // Verificar rol Administrador de caja.
 // Este rol se utiliza para registrar pagos y administrar las finanzas.
 function checkRolCajero(req, res = response, next) {
@@ -40,5 +51,6 @@ function checkRolCajero(req, res = response, next) {
 module.exports = {
   checkRolAdmin,
   checkRolRedes,
+  checkRolAdminOrRedes,
   checkRolCajero,
 }

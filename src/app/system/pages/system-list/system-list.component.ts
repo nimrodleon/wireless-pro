@@ -25,7 +25,7 @@ export class SystemListComponent implements OnInit {
     return this.currentRole === this.roles.admin;
   }
 
-  checkRolRedes(): boolean {
+  checkRolAdminOrRedes(): boolean {
     return this.currentRole === this.roles.redes
       || this.currentRole === this.roles.admin;
   }

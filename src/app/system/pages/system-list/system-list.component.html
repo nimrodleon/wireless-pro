@@ -43,12 +43,12 @@
                                [detail]="'Lista de Equipos Mikrotik'">
             </app-system-option>
           </div>
-          <div class="col-md-4" *ngIf="checkRolRedes()">
+          <div class="col-md-4" *ngIf="checkRolAdminOrRedes()">
             <app-system-option [icon]="'fas fa-directions'" [href]="'/system/tramo'"
                                [title]="'Tramos de Red'" [detail]="'Lista de Tramos de Red'">
             </app-system-option>
           </div>
-          <div class="col-md-4" *ngIf="checkRolRedes()">
+          <div class="col-md-4" *ngIf="checkRolAdminOrRedes()">
             <app-system-option [icon]="'fas fa-broadcast-tower'"
                                [href]="'/system/tower'" [title]="'Torres'"
                                [detail]="'Lista de Torres'">

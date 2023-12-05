@@ -63,6 +63,15 @@ export class AuthService {
     return subject.asObservable();
   }
 
+  // usuario tiene rol de admin o redes.
+  isRolAdminOrRedes(): Observable<boolean> {
+    let subject = new Subject<boolean>();
+    this.getRoles().subscribe((currentRole: string) => {
+      subject.next(currentRole === this.roles.admin || currentRole === this.roles.redes);
+    });
+    return subject.asObservable();
+  }
+
   // es un rol de caja.
   isRolCajero(): Observable<boolean> {
     let subject = new Subject<boolean>();

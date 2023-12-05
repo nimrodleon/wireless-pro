@@ -1,23 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import Swal from 'sweetalert2';
-import {AuthService} from 'src/app/user/services';
-import {TramoService} from '../../services';
-import {Tramo} from '../../interfaces';
+import {Component, OnInit} from "@angular/core";
+import Swal from "sweetalert2";
+import {AuthService} from "src/app/user/services";
+import {TramoService} from "../../services";
+import {Tramo} from "../../interfaces";
+
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-tramo-list',
-  templateUrl: './tramo-list.component.html'
+  selector: "app-tramo-list",
+  templateUrl: "./tramo-list.component.html"
 })
 export class TramoListComponent implements OnInit {
   tramos: Array<any>;
-  query: string = '';
-  titleModal: string = '';
-  currentRole: string = '';
+  query: string = "";
+  titleModal: string = "";
   currentTramo: Tramo = {
-    _id: '',
-    tramo: '',
-    coverage: '',
+    _id: "",
+    tramo: "",
+    coverage: "",
   };
 
   constructor(
@@ -28,12 +28,6 @@ export class TramoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTramos();
-    // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe((res: string) => this.currentRole = res);
-  }
-
-  get roles() {
-    return this.authService.roles;
   }
 
   private getTramos(): void {
@@ -42,7 +36,7 @@ export class TramoListComponent implements OnInit {
   }
 
   saveChanges(tramo: Tramo) {
-    if (tramo._id === '') {
+    if (tramo._id === "") {
       this.tramoService.create(tramo)
         .subscribe(res => this.getTramos());
     } else {
@@ -52,70 +46,79 @@ export class TramoListComponent implements OnInit {
   }
 
   addTramo(): void {
-    if (this.currentRole !== this.roles.redes) {
-      Swal.fire(
-        'Información',
-        'No tiene permisos para realizar esta tarea!',
-        'error'
-      );
-    } else {
-      this.titleModal = 'Agregar Tramo';
-      this.currentTramo = {
-        _id: '',
-        tramo: '',
-        coverage: '',
-      };
-      jQuery('#app-tramo-modal').modal('show');
-    }
+    this.authService.isRolAdminOrRedes()
+      .subscribe(result => {
+        if (!result) {
+          Swal.fire(
+            "Información",
+            "No tiene permisos para realizar esta tarea!",
+            "error"
+          );
+        } else {
+          this.titleModal = "Agregar Tramo";
+          this.currentTramo = {
+            _id: "",
+            tramo: "",
+            coverage: "",
+          };
+          jQuery("#app-tramo-modal").modal("show");
+        }
+      });
   }
 
   editTramo(id: string): void {
-    if (this.currentRole !== this.roles.redes) {
-      Swal.fire(
-        'Información',
-        'No tiene permisos para realizar esta tarea!',
-        'error'
-      );
-    } else {
-      this.titleModal = 'Editar Tramo';
-      this.tramoService.getTramo(id).subscribe(res => {
-        this.currentTramo = res;
-        jQuery('#app-tramo-modal').modal('show');
+    this.authService.isRolAdminOrRedes()
+      .subscribe(result => {
+        if (!result) {
+          Swal.fire(
+            "Información",
+            "No tiene permisos para realizar esta tarea!",
+            "error"
+          );
+        } else {
+          this.titleModal = "Editar Tramo";
+          this.tramoService.getTramo(id).subscribe(res => {
+            this.currentTramo = res;
+            jQuery("#app-tramo-modal").modal("show");
+          });
+        }
       });
-    }
   }
 
   deleteTramo(id: string): void {
-    if (this.currentRole !== this.roles.admin) {
-      Swal.fire(
-        'Información',
-        'No es admin, no puede hacer esto!',
-        'error'
-      );
-    } else {
-      Swal.fire({
-        title: 'Seguro de borrar este Tramo?',
-        text: '¡No podrás revertir esto!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!',
-        cancelButtonText: 'Cancelar',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.tramoService.delete(id)
-            .subscribe(res => {
-              this.getTramos();
-              Swal.fire(
-                'Borrado!',
-                'El Tramo ha sido borrado.',
-                'success'
-              );
-            });
+    this.authService.isRolAdmin()
+      .subscribe(result => {
+        if (!result) {
+          Swal.fire(
+            "Información",
+            "No es admin, no puede hacer esto!",
+            "error"
+          );
+        } else {
+          Swal.fire({
+            title: "Seguro de borrar este Tramo?",
+            text: "¡No podrás revertir esto!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, bórralo!",
+            cancelButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.tramoService.delete(id)
+                .subscribe(res => {
+                  this.getTramos();
+                  Swal.fire(
+                    "Borrado!",
+                    "El Tramo ha sido borrado.",
+                    "success"
+                  );
+                });
+            }
+          });
         }
       });
-    }
   }
 
   onSearch(): void {
