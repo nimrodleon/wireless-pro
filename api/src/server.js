@@ -15,13 +15,12 @@ app.use(express.urlencoded({extended: false}))
 // Simple Usage (Enable All CORS Requests)
 app.use(cors())
 const dbname = process.env.DB_NAME || "rd4-server"
-mongoose.connect(`mongodb://127.0.0.1:27017/${dbname}`, {
-  useNewUrlParser: true, useUnifiedTopology: true,
-}).then(async () => {
-  router(app)
-  console.log(dbname)
-  console.log("database connect success!")
-  const port = process.env.PORT || "3000"
-  const server = http.createServer(app)
-  server.listen(port)
-})
+mongoose.connect(`mongodb://127.0.0.1:27017/${dbname}`)
+  .then(async () => {
+    router(app)
+    console.log(dbname)
+    console.log("database connect success!")
+    const port = process.env.PORT || "3000"
+    const server = http.createServer(app)
+    server.listen(port)
+  })

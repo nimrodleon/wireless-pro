@@ -1,8 +1,9 @@
 const {User} = require("../auth/user.model")
+const {userRoles} = require("../config")
 
 // validar rol del usuario.
 function isValidRole(rol = "") {
-  const roles = ["ROL_ADMIN", "ROL_REDES", "ROL_CAJERO"]
+  const roles = [userRoles.admin, userRoles.redes, userRoles.cajero]
   if (!roles.includes(rol)) {
     throw new Error(`${rol}, no es un rol válido`)
   }

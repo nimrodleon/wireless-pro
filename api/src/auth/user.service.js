@@ -50,7 +50,7 @@ class UserService {
 
   // Buscar usuarios con select2.
   async getUsersWithSelect2(term) {
-    let _users = await User.find({
+    const _users = await User.find({
       isDeleted: false, suspended: false, $or: [{fullName: {$regex: term}}]
     })
     let data = {results: []}
