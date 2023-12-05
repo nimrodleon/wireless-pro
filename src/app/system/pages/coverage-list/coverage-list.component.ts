@@ -61,7 +61,7 @@ export class CoverageListComponent implements OnInit {
   }
 
   deleteCoverage(id: string): void {
-    if (this.currentRole !== this.roles.ROLE_ADMIN) {
+    if (this.currentRole !== this.roles.admin) {
       Swal.fire(
         'Información',
         'No es admin, no puede hacer esto!',

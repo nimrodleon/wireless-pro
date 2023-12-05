@@ -51,7 +51,7 @@ export class DevicesListComponent implements OnInit {
 
   // botón agregar equipo.
   addDeviceClick(): void {
-    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+    if (this.currentRole !== this.roles.redes) {
       Swal.fire(
         'Información',
         'No tiene permisos para realizar esta tarea!',

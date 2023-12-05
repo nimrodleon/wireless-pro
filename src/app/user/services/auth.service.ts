@@ -1,74 +1,73 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {Observable, Subject} from 'rxjs';
-import {environment} from 'src/environments/environment';
-import {Roles} from '../interfaces';
+import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {Observable, Subject} from "rxjs";
+import {environment} from "src/environments/environment";
+import {Roles} from "../interfaces";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuthService {
-  private baseURL: string = environment.baseUrl + 'users';
+  private baseURL: string = environment.baseUrl + "users";
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   get roles(): Roles {
     return {
-      ROLE_ADMIN: 'ROLE_ADMIN',
-      ROLE_NETWORK: 'ROLE_NETWORK',
-      ROLE_CASH: 'ROLE_CASH',
-      ROLE_USER: 'ROLE_USER'
+      admin: "ROL_ADMIN",
+      redes: "ROL_REDES",
+      cajero: "ROL_CAJERO",
     };
   }
 
   login(user: any): any {
-    return this.http.post(this.baseURL + '/login', user);
+    return this.http.post(this.baseURL + "/login", user);
   }
 
   getRoles(): any {
-    return this.http.get(this.baseURL + '/profile/roles');
+    return this.http.get(this.baseURL + "/profile/roles");
   }
 
   loggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem("token");
   }
 
   getToken(): any {
-    return localStorage.getItem('token');
+    return localStorage.getItem("token");
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']).then(() => {
-      console.info('[logout]');
+    localStorage.removeItem("token");
+    this.router.navigate(["/login"]).then(() => {
+      console.info("[logout]");
     });
   }
 
   // es un rol administrador.
-  roleIsAdmin(): Observable<boolean> {
+  isRolAdmin(): Observable<boolean> {
     let subject = new Subject<boolean>();
     this.getRoles().subscribe((currentRole: string) => {
-      subject.next(currentRole === this.roles.ROLE_ADMIN);
+      subject.next(currentRole === this.roles.admin);
     });
     return subject.asObservable();
   }
 
   // es un rol red.
-  roleIsNetwork(): Observable<boolean> {
+  isRolRedes(): Observable<boolean> {
     let subject = new Subject<boolean>();
     this.getRoles().subscribe((currentRole: string) => {
-      subject.next(currentRole === this.roles.ROLE_NETWORK);
+      subject.next(currentRole === this.roles.redes);
     });
     return subject.asObservable();
   }
 
   // es un rol de caja.
-  roleIsCash(): Observable<boolean> {
+  isRolCajero(): Observable<boolean> {
     let subject = new Subject<boolean>();
     this.getRoles().subscribe((currentRole: string) => {
-      subject.next(currentRole === this.roles.ROLE_CASH);
+      subject.next(currentRole === this.roles.cajero);
     });
     return subject.asObservable();
   }

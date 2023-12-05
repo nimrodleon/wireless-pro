@@ -33,7 +33,7 @@ export class MikrotikListComponent implements OnInit {
     this.staticBackdrop = new bootstrap.Modal('#staticBackdrop');
     // obtener rol del usuario autentificado.
     this.authService.getRoles().subscribe(async (result: any) => {
-      if (result !== this.roles.ROLE_ADMIN) {
+      if (result !== this.roles.admin) {
         await this.router.navigate(['/system']);
       }
     });

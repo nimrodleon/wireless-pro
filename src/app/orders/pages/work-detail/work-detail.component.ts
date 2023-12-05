@@ -146,7 +146,7 @@ export class WorkDetailComponent implements OnInit {
   // agregar servicio.
   async addServiceClick(event: any) {
     event.preventDefault();
-    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+    if (this.currentRole !== this.roles.redes) {
       await Sweetalert2.accessDeniedGeneric();
     } else {
       this.titleService = 'Agregar Servicio';

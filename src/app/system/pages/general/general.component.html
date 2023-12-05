@@ -6,7 +6,7 @@
     <nav class="mt-2">
       <div class="nav nav-tabs" role="tablist">
         <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nav-general" type="button" role="tab"
-          aria-selected="true">
+                aria-selected="true">
           <i class="fas fa-info-circle"></i><span class="text-uppercase ms-1">Información general</span>
         </button>
       </div>
@@ -16,69 +16,67 @@
         <!-- ##(Begin) General -->
         <div class="row">
           <div class="col-md-8">
-            <form #generalForm="ngForm">
-              <div class="card mt-2">
-                <div class="card-body">
-                  <div class="row mb-3">
-                    <label class="col-form-label col-2 text-end fw-bold">R.U.C.</label>
-                    <div class="col-4">
-                      <input type="text" [(ngModel)]="info.ruc" name="ruc" class="form-control">
-                    </div>
+            <div class="card mt-2">
+              <div class="card-body">
+                <div class="row mb-3">
+                  <label class="col-form-label col-2 text-end fw-bold">R.U.C.</label>
+                  <div class="col-4">
+                    <input type="text" [(ngModel)]="info.ruc" name="ruc" class="form-control">
                   </div>
-                  <div class="row mb-3">
-                    <label class="col-form-label col-2 text-end fw-bold">Razon Social</label>
-                    <div class="col-10">
-                      <input type="text" [(ngModel)]="info.company" name="company" class="form-control">
-                    </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-form-label col-2 text-end fw-bold">Razon Social</label>
+                  <div class="col-10">
+                    <input type="text" [(ngModel)]="info.company" name="company" class="form-control">
                   </div>
-                  <div class="row mb-3">
-                    <label class="col-form-label col-2 text-end fw-bold">Dirección</label>
-                    <div class="col-10">
-                      <input type="text" [(ngModel)]="info.fullAddress" name="fullAddress" class="form-control">
-                    </div>
+                </div>
+                <div class="row mb-3">
+                  <label class="col-form-label col-2 text-end fw-bold">Dirección</label>
+                  <div class="col-10">
+                    <input type="text" [(ngModel)]="info.fullAddress" name="fullAddress" class="form-control">
                   </div>
-                  <div class="row">
-                    <label class="col-form-label col-2 text-end fw-bold">Telefono</label>
-                    <div class="col-4">
-                      <input type="text" [(ngModel)]="info.phone" name="phone" class="form-control">
-                    </div>
+                </div>
+                <div class="row">
+                  <label class="col-form-label col-2 text-end fw-bold">Telefono</label>
+                  <div class="col-4">
+                    <input type="text" [(ngModel)]="info.phone" name="phone" class="form-control">
                   </div>
                 </div>
               </div>
-              <div class="card mt-2">
-                <div class="card-body">
-                  <div class="row">
-                    <label class="col-form-label col-2 text-end fw-bold">Ancho Papel</label>
-                    <div class="col-4">
-                      <input type="number" name="paperWidth" [(ngModel)]="info.paperWidth" class="form-control">
-                    </div>
+            </div>
+            <div class="card mt-2">
+              <div class="card-body">
+                <div class="row">
+                  <label class="col-form-label col-2 text-end fw-bold">Ancho Papel</label>
+                  <div class="col-4">
+                    <input type="number" name="paperWidth" [(ngModel)]="info.paperWidth" class="form-control">
                   </div>
                 </div>
               </div>
-              <div class="card mt-2">
-                <div class="card-body">
-                  <div class="row">
-                    <label class="col-form-label col-2 text-end fw-bold">Google Maps</label>
-                    <div class="col-10">
-                      <input type="text" name="googleMap" [(ngModel)]="info.googleMap" class="form-control">
-                    </div>
+            </div>
+            <div class="card mt-2">
+              <div class="card-body">
+                <div class="row">
+                  <label class="col-form-label col-2 text-end fw-bold">Google Maps</label>
+                  <div class="col-10">
+                    <input type="text" name="googleMap" [(ngModel)]="info.googleMap" class="form-control">
                   </div>
                 </div>
               </div>
-              <div class="card mt-2">
-                <div class="card-body">
-                  <textarea class="form-control" [(ngModel)]="info.legendTicket"></textarea>
-                </div>
+            </div>
+            <div class="card mt-2">
+              <div class="card-body">
+                <textarea class="form-control" [(ngModel)]="info.legendTicket"></textarea>
               </div>
-              <div class="card border-0 my-2">
-                <div class="card-body py-1">
-                  <button type="button" (click)="updateInfo()" class="btn btn-dark">
-                    <i class="fas fa-save"></i>
-                    <span class="text-uppercase ms-1">Guardar</span>
-                  </button>
-                </div>
+            </div>
+            <div class="card border-0 my-2">
+              <div class="card-body py-1">
+                <button type="button" (click)="updateInfo()" class="btn btn-dark">
+                  <i class="fas fa-save"></i>
+                  <span class="text-uppercase ms-1">Guardar</span>
+                </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
         <!-- ##(End) General -->

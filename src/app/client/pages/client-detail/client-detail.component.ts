@@ -64,7 +64,7 @@ export class ClientDetailComponent implements OnInit {
 
   // Agregar Servicio Modal.
   public async addServiceModalClick() {
-    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+    if (this.currentRole !== this.roles.redes) {
       await Sweetalert2.accessDeniedGeneric();
     } else {
       this.titleService = 'Agregar Servicio';
@@ -76,7 +76,7 @@ export class ClientDetailComponent implements OnInit {
 
   // borrar cliente actual.
   public async deleteClientClick() {
-    if (this.currentRole !== this.roles.ROLE_ADMIN) {
+    if (this.currentRole !== this.roles.admin) {
       await Sweetalert2.accessDenied();
     } else {
       Sweetalert2.deleteConfirm().then(result => {
@@ -89,7 +89,7 @@ export class ClientDetailComponent implements OnInit {
 
   // editar servicio modal.
   public async editServiceModalClick(id: string) {
-    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+    if (this.currentRole !== this.roles.redes) {
       await Sweetalert2.accessDeniedGeneric();
     } else {
       this.titleService = 'Editar Servicio';

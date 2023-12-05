@@ -22,12 +22,12 @@ export class SystemListComponent implements OnInit {
   }
 
   checkRolAdmin(): boolean {
-    return this.currentRole === this.roles.ROLE_ADMIN;
+    return this.currentRole === this.roles.admin;
   }
 
-  checkRolNetwork(): boolean {
-    return this.currentRole === this.roles.ROLE_NETWORK
-      || this.currentRole === this.roles.ROLE_ADMIN;
+  checkRolRedes(): boolean {
+    return this.currentRole === this.roles.redes
+      || this.currentRole === this.roles.admin;
   }
 
 }

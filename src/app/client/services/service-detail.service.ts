@@ -39,17 +39,17 @@ export class ServiceDetailService {
 
   // rol administrador.
   get roleIsAdmin() {
-    return this.authService.roleIsAdmin();
+    return this.authService.isRolAdmin();
   }
 
   // rol de redes.
   get roleIsNetwork() {
-    return this.authService.roleIsNetwork();
+    return this.authService.isRolRedes();
   }
 
   // rol de caja.
   get roleIsCash() {
-    return this.authService.roleIsCash();
+    return this.authService.isRolCajero();
   }
 
   // servicio actual.

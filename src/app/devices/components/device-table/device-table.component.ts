@@ -33,7 +33,7 @@ export class DeviceTableComponent implements OnInit {
   }
 
   editDevice(id: string): void {
-    if (this.currentRole !== this.roles.ROLE_NETWORK) {
+    if (this.currentRole !== this.roles.redes) {
       Swal.fire(
         'Información',
         'No tiene permisos para realizar esta tarea!',
@@ -47,7 +47,7 @@ export class DeviceTableComponent implements OnInit {
   }
 
   deleteDevice(id: string): void {
-    if (this.currentRole !== this.roles.ROLE_ADMIN) {
+    if (this.currentRole !== this.roles.admin) {
       Swal.fire(
         'Información',
         'No es admin, no puede hacer esto!',

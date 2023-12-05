@@ -48,7 +48,7 @@ export class TemporalServicesComponent implements OnInit {
   // corregir servicio temporal.
   // @ts-ignore
   async corregirClick(serviceId: string) {
-    if (this.currentRole !== this.roles.ROLE_CASH) {
+    if (this.currentRole !== this.roles.cajero) {
       return Sweetalert2.accessDeniedGeneric();
     }
     const {value: option} = await Swal.fire({

@@ -4,8 +4,8 @@ import {Info} from '../../interfaces';
 import {InfoService} from '../../services';
 
 @Component({
-  selector: 'app-general',
-  templateUrl: './general.component.html'
+  selector: "app-general",
+  templateUrl: "./general.component.html",
 })
 export class GeneralComponent implements OnInit {
   info: Info;
