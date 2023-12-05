@@ -2,7 +2,7 @@ const express = require("express")
 const {response} = express
 const {check} = require("express-validator")
 const excel = require("exceljs")
-const {checkRolAdmin, checkRolNetwork, validate, verifyToken} = require("../middlewares")
+const {checkRolAdmin, validate, verifyToken, checkRolRedes} = require("../middlewares")
 const {ServiceService} = require("./service.service")
 
 const router = express.Router()
@@ -39,7 +39,7 @@ function getService(req, res = response) {
 // http://<HOST>/api/services
 router.post("/", [
   verifyToken,
-  checkRolNetwork,
+  checkRolRedes,
   check("ipAddress", "La dirección es obligatorio").not().isEmpty(),
   check("status", "El estado es obligatorio").not().isEmpty(),
   check("servicePlanId", "El plan de servicio es obligatorio").not().isEmpty(),
@@ -71,7 +71,7 @@ function addService(req, res = response) {
 // http://<HOST>/api/services/:id
 router.patch("/:id", [
   verifyToken,
-  checkRolNetwork,
+  checkRolRedes,
   check("id", "No es un ID válido").isMongoId(),
   check("ipAddress", "La dirección es obligatorio").not().isEmpty(),
   check("status", "El estado es obligatorio").not().isEmpty(),

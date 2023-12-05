@@ -1,6 +1,6 @@
 const express = require("express")
 const {response} = express
-const {checkRolAdmin, checkRolNetwork, validate, verifyToken} = require("../middlewares")
+const {checkRolAdmin, validate, verifyToken, checkRolRedes} = require("../middlewares")
 const {check} = require("express-validator")
 const {TramoService} = require("./tramo.service")
 
@@ -71,7 +71,7 @@ function getTramosByCoverage(req, res = response) {
 // http://<HOST>/api/tramo
 router.post("/", [
   verifyToken,
-  checkRolNetwork,
+  checkRolRedes,
   check("tramo", "El nombre es obligatorio").not().isEmpty(),
   check("coverage", "La area cobertura es obligatorio").not().isEmpty(),
   validate
@@ -89,7 +89,7 @@ function addTramo(req, res = response) {
 // http://<HOST>/api/tramo/:id
 router.patch("/:id", [
   verifyToken,
-  checkRolNetwork,
+  checkRolRedes,
   check("tramo", "El nombre es obligatorio").not().isEmpty(),
   check("coverage", "La area cobertura es obligatorio").not().isEmpty(),
   validate

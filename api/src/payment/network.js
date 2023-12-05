@@ -1,7 +1,7 @@
 const express = require("express")
 const {response} = express
 const {check} = require("express-validator")
-const {checkRolAdmin, checkRolCash, validate, verifyToken} = require("../middlewares")
+const {checkRolAdmin, validate, verifyToken, checkRolCajero} = require("../middlewares")
 const {PaymentService} = require("./payment.service")
 
 const router = express.Router()
@@ -43,7 +43,7 @@ function getPayment(req, res = response) {
 // http://<HOST>/api/payments
 router.post("/", [
   verifyToken,
-  checkRolCash,
+  checkRolCajero,
   check("clientId", "El cliente es obligatorio").not().isEmpty(),
   check("serviceId", "El servicio es obligatorio").not().isEmpty(),
   check("year", "El año es obligatorio").not().isEmpty(),
