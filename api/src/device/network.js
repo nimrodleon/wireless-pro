@@ -1,6 +1,6 @@
 const express = require("express")
 const {response} = express
-const {checkRolAdmin, verifyToken, checkRolRedes} = require("../middlewares")
+const {checkRolAdmin, verifyToken, checkRolAdminOrRedes} = require("../middlewares")
 const {DeviceService} = require("./device.service")
 
 const router = express.Router()
@@ -56,7 +56,7 @@ function getDevicesS2(req, res = response) {
 // http://<HOST>/api/devices
 router.post("/", [
   verifyToken,
-  checkRolRedes,
+  checkRolAdminOrRedes,
 ], addDevice)
 
 // registrar equipo.
@@ -71,7 +71,7 @@ function addDevice(req, res = response) {
 // http://<HOST>/api/devices/:id
 router.patch("/:id", [
   verifyToken,
-  checkRolRedes,
+  checkRolAdminOrRedes,
 ], updateDevice)
 
 // actualizar equipo.
