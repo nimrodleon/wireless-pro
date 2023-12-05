@@ -48,9 +48,22 @@ function checkRolCajero(req, res = response, next) {
   next()
 }
 
+function checkAnyRole(req, res = response, next) {
+  const {userName, roles} = req.currentUser
+  if (roles === userRoles.admin
+    || roles === userRoles.redes
+    || roles === userRoles.cajero)
+    next()
+  else
+    return res.status(401).json({
+      msg: `${userName} no tiene permiso para acceder a este recurso!`
+    })
+}
+
 module.exports = {
   checkRolAdmin,
   checkRolRedes,
   checkRolAdminOrRedes,
   checkRolCajero,
+  checkAnyRole,
 }

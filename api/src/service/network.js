@@ -2,14 +2,22 @@ const express = require("express")
 const {response} = express
 const {check} = require("express-validator")
 const excel = require("exceljs")
-const {checkRolAdmin, validate, verifyToken, checkRolRedes} = require("../middlewares")
+const {
+  checkRolAdmin,
+  validate,
+  verifyToken,
+  checkAnyRole,
+  checkRolAdminOrRedes
+} = require("../middlewares")
 const {ServiceService} = require("./service.service")
 
 const router = express.Router()
 const serviceService = new ServiceService()
 
 // http://<HOST>/api/services/:client/client
-router.get("/:id/client", [verifyToken], getServices)
+router.get("/:id/client", [
+  verifyToken, checkAnyRole
+], getServices)
 
 // Lista de servicio.
 function getServices(req, res = response) {
@@ -23,6 +31,7 @@ function getServices(req, res = response) {
 // http://<HOST>/api/services/:id
 router.get("/:id", [
   verifyToken,
+  checkAnyRole,
   check("id", "No es un ID válido").isMongoId(),
   validate
 ], getService)
@@ -39,7 +48,7 @@ function getService(req, res = response) {
 // http://<HOST>/api/services
 router.post("/", [
   verifyToken,
-  checkRolRedes,
+  checkRolAdminOrRedes,
   check("ipAddress", "La dirección es obligatorio").not().isEmpty(),
   check("status", "El estado es obligatorio").not().isEmpty(),
   check("servicePlanId", "El plan de servicio es obligatorio").not().isEmpty(),
@@ -71,7 +80,7 @@ function addService(req, res = response) {
 // http://<HOST>/api/services/:id
 router.patch("/:id", [
   verifyToken,
-  checkRolRedes,
+  checkRolAdminOrRedes,
   check("id", "No es un ID válido").isMongoId(),
   check("ipAddress", "La dirección es obligatorio").not().isEmpty(),
   check("status", "El estado es obligatorio").not().isEmpty(),
@@ -118,7 +127,9 @@ function deleteService(req, res = response) {
 }
 
 // http://<HOST>/api/services/reporte/getTemporalServices
-router.get("/reporte/getTemporalServices", [verifyToken], getTemporalServices)
+router.get("/reporte/getTemporalServices", [
+  verifyToken, checkAnyRole
+], getTemporalServices)
 
 // Lista de servicios temporales.
 function getTemporalServices(req, res = response) {
@@ -128,7 +139,9 @@ function getTemporalServices(req, res = response) {
 }
 
 // http://<HOST>/api/services/reporte/clientesPorCobrar/:date/:type
-router.get("/reporte/clientesPorCobrar/:date/:type", [verifyToken], reporteClientesPorCobrar)
+router.get("/reporte/clientesPorCobrar/:date/:type", [
+  verifyToken, checkAnyRole
+], reporteClientesPorCobrar)
 
 // reporte clientes por cobrar.
 function reporteClientesPorCobrar(req, res = response) {
@@ -138,7 +151,9 @@ function reporteClientesPorCobrar(req, res = response) {
 }
 
 // http://<HOST>/api/services/reporte/servicioSinRegistroDePago
-router.get("/reporte/servicioSinRegistroDePago", [verifyToken], reporteServicioSinRegistroDePago)
+router.get("/reporte/servicioSinRegistroDePago", [
+  verifyToken, checkAnyRole
+], reporteServicioSinRegistroDePago)
 
 // lista de servicios sin registro de pago.
 function reporteServicioSinRegistroDePago(req, res = response) {

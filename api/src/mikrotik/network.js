@@ -1,14 +1,16 @@
 const express = require("express")
 const {response} = express
 const {check} = require("express-validator")
-const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
+const {checkRolAdmin, validate, verifyToken, checkAnyRole} = require("../middlewares")
 const {MikrotikService} = require("./mikrotik.service")
 
 const router = express.Router()
 const mikrotikService = new MikrotikService()
 
 // http://<HOST>/api/mikrotik
-router.get("/", [verifyToken], getMikrotikList)
+router.get("/", [
+  verifyToken, checkAnyRole
+], getMikrotikList)
 
 // Lista de router mikrotik.
 function getMikrotikList(req, res = response) {
@@ -18,7 +20,9 @@ function getMikrotikList(req, res = response) {
 }
 
 // http://<HOST>/api/mikrotik/:id
-router.get("/:id", [verifyToken], getMikrotikById)
+router.get("/:id", [
+  verifyToken, checkAnyRole
+], getMikrotikById)
 
 // Obtener mikrotik por id.
 function getMikrotikById(req, res = response) {
@@ -84,6 +88,7 @@ function deleteMikrotik(req, res = response) {
 // http://<HOST>/api/mikrotik/:id/totalStatusServices
 router.get("/:id/totalStatusServices", [
   verifyToken,
+  checkAnyRole,
   check("id", "No es un ID válido").isMongoId(),
   validate
 ], totalStatusServices)
@@ -98,6 +103,7 @@ async function totalStatusServices(req, res = response) {
 // http://<HOST>/api/mikrotik/:id/getServicesList
 router.get("/:id/getServicesList", [
   verifyToken,
+  checkAnyRole,
   check("id", "No es un ID válido").isMongoId(),
   validate
 ], getServicesList)
@@ -112,17 +118,23 @@ async function getServicesList(req, res = response) {
 // ============================================================
 
 // http://<HOST>/api/mikrotik/:id/interface
-router.get("/:id/interface", [verifyToken], getInterfaceList)
+router.get("/:id/interface", [
+  verifyToken, checkAnyRole,
+  check("id", "No es un ID válido").isMongoId(),
+], getInterfaceList)
 
 // Lista de interfaces.
 function getInterfaceList(req, res = response) {
-  mikrotikService.getInterfaceList(req.params.id).then(result => {
+  mikrotikService.getInterfaceList(req.params.id)
+    .then(result => {
     res.json(result)
   })
 }
 
 // http://<HOST>/api/mikrotik/show/interface/:id
-router.get("/show/interface/:id", [verifyToken], getInterfaceById)
+router.get("/show/interface/:id", [
+  verifyToken, checkAnyRole
+], getInterfaceById)
 
 // obtener interfaz por id.
 function getInterfaceById(req, res = response) {
@@ -174,9 +186,10 @@ router.delete("/delete/interface/:id", [
 
 // borrar interfaz.
 function deleteInterface(req, res = response) {
-  mikrotikService.deleteInterface(req.params.id).then(result => {
-    res.json(result)
-  })
+  mikrotikService.deleteInterface(req.params.id)
+    .then(result => {
+      res.json(result)
+    })
 }
 
 module.exports = {

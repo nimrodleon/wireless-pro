@@ -1,4 +1,5 @@
 const {Service} = require("./service.model")
+const {statusService} = require("../config")
 
 // CRUD - services.
 class ServiceService {
@@ -40,13 +41,17 @@ class ServiceService {
   // reporte clientes por cobrar.
   async reporteClientesPorCobrar(date, type) {
     return Service.find({
-      status: "HABILITADO", paymentType: type, lastPayment: {$exists: true}, paidUpTo: {$lt: date}, isDeleted: false
+      status: statusService.habilitado,
+      paymentType: type,
+      lastPayment: {$exists: true},
+      paidUpTo: {$lt: date},
+      isDeleted: false
     }).populate({path: "clientId", select: "fullName"})
   }
 
   // reporte servicios sin registro de pago.
   async reporteServicioSinRegistroDePago() {
-    return Service.find({status: "HABILITADO", lastPayment: {$exists: false}, isDeleted: false})
+    return Service.find({status: statusService.habilitado, lastPayment: {$exists: false}, isDeleted: false})
       .populate({path: "clientId", select: "fullName"})
   }
 

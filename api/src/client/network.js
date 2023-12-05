@@ -1,14 +1,16 @@
 const express = require("express")
 const {response} = require("express")
 const {check} = require("express-validator")
-const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
+const {checkRolAdmin, validate, verifyToken, checkAnyRole} = require("../middlewares")
 const {ClientService} = require("./client.service")
 
 const router = express.Router()
 const clientService = new ClientService()
 
 // http://<HOST>/api/clients
-router.get("/", [verifyToken], getClients)
+router.get("/", [
+  verifyToken, checkAnyRole
+], getClients)
 
 // Lista de clientes.
 function getClients(req, res = response) {
@@ -21,7 +23,9 @@ function getClients(req, res = response) {
 }
 
 // http://<HOST>/api/clients/select2/:q?
-router.get("/select2/:q?", [verifyToken], getClientsS2)
+router.get("/select2/:q?", [
+  verifyToken, checkAnyRole
+], getClientsS2)
 
 // Buscador de clientes => select2.
 function getClientsS2(req, res = response) {
@@ -36,6 +40,7 @@ function getClientsS2(req, res = response) {
 // http://<HOST>/api/clients/:id
 router.get("/:id", [
   verifyToken,
+  checkAnyRole,
   check("id", "No es un ID válido").isMongoId(),
   validate
 ], getClient)
@@ -52,6 +57,7 @@ function getClient(req, res = response) {
 // http://<HOST>/api/clients
 router.post("/", [
   verifyToken,
+  checkAnyRole,
   check("dni", "El D.N.I. es obligatorio").not().isEmpty(),
   check("fullName", "El nombre es obligatorio").not().isEmpty(),
   check("fullAddress", "La dirección es obligatorio").not().isEmpty(),
@@ -71,6 +77,7 @@ function addClient(req, res = response) {
 // http://<HOST>/api/clients/:id
 router.patch("/:id", [
   verifyToken,
+  checkAnyRole,
   check("id", "No es un ID válido").isMongoId(),
   check("dni", "El D.N.I. es obligatorio").not().isEmpty(),
   check("fullName", "El nombre es obligatorio").not().isEmpty(),

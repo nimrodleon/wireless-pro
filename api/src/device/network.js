@@ -46,7 +46,7 @@ router.get("/v1/select2/:q?", [verifyToken], getDevicesS2)
 // buscador select2.
 function getDevicesS2(req, res = response) {
   const {term = ""} = req.query
-  deviceService.getDevicesS2(term).then(result => {
+  deviceService.getDevicesS2(term.toUpperCase()).then(result => {
     res.json(result)
   }).catch(err => {
     res.status(500).json(err)

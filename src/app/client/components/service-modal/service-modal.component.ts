@@ -1,54 +1,54 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import * as moment from 'moment';
-import {ServiceService} from '../../services';
-import {Service} from '../../interfaces';
-import {environment} from 'src/environments/environment';
-import {CoverageService, InterfaceService, MikrotikService, ServicePlanService} from 'src/app/system/services';
-import {Coverage, Interface, Mikrotik, ServicePlan} from 'src/app/system/interfaces';
-import {DeviceService} from 'src/app/devices/services';
-import {Sweetalert2} from 'src/app/global/interfaces';
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import * as moment from "moment";
+import {ServiceService} from "../../services";
+import {Service} from "../../interfaces";
+import {environment} from "src/environments/environment";
+import {CoverageService, InterfaceService, MikrotikService, ServicePlanService} from "src/app/system/services";
+import {Coverage, Interface, Mikrotik, ServicePlan} from "src/app/system/interfaces";
+import {DeviceService} from "src/app/devices/services";
+import {Sweetalert2} from "src/app/global/interfaces";
 
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-service-modal',
-  templateUrl: './service-modal.component.html',
-  styleUrls: ['./service-modal.component.scss']
+  selector: "app-service-modal",
+  templateUrl: "./service-modal.component.html",
+  styleUrls: ["./service-modal.component.scss"]
 })
 export class ServiceModalComponent implements OnInit {
   @Input()
-  title: string = '';
+  title: string = "";
   @Input()
   currentService: Service;
   @Output()
   hideModal = new EventEmitter<boolean>();
   // ============================================================
-  baseURL: string = environment.baseUrl + 'devices';
-  serviceForm: UntypedFormGroup = this.fb.group({
+  baseURL: string = environment.baseUrl + "devices";
+  serviceForm: FormGroup = this.fb.group({
     _id: [null],
-    clientId: [''],
-    ipAddress: ['', [Validators.required,
-      Validators.pattern('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]
+    clientId: [""],
+    ipAddress: ["", [Validators.required,
+      Validators.pattern("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$")]
     ],
-    status: ['H', [Validators.required]],
-    servicePlanId: ['', [Validators.required]],
-    initialDate: [moment().format('YYYY-MM-DD'), [Validators.required]],
-    mikrotikId: ['', [Validators.required]],
-    interfaceId: ['', [Validators.required]],
-    userName: [''],
-    password: [''],
-    accessPoint: ['', [Validators.required]],
-    macAddress: ['00:00:00:00:00:00', [Validators.required]],
-    address: ['', [Validators.required]],
-    city: ['', [Validators.required]],
-    region: ['', [Validators.required]],
-    coverageId: ['', [Validators.required]],
-    paymentType: ['PRE'],
+    status: ["HABILITADO", [Validators.required]],
+    servicePlanId: ["", [Validators.required]],
+    initialDate: [moment().format("YYYY-MM-DD"), [Validators.required]],
+    mikrotikId: ["", [Validators.required]],
+    interfaceId: ["", [Validators.required]],
+    userName: [""],
+    password: [""],
+    accessPoint: ["", [Validators.required]],
+    macAddress: ["00:00:00:00:00:00", [Validators.required]],
+    address: ["", [Validators.required]],
+    city: ["", [Validators.required]],
+    region: ["", [Validators.required]],
+    coverageId: ["", [Validators.required]],
+    paymentType: ["PRE"],
     defPrice: [false],
     price: [0, [Validators.required, Validators.min(0)]],
-    commonPayment: ['M'],
-    paymentNote: [''],
+    commonPayment: ["M"],
+    paymentNote: [""],
   });
   servicePlanList: Array<ServicePlan> = new Array<ServicePlan>();
   mikrotikList: Array<Mikrotik> = new Array<Mikrotik>();
@@ -56,7 +56,7 @@ export class ServiceModalComponent implements OnInit {
   coverageList: Array<Coverage> = new Array<Coverage>();
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private serviceService: ServiceService,
     private servicePlanService: ServicePlanService,
     private mikrotikService: MikrotikService,
@@ -68,35 +68,36 @@ export class ServiceModalComponent implements OnInit {
 
   ngOnInit(): void {
     // cargar lista de planes de servicio.
-    this.servicePlanService.getServicePlans('')
+    this.servicePlanService.getServicePlans("")
       .subscribe(result => this.servicePlanList = result);
     // cargar lista de mikrotik.
     this.mikrotikService.getMikrotikList()
       .subscribe(result => this.mikrotikList = result);
     // cargar lista de coberturas.
-    this.coverageService.getCoverages('')
+    this.coverageService.getCoverages("")
       .subscribe(result => this.coverageList = result);
     // suscribir modelo al formulario.
     this.serviceForm.valueChanges.subscribe(value => this.currentService = value);
     // escuchar eventos del modal.
-    let accessPoint = jQuery('select[name="accessPoint');
-    let myModal: any = document.querySelector('#service-modal');
-    myModal.addEventListener('shown.bs.modal', () => {
+    let accessPoint = jQuery("select[name=\"accessPoint");
+    let myModal: any = document.querySelector("#service-modal");
+    myModal.addEventListener("shown.bs.modal", () => {
       // cargar lista de interfaces.
-      this.getInterfaceList(this.currentService.mikrotikId);
+      if (this.currentService && this.currentService._id !== undefined)
+        this.getInterfaceList(this.currentService.mikrotikId);
       // cargar valores al formulario.
       this.serviceForm.reset({...this.currentService});
       // accessPoint select2 component.
       accessPoint.select2({
-        theme: 'bootstrap-5',
-        dropdownParent: jQuery('#service-modal'),
+        theme: "bootstrap-5",
+        dropdownParent: jQuery("#service-modal"),
         ajax: {
-          url: this.baseURL + '/v1/select2/s',
+          url: this.baseURL + "/v1/select2/q",
           headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
+            Authorization: "Bearer " + localStorage.getItem("token")
           }
         }
-      }).on('select2:select', (e: any) => {
+      }).on("select2:select", (e: any) => {
         let {data} = e.params;
         this.currentService.accessPoint = data.id;
         this.serviceForm.reset({...this.currentService});
@@ -107,15 +108,15 @@ export class ServiceModalComponent implements OnInit {
         && this.currentService.accessPoint) {
         this.deviceService.getDevice(this.currentService.accessPoint)
           .subscribe(result => {
-            const option = new Option(result.name + ' - '
+            const option = new Option(result.name + " - "
               + result.ipAddress, result._id, true, true);
-            accessPoint.append(option).trigger('change');
+            accessPoint.append(option).trigger("change");
           });
       }
     });
-    myModal.addEventListener('hide.bs.modal', () => {
+    myModal.addEventListener("hide.bs.modal", () => {
       this.serviceForm.reset({...this.serviceService.defaultValues()});
-      accessPoint.val(null).trigger('change');
+      accessPoint.val(null).trigger("change");
     });
   }
 
@@ -133,7 +134,7 @@ export class ServiceModalComponent implements OnInit {
 
   // seleccionar item mikrotik select.
   changeMikrotikValue(target: any): void {
-    this.currentService.interfaceId = '';
+    this.currentService.interfaceId = "";
     this.serviceForm.setValue({...this.currentService});
     this.getInterfaceList(target.value);
   }
