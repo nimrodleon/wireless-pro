@@ -2,6 +2,7 @@ const _ = require("lodash")
 const {ServicePlan} = require("./servicePlan.model")
 const {ServiceService} = require("../service/service.service")
 const {Service} = require("../service/service.model")
+const {statusService} = require("../config")
 
 const serviceService = new ServiceService()
 
@@ -28,7 +29,7 @@ class ServicePlanService {
   }
 
   // actualizar plan de servicio.
-   async updateServicePlan(id, data) {
+  async updateServicePlan(id, data) {
     return ServicePlan.findByIdAndUpdate(id, data, {new: true})
   }
 
@@ -40,7 +41,7 @@ class ServicePlanService {
   }
 
   // Lista de planes de servicios activos de un cliente en espécifico.
-   async getServicePlansActive(clientId) {
+  async getServicePlansActive(clientId) {
     let _services = await serviceService.getServices(clientId)
     let idArrServicePlan = []
     await _.forEach(_services, value => {
@@ -62,7 +63,7 @@ class ServicePlanService {
   // Lista de servicios por tarifa.
   async getServicesList(id) {
     return Service.find({
-      servicePlanId: id, status: {$in: ["HABILITADO", "SUSPENDIDO"]},
+      servicePlanId: id, status: {$in: [statusService.habilitado, statusService.suspendido]},
       mikrotikId: {$exists: true}, interfaceId: {$exists: true}, coverageId: {$exists: true},
       ipAddress: {$exists: true}, macAddress: {$exists: true}, paymentType: {$exists: true},
       arpId: {$exists: true}, simpleQueueId: {$exists: true}, isDeleted: false

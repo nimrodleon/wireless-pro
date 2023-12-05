@@ -3,6 +3,7 @@ const {response} = express
 const {checkRolAdmin, validate, verifyToken} = require("../middlewares")
 const {check} = require("express-validator")
 const {ServicePlanService} = require("./servicePlan.service")
+const {statusService} = require("../config")
 
 const router = express.Router()
 const servicePlanService = new ServicePlanService()
@@ -118,8 +119,8 @@ router.get("/:id/totalStatusServices", [
 
 // Total, planes de servicio.
 async function totalStatusServices(req, res = response) {
-  const enabled = await servicePlanService.totalStatusServices(req.params.id, "HABILITADO")
-  const suspended = await servicePlanService.totalStatusServices(req.params.id, "SUSPENDIDO")
+  const enabled = await servicePlanService.totalStatusServices(req.params.id, statusService.habilitado)
+  const suspended = await servicePlanService.totalStatusServices(req.params.id, statusService.suspendido)
   res.json({enabled, suspended})
 }
 
