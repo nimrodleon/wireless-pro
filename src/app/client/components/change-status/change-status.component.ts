@@ -1,11 +1,11 @@
 import {Component, OnInit} from "@angular/core";
-import {UntypedFormBuilder, UntypedFormControl} from "@angular/forms";
+import {FormBuilder, FormControl} from "@angular/forms";
 import {Observable, Subject} from "rxjs";
 import * as moment from "moment";
 import Swal from "sweetalert2";
 import {Sweetalert2} from "src/app/global/interfaces";
 import {BitWorkerService, ServicePlanService} from "src/app/system/services";
-import {OutagesService, ServiceDetailService} from "../../services";
+import {ServiceDetailService} from "../../services";
 import {AuthService} from "src/app/user/services";
 
 @Component({
@@ -14,16 +14,15 @@ import {AuthService} from "src/app/user/services";
 })
 export class ChangeStatusComponent implements OnInit {
   workerActivityList: Array<any> = new Array<any>();
-  workerActivityYear: UntypedFormControl = this.fb.control(moment().format("YYYY"));
+  workerActivityYear: FormControl = this.fb.control(moment().format("YYYY"));
   currentRole: string = "";
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private authService: AuthService,
     private bitWorkerService: BitWorkerService,
     private servicePlanService: ServicePlanService,
-    private serviceDetailService: ServiceDetailService,
-    private outagesService: OutagesService) {
+    private serviceDetailService: ServiceDetailService) {
   }
 
   ngOnInit(): void {
@@ -43,14 +42,18 @@ export class ChangeStatusComponent implements OnInit {
     return this.authService.roles;
   }
 
-  // rol de caja.
-  get roleIsCash() {
-    return this.serviceDetailService.roleIsCash;
+  public checkRolAdmin(): boolean {
+    return this.currentRole === this.roles.admin;
   }
 
-  // rol de redes.
-  get roleIsNetwork() {
-    return this.serviceDetailService.roleIsNetwork;
+  public checkRolAdminOrRedes(): boolean {
+    return this.currentRole === this.roles.admin
+      || this.currentRole === this.roles.redes;
+  }
+
+  public checkRolAdminOrCajero(): boolean {
+    return this.currentRole === this.roles.admin
+      || this.currentRole === this.roles.cajero;
   }
 
   // botón cargar lista estado de cambios.
@@ -98,159 +101,165 @@ export class ChangeStatusComponent implements OnInit {
   // Habilitar servicio.
   enableServiceInBitWorker(event: any): void {
     event.preventDefault();
-    this.roleIsCash.subscribe(async (result) => {
-      if (!result) {
-        await Sweetalert2.accessDeniedGeneric();
-      } else {
-        const {value: option} = await Swal.fire({
-          title: "HABILITAR SERVICIO",
-          input: "select",
-          inputOptions: {
-            "HST": "HABILITAR SERVICIO TEMPORAL",
-            "N01": "ACTIVACIÓN POR REGISTRO DE PAGO",
-            "N02": "ACTIVACIÓN A SOLICITUD DEL CLIENTE",
-          },
-          inputPlaceholder: "Seleccione una opción",
-          showCancelButton: true,
-          cancelButtonText: "Cancelar"
-        });
-        if (option) {
-          this.changeStatusService(option);
+    this.authService.isRolAdminOrCajero()
+      .subscribe(async (result) => {
+        if (!result) {
+          await Sweetalert2.accessDeniedGeneric();
+        } else {
+          const {value: option} = await Swal.fire({
+            title: "HABILITAR SERVICIO",
+            input: "select",
+            inputOptions: {
+              "HST": "HABILITAR SERVICIO TEMPORAL",
+              "N01": "ACTIVACIÓN POR REGISTRO DE PAGO",
+              "N02": "ACTIVACIÓN A SOLICITUD DEL CLIENTE",
+            },
+            inputPlaceholder: "Seleccione una opción",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar"
+          });
+          if (option) {
+            this.changeStatusService(option);
+          }
         }
-      }
-    });
+      });
   }
 
   // Suspender servicio.
   suspendServiceInBitWorker(event: any): void {
     event.preventDefault();
-    this.roleIsCash.subscribe(async (result) => {
-      if (!result) {
-        await Sweetalert2.accessDeniedGeneric();
-      } else {
-        const {value: option} = await Swal.fire({
-          title: "SUSPENSIÓN DE SERVICIO",
-          input: "select",
-          inputOptions: {
-            "N03": "CORTE POR FALTA DE PAGO",
-            "N04": "SUSPENSIÓN A SOLICITUD DEL CLIENTE"
-          },
-          inputPlaceholder: "Seleccione una opción",
-          showCancelButton: true,
-          cancelButtonText: "Cancelar"
-        });
-        if (option) {
-          this.changeStatusService(option);
+    this.authService.isRolAdminOrCajero()
+      .subscribe(async (result) => {
+        if (!result) {
+          await Sweetalert2.accessDeniedGeneric();
+        } else {
+          const {value: option} = await Swal.fire({
+            title: "SUSPENSIÓN DE SERVICIO",
+            input: "select",
+            inputOptions: {
+              "N03": "CORTE POR FALTA DE PAGO",
+              "N04": "SUSPENSIÓN A SOLICITUD DEL CLIENTE"
+            },
+            inputPlaceholder: "Seleccione una opción",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar"
+          });
+          if (option) {
+            this.changeStatusService(option);
+          }
         }
-      }
-    });
+      });
   }
 
   // Cambiar plan de servicio.
   async changeServicePlanInBitWorker(event: any) {
     event.preventDefault();
-    this.roleIsCash.subscribe(async (result) => {
-      if (!result) {
-        await Sweetalert2.accessDeniedGeneric();
-      } else {
-        this.getServicePlan()
-          .subscribe(async (result) => {
-            const {value: tarifa} = await Swal.fire({
-              title: "PLANES DE SERVICIO",
-              input: "select",
-              inputOptions: {...result},
-              inputPlaceholder: "Seleccione una opción",
-              showCancelButton: true,
-              cancelButtonText: "Cancelar"
+    this.authService.isRolAdminOrCajero()
+      .subscribe(async (result) => {
+        if (!result) {
+          await Sweetalert2.accessDeniedGeneric();
+        } else {
+          this.getServicePlan()
+            .subscribe(async (result) => {
+              const {value: tarifa} = await Swal.fire({
+                title: "PLANES DE SERVICIO",
+                input: "select",
+                inputOptions: {...result},
+                inputPlaceholder: "Seleccione una opción",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar"
+              });
+              if (tarifa) {
+                this.bitWorkerService.changeServicePlan(this.serviceId, tarifa)
+                  .subscribe(async (result) => {
+                    if (!result.ok) {
+                      await Sweetalert2.errorMessage();
+                    } else {
+                      this.getWorkerActivityListClick();
+                      this.serviceDetailService.getCurrentService(this.serviceId)
+                        .subscribe(result => console.info(result));
+                      await Sweetalert2.messageSuccess();
+                    }
+                  });
+              }
             });
-            if (tarifa) {
-              this.bitWorkerService.changeServicePlan(this.serviceId, tarifa)
-                .subscribe(async (result) => {
-                  if (!result.ok) {
-                    await Sweetalert2.errorMessage();
-                  } else {
-                    this.getWorkerActivityListClick();
-                    this.serviceDetailService.getCurrentService(this.serviceId)
-                      .subscribe(result => console.info(result));
-                    await Sweetalert2.messageSuccess();
-                  }
-                });
-            }
-          });
-      }
-    });
+        }
+      });
   }
 
   // Registrar servicio.
   registerServiceInBitWorker(event: any): void {
     event.preventDefault();
-    this.roleIsNetwork.subscribe(async (result) => {
-      if (!result) {
-        await Sweetalert2.accessDeniedGeneric();
-      } else {
-        Sweetalert2.messageConfirm().then(result => {
-          if (result.isConfirmed) {
-            this.bitWorkerService.addService(this.serviceId)
-              .subscribe(async (result) => {
-                if (!result.ok) {
-                  await Sweetalert2.errorMessage();
-                } else {
-                  this.getWorkerActivityListClick();
-                  await Sweetalert2.messageSuccess();
-                }
-              });
-          }
-        });
-      }
-    });
+    this.authService.isRolAdminOrRedes()
+      .subscribe(async (result) => {
+        if (!result) {
+          await Sweetalert2.accessDeniedGeneric();
+        } else {
+          Sweetalert2.messageConfirm().then(result => {
+            if (result.isConfirmed) {
+              this.bitWorkerService.addService(this.serviceId)
+                .subscribe(async (result) => {
+                  if (!result.ok) {
+                    await Sweetalert2.errorMessage();
+                  } else {
+                    this.getWorkerActivityListClick();
+                    await Sweetalert2.messageSuccess();
+                  }
+                });
+            }
+          });
+        }
+      });
   }
 
   // Actualizar servicio.
   updateServiceInBitWorker(event: any): void {
     event.preventDefault();
-    this.roleIsNetwork.subscribe(async (result) => {
-      if (!result) {
-        await Sweetalert2.accessDeniedGeneric();
-      } else {
-        Sweetalert2.messageConfirm().then(result => {
-          if (result.isConfirmed) {
-            this.bitWorkerService.updateService(this.serviceId)
-              .subscribe(async (result) => {
-                if (!result.ok) {
-                  await Sweetalert2.errorMessage();
-                } else {
-                  this.getWorkerActivityListClick();
-                  await Sweetalert2.messageSuccess();
-                }
-              });
-          }
-        });
-      }
-    });
+    this.authService.isRolAdminOrRedes()
+      .subscribe(async (result) => {
+        if (!result) {
+          await Sweetalert2.accessDeniedGeneric();
+        } else {
+          Sweetalert2.messageConfirm().then(result => {
+            if (result.isConfirmed) {
+              this.bitWorkerService.updateService(this.serviceId)
+                .subscribe(async (result) => {
+                  if (!result.ok) {
+                    await Sweetalert2.errorMessage();
+                  } else {
+                    this.getWorkerActivityListClick();
+                    await Sweetalert2.messageSuccess();
+                  }
+                });
+            }
+          });
+        }
+      });
   }
 
   // Borrar servicio.
   deleteServiceInBitWorker(event: any): void {
     event.preventDefault();
-    this.roleIsNetwork.subscribe(async (result) => {
-      if (!result) {
-        await Sweetalert2.accessDeniedGeneric();
-      } else {
-        Sweetalert2.deleteConfirm().then(result => {
-          if (result.isConfirmed) {
-            this.bitWorkerService.deleteService(this.serviceId)
-              .subscribe(async (result) => {
-                if (!result.ok) {
-                  await Sweetalert2.errorMessage();
-                } else {
-                  this.getWorkerActivityListClick();
-                  await Sweetalert2.deleteSuccess();
-                }
-              });
-          }
-        });
-      }
-    });
+    this.authService.isRolAdminOrRedes()
+      .subscribe(async (result) => {
+        if (!result) {
+          await Sweetalert2.accessDeniedGeneric();
+        } else {
+          Sweetalert2.deleteConfirm().then(result => {
+            if (result.isConfirmed) {
+              this.bitWorkerService.deleteService(this.serviceId)
+                .subscribe(async (result) => {
+                  if (!result.ok) {
+                    await Sweetalert2.errorMessage();
+                  } else {
+                    this.getWorkerActivityListClick();
+                    await Sweetalert2.deleteSuccess();
+                  }
+                });
+            }
+          });
+        }
+      });
   }
 
 }

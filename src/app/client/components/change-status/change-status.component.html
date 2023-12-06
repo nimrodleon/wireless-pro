@@ -14,43 +14,43 @@
         <span class="text-uppercase ms-1">Opciones</span>
       </button>
       <ul class="dropdown-menu">
-        <li>
+        <li *ngIf="checkRolAdminOrCajero()">
           <a class="dropdown-item" href="#"
              (click)="enableServiceInBitWorker($event)">
             <span class="text-uppercase">Habilitar</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="checkRolAdminOrCajero()">
           <a class="dropdown-item" href="#"
              (click)="suspendServiceInBitWorker($event)">
             <span class="text-uppercase">Suspender</span>
           </a>
         </li>
-        <li>
+        <li *ngIf="checkRolAdminOrCajero()">
           <hr class="dropdown-divider">
         </li>
-        <li>
+        <li *ngIf="checkRolAdminOrCajero()">
           <a class="dropdown-item" href="#"
              (click)="changeServicePlanInBitWorker($event)">
             <span class="text-uppercase">Cambiar Plan</span>
           </a>
         </li>
-        <li *ngIf="currentRole === roles.redes">
+        <li *ngIf="checkRolAdmin()">
           <hr class="dropdown-divider">
         </li>
-        <li *ngIf="currentRole === roles.redes">
+        <li *ngIf="checkRolAdminOrRedes()">
           <a class="dropdown-item" href="#"
              (click)="registerServiceInBitWorker($event)">
             <span class="text-uppercase">Registrar</span>
           </a>
         </li>
-        <li *ngIf="currentRole === roles.redes">
+        <li *ngIf="checkRolAdminOrRedes()">
           <a class="dropdown-item" href="#"
              (click)="updateServiceInBitWorker($event)">
             <span class="text-uppercase">Actualizar</span>
           </a>
         </li>
-        <li *ngIf="currentRole === roles.redes">
+        <li *ngIf="checkRolAdminOrRedes()">
           <a class="dropdown-item" href="#"
              (click)="deleteServiceInBitWorker($event)">
             <span class="text-uppercase">Borrar</span>
@@ -71,9 +71,9 @@
     </thead>
     <tbody>
     <tr *ngFor="let item of workerActivityList">
-      <td>{{item.task}}</td>
-      <td>{{item.createdAt|date}}</td>
-      <td>{{item.remark}}</td>
+      <td>{{ item.task }}</td>
+      <td>{{ item.createdAt|date }}</td>
+      <td>{{ item.remark }}</td>
     </tr>
     </tbody>
   </table>
