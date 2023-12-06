@@ -96,7 +96,7 @@ class OrderService {
 
   // Registrar orden de instalación.
   async addOrder(data) {
-    let _order = new Order(data)
+    const _order = new Order(data)
     await _order.save()
     return _order
   }

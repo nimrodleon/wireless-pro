@@ -1,36 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { environment } from 'src/environments/environment';
-import { WorkOrderService } from '../../services';
-import { ServicePlan } from 'src/app/system/interfaces';
-import { Client } from 'src/app/client/interfaces';
-import { WorkOrder } from '../../interfaces';
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import Swal from "sweetalert2";
+import {environment} from "src/environments/environment";
+import {WorkOrderService} from "../../services";
+import {ServicePlan} from "src/app/system/interfaces";
+import {Client} from "src/app/client/interfaces";
+import {WorkOrder} from "../../interfaces";
 
 declare const jQuery: any;
 declare const bootstrap: any;
 
 @Component({
-  selector: 'app-work-form',
-  templateUrl: './work-form.component.html',
-  styleUrls: ['./work-form.component.scss']
+  selector: "app-work-form",
+  templateUrl: "./work-form.component.html",
+  styleUrls: ["./work-form.component.scss"]
 })
 export class WorkFormComponent implements OnInit {
   private baseURL: string = environment.baseUrl;
   workOrder: WorkOrder;
-  workOrderForm: UntypedFormGroup = this.fb.group({
+  workOrderForm: FormGroup = this.fb.group({
     _id: [null],
-    clientId: [''],
-    description: [''],
-    address: ['', [Validators.required]],
-    city: ['', [Validators.required]],
-    region: ['', [Validators.required]],
-    typeTask: ['', [Validators.required]],
-    servicePlanId: ['', [Validators.required]],
+    clientId: [""],
+    description: [""],
+    address: ["", [Validators.required]],
+    city: ["", [Validators.required]],
+    region: ["", [Validators.required]],
+    typeTask: ["", [Validators.required]],
+    servicePlanId: ["", [Validators.required]],
     total: [0, [Validators.required, Validators.min(0)]],
     amount: [0, [Validators.required, Validators.min(0)]],
-    statusOrder: ['PENDIENTE']
+    statusOrder: ["PENDIENTE"]
   });
   servicePlanList: Array<ServicePlan> = new Array<ServicePlan>();
   currentClientSelected: Client;
@@ -38,7 +38,7 @@ export class WorkFormComponent implements OnInit {
   addClientModal: any;
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private workOrderService: WorkOrderService) {
@@ -50,24 +50,24 @@ export class WorkFormComponent implements OnInit {
   ngOnInit(): void {
     // cargar datos orden de instalación modo edición.
     this.activatedRoute.paramMap.subscribe(params => {
-      if (params.get('id')) {
-        this.workOrderService.getWorkOrderById(params.get('id'))
+      if (params.get("id")) {
+        this.workOrderService.getWorkOrderById(params.get("id"))
           .subscribe(result => {
-            this.workOrderForm.reset({ ...result });
+            this.workOrderForm.reset({...result});
             this.workOrderService.getClientById(result.clientId)
               .subscribe(result => this.currentClientSelected = result);
           });
       }
     });
     // Select2 buscador de clientes.
-    jQuery('#searchClient').select2({
-      theme: 'bootstrap-5',
-      placeholder: 'BUSCAR CLIENTE',
-      dropdownParent: jQuery('#selectClientModal'),
+    jQuery("#searchClient").select2({
+      theme: "bootstrap-5",
+      placeholder: "BUSCAR CLIENTE",
+      dropdownParent: jQuery("#selectClientModal"),
       ajax: {
-        url: this.baseURL + 'clients/select2/s',
+        url: this.baseURL + "clients/select2/s",
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token')
+          Authorization: "Bearer " + localStorage.getItem("token")
         }
       }
     });
@@ -80,9 +80,9 @@ export class WorkFormComponent implements OnInit {
         this.servicePlanList = result;
       });
     // Modal buscar clientes.
-    this.selectClientModal = new bootstrap.Modal('#selectClientModal');
+    this.selectClientModal = new bootstrap.Modal("#selectClientModal");
     // Modal agregar cliente.
-    this.addClientModal = new bootstrap.Modal('#client-form-modal');
+    this.addClientModal = new bootstrap.Modal("#client-form-modal");
   }
 
   // Verificar campo invalido.
@@ -93,8 +93,8 @@ export class WorkFormComponent implements OnInit {
 
   // Seleccionar cliente.
   selectClientClick(): void {
-    this.workOrder.clientId = jQuery('#searchClient').val();
-    if (this.workOrder.clientId !== '') {
+    this.workOrder.clientId = jQuery("#searchClient").val();
+    if (this.workOrder.clientId !== "") {
       // Cargar cliente seleccionado.
       this.workOrderService.getClientById(this.workOrder.clientId)
         .subscribe(result => {
@@ -141,8 +141,8 @@ export class WorkFormComponent implements OnInit {
   // Guardar orden de instalación.
   saveChanges(): void {
     // validar cliente seleccionado.
-    if (this.workOrder.clientId === '') {
-      Swal.fire('Seleccionar un Cliente!');
+    if (this.workOrder.clientId === "") {
+      Swal.fire("Seleccionar un Cliente!");
     } else {
       // cuando existe un cliente seleccionado.
       if (this.workOrderForm.invalid) {
@@ -155,13 +155,13 @@ export class WorkFormComponent implements OnInit {
         delete this.workOrder._id;
         this.workOrderService.addOrder(this.workOrder)
           .subscribe(result => {
-            this.router.navigate(['/work_orders/detail', result._id])
-              .then(() => console.info('Imprimir Ticket!!'));
+            this.router.navigate(["/work_orders/detail", result._id])
+              .then(() => console.info("Imprimir Ticket!!"));
           });
       } else {
         this.workOrderService.updateOrder(this.workOrder).subscribe(result => {
-          this.router.navigate(['/work_orders/detail', result._id])
-            .then(() => console.info('Orden de Instalación actualizada!'));
+          this.router.navigate(["/work_orders/detail", result._id])
+            .then(() => console.info("Orden de Instalación actualizada!"));
         });
       }
     }

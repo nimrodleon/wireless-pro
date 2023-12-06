@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {WorkOrderService} from './work-order.service';
-import {OrderMaterialService} from './order-material.service';
-import {WorkOrder, OrderMaterial} from '../interfaces';
-import {ServicePlan} from '../../system/interfaces';
-import {Client} from '../../client/interfaces';
-import {User} from '../../user/interfaces';
-import {UserService} from '../../user/services';
+import {Injectable} from "@angular/core";
+import {WorkOrderService} from "./work-order.service";
+import {OrderMaterialService} from "./order-material.service";
+import {WorkOrder, OrderMaterial} from "../interfaces";
+import {ServicePlan} from "../../system/interfaces";
+import {Client} from "../../client/interfaces";
+import {User} from "../../user/interfaces";
+import {UserService} from "../../user/services";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class WorkOrderDetailService {
   private _currentWorkOrder: WorkOrder;
@@ -73,12 +73,15 @@ export class WorkOrderDetailService {
     this.workOrderService.getWorkOrderById(id)
       .subscribe(result => {
         this._currentWorkOrder = result;
-        this.workOrderService.getClientById(result.clientId)
-          .subscribe(result => this._currentClient = result);
-        this.workOrderService.getServicePlanById(result.servicePlanId)
-          .subscribe(result => this._currentServicePlan = result);
-        this.workOrderService.getUserById(result.userId)
-          .subscribe(result => this._userTechnical = result);
+        if (result.clientId)
+          this.workOrderService.getClientById(result.clientId)
+            .subscribe(result => this._currentClient = result);
+        if (result.servicePlanId)
+          this.workOrderService.getServicePlanById(result.servicePlanId)
+            .subscribe(result => this._currentServicePlan = result);
+        if (result.userId)
+          this.workOrderService.getUserById(result.userId)
+            .subscribe(result => this._userTechnical = result);
       });
     // cargar lista de materiales.
     this.getOrderMaterials(id);

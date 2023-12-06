@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {environment} from 'src/environments/environment';
-import {ServicePlanService} from '../../system/services';
-import {ClientService} from '../../client/services';
-import {UserService} from '../../user/services';
-import {WorkOrder} from '../interfaces';
-import {ServicePlan} from '../../system/interfaces';
-import {Client} from '../../client/interfaces';
-import {User} from '../../user/interfaces';
+import {Injectable} from "@angular/core";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {environment} from "src/environments/environment";
+import {ServicePlanService} from "../../system/services";
+import {ClientService} from "../../client/services";
+import {UserService} from "../../user/services";
+import {WorkOrder} from "../interfaces";
+import {ServicePlan} from "../../system/interfaces";
+import {Client} from "../../client/interfaces";
+import {User} from "../../user/interfaces";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class WorkOrderService {
-  private baseURL: string = environment.baseUrl + 'work_orders';
+  private baseURL: string = environment.baseUrl + "work_orders";
 
   constructor(
     private http: HttpClient,
@@ -50,7 +50,7 @@ export class WorkOrderService {
 
   // Lista de planes de servicio.
   getServicePlans(): Observable<ServicePlan[]> {
-    return this.servicePlanService.getServicePlans('');
+    return this.servicePlanService.getServicePlans("");
   }
 
   // Obtener plan de servicio por id.
@@ -59,16 +59,16 @@ export class WorkOrderService {
   }
 
   // Lista de ordenes de trabajo.
-  getWorkOrders(query: string): Observable<any> {
+  getWorkOrders(query: string = ""): Observable<any> {
     let params = new HttpParams();
-    params = params.append('search', query);
+    params = params.append("search", query);
     return this.http.get(this.baseURL, {params});
   }
 
   // Lista ordenes de trabajo por mes y año.
   getWorkOrdersByYearMonth(query: any): Observable<any> {
     let params = new HttpParams();
-    params = params.append('search', query.search);
+    params = params.append("search", query.search);
     return this.http.get(`${this.baseURL}/${query.year}/${query.month}/report`, {params});
   }
 
@@ -103,16 +103,16 @@ export class WorkOrderService {
     return {
       _id: undefined,
       userId: undefined,
-      clientId: '',
-      description: '',
-      address: '',
-      city: '',
-      region: '',
-      typeTask: '',
-      servicePlanId: '',
+      clientId: "",
+      description: "",
+      address: "",
+      city: "",
+      region: "",
+      typeTask: "",
+      servicePlanId: "",
       total: 0,
       amount: 0,
-      statusOrder: 'PENDIENTE',
+      statusOrder: "PENDIENTE",
       createdAt: undefined,
     };
   }

@@ -1,58 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { WorkOrderDetailService, OrderMaterialService } from '../../services';
-import { Service } from 'src/app/client/interfaces';
-import { ServiceService } from 'src/app/client/services';
-import { AuthService } from 'src/app/user/services';
-import { Sweetalert2 } from 'src/app/global/interfaces';
-import { OrderMaterial } from '../../interfaces';
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {WorkOrderDetailService, OrderMaterialService} from "../../services";
+import {OrderMaterial} from "../../interfaces";
 
 declare const bootstrap: any;
 
 @Component({
-  selector: 'app-work-detail',
-  templateUrl: './work-detail.component.html'
+  selector: "app-work-detail",
+  templateUrl: "./work-detail.component.html"
 })
 export class WorkDetailComponent implements OnInit {
   userModal: any;
   materialModal: any;
   itemMaterialModal: any;
   orderMaterial: OrderMaterial;
-  // ============================================================
-  titleService: string = '';
-  currentService: Service;
-  serviceModal: any;
-  // ============================================================
-  currentRole: string = '';
 
   constructor(
-    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService,
     private workOrderDetailService: WorkOrderDetailService,
-    private orderMaterialService: OrderMaterialService,
-    private serviceService: ServiceService) {
+    private orderMaterialService: OrderMaterialService) {
     this.orderMaterial = this.orderMaterialService.defaultValues();
-    this.currentService = this.serviceService.defaultValues();
   }
 
   ngOnInit(): void {
     // cargar datos orden de instalación.
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.workOrderDetailService.getWorkOrder(params.get('id'));
-    });
-    // Obtener rol del usuario autentificado.
-    this.authService.getRoles().subscribe((result: string) => this.currentRole = result);
+    this.activatedRoute.paramMap
+      .subscribe(params => {
+        this.workOrderDetailService.getWorkOrder(params.get("id"));
+      });
     // establecer formularios modales.
-    this.userModal = new bootstrap.Modal('#add-user-modal');
-    this.materialModal = new bootstrap.Modal('#add-material-modal');
-    this.itemMaterialModal = new bootstrap.Modal('#item-material-modal');
-    this.serviceModal = new bootstrap.Modal('#service-modal');
-  }
-
-  // Lista de permisos.
-  get roles() {
-    return this.authService.roles;
+    this.userModal = new bootstrap.Modal("#add-user-modal");
+    this.materialModal = new bootstrap.Modal("#add-material-modal");
+    this.itemMaterialModal = new bootstrap.Modal("#item-material-modal");
   }
 
   // orden de instalación.
@@ -91,7 +70,7 @@ export class WorkDetailComponent implements OnInit {
   // Cerrar modal agregar técnico.
   hideUserModal(value: boolean): void {
     if (value === true) {
-      this.changeStatusWorkOrder('EN PROCESO');
+      this.changeStatusWorkOrder("EN PROCESO");
       this.userModal.hide();
     }
   }
@@ -114,7 +93,7 @@ export class WorkDetailComponent implements OnInit {
   // Comprobar existencia de usuario.
   userNotExist(): boolean {
     return this.currentWorkOrder.userId === undefined
-      || this.currentWorkOrder.userId === '';
+      || this.currentWorkOrder.userId === "";
   }
 
   // Borrar el técnico actual.
@@ -135,39 +114,12 @@ export class WorkDetailComponent implements OnInit {
 
   // Habilitar orden de trabajo.
   enableWorkOrder(): void {
-    this.changeStatusWorkOrder('EN PROCESO');
+    this.changeStatusWorkOrder("EN PROCESO");
   }
 
   // Finalizar orden de trabajo.
   finishWorkOrder(): void {
-    this.changeStatusWorkOrder('FINALIZADO');
-  }
-
-  // agregar servicio.
-  async addServiceClick(event: any) {
-    event.preventDefault();
-    if (this.currentRole !== this.roles.redes) {
-      await Sweetalert2.accessDeniedGeneric();
-    } else {
-      this.titleService = 'Agregar Servicio';
-      this.currentService = this.serviceService.defaultValues();
-      this.currentService.clientId = this.currentClient._id;
-      this.currentService.address = this.currentWorkOrder.address;
-      this.currentService.city = this.currentWorkOrder.city;
-      this.currentService.region = this.currentWorkOrder.region;
-      this.serviceModal.show();
-    }
-  }
-
-  // cerrar modal servicio.
-  hideServiceModal(value: boolean): void {
-    if (value === true) {
-      this.serviceModal.hide();
-      this.router.navigate(['/client/detail',
-        this.currentClient._id]).then(() => {
-          console.info('Service added!');
-        });
-    }
+    this.changeStatusWorkOrder("FINALIZADO");
   }
 
 }
