@@ -12,7 +12,7 @@ Software para gestión de redes Wifi.
 
 Para implementar un servicio utilizando **SYSTEMD**, sigue estos pasos:
 
-1. Crea un archivo llamado `/lib/systemd/system/wireless-pro.service` y copia el contenido del archivo `scripts/wireless-pro` en él.
+1. **Crea un archivo llamado `/lib/systemd/system/wireless-pro.service` y copia el contenido del archivo `scripts/wireless-pro` en él.**
 
     ```bash
     sudo nano /lib/systemd/system/wireless-pro.service
