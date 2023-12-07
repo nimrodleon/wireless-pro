@@ -1,0 +1,13 @@
+network:
+  ethernets:
+    eth0:
+      addresses:
+        - 10.0.8.32/8
+        - 192.160.1.246/24
+      gateway4: 10.0.1.1
+      nameservers:
+        addresses:
+          - 200.48.225.130
+          - 200.48.225.146
+        search: [ ]
+  version: 2
