@@ -1,10 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
 import {DeviceListService} from "../../services";
 import Swal from "sweetalert2";
 import {AuthService} from "src/app/user/services";
-import {catchError, map, timeout} from "rxjs/operators";
-import {of, throwError} from "rxjs";
 
 declare const jQuery: any;
 
@@ -16,7 +13,6 @@ declare const jQuery: any;
 export class DevicesListComponent implements OnInit {
 
   constructor(
-    private http: HttpClient,
     private authService: AuthService,
     private deviceListService: DeviceListService) {
   }
@@ -72,7 +68,7 @@ export class DevicesListComponent implements OnInit {
       img.onerror = () => {
         reject(url);
       };
-      img.src = url + '?random-no-cache=' + Math.floor((1 + Math.random()) * 0x10000).toString(16);
+      img.src = url + "?random-no-cache=" + Math.floor((1 + Math.random()) * 0x10000).toString(16);
     });
   }
 
@@ -87,7 +83,7 @@ export class DevicesListComponent implements OnInit {
       this.request_image(url).then(response).catch(response);
       // Set a timeout for max-pings, 1s.
       setTimeout(() => {
-        reject(Error('Timeout'));
+        reject(Error("Timeout"));
       }, 1000);
     });
   }
@@ -99,17 +95,17 @@ export class DevicesListComponent implements OnInit {
       // @ts-ignore
       this.devices.forEach(item => {
         const _item = item;
-        this.ping('http://' + _item.ipAddress)
+        this.ping("http://" + _item.ipAddress)
           .then(delta => {
             const dom = document.getElementById(_item._id);
             if (dom) {
-              dom.classList.add('text-success');
+              dom.classList.add("table-success");
             }
           })
           .catch(err => {
             const dom = document.getElementById(_item._id);
             if (dom) {
-              dom.classList.add('text-danger');
+              dom.classList.add("table-danger");
             }
           });
       });
@@ -119,7 +115,7 @@ export class DevicesListComponent implements OnInit {
   // Limpiar ping.
   clearPing(): void {
     const trArr = document.querySelectorAll("tr");
-    Array.from(trArr).forEach(tr => tr.classList.remove("text-success", "text-danger"));
+    Array.from(trArr).forEach(tr => tr.classList.remove("table-success", "table-danger"));
   }
 
 }
