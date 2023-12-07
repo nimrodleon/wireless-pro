@@ -1,103 +1,39 @@
-# rd4-server
+# wireless-pro
 
 Software para gestión de redes Wifi.
 
----
+### Repositorios relacionados con este proyecto.
 
-## Repositorios relacionados con este proyecto.
+- [https://github.com/nimrodleon/wireless-pro](https://github.com/nimrodleon/wireless-pro)
+- [https://github.com/nimrodleon/MikroTik](https://github.com/nimrodleon/MikroTik)
+- [https://github.com/nimrodleon/cortes](https://github.com/nimrodleon/cortes)
 
-- [https://gitlab.com/nleonc14/MkBitWorker](https://gitlab.com/nleonc14/MkBitWorker)
-- [https://gitlab.com/nleonc14/rd4-migration](https://gitlab.com/nleonc14/rd4-migration)
+### Crear Servicio con SYSTEMD
 
-## Configuración de Recursos Compartidos.
+Para implementar un servicio utilizando **SYSTEMD**, sigue estos pasos:
 
----
+1. Crea un archivo llamado `/lib/systemd/system/wireless-pro.service` y copia el contenido del archivo `scripts/wireless-pro` en él.
 
-### Instalar CIFS-utils.
+    ```bash
+    sudo nano /lib/systemd/system/wireless-pro.service
+    ```
 
-```
-sudo apt install cifs-utils
-```
+2. **Poner en marcha el servicio:**
 
-Deberá crear un directorio de montaje antes de poder montar su carpeta compartida de Windows SMB en Linux. Aquí es donde
-Linux reflejará el contenido de su carpeta compartida.
+    ```bash
+    sudo systemctl start wireless-pro.service
+    ```
 
-Para hacer eso, abra una ventana de terminal y escriba:
+3. **Detener el servicio:**
 
-Una vez creado, escriba lo siguiente:
+    ```bash
+    sudo systemctl stop wireless-pro.service
+    ```
 
-```
-sudo mount.cifs //Windows/SharedFolder /mnt/share -o user=account
-```
+4. **Iniciar el servicio con el sistema:**
 
-Reemplace “Windows” con la dirección IP o el nombre de host de su PC con Windows y “SharedFolder” con el nombre de su
-carpeta compartida. Para el nombre de usuario, reemplace “cuenta” con su nombre de usuario de Windows o el correo
-electrónico completo de la cuenta de Microsoft.
+    ```bash
+    sudo systemctl enable wireless-pro.service
+    ```
 
-Se le pedirá que proporcione su contraseña de Windows antes de que se complete el proceso de montaje. Escriba esto y
-luego haga clic en Enter. Si usó la información correcta, su carpeta de Windows ahora debería estar montada y accesible
-en la carpeta que creó.
-
-### Montar un sistema de ficheros por samba (CIFS) en Linux.
-
-Para montar un sistema de ficheros CIFS de forma permanente deberemos añadir al **/etc/fstab** una línea similar a la
-siguiente:
-
-```
-//<IpAddress>/smbfolder /media/smbfolder cifs user=<Win10>,password=<******>,noexec,user,rw,nounix,uid=1000,iocharset=utf8 0 0
-```
-
-Una vez modificado el **/etc/fstab** podemos habilitar los puntos de montaje con:
-
-```
-sudo mount -a
-```
-
-## Crear Servicio con SYSTEMD.
-
----
-
-Para crear un servicio con **SYSTEMD**, Crearemos el siguiente archivo ```/lib/systemd/system/rd4-server.service``` con
-el contenido siguiente:
-
-```
-[Unit]
-Description=rd4-server
-
-[Service]
-WorkingDirectory=/var/www/server
-ExecStart=/var/www/server/SERVER
-Restart=always
-RestartSec=10
-KillSignal=SIGINT
-SyslogIdentifier=rd4-server
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### Objetivos o Targets.
-
-Los objetivos existentes lo puedes ver con la siguiente orden:
-
-```
-systemctl list-units --type target
-```
-
-- **Poner en marcha el servicio.**
-
-```
-sudo systemctl start rd4-server.service
-```
-
-- **Para detener el servicio.**
-
-```
-sudo systemctl stop rd4-server.service
-```
-
-- **Para iniciar el servicio con el sistema.**
-
-```
-sudo systemctl enable rd4-server.service
-```
+Estos comandos te permitirán gestionar el servicio de manera sencilla. Asegúrate de ajustar las rutas y nombres de archivos según tu estructura de directorios y necesidades específicas.
