@@ -1,7 +1,7 @@
 const express = require("express")
 const {response} = express
 const {verifyToken} = require("../middlewares")
-const {MikrotikApiService} = require("./mikrotikApi.service")
+const {MikrotikApiService} = require("./mikrotikApi.service.js")
 const {WorkerActivityService} = require("./workerActivity.service")
 
 const router = express.Router()

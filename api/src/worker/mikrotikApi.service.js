@@ -1,49 +1,47 @@
 const axios = require("axios")
 
-// Lógica bitWorker.
 class MikrotikApiService {
-  // Cambiar estado del servicio.
+  constructor() {
+    this.URL = process.env.URL_BIT_WORKER
+    this.token = process.env.TOKEN_BIT_WORKER
+    this.baseURL = `${this.URL}/api/Service`
+    this.headers = {
+      Authorization: `Bearer ${this.token}`,
+    }
+  }
+
+  async makeRequest(method, endpoint, data = null) {
+    const config = {
+      method,
+      url: `${this.baseURL}/${endpoint}`,
+      headers: this.headers,
+      data,
+    }
+
+    return axios(config)
+  }
+
   async changeStatusService(serviceId, status) {
-    const URL = process.env.URL_BIT_WORKER
-    const token = process.env.TOKEN_BIT_WORKER
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-    return axios.post(`${URL}/api/Service/ChangeStatusService/${serviceId}/${status}`)
+    return this.makeRequest("post", `ChangeStatusService/${serviceId}/${status}`)
   }
 
-  // Cambiar plan de servicio.
   async changeServicePlan(serviceId, servicePlanId) {
-    const URL = process.env.URL_BIT_WORKER
-    const token = process.env.TOKEN_BIT_WORKER
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-    return axios.post(`${URL}/api/Service/ChangeServicePlan/${serviceId}/${servicePlanId}`)
+    return this.makeRequest("post", `ChangeServicePlan/${serviceId}/${servicePlanId}`)
   }
 
-  // Agregar servicio.
   async addService(serviceId) {
-    const URL = process.env.URL_BIT_WORKER
-    const token = process.env.TOKEN_BIT_WORKER
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-    return axios.post(`${URL}/api/Service/Add/${serviceId}`)
+    return this.makeRequest("post", `Add/${serviceId}`)
   }
 
-  // Actualizar servicio.
   async updateService(serviceId) {
-    const URL = process.env.URL_BIT_WORKER
-    const token = process.env.TOKEN_BIT_WORKER
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-    return axios.put(`${URL}/api/Service/Update/${serviceId}`)
+    return this.makeRequest("put", `Update/${serviceId}`)
   }
 
-  // Borrar servicio.
   async deleteService(serviceId) {
-    const URL = process.env.URL_BIT_WORKER
-    const token = process.env.TOKEN_BIT_WORKER
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-    return axios.delete(`${URL}/api/Service/Delete/${serviceId}`)
+    return this.makeRequest("delete", `Delete/${serviceId}`)
   }
-
 }
 
 module.exports = {
-  MikrotikApiService
+  MikrotikApiService,
 }

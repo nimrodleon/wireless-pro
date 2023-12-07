@@ -8,7 +8,23 @@ Software para gestión de redes Wifi.
 - [https://github.com/nimrodleon/MikroTik](https://github.com/nimrodleon/MikroTik)
 - [https://github.com/nimrodleon/cortes](https://github.com/nimrodleon/cortes)
 
-### Crear Servicio con SYSTEMD
+### Compilación del Backend.
+
+Para compilar este proyecto, asegúrate de tener el paquete pkg instalado en tu sistema. Puedes instalarlo ejecutando el siguiente comando:
+
+```shell
+npm install -g pkg
+```
+
+Una vez que el paquete pkg esté instalado, puedes construir el ejecutable utilizando el siguiente comando:
+
+```shell
+npm run build
+```
+
+Este comando se encargará de compilar el proyecto y generar el ejecutable correspondiente. Asegúrate de que todas las dependencias estén instaladas correctamente antes de ejecutar el proceso de compilación.
+
+### Crear Servicio con SYSTEMD.
 
 Para implementar un servicio utilizando **SYSTEMD**, sigue estos pasos:
 
