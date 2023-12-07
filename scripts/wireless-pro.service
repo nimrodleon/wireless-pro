@@ -1,9 +1,9 @@
 [Unit]
-Description=wireless-pro
+Description=Wireless Pro Server
 
 [Service]
-WorkingDirectory=/var/www/server
-ExecStart=/var/www/server/SERVER
+WorkingDirectory=/var/www/server/api
+ExecStart=/usr/bin/node /var/www/server/api/src/server.js
 Restart=always
 RestartSec=10
 KillSignal=SIGINT
