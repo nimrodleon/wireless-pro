@@ -73,3 +73,28 @@ sudo mount -a
 ```
 
 ¡Listo! Ahora el recurso compartido estará disponible en el directorio local `/media/<smbfolder>`. Asegúrate de reemplazar los valores `<IpAddress>`, `<smbfolder>`, `<Win10>`, y `<password>` con tus propias configuraciones.
+
+### Configuración de Crontab para Copias de Seguridad.
+
+#### Objetivo:
+
+Automatizar la realización de copias de seguridad diarias en tu servidor.
+
+#### Pasos:
+
+1. **Acceder a Crontab:**
+
+- Abre el terminal y escribe el siguiente comando para editar el archivo Crontab:
+  ```bash
+  crontab -e
+  ```
+
+2. **Configurar la Tarea Programada:**
+
+- Agrega la siguiente línea al archivo Crontab para ejecutar el script de copia de seguridad todos los días a las 21:30:
+  ```bash
+  30 21 * * * /var/www/server/backup.local.sh
+  ```
+- Esta configuración indica que la tarea se ejecutará a las 21:30 cada día.
+
+Con estos dos pasos, habrás establecido una tarea programada para realizar copias de seguridad automáticamente en tu servidor. Asegúrate de verificar la ruta del script y guarda los cambios en Crontab.
