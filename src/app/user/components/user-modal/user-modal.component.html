@@ -8,7 +8,7 @@
       <div class="modal-body">
         <div *ngIf="this.errors?.length > 0" class="alert alert-danger" role="alert">
           <ul class="mb-0">
-            <li *ngFor="let error of errors">{{error.msg}}</li>
+            <li *ngFor="let error of errors">{{ error.msg }}</li>
           </ul>
         </div>
         <form [formGroup]="userForm">
@@ -51,10 +51,9 @@
               </span>
               <select name="roles" formControlName="roles" class="form-select"
                       [ngClass]="{'is-invalid': inputIsInvalid('roles')}">
-                <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                <option value="ROLE_NETWORK">ROLE_NETWORK</option>
-                <option value="ROLE_CASH">ROLE_CASH</option>
-                <option value="ROLE_USER">ROLE_USER</option>
+                <option value="ROL_ADMIN">ROL_ADMIN</option>
+                <option value="ROL_REDES">ROL_REDES</option>
+                <option value="ROL_CAJERO">ROL_CAJERO</option>
               </select>
               <div class="invalid-feedback">El campo rol es obligatorio.</div>
             </div>

@@ -1,15 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
-import {User} from '../../interfaces';
-import {UserService} from '../../services';
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {FormGroup} from "@angular/forms";
+import {User} from "../../interfaces";
+import {UserService} from "../../services";
 
 @Component({
-  selector: 'app-user-modal',
-  templateUrl: './user-modal.component.html'
+  selector: "app-user-modal",
+  templateUrl: "./user-modal.component.html"
 })
 export class UserModalComponent implements OnInit {
   @Input()
-  title: string = '';
+  title: string = "";
   @Input()
   currentUser: User;
   @Input()
@@ -17,7 +17,7 @@ export class UserModalComponent implements OnInit {
   @Output()
   hideModal = new EventEmitter<boolean>();
   // ============================================================
-  userForm: UntypedFormGroup = this.userService.formGroup();
+  userForm: FormGroup = this.userService.formGroup();
   errors: any = [];
 
   constructor(
@@ -29,18 +29,18 @@ export class UserModalComponent implements OnInit {
     this.userForm.valueChanges
       .subscribe(value => this.currentUser = value);
     // eventos del modal.
-    let myModal: any = document.querySelector('#app-user-modal');
-    myModal.addEventListener('shown.bs.modal', () => {
+    let myModal: any = document.querySelector("#app-user-modal");
+    myModal.addEventListener("shown.bs.modal", () => {
       this.userForm.reset(this.currentUser);
       if (this.editMode === true) {
         // @ts-ignore
         delete this.currentUser.password;
-        this.userForm.controls['password'].disable();
+        this.userForm.controls["password"].disable();
       }
     });
-    myModal.addEventListener('hide.bs.modal', () => {
+    myModal.addEventListener("hide.bs.modal", () => {
       this.hideModal.emit(false);
-      this.userForm.controls['password'].enable();
+      this.userForm.controls["password"].enable();
       this.userForm.reset(this.userService.defaultValues());
       this.errors = [];
     });
