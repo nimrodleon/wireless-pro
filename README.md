@@ -1,100 +1,93 @@
-# wireless-pro
+# Wireless-Pro
 
-Software para gestión de redes Wifi.
+![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
+![Node.js](https://img.shields.io/badge/node-%3E%3D%2010.0.0-green)
+![Express.js](https://img.shields.io/badge/express-%5E4.17.1-yellow)
+![MongoDB](https://img.shields.io/badge/mongodb-%5E3.6.0-blue)
+![Angular](https://img.shields.io/badge/angular-%5E10.0.0-red)
 
-### Repositorios relacionados con este proyecto.
+Wireless-Pro is an open-source project under the GNU General Public License Version 3. It is a software written in Node.js with Express.js for the backend, MongoDB for the database, and Angular for the frontend. Its purpose is to help wireless network ISP companies manage customers and payments, handle breakdowns, work orders, and register company devices. It also performs automatic disconnections and controls respective payments.
 
-- [https://github.com/nimrodleon/wireless-pro](https://github.com/nimrodleon/wireless-pro)
-- [https://github.com/nimrodleon/MikroTik](https://github.com/nimrodleon/MikroTik)
-- [https://github.com/nimrodleon/cortes](https://github.com/nimrodleon/cortes)
+## Features
 
-### Crear Servicio con SYSTEMD.
+- Customer and payment management for ISPs
+- Breakdown and work order management
+- Device registration
+- Automatic disconnections
+- Payment control
 
-Para implementar un servicio utilizando **SYSTEMD**, sigue estos pasos:
+## Technologies
 
-1. **Crea un archivo llamado `/lib/systemd/system/wireless-pro.service` y copia el contenido del archivo `scripts/wireless-pro` en él.**
+- **Backend**: Node.js with Express.js
+- **Database**: MongoDB
+- **Frontend**: Angular
 
+## Installation
+
+1. Clone the repository:
     ```bash
-    sudo nano /lib/systemd/system/wireless-pro.service
+    git clone https://github.com/yourusername/wireless-pro.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd wireless-pro
+    ```
+3. Install backend dependencies:
+    ```bash
+    cd backend
+    npm install
+    ```
+4. Install frontend dependencies:
+    ```bash
+    cd ../frontend
+    npm install
+    ```
+5. Set up MongoDB:
+  - Ensure MongoDB is installed and running.
+  - Create a database named `wireless-pro`.
+
+## Configuration
+
+1. Backend:
+  - Create a `.env` file in the `backend` directory with the following contents:
+    ```plaintext
+    MONGODB_URI=mongodb://localhost:27017/wireless-pro
+    PORT=3000
+    ```
+2. Frontend:
+  - Update the API endpoint in `frontend/src/environments/environment.ts`:
+    ```typescript
+    export const environment = {
+      production: false,
+      apiUrl: 'http://localhost:3000/api'
+    };
     ```
 
-2. **Poner en marcha el servicio:**
+## Usage
 
+1. Start the backend server:
     ```bash
-    sudo systemctl start wireless-pro.service
+    cd backend
+    npm start
     ```
-
-3. **Detener el servicio:**
-
+2. Start the frontend development server:
     ```bash
-    sudo systemctl stop wireless-pro.service
+    cd ../frontend
+    ng serve
     ```
+3. Open your browser and navigate to `http://localhost:4200`.
 
-4. **Iniciar el servicio con el sistema:**
+## Contributing
 
-    ```bash
-    sudo systemctl enable wireless-pro.service
-    ```
+Contributions are welcome! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
 
-Estos comandos te permitirán gestionar el servicio de manera sencilla. Asegúrate de ajustar las rutas y nombres de archivos según tu estructura de directorios y necesidades específicas.
+## License
 
-### Configuración de Recursos Compartidos en Linux
+This project is licensed under the GNU General Public License Version 3 - see the [LICENSE](LICENSE) file for details.
 
-### Paso 1: Instalación de CIFS-utils
+## Acknowledgements
 
-Antes de comenzar, asegúrate de tener instalado el paquete `cifs-utils`. Si no lo tienes, ejecuta este comando:
-
-```bash
-sudo apt install cifs-utils
-```
-
-### Paso 2: Montaje Permanente del Recurso Compartido
-
-1. Abre el archivo `/etc/fstab` con tu editor de texto favorito:
-
-```bash
-sudo nano /etc/fstab
-```
-
-2. Agrega la siguiente línea al final del archivo, reemplazando `<IpAddress>`, `<smbfolder>`, `<Win10>`, y `<password>` con tus propias configuraciones:
-
-```bash
-//<IpAddress>/<smbfolder> /media/<smbfolder> cifs user=<Win10>,password=<password>,noexec,user,rw,nounix,uid=1000,iocharset=utf8 0 0
-```
-
-3. Guarda los cambios y cierra el editor.
-
-### Paso 3: Habilitar los Puntos de Montaje
-
-Para aplicar los cambios y montar el recurso compartido, ejecuta:
-
-```bash
-sudo mount -a
-```
-
-¡Listo! Ahora el recurso compartido estará disponible en el directorio local `/media/<smbfolder>`. Asegúrate de reemplazar los valores `<IpAddress>`, `<smbfolder>`, `<Win10>`, y `<password>` con tus propias configuraciones.
-
-### Configuración de Crontab para Copias de Seguridad.
-
-#### Objetivo:
-
-Automatizar la realización de copias de seguridad diarias en tu servidor.
-
-#### Pasos:
-
-1. **Acceder a Crontab:**
-
-- Abre el terminal y escribe el siguiente comando para editar el archivo Crontab:
-  ```bash
-  crontab -e
-  ```
-
-2. **Configurar la Tarea Programada:**
-
-- Agrega la siguiente línea al archivo Crontab para ejecutar el script de copia de seguridad todos los días a las 21:30:
-  ```bash
-  30 21 * * * /var/www/server/backup.local.sh
-  ```
-- Esta configuración indica que la tarea se ejecutará a las 21:30 cada día.
-
-Con estos dos pasos, habrás establecido una tarea programada para realizar copias de seguridad automáticamente en tu servidor. Asegúrate de verificar la ruta del script y guarda los cambios en Crontab.
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Angular](https://angular.io/)
