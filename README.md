@@ -6,56 +6,56 @@
 ![MongoDB](https://img.shields.io/badge/mongodb-%5E3.6.0-blue)
 ![Angular](https://img.shields.io/badge/angular-%5E10.0.0-red)
 
-Wireless-Pro is an open-source project under the GNU General Public License Version 3. It is a software written in Node.js with Express.js for the backend, MongoDB for the database, and Angular for the frontend. Its purpose is to help wireless network ISP companies manage customers and payments, handle breakdowns, work orders, and register company devices. It also performs automatic disconnections and controls respective payments.
+Wireless-Pro es un proyecto de código abierto bajo la Licencia GPL-3.0. Es un software desarrollado con Node.js y Express.js para el backend, MongoDB para la base de datos y Angular para el frontend. Su propósito es asistir a las empresas ISP de redes inalámbricas en la gestión de clientes y pagos, el manejo de averías, la coordinación de órdenes de trabajo y la administración de dispositivos de la empresa. Además, Wireless-Pro implementa cortes automáticos para los clientes que no han realizado sus pagos, garantizando así un control eficiente y automatizado de las conexiones.
 
-## Features
+## Características
 
-- Customer and payment management for ISPs
-- Breakdown and work order management
-- Device registration
-- Automatic disconnections
-- Payment control
+- Gestión de clientes y pagos para ISPs
+- Gestión de averías y órdenes de trabajo
+- Registro de dispositivos
+- Cortes automáticos para clientes morosos
+- Control de pagos
 
-## Technologies
+## Tecnologías
 
-- **Backend**: Node.js with Express.js
-- **Database**: MongoDB
+- **Backend**: Node.js con Express.js
+- **Base de datos**: MongoDB
 - **Frontend**: Angular
 
-## Installation
+## Instalación
 
-1. Clone the repository:
+1. Clona el repositorio:
     ```bash
-    git clone https://github.com/yourusername/wireless-pro.git
+    git clone git@github.com:nimrodleon/wireless-pro.git
     ```
-2. Navigate to the project directory:
+2. Navega al directorio del proyecto:
     ```bash
     cd wireless-pro
     ```
-3. Install backend dependencies:
+3. Instala las dependencias del backend:
     ```bash
-    cd backend
+    cd api
     npm install
     ```
-4. Install frontend dependencies:
+4. Instala las dependencias del frontend:
     ```bash
-    cd ../frontend
+    cd ..
     npm install
     ```
-5. Set up MongoDB:
-  - Ensure MongoDB is installed and running.
-  - Create a database named `wireless-pro`.
+5. Configura MongoDB:
+    - Asegúrate de que MongoDB esté instalado y en funcionamiento.
+    - Crea una base de datos llamada `wireless-pro`.
 
-## Configuration
+## Configuración
 
 1. Backend:
-  - Create a `.env` file in the `backend` directory with the following contents:
+    - Crea un archivo `.env` en el directorio `api` con el siguiente contenido:
     ```plaintext
     MONGODB_URI=mongodb://localhost:27017/wireless-pro
     PORT=3000
     ```
 2. Frontend:
-  - Update the API endpoint in `frontend/src/environments/environment.ts`:
+    - Actualiza el endpoint de la API en `src/environments/environment.ts`:
     ```typescript
     export const environment = {
       production: false,
@@ -63,31 +63,24 @@ Wireless-Pro is an open-source project under the GNU General Public License Vers
     };
     ```
 
-## Usage
+## Uso
 
-1. Start the backend server:
+1. Inicia el servidor del backend:
     ```bash
-    cd backend
+    cd api
     npm start
     ```
-2. Start the frontend development server:
+2. Inicia el servidor de desarrollo del frontend:
     ```bash
-    cd ../frontend
-    ng serve
+    cd ..
+    npm start 
     ```
-3. Open your browser and navigate to `http://localhost:4200`.
+3. Abre tu navegador y navega a `http://localhost:4200`.
 
-## Contributing
+## Contribuciones
 
-Contributions are welcome! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+¡Las contribuciones son bienvenidas! Por favor, lee nuestro [CONTRIBUTING.md](CONTRIBUTING.md) para obtener pautas sobre cómo contribuir a este proyecto.
 
-## License
+## Licencia
 
-This project is licensed under the GNU General Public License Version 3 - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Angular](https://angular.io/)
+Este proyecto está licenciado bajo la Licencia Pública General de GNU Versión 3 - consulta el archivo [LICENSE](LICENSE) para más detalles.
